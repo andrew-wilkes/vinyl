@@ -13,3 +13,7 @@ https://gist.github.com/iochen/acad285d2d23066df9449d40a7f3547c
 https://golangexample.com/cli-audio-player-written-in-golang/
 
 https://docs.godotengine.org/en/stable/tutorials/scripting/gdnative/gdnative_c_example.html
+
+https://github.com/dirkk0/minimal-mp3player
+
+https://github.com/Gianclgar/GDScriptAudioImport
