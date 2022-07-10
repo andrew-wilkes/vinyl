@@ -1,0 +1,15 @@
+https://github.com/dhulihan/grump
+
+https://github.com/ShadowApex/godot-go
+
+https://godotengine.org/article/introducing-gd-extensions
+
+github.com/tosone/minimp3
+
+github.com/hajimehoshi/oto
+
+https://gist.github.com/iochen/acad285d2d23066df9449d40a7f3547c
+
+https://golangexample.com/cli-audio-player-written-in-golang/
+
+https://docs.godotengine.org/en/stable/tutorials/scripting/gdnative/gdnative_c_example.html

@@ -1,0 +1,56 @@
+https://www.reddit.com/r/vinyl/comments/332jnb/i_created_this_online_turntable_simulator_just/
+
+Is the surface noise just a sound file that you mix in with the MP3/OGG we drop on the window? If that's the case, you could definitely improve the experience by creating an algorithm that generates the noise randomly (after the needle drop, you just have a collection of short surface noise samples, from a handful of single clicks to slightly longer and softer series of clicks. Then you let the user (using a slider?) set the condition of the record (perhaps using the standard grading qualifiers (like Mint, near-mint, VG+, etc.) so that a better condition leads to less-frequent noise. Also, most records have more noise near the beginning (especially with cue burn, etc.) so your algorithm could take that into account. Also consider, for the lower condition ratings, adding in loud pops that play at a regular interval (starting partway through the song, and perhaps stopping after a number of pops.)
+
+As for other improvements:
+
+    dropping the needle anywhere other than the run-in groove should play the song from somewhere in the middle.
+
+    a pitch slider would be fun to play with.
+
+    a speed selector (well, one to set the recording speed of the record, and one to set the playback... maybe consider offering all 4 speeds: 16, 33, 45, 78.)
+
+    a start-stop button. My turntable doesn't have a cue lever, so I usually place the needle on the record before I even start it spinning, then I press start. I can't be the only one that does this.
+
+    I don't know how easy this is to find, but if you can find a sound processing library that allows simulating a tube amp, I bet a large portion of the people here will appreciate it: good tube amps do color the sound, but usually in a good way: they make it less harsh (cutting part of the surface noise in the process) and cause the bass to rumble a bit more. For a lot of people, this is how vinyl normally sounds to them, and this is how vintage records from the 60's and 70's are remembered.
+
+
+Thanks for your thoughtful remarks!
+
+    Is the surface noise just a sound file that you mix in with the MP3/OGG we drop on the window?
+
+Essentially, yes. My original attempt used a collection of short samples of vinyl noise played in a randomly generated chain, but performance was abysmal and it didn't sound as good. Current browsers, including Chrome, have a slight delay in playback, which caused gaps between the samples. I could overlap them slightly, but the gap length was associated with hardware speeds, so it was an unreliable solution. So I went with one long, relatively long loop until I can come up with something better.
+
+    dropping the needle anywhere other than the run-in groove should play the song from somewhere in the middle.
+
+Actually that's how I programmed it, and that's how it works on my local development instance--it calculates exactly where in the song it should start playing based on the angle of the tone arm when dropped. But I see that it's not behaving that way in the online version, which is annoying because I was proud of myself for figuring out the geometry. Very curious, I will need to inspect it. Thanks for pointing this out.
+
+    a pitch slider would be fun to play with.
+
+    a speed selector (well, one to set the recording speed of the record, and one to set the playback... maybe consider offering all 4 speeds: 16, 33, 45, 78.)
+
+These, along with a volume slider, will eventually occupy the empty space on the brushed aluminum portion. I also intend to have a condition selector similar to what you described above, and improve browser compatibility. This version is not quite done; I uploaded early because I thought it would be fun for RSD.
+
+    a start-stop button. My turntable doesn't have a cue lever, so I usually place the needle on the record before I even start it spinning, then I press start. I can't be the only one that does this.
+
+I have tinkered with this, with the intention to make the playback speed match the actual turntable RPM as it comes up to speed (if it is stopped/started during audio portions), but at the risk of getting too technical, the spinning animation looks much smoother using CSS animations (which are currently in use), but using CSS removes my ability to detect the spin speed via Javascript. I can animate the rotation with Javascript directly instead of CSS, and I tried it, but it was choppy to the point of great distraction because this loses the hardware acceleration benefits of CSS animations. So, in short, I'm not sure how to accomplish it yet.
+
+    I don't know how easy this is to find, but if you can find a sound processing library that allows simulating a tube amp, I bet a large portion of the people here will appreciate it: good tube amps do color the sound, but usually in a good way: they make it less harsh (cutting part of the surface noise in the process) and cause the bass to rumble a bit more. For a lot of people, this is how vinyl normally sounds to them, and this is how vintage records from the 60's and 70's are remembered.
+
+With local filesystem playback like I'm using here, I don't have the liberty to modify sounds, I can only layer other sounds atop it (such as the needle drop sounds and vinyl noise). I could do more complex processing if the files were uploaded to the server, but this would make the startup process much slower as large files uploaded, and open me up to potential legal problems if I accept copyrighted music files. So I might be stuck on this one unless browsers add more comprehensive audio manipulation tools.
+
+-------------------------------
+
+https://klevgrand.com/products/dawlp
+
+Scratches, hum, wear and noise is optional.
+
+DAW LP is a vinyl player simulation plug-in for Mac & Windows (AU/VST/AAX), and iPad (AUv3). It simulates various artifacts associated with vinyl – all the way from the vinyl record surface, to the output cable of the RIAA amplifier. Tune in anything from an old 78:s player to a modern HiFi sound. Set the level of hum, scratches & noise along with the quality of amp, needle & cable. Fine-tune using the in, out & mix level.
+Features
+
+    Scratches/crackles rate, level and ducking.
+    Control vinyl noise, amplifier noise and low frequency hum levels.
+    Continuous control of amplifier, pickup needle and cable quality.
+
+-------------------------------
+https://godotshaders.com/shader/spectrum-displaying-shader/
