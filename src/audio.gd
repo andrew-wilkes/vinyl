@@ -2,8 +2,8 @@ class_name Audio
 
 var player: AudioStreamPlayer
 
-func _init(audio_stream_instance):
-	player = audio_stream_instance
+func _init(audio_player_instance):
+	player = audio_player_instance
 
 
 func load_data(path):
