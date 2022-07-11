@@ -1,0 +1,8 @@
+Vinyl Records Specifications and Information
+Maximum recommended playing time per side:
+7'' 45 rpm 04:30 mins.
+7'' 33 rpm 06:00 mins.
+10'' 45 rpm 08:00 mins. (DJ use: 05:00 mins.)
+10'' 33 rpm 14:00 mins. (DJ use: 09:00 mins.)
+12'' 45 rpm 14:00 mins. (DJ use: 09:00 mins.)
+12'' 33 rpm 24:00 mins. (DJ use: 15:00 mins.)

@@ -17,3 +17,14 @@ https://docs.godotengine.org/en/stable/tutorials/scripting/gdnative/gdnative_c_e
 https://github.com/dirkk0/minimal-mp3player
 
 https://github.com/Gianclgar/GDScriptAudioImport
+
+https://en.wikipedia.org/wiki/ID3
+
+https://en.wikipedia.org/wiki/MP3
+
+https://github.com/bogem/id3v2
+
+https://id3.org/id3v2.4.0-structure
+
+https://stackoverflow.com/questions/6376438/identify-song-information-from-mp3-id3v2-tags
+

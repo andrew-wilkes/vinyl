@@ -78,6 +78,9 @@ margin_right = 58.0
 margin_bottom = 104.0
 text = "Rewind"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="play" from="C/UI" to="." method="_on_UI_play"]
 [connection signal="pressed" from="C/UI/VB/Play" to="C/UI" method="_on_Play_pressed"]
 [connection signal="pressed" from="C/UI/VB/Stop" to="C/UI" method="_on_Stop_pressed"]
 [connection signal="pressed" from="C/UI/VB/Rewind" to="C/UI" method="_on_Rewind_pressed"]

@@ -1,5 +1,8 @@
 extends PanelContainer
 
+signal play
+
+
 enum { FORWARD, BACKWARDS }
 
 var play_direction = FORWARD
@@ -10,6 +13,7 @@ func _ready():
 
 func _on_Play_pressed():
 	play_direction = FORWARD
+	emit_signal("play")
 
 
 func _on_Stop_pressed():
