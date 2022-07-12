@@ -13,9 +13,21 @@ _global_script_classes=[ {
 "class": "Audio",
 "language": "GDScript",
 "path": "res://audio.gd"
+}, {
+"base": "Reference",
+"class": "GutHookScript",
+"language": "GDScript",
+"path": "res://addons/gut/hook_script.gd"
+}, {
+"base": "Node",
+"class": "GutTest",
+"language": "GDScript",
+"path": "res://addons/gut/test.gd"
 } ]
 _global_script_class_icons={
-"Audio": ""
+"Audio": "",
+"GutHookScript": "",
+"GutTest": ""
 }
 
 [application]
@@ -23,6 +35,10 @@ _global_script_class_icons={
 config/name="Vinyl"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
 
 [gui]
 

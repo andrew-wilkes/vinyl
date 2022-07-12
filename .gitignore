@@ -9,9 +9,10 @@ logs/
 .mono/
 data_*/
 
-/data/
+data/
 .fuse*
 tests
+temp*
 
 # Gut and addons
 src/.gut*
