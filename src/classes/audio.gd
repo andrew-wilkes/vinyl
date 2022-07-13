@@ -77,7 +77,6 @@ func parse_data(data: PoolByteArray):
 				info["band"] = get_string_from_data(data, idx, size)
 			"APIC":
 				# size of APIC does not use syncsafe number
-				print("%02X %02X" %[idx, size])
 				# Ignore the encoding byte
 				var pic_frame = data.subarray(idx + 1, idx + size - 1)
 				var zero1 = pic_frame.find(0)
@@ -90,12 +89,14 @@ func parse_data(data: PoolByteArray):
 							var zero2 = pic_frame.find(0, zero1)
 							info["description"] = get_string_from_ucs2(pic_frame.subarray(zero1, zero2 - 1))
 							info["image"] = pic_frame.subarray(zero2 + 1, -1)
+							"""
 							var img = Image.new()
 							match info["mime_type"]:
 								"image/jpg", "image/jpeg", "image/JPG":
 									var e = img.load_jpg_from_buffer(info["image"])
 									if e == OK:
 										img.save_png("res://temp.png")
+							"""
 		idx += size
 
 

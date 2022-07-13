@@ -69,10 +69,15 @@ margin_top = 278.0
 margin_right = 750.0
 margin_bottom = 292.0
 
-[node name="TextureRect" type="TextureRect" parent="VBox"]
+[node name="Description" type="Label" parent="VBox"]
 margin_top = 312.0
 margin_right = 750.0
-margin_bottom = 312.0
+margin_bottom = 326.0
+
+[node name="TextureRect" type="TextureRect" parent="VBox"]
+margin_top = 346.0
+margin_right = 750.0
+margin_bottom = 346.0
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="pressed" from="VBox/File" to="." method="_on_File_pressed"]
