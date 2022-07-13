@@ -7,15 +7,22 @@ func _init(audio_player_instance):
 	player = audio_player_instance
 
 
-func load_data(path):
+func load_data(path: String):
 	var file = File.new()
 	var err = file.open(path, File.READ)
 	if err == OK:
-		var stream = AudioStreamMP3.new()
-		stream.data = file.get_buffer(file.get_len())
+		var data = file.get_buffer(file.get_len())
 		file.close()
+		var stream
+		match path.get_extension():
+			"mp3":
+				parse_mp3(data)
+				stream = AudioStreamMP3.new()
+			"ogg":
+				parse_ogg(data)
+				stream = AudioStreamOGGVorbis.new()
+		stream.data = data
 		player.stream = stream
-		parse_data(stream.data)
 
 
 func pause(pause = true):
@@ -38,7 +45,34 @@ func set_speed(target, actual): # e.g. 45, 33 RPM
 	player.pitch_scale = actual / target
 
 
-func parse_data(data: PoolByteArray):
+func parse_ogg(data: PoolByteArray):
+	info = { error = null }
+	# Locate the comments header, it is where the second "vorbis" octet stream occurs
+	var hex = data.subarray(0, 0x100).hex_encode()
+	var idx = hex.find("766f72626973")
+	if idx > 0:
+		idx = hex.find("766f72626973", idx + 6) / 2 + 6
+		# Let's just use the 1st byte of the 32-bit length values for the length
+		# Skip over vendor_string
+		idx += data[idx] + 4
+		var num_comments = data[idx]
+		idx += 4
+		for n in num_comments:
+			var comment_length = data[idx]
+			idx += 4
+			var comment = data.subarray(idx, idx + comment_length - 1).get_string_from_utf8()
+			var tag_val = comment.split("=")
+			if tag_val.size() == 2:
+				var tag = tag_val[0].to_lower()
+				match tag:
+					"artist":
+						info["band"] = tag_val[1]
+					_:
+						info[tag] = tag_val[1]
+			idx += comment_length 
+
+
+func parse_mp3(data: PoolByteArray):
 	info = { error = null }
 	if data.size() < 10:
 		info.error = "NOT ID3"

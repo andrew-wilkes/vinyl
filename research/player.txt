@@ -29,3 +29,11 @@ https://id3.org/id3v2.4.0-structure
 https://stackoverflow.com/questions/6376438/identify-song-information-from-mp3-id3v2-tags
 
 https://id3.org/id3v2.3.0
+
+https://web.mit.edu/cfox/share/doc/libvorbis-1.0/vorbis-spec-ref.html
+
+https://web.mit.edu/cfox/share/doc/libvorbis-1.0/v-comment.html
+
+https://en.wikipedia.org/wiki/Ogg#Page_structure
+
+https://www.makeuseof.com/tag/allcdcovers-extensive-cd-cover-llibrary/
