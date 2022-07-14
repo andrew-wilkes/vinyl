@@ -11,20 +11,45 @@ const thick_wood = 0.024
 const shelf_depth = 0.32
 const outer_depth = 0.34
 const vspace = 0.32
+const record_thickness = 0.006
+const record_size = 0.31
+const record_gap = 0.002
 
 onready var wood = $Shelves/Wood
 onready var lp = $LP
 
+var xoff: int
+var yoff: int
+var x_spacing
+var y_spacing
 
 func _ready():
-	build_shelves(3, 2)
+	build_shelves(100, 3)
 
 
-func build_shelves(num_levels, width):
+func calc_cabinet_width(x_capacity):
+	x_spacing = record_thickness + record_gap
+	return x_capacity * (record_thickness + record_gap) + record_gap + 2 * plank_wood
+
+
+func calc_offset(capacity: int):
+# warning-ignore:integer_division
+	return -(capacity - 1) / 2
+
+
+func get_record_position(x: int, y: int):
+	return Vector3((xoff + x) * x_spacing, (yoff + y) * y_spacing + record_size / 2, record_size / 2)
+
+
+func build_shelves(x_capacity: int, y_capacity: int):
+	xoff = calc_offset(x_capacity)
+	yoff = calc_offset(y_capacity)
+	var width = calc_cabinet_width(x_capacity)
+	y_spacing = vspace + plank_wood
 	# Sides
 	wood.translation = Vector3(-(width - plank_wood) / 2, 0, outer_depth / 2.0 - thin_wood)
 	wood.depth = outer_depth
-	wood.height = num_levels * (vspace + plank_wood) - plank_wood
+	wood.height = y_capacity * y_spacing - plank_wood
 	wood.name = "LEFT"
 	var right_side = wood.duplicate()
 	right_side.translation.x *= -1
@@ -52,7 +77,7 @@ func build_shelves(num_levels, width):
 	shelf.depth = shelf_depth
 	shelf.translation.z = shelf_depth / 2.0
 	var y = -(wood.height + plank_wood) / 2.0
-	for n in num_levels - 1:
+	for n in y_capacity - 1:
 		y += vspace + plank_wood
 		var s = shelf
 		if n > 0:

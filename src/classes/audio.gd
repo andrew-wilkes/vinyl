@@ -112,6 +112,8 @@ func parse_mp3(data: PoolByteArray):
 			"APIC":
 				# size of APIC does not use syncsafe number
 				# Ignore the encoding byte
+				# The image is always jpeg I think, but the mime-type text varies
+				# Could just detect the byte signature for verification ffd8 ... ffd9
 				var pic_frame = data.subarray(idx + 1, idx + size - 1)
 				var zero1 = pic_frame.find(0)
 				if zero1 > 0:
