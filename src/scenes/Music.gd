@@ -10,10 +10,10 @@ const plank_wood = 0.018
 const thick_wood = 0.024
 const shelf_depth = 0.32
 const outer_depth = 0.34
-const vspace = 0.32
+const vspace = 0.34
 const record_thickness = 0.006
 const record_size = 0.31
-const record_gap = 0.002
+const record_gap = 0.008
 
 onready var wood = $Shelves/Wood
 onready var lp = $LP
@@ -24,7 +24,14 @@ var x_spacing
 var y_spacing
 
 func _ready():
-	build_shelves(100, 3)
+	build_shelves(50, 3)
+	lp.translation = get_record_position(0, 0)
+	var x = lp.translation.x
+	for n in 30:
+		x += record_gap + record_thickness
+		var lp2 = lp.duplicate()
+		lp2.translation.x = x
+		add_child(lp2)
 
 
 func calc_cabinet_width(x_capacity):
@@ -38,7 +45,7 @@ func calc_offset(capacity: int):
 
 
 func get_record_position(x: int, y: int):
-	return Vector3((xoff + x) * x_spacing, (yoff + y) * y_spacing + record_size / 2, record_size / 2)
+	return Vector3((xoff + x) * x_spacing, (yoff + y) * y_spacing - (vspace - record_size) / 2, record_size / 2)
 
 
 func build_shelves(x_capacity: int, y_capacity: int):
