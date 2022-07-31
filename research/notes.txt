@@ -54,3 +54,5 @@ Features
 
 -------------------------------
 https://godotshaders.com/shader/spectrum-displaying-shader/
+
+https://openclipart.org/detail/7645/vinyl-records

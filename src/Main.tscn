@@ -1,7 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://UI.gd" type="Script" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://assets/disc.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://assets/record33.png" type="Texture" id=4]
+[ext_resource path="res://assets/sleeve.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://assets/record45.png" type="Texture" id=6]
+[ext_resource path="res://assets/cover.png" type="Texture" id=7]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 8, 1, 8 )
@@ -19,16 +24,27 @@ albedo_color = Color( 0.647059, 0.647059, 0.647059, 1 )
 
 [sub_resource type="Theme" id=5]
 
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.670588, 0.690196, 0.431373, 1 )
+albedo_texture = ExtResource( 7 )
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.93983, 0.341643, 0, -0.341643, 0.93983, 0, 5.35419, 13.8774 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.834597, 6.86778e-05, 0.550861, -0.550861, -5.80718e-05, 0.834597, 8.93078e-05, -1, -1.06347e-05, 7.8865, 3.79429, 1.73242 )
 
 [node name="CSGMesh" type="CSGMesh" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 23.1209 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
 
@@ -79,6 +95,32 @@ margin_bottom = 104.0
 text = "Rewind"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.0801468, -0.700117, -0.709516, 0, 0.711805, -0.702377, 0.996783, 0.0562932, 0.0570489, -7.0473, 0, 4.02281 )
+
+[node name="DirectionalLight2" type="DirectionalLight" parent="."]
+transform = Transform( 0.797784, 0.598854, 0.0701055, 0, -0.116272, 0.993217, 0.602943, -0.792373, -0.09276, -7.0473, 0, -7.42159 )
+
+[node name="disc33rpm" type="MeshInstance" parent="."]
+transform = Transform( -1.32008e-07, -1, 0, 3.00954, -4.356e-08, -0.251131, 0.251131, -3.63487e-09, 3.00954, 0, 0, 1.92535 )
+mesh = ExtResource( 3 )
+material/0 = SubResource( 6 )
+
+[node name="disc45rpm" type="MeshInstance" parent="."]
+transform = Transform( -7.64949e-08, -1, 0, 1.74394, -4.356e-08, -0.145523, 0.145523, -3.63487e-09, 1.74394, -7.95339, 0, 0.581819 )
+mesh = ExtResource( 3 )
+material/0 = SubResource( 7 )
+
+[node name="sleeve33rpm" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1.54, 0, 0, 0, 1.54, 0, 0, 0 )
+mesh = ExtResource( 5 )
+material/0 = SubResource( 8 )
+
+[node name="sleeve45rpm" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.94465, 0, -0.422892 )
+mesh = ExtResource( 5 )
+material/0 = SubResource( 9 )
 
 [connection signal="play" from="C/UI" to="." method="_on_UI_play"]
 [connection signal="pressed" from="C/UI/VB/Play" to="C/UI" method="_on_Play_pressed"]
