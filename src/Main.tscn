@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://UI.gd" type="Script" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -7,20 +7,7 @@
 [ext_resource path="res://assets/sleeve.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://assets/record45.png" type="Texture" id=6]
 [ext_resource path="res://assets/cover.png" type="Texture" id=7]
-
-[sub_resource type="CubeMesh" id=1]
-size = Vector3( 8, 1, 8 )
-
-[sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.188235, 0.188235, 0.188235, 1 )
-
-[sub_resource type="CylinderMesh" id=3]
-top_radius = 3.5
-bottom_radius = 3.5
-height = 0.5
-
-[sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0.647059, 0.647059, 0.647059, 1 )
+[ext_resource path="res://scenes/Turntable.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Theme" id=5]
 
@@ -31,6 +18,7 @@ albedo_texture = ExtResource( 4 )
 albedo_texture = ExtResource( 6 )
 
 [sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.76, 0.734667, 0.608, 1 )
 albedo_texture = ExtResource( 7 )
 
 [sub_resource type="SpatialMaterial" id=9]
@@ -41,17 +29,7 @@ albedo_texture = ExtResource( 7 )
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.834597, 6.86778e-05, 0.550861, -0.550861, -5.80718e-05, 0.834597, 8.93078e-05, -1, -1.06347e-05, 7.8865, 3.79429, 1.73242 )
-
-[node name="CSGMesh" type="CSGMesh" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 23.1209 )
-mesh = SubResource( 1 )
-material = SubResource( 2 )
-
-[node name="CSGMesh" type="CSGMesh" parent="CSGMesh"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68126, 0 )
-mesh = SubResource( 3 )
-material = SubResource( 4 )
+transform = Transform( -0.790679, 1.1782e-08, 0.612231, 0.216088, 0.935641, 0.279072, -0.572829, 0.352952, -0.739792, 4.1066, 3.64634, -7.00972 )
 
 [node name="C" type="CanvasLayer" parent="."]
 
@@ -97,30 +75,35 @@ text = "Rewind"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.0801468, -0.700117, -0.709516, 0, 0.711805, -0.702377, 0.996783, 0.0562932, 0.0570489, -7.0473, 0, 4.02281 )
+transform = Transform( 0.0801468, -0.700117, -0.709516, 0.168067, -0.692123, 0.70194, -0.982512, -0.175505, 0.0621954, -7.0473, 0, 4.02281 )
+light_energy = 1.096
 
 [node name="DirectionalLight2" type="DirectionalLight" parent="."]
-transform = Transform( 0.797784, 0.598854, 0.0701055, 0, -0.116272, 0.993217, 0.602943, -0.792373, -0.09276, -7.0473, 0, -7.42159 )
+transform = Transform( 0.901768, 0.398103, 0.168309, 0.432199, -0.834402, -0.34202, 0.0042783, 0.381166, -0.924496, 0, 0, 0 )
+visible = false
+light_energy = 3.107
 
 [node name="disc33rpm" type="MeshInstance" parent="."]
-transform = Transform( -1.32008e-07, -1, 0, 3.00954, -4.356e-08, -0.251131, 0.251131, -3.63487e-09, 3.00954, 0, 0, 1.92535 )
+transform = Transform( -3.00957, 0.000334927, 0.250814, 0.165644, -0.748236, 1.99671, 0.188337, 0.663433, 2.25181, -2.66573, 1.85286, 4.98276 )
 mesh = ExtResource( 3 )
 material/0 = SubResource( 6 )
 
 [node name="disc45rpm" type="MeshInstance" parent="."]
-transform = Transform( -7.64949e-08, -1, 0, 1.74394, -4.356e-08, -0.145523, 0.145523, -3.63487e-09, 1.74394, -7.95339, 0, 0.581819 )
+transform = Transform( 0.13012, 0.447759, 1.55935, 1.74394, -4.356e-08, -0.145523, -0.0651592, 0.894154, -0.780865, 0.688206, 0, 4.75699 )
 mesh = ExtResource( 3 )
 material/0 = SubResource( 7 )
 
 [node name="sleeve33rpm" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1.54, 0, 0, 0, 1.54, 0, 0, 0 )
+transform = Transform( 0.667789, -0.501845, 1.03061, 0.579585, 1.21934, -0.296898, -0.467054, 0.795591, 1.10512, -4.21791, 0, -2.17886 )
 mesh = ExtResource( 5 )
 material/0 = SubResource( 8 )
 
 [node name="sleeve45rpm" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.94465, 0, -0.422892 )
+transform = Transform( 0.530348, 0, 0.84778, 0.568934, 0.741379, -0.35591, -0.628526, 0.671087, 0.393189, -11.5969, 0, -0.422892 )
 mesh = ExtResource( 5 )
 material/0 = SubResource( 9 )
+
+[node name="turntable" parent="." instance=ExtResource( 8 )]
 
 [connection signal="play" from="C/UI" to="." method="_on_UI_play"]
 [connection signal="pressed" from="C/UI/VB/Play" to="C/UI" method="_on_Play_pressed"]

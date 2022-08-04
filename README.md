@@ -22,3 +22,7 @@ Feedback will be given to the user about the practicality of this.
 The user will set up their turntable with the correct speed and adjustments to the tone arm.
 
 They will operate a lever to up and down the tone arm, and move it by hand left/right.
+
+# Links
+
+https://www.cnet.com/tech/home-entertainment/best-record-player/

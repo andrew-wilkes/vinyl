@@ -1,6 +1,34 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/Turntable.gd" type="Script" id=1]
+[ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Deck.gd" type="Script" id=7]
+[ext_resource path="res://assets/turntable.glb" type="PackedScene" id=8]
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 0.0938839, 0.0132222, 1 )
 
 [node name="Turntable" type="Spatial"]
-script = ExtResource( 1 )
+script = ExtResource( 7 )
+
+[node name="deck" parent="." instance=ExtResource( 8 )]
+
+[node name="OrbitCamera" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19072, 0 )
+
+[node name="YAxis" parent="OrbitCamera" index="0"]
+transform = Transform( -0.731354, 0, -0.681998, 0, 1, 0, 0.681998, 0, -0.731354, 0, 0, 0 )
+
+[node name="XAxis" parent="OrbitCamera/YAxis" index="0"]
+transform = Transform( 1, 0, 0, 0, 0.951057, 0.309017, 0, -0.309017, 0.951057, 0, 0, 0 )
+
+[node name="Camera" parent="OrbitCamera/YAxis/XAxis" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )
+
+[node name="Handle" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19072, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Handle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02578, 0.439764, 0 )
+shape = SubResource( 12 )
+
+[editable path="OrbitCamera"]

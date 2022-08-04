@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/switch.obj-d2d924ca8a2b08f031f2f79d983dd59c.mesh"
+
+[deps]
+
+files=[ "res://.import/switch.obj-d2d924ca8a2b08f031f2f79d983dd59c.mesh" ]
+
+source_file="res://assets/switch.obj"
+dest_files=[ "res://.import/switch.obj-d2d924ca8a2b08f031f2f79d983dd59c.mesh", "res://.import/switch.obj-d2d924ca8a2b08f031f2f79d983dd59c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

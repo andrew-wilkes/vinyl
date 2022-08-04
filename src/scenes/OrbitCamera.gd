@@ -21,3 +21,4 @@ func _process(delta):
 		$YAxis/XAxis/Camera.translation.y += delta
 	if (Input.is_key_pressed(KEY_D)):
 		$YAxis/XAxis/Camera.translation.x -= delta
+
