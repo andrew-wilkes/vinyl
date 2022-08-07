@@ -4,8 +4,8 @@
 [ext_resource path="res://scenes/Deck.gd" type="Script" id=7]
 [ext_resource path="res://assets/turntable.glb" type="PackedScene" id=8]
 
-[sub_resource type="BoxShape" id=12]
-extents = Vector3( 0.0938839, 0.0132222, 1 )
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 0.202896, 0.16181 )
 
 [node name="Turntable" type="Spatial"]
 script = ExtResource( 7 )
@@ -16,19 +16,33 @@ script = ExtResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19072, 0 )
 
 [node name="YAxis" parent="OrbitCamera" index="0"]
-transform = Transform( -0.731354, 0, -0.681998, 0, 1, 0, 0.681998, 0, -0.731354, 0, 0, 0 )
+transform = Transform( -0.999391, 0, -0.0348995, 0, 1, 0, 0.0348995, 0, -0.999391, 0, 0, 0 )
 
 [node name="XAxis" parent="OrbitCamera/YAxis" index="0"]
-transform = Transform( 1, 0, 0, 0, 0.951057, 0.309017, 0, -0.309017, 0.951057, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 0.999903, 0.0139622, 0, -0.0139622, 0.999903, 0, 0, 0 )
 
 [node name="Camera" parent="OrbitCamera/YAxis/XAxis" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, -3.65, 1.867 )
+visible = false
 
-[node name="Handle" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19072, 0 )
+[node name="DirectionalLight" parent="OrbitCamera/YAxis/XAxis" index="1"]
+transform = Transform( 0.183247, 0.971622, 0.149569, -0.953329, 0.138497, 0.268293, 0.239964, -0.191753, 0.951655, 0, 0, 0 )
+light_energy = 4.736
 
-[node name="CollisionShape" type="CollisionShape" parent="Handle"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02578, 0.439764, 0 )
-shape = SubResource( 12 )
+[node name="DirectionalLight2" parent="OrbitCamera/YAxis/XAxis" index="2"]
+transform = Transform( 0.967362, 0.165005, 0.192313, 0.088716, 0.490364, -0.86699, -0.237361, 0.855755, 0.45972, 26.0581, 8.63515, -26.5763 )
+visible = false
+light_specular = 0.013
+
+[node name="Lever" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.99997, 0.00774918, 0, -0.00774918, 0.99997, -2.28265, 0.113381, 0.125495 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Lever"]
+transform = Transform( 0.0426777, 0, 0, 0, 1.00003, -0.00314519, 0, -0.00314519, 1.40586, 0, 0.000453942, -0.0585774 )
+shape = SubResource( 1 )
+
+[connection signal="input_event" from="Lever" to="." method="_on_Lever_input_event"]
+[connection signal="mouse_entered" from="Lever" to="." method="_on_Lever_mouse_entered"]
+[connection signal="mouse_exited" from="Lever" to="." method="_on_Lever_mouse_exited"]
 
 [editable path="OrbitCamera"]

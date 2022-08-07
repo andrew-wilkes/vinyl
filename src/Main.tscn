@@ -29,7 +29,7 @@ albedo_texture = ExtResource( 7 )
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.790679, 1.1782e-08, 0.612231, 0.216088, 0.935641, 0.279072, -0.572829, 0.352952, -0.739792, 4.1066, 3.64634, -7.00972 )
+transform = Transform( -0.607234, -0.121852, 0.785124, 0.22795, 0.919909, 0.319072, -0.761122, 0.37272, -0.530823, 22.8047, 7.45056, -6.66046 )
 
 [node name="C" type="CanvasLayer" parent="."]
 
@@ -75,13 +75,14 @@ text = "Rewind"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.0801468, -0.700117, -0.709516, 0.168067, -0.692123, 0.70194, -0.982512, -0.175505, 0.0621954, -7.0473, 0, 4.02281 )
+transform = Transform( 0.0126166, -0.396008, -0.918161, -0.11323, -0.912893, 0.39218, -0.993489, 0.0990152, -0.0563575, 50.2662, -1.98126, 23.3 )
+visible = false
 light_energy = 1.096
 
 [node name="DirectionalLight2" type="DirectionalLight" parent="."]
-transform = Transform( 0.901768, 0.398103, 0.168309, 0.432199, -0.834402, -0.34202, 0.0042783, 0.381166, -0.924496, 0, 0, 0 )
+transform = Transform( 0.362926, 0.604428, -0.709191, 0.914185, -0.083597, 0.396583, 0.18042, -0.792261, -0.582898, 4.25865, 0, -2.28747 )
 visible = false
-light_energy = 3.107
+light_energy = 0.905
 
 [node name="disc33rpm" type="MeshInstance" parent="."]
 transform = Transform( -3.00957, 0.000334927, 0.250814, 0.165644, -0.748236, 1.99671, 0.188337, 0.663433, 2.25181, -2.66573, 1.85286, 4.98276 )
