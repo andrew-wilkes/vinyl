@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Deck.gd" type="Script" id=7]
 [ext_resource path="res://assets/turntable.glb" type="PackedScene" id=8]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 1, 0.202896, 0.16181 )
+[sub_resource type="CylinderShape" id=1]
+height = 0.19
+radius = 0.028
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.01, 0.1, 0.025 )
+
+[sub_resource type="CylinderShape" id=3]
+height = 0.18
+radius = 0.15
 
 [node name="Turntable" type="Spatial"]
 script = ExtResource( 7 )
@@ -34,15 +42,30 @@ transform = Transform( 0.967362, 0.165005, 0.192313, 0.088716, 0.490364, -0.8669
 visible = false
 light_specular = 0.013
 
-[node name="Lever" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.99997, 0.00774918, 0, -0.00774918, 0.99997, -2.28265, 0.113381, 0.125495 )
+[node name="LeverArea" type="Area" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="Lever"]
-transform = Transform( 0.0426777, 0, 0, 0, 1.00003, -0.00314519, 0, -0.00314519, 1.40586, 0, 0.000453942, -0.0585774 )
+[node name="CollisionShape" type="CollisionShape" parent="LeverArea"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[connection signal="input_event" from="Lever" to="." method="_on_Lever_input_event"]
-[connection signal="mouse_entered" from="Lever" to="." method="_on_Lever_mouse_entered"]
-[connection signal="mouse_exited" from="Lever" to="." method="_on_Lever_mouse_exited"]
+[node name="HandleArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="HandleArea"]
+shape = SubResource( 2 )
+
+[node name="SwitchArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="SwitchArea"]
+shape = SubResource( 3 )
+
+[connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
+[connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]
+[connection signal="mouse_exited" from="LeverArea" to="." method="_on_Lever_mouse_exited"]
+[connection signal="input_event" from="HandleArea" to="." method="_on_HandleArea_input_event"]
+[connection signal="mouse_entered" from="HandleArea" to="." method="_on_HandleArea_mouse_entered"]
+[connection signal="mouse_exited" from="HandleArea" to="." method="_on_HandleArea_mouse_exited"]
+[connection signal="input_event" from="SwitchArea" to="." method="_on_SwitchArea_input_event"]
+[connection signal="mouse_entered" from="SwitchArea" to="." method="_on_SwitchArea_mouse_entered"]
+[connection signal="mouse_exited" from="SwitchArea" to="." method="_on_SwitchArea_mouse_exited"]
 
 [editable path="OrbitCamera"]
