@@ -22,4 +22,3 @@ func _notification(what):
 func save_and_quit():
 	settings.save_data()
 	get_tree().quit()
-

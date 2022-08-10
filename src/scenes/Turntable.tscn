@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/Deck.gd" type="Script" id=7]
+[ext_resource path="res://scenes/Turntable.gd" type="Script" id=7]
 [ext_resource path="res://assets/turntable.glb" type="PackedScene" id=8]
 
 [sub_resource type="CylinderShape" id=1]
@@ -19,18 +19,15 @@ radius = 0.15
 script = ExtResource( 7 )
 
 [node name="deck" parent="." instance=ExtResource( 8 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="OrbitCamera" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19072, 0 )
-
-[node name="YAxis" parent="OrbitCamera" index="0"]
-transform = Transform( -0.999391, 0, -0.0348995, 0, 1, 0, 0.0348995, 0, -0.999391, 0, 0, 0 )
 
 [node name="XAxis" parent="OrbitCamera/YAxis" index="0"]
-transform = Transform( 1, 0, 0, 0, 0.999903, 0.0139622, 0, -0.0139622, 0.999903, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 0.816229, 0.57773, 0, -0.57773, 0.816229, 0, 0, 0 )
 
 [node name="Camera" parent="OrbitCamera/YAxis/XAxis" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, -3.65, 1.867 )
+transform = Transform( 1, 0, 0, 0, 1, 3.72529e-09, 0, 0, 1, 0, -0.073812, 5.28605 )
 visible = false
 
 [node name="DirectionalLight" parent="OrbitCamera/YAxis/XAxis" index="1"]
@@ -38,7 +35,7 @@ transform = Transform( 0.183247, 0.971622, 0.149569, -0.953329, 0.138497, 0.2682
 light_energy = 4.736
 
 [node name="DirectionalLight2" parent="OrbitCamera/YAxis/XAxis" index="2"]
-transform = Transform( 0.967362, 0.165005, 0.192313, 0.088716, 0.490364, -0.86699, -0.237361, 0.855755, 0.45972, 26.0581, 8.63515, -26.5763 )
+transform = Transform( 0.967362, 0.165005, 0.192312, 0.088716, 0.490364, -0.86699, -0.237361, 0.855755, 0.45972, 3.95064, 8.27146, -0.530499 )
 visible = false
 light_specular = 0.013
 

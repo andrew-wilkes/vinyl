@@ -10,7 +10,7 @@ script = ExtResource( 1 )
 [node name="XAxis" type="Spatial" parent="YAxis"]
 
 [node name="Camera" type="Camera" parent="YAxis/XAxis"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.4168 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.92252 )
 current = true
 
 [node name="DirectionalLight" type="DirectionalLight" parent="YAxis/XAxis"]

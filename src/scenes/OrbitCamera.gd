@@ -7,6 +7,11 @@ export var ZOOMING_SPEED = 0.05
 enum { ROTATING, PANNING, ZOOMING }
 
 var moving = false
+var locked = false
+
+func lock():
+	moving = false
+	locked = true
 
 func _process(delta):
 	if (Input.is_key_pressed(KEY_LEFT)):
@@ -32,6 +37,7 @@ func _process(delta):
 
 
 func _unhandled_input(event):
+	if locked: return
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		if event.pressed:
 			moving = true
