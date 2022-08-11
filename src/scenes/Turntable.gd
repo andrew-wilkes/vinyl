@@ -14,19 +14,26 @@ onready var lever_handle = find_node("LeverHandle")
 onready var lever_handle_shader = lever_handle.mesh.surface_get_material(0).next_pass
 onready var switch_handle_shader = switch.mesh.surface_get_material(0).next_pass
 onready var arm_handle_shader = arm_handle.mesh.surface_get_material(0).next_pass
+onready var needle = find_node("Needle")
 
 var arm_angle = 0
 var mode = NONE
 var support_pos = 1.0
 var lever_pos = 1.0
+var arm_transform
 var arm_base_transform
+var switch_transform
 var angle_limit
+var has_record = false
+
 
 func _ready():
 	relocate_collision_area($LeverArea, lever_handle)
 	relocate_collision_area($HandleArea, arm_handle)
 	relocate_collision_area($SwitchArea, switch)
-	arm_base_transform = arm.transform
+	arm_transform = arm.transform
+	arm_base_transform = arm_base.transform
+	switch_transform = switch.transform
 
 
 func relocate_collision_area(src: Spatial, dest: Spatial):
@@ -37,30 +44,67 @@ func relocate_collision_area(src: Spatial, dest: Spatial):
 
 
 func _process(delta):
+	if mode == MOVING_HANDLE: return
+	
+	if Input.is_key_pressed(KEY_1):
+		prints(arm_base.rotation, needle.global_translation)
 	# Move support in relation to lever position
 	if lever_pos >= support_pos:
 		support_pos = lever_pos
 	else:
-		support_pos -= delta * 0.4
-	support.translation.y = lerp(-0.073, 0.114, support_pos)
+		support_pos -= delta * 1.0
+	support.translation.y = lerp(0.06, 0.114, support_pos)
 	
 	# Calculate the angle limit for the arm
 	angle_limit = atan((0.114 - support.translation.y) / 0.3952)
 	
 	# Make arm fall if within angle_limit
-	if get_arm_angle() < (angle_limit - 0.05):
+	if angle_limit > get_arm_angle() and arm_limit_y(): return
+	if get_arm_angle() < (angle_limit - 0.06):
 		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
 	else:
-		arm.transform = arm_base_transform
+		arm.transform = arm_transform
 		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
+
+
+func arm_limit_y():
+	var limit = false
+	var np = needle.global_translation
+	if np.x < 1.0827:
+		if has_record:
+			if np.y <= 0.16: limit = true
+		else:
+			if np.y <= 0.145: limit = true
+	elif np.x < 1.121:
+		if has_record:
+			if np.y <= 0.115: limit = true
+		else:
+			if np.y <= 0.1: limit = true
+	elif np.y <= -0.075: limit = true
+	return limit
+
+
+func arm_limit_x(dir):
+	var limit = false
+	var np = needle.global_translation
+	if dir < 0:
+		if np.x < 1.0827:
+			if has_record:
+				if np.y <= 0.16: limit = true
+			else:
+				if np.y <= 0.145: limit = true
+		elif np.x < 1.121:
+			if has_record:
+				if np.y <= 0.115: limit = true
+			else:
+				if np.y <= 0.1: limit = true
+		if np.x <= 0.182: limit = true
+	elif np.x >= 2.28: limit = true
+	return limit
 
 
 func rotate_arm(angle):
 	arm_base.rotate_y(angle)
-
-
-func raise_arm(angle):
-	arm.rotate_object_local(Vector3(1, 0, 0), angle)
 
 
 func raise_support(_dist):
@@ -77,7 +121,16 @@ func _unhandled_input(event):
 				lever.rotation.x = clamp(lever.rotation.x - event.relative.y * 0.01, -1.33, -0.73)
 				lever_pos = (lever.rotation.x + 1.33) / (1.33 - 0.73)
 			MOVING_HANDLE:
-				pass
+				if arm_limit_x(event.relative.x): return
+				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.005)
+				var new_arm_angle = arm_angle + event.relative.y * 0.002
+				if event.relative.y > 0:
+					if new_arm_angle > angle_limit or arm_limit_y(): return
+				else:
+					if new_arm_angle < -0.4: return
+				arm_angle = new_arm_angle
+				arm.transform = arm_transform
+				arm.rotate_object_local(Vector3(1, 0, 0), -arm_angle)
 			MOVING_SWITCH:
 				pass
 
@@ -96,8 +149,11 @@ func _on_Lever_mouse_exited():
 	lever_handle_shader.set_shader_param("Level", 0.0)
 
 
-func _on_HandleArea_input_event(_camera,_event, _position, _normal, _shape_idx):
-	pass # Replace with function body.
+func _on_HandleArea_input_event(_camera, event, _position, _normal, _shape_idx):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		mode = MOVING_HANDLE
+		arm_angle = get_arm_angle()
+		$OrbitCamera.lock()
 
 
 func _on_HandleArea_mouse_entered():
@@ -108,8 +164,10 @@ func _on_HandleArea_mouse_exited():
 	arm_handle_shader.set_shader_param("Level", 0.0)
 
 
-func _on_SwitchArea_input_event(_camera, _event, _position, _normal, _shape_idx):
-	pass # Replace with function body.
+func _on_SwitchArea_input_event(_camera, event, _position, _normal, _shape_idx):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		mode = MOVING_SWITCH
+		$OrbitCamera.lock()
 
 
 func _on_SwitchArea_mouse_entered():
