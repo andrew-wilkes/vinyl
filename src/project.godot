@@ -67,6 +67,7 @@ g="*res://global.gd"
 [display]
 
 window/size/width=1500
+window/size/height=800
 
 [editor_plugins]
 

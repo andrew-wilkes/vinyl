@@ -17,7 +17,7 @@ script = ExtResource( 1 )
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1480.0
-margin_bottom = 580.0
+margin_bottom = 780.0
 window_title = "Open File(s)"
 dialog_hide_on_ok = true
 mode = 1
@@ -28,7 +28,7 @@ filters = PoolStringArray( "*.mp3, *.ogg ; Supported Music Files" )
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1480.0
-margin_bottom = 580.0
+margin_bottom = 780.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="VB"]
@@ -100,7 +100,7 @@ text = "Path"
 [node name="SC" type="ScrollContainer" parent="VB"]
 margin_top = 127.0
 margin_right = 1460.0
-margin_bottom = 560.0
+margin_bottom = 760.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
@@ -113,6 +113,14 @@ select_mode = 1
 auto_height = true
 max_columns = 3
 same_column_width = true
+
+[node name="c" type="CanvasLayer" parent="."]
+
+[node name="Text" type="Label" parent="c"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 27.0
+margin_bottom = 14.0
+text = "Text"
 
 [connection signal="files_selected" from="FileDialog" to="." method="_on_FileDialog_files_selected"]
 [connection signal="pressed" from="VB/Menu/Select" to="." method="_on_Button_pressed"]

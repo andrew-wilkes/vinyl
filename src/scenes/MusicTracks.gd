@@ -48,10 +48,17 @@ func add_item(track):
 
 func _on_SC_sort_children():
 	var max_chars = 0
+	var text = ""
 	for idx in items.get_item_count():
-		var n = items.get_item_text(idx).length()
-		if n > max_chars: max_chars = n
+		var txt = items.get_item_text(idx)
+		var n = txt.length()
+		if n > max_chars:
+			max_chars = n
+			text = txt
 	if max_chars > 0:
-		for node in headings.get_children():
-			node.rect_min_size.x = max_chars * 7.3
+		$c/Text.text = text
+		$c/Text.rect_size.x = 0
+		yield(get_tree(), "idle_frame")
+		for n in 2:
+			headings.get_child(n).rect_min_size.x = $c/Text.rect_size.x
 
