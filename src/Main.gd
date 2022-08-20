@@ -3,8 +3,7 @@ extends Spatial
 var settings
 
 func _ready():
-	settings = Settings.new()
-	settings = settings.load_data()
+	pass
 
 
 func _unhandled_input(event):
@@ -20,5 +19,5 @@ func _notification(what):
 
 
 func save_and_quit():
-	settings.save_data()
+	g.settings.save_data()
 	get_tree().quit()

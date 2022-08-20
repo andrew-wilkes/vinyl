@@ -5,7 +5,9 @@ class_name Settings
 const FILENAME = "user://settings.res"
 
 export var albums = []
+export var tracks = []
 export var last_dir = ""
+
 
 func save_data():
 	var _e = ResourceSaver.save(FILENAME, self)

@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://classes/audio.gd"
 }, {
 "base": "Reference",
+"class": "Database",
+"language": "GDScript",
+"path": "res://classes/database.gd"
+}, {
+"base": "Reference",
 "class": "GutHookScript",
 "language": "GDScript",
 "path": "res://addons/gut/hook_script.gd"
@@ -42,6 +47,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Album": "",
 "Audio": "",
+"Database": "",
 "GutHookScript": "",
 "GutTest": "",
 "Settings": "",
@@ -53,6 +59,14 @@ _global_script_class_icons={
 config/name="Vinyl"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+g="*res://global.gd"
+
+[display]
+
+window/size/width=1500
 
 [editor_plugins]
 
