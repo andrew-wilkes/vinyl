@@ -37,7 +37,6 @@ func _on_Remove_pressed():
 		for n in 3:
 			items.remove_item(idx + n - list_offset)
 			list_offset += 1
-	print(g.settings.tracks)
 
 
 func add_item(track):
