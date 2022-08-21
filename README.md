@@ -26,3 +26,6 @@ They will operate a lever to up and down the tone arm, and move it by hand left/
 # Links
 
 https://www.cnet.com/tech/home-entertainment/best-record-player/
+
+https://www.whatisvinyl.com/different-types-of-vinyl-records/
+
