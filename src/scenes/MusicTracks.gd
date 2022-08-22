@@ -28,7 +28,6 @@ func _on_FileDialog_files_selected(paths):
 
 
 func _on_Remove_pressed():
-	print(g.settings.tracks)
 	var list_offset = 0
 	var array_offset = 0
 	for idx in items.get_selected_items():

@@ -1,15 +1,21 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=4]
+[ext_resource path="res://scenes/TrackSelector.gd" type="Script" id=5]
+[ext_resource path="res://scenes/EditPanel.gd" type="Script" id=6]
+[ext_resource path="res://assets/panel.stylebox" type="StyleBox" id=7]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
 
 [sub_resource type="ButtonGroup" id=2]
 resource_name = "speed"
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.180392, 0.180392, 0.180392, 1 )
 
 [node name="RecordProducer" type="MarginContainer"]
 anchor_right = 1.0
@@ -183,12 +189,13 @@ mouse_filter = 1
 [node name="HB2" type="HBoxContainer" parent="VBox"]
 margin_top = 282.0
 margin_right = 1460.0
-margin_bottom = 312.0
+margin_bottom = 760.0
+size_flags_vertical = 3
 custom_constants/separation = 20
 
 [node name="VB1" type="VBoxContainer" parent="VBox/HB2"]
 margin_right = 720.0
-margin_bottom = 30.0
+margin_bottom = 478.0
 size_flags_horizontal = 3
 
 [node name="HB" type="HBoxContainer" parent="VBox/HB2/VB1"]
@@ -215,10 +222,34 @@ margin_right = 244.0
 margin_bottom = 30.0
 text = "Delete"
 
+[node name="EditA" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 264.0
+margin_right = 305.0
+margin_bottom = 30.0
+text = "Info"
+
+[node name="InfoA" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 325.0
+margin_right = 366.0
+margin_bottom = 30.0
+text = "Info"
+
+[node name="PlayA" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 386.0
+margin_right = 428.0
+margin_bottom = 30.0
+text = "Play"
+
+[node name="ATracks" type="ItemList" parent="VBox/HB2/VB1"]
+margin_top = 34.0
+margin_right = 720.0
+margin_bottom = 478.0
+size_flags_vertical = 3
+
 [node name="VB2" type="VBoxContainer" parent="VBox/HB2"]
 margin_left = 740.0
 margin_right = 1460.0
-margin_bottom = 30.0
+margin_bottom = 478.0
 size_flags_horizontal = 3
 
 [node name="HB" type="HBoxContainer" parent="VBox/HB2/VB2"]
@@ -244,3 +275,126 @@ margin_left = 185.0
 margin_right = 244.0
 margin_bottom = 30.0
 text = "Delete"
+
+[node name="EditB" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 264.0
+margin_right = 305.0
+margin_bottom = 30.0
+text = "Info"
+
+[node name="InfoB" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 325.0
+margin_right = 366.0
+margin_bottom = 30.0
+text = "Info"
+
+[node name="PlayB" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 386.0
+margin_right = 428.0
+margin_bottom = 30.0
+text = "Play"
+
+[node name="BTracks" type="ItemList" parent="VBox/HB2/VB2"]
+margin_top = 34.0
+margin_right = 720.0
+margin_bottom = 478.0
+size_flags_vertical = 3
+
+[node name="c" type="CanvasLayer" parent="."]
+
+[node name="TrackSelector" type="PanelContainer" parent="c"]
+visible = false
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 703.0
+margin_bottom = 477.0
+theme = ExtResource( 4 )
+custom_styles/panel = ExtResource( 7 )
+script = ExtResource( 5 )
+
+[node name="VB" type="VBoxContainer" parent="c/TrackSelector"]
+margin_left = 20.0
+margin_top = 9.0
+margin_right = 663.0
+margin_bottom = 437.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="c/TrackSelector/VB"]
+margin_right = 643.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+text = "Track Selector"
+
+[node name="SC" type="ScrollContainer" parent="c/TrackSelector/VB"]
+margin_top = 54.0
+margin_right = 643.0
+margin_bottom = 378.0
+size_flags_vertical = 3
+
+[node name="Tracks" type="ItemList" parent="c/TrackSelector/VB/SC"]
+margin_bottom = 9.0
+custom_styles/bg = SubResource( 4 )
+select_mode = 1
+auto_height = true
+max_columns = 2
+
+[node name="HB" type="HBoxContainer" parent="c/TrackSelector/VB"]
+margin_top = 398.0
+margin_right = 643.0
+margin_bottom = 428.0
+
+[node name="Cancel" type="Button" parent="c/TrackSelector/VB/HB"]
+margin_right = 58.0
+margin_bottom = 30.0
+text = "Cancel"
+
+[node name="Sp" type="Control" parent="c/TrackSelector/VB/HB"]
+margin_left = 62.0
+margin_right = 497.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="Add" type="Button" parent="c/TrackSelector/VB/HB"]
+margin_left = 501.0
+margin_right = 643.0
+margin_bottom = 30.0
+text = "Add selected tracks"
+
+[node name="EditPanel" type="PanelContainer" parent="c"]
+visible = false
+margin_right = 375.0
+margin_bottom = 53.0
+custom_styles/panel = ExtResource( 7 )
+script = ExtResource( 6 )
+
+[node name="HB" type="HBoxContainer" parent="c/EditPanel"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 355.0
+margin_bottom = 44.0
+custom_constants/separation = 10
+
+[node name="LineEdit" type="LineEdit" parent="c/EditPanel/HB"]
+margin_right = 294.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="OK" type="Button" parent="c/EditPanel/HB"]
+margin_left = 304.0
+margin_right = 335.0
+margin_bottom = 24.0
+text = "OK"
+
+[connection signal="pressed" from="VBox/HB2/VB1/HB/AddToA" to="." method="_on_AddToA_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB1/HB/DeleteA" to="." method="_on_DeleteA_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB1/HB/EditA" to="." method="_on_EditA_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB1/HB/InfoA" to="." method="_on_InfoA_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB1/HB/PlayA" to="." method="_on_PlayA_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/AddToB" to="." method="_on_AddToB_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/DeleteB" to="." method="_on_DeleteB_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/EditB" to="." method="_on_EditB_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/InfoB" to="." method="_on_InfoB_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/PlayB" to="." method="_on_PlayB_pressed"]
+[connection signal="pressed" from="c/TrackSelector/VB/HB/Cancel" to="c/TrackSelector" method="_on_Cancel_pressed"]
+[connection signal="pressed" from="c/TrackSelector/VB/HB/Add" to="c/TrackSelector" method="_on_Add_pressed"]
+[connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]
