@@ -4,9 +4,14 @@ enum { SIDE_A, SIDE_B }
 
 onready var tracks = [$VBox/HB2/VB1/ATracks, $VBox/HB2/VB2/BTracks]
 
+var audio
+var currently_loaded_track = -1
+var current_track
+
 func _ready():
 	var _e = $c/TrackSelector.connect("add_tracks", self, "add_tracks")
 	_e = $c/EditPanel.connect("text_updated", self, "update_track_title")
+	audio = Audio.new($AudioStreamPlayer)
 
 
 func _on_AddToA_pressed():
@@ -40,11 +45,17 @@ func _on_EditA_pressed():
 
 
 func _on_InfoA_pressed():
-	pass # Replace with function body.
+	load_track(SIDE_A)
+	$c/TrackInfo.open(current_track)
 
 
 func _on_PlayA_pressed():
-	pass # Replace with function body.
+	if audio.player.playing:
+		audio.player.stop()
+	else:
+		load_track(SIDE_A)
+		audio.player.play()
+	set_play_button_text(audio.player.playing)
 
 
 func _on_DeleteB_pressed():
@@ -62,11 +73,17 @@ func edit_track_title(side):
 
 
 func _on_InfoB_pressed():
-	pass # Replace with function body.
+	load_track(SIDE_B)
+	$c/TrackInfo.open(current_track)
 
 
 func _on_PlayB_pressed():
-	pass # Replace with function body.
+	if audio.player.playing:
+		audio.player.stop()
+	else:
+		load_track(SIDE_B)
+		audio.player.play()
+	set_play_button_text(audio.player.playing)
 
 
 func update_track_title(side, idx, txt):
@@ -86,3 +103,24 @@ func _on_Down_pressed(side):
 	for idx in items:
 		if idx == tracks[side].get_item_count() - 1: break
 		tracks[side].move_item(idx, idx + 1)
+
+
+func load_track(side):
+	var items = tracks[side].get_selected_items()
+	if items.size() > 0:
+		var track_idx = tracks[side].get_item_metadata(items[0])
+		if track_idx != currently_loaded_track:
+			current_track = g.settings.tracks[track_idx]
+			currently_loaded_track = track_idx
+			audio.load_data(current_track.path)
+			current_track.title = audio.info.get("title", "")
+			current_track.band = audio.info.get("band", "")
+			current_track.album = audio.info.get("album", "")
+			current_track.year = audio.info.get("year", "")
+			current_track.length = audio.player.stream.get_length()
+
+
+func set_play_button_text(play = true):
+	var ptext = "Stop" if play else "Play"
+	$VBox/HB2/VB1/HB/PlayA.text = ptext
+	$VBox/HB2/VB2/HB/PlayB.text = ptext
