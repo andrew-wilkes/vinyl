@@ -224,19 +224,19 @@ text = "Delete"
 
 [node name="EditA" type="Button" parent="VBox/HB2/VB1/HB"]
 margin_left = 264.0
-margin_right = 305.0
+margin_right = 304.0
 margin_bottom = 30.0
-text = "Info"
+text = "Edit"
 
 [node name="InfoA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 325.0
-margin_right = 366.0
+margin_left = 324.0
+margin_right = 365.0
 margin_bottom = 30.0
 text = "Info"
 
 [node name="PlayA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 386.0
-margin_right = 428.0
+margin_left = 385.0
+margin_right = 427.0
 margin_bottom = 30.0
 text = "Play"
 
@@ -278,19 +278,19 @@ text = "Delete"
 
 [node name="EditB" type="Button" parent="VBox/HB2/VB2/HB"]
 margin_left = 264.0
-margin_right = 305.0
+margin_right = 304.0
 margin_bottom = 30.0
-text = "Info"
+text = "Edit"
 
 [node name="InfoB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 325.0
-margin_right = 366.0
+margin_left = 324.0
+margin_right = 365.0
 margin_bottom = 30.0
 text = "Info"
 
 [node name="PlayB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 386.0
-margin_right = 428.0
+margin_left = 385.0
+margin_right = 427.0
 margin_bottom = 30.0
 text = "Play"
 
@@ -332,7 +332,6 @@ margin_bottom = 378.0
 size_flags_vertical = 3
 
 [node name="Tracks" type="ItemList" parent="c/TrackSelector/VB/SC"]
-margin_bottom = 9.0
 custom_styles/bg = SubResource( 4 )
 select_mode = 1
 auto_height = true
