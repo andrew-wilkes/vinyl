@@ -18,9 +18,10 @@ func _on_AddToB_pressed():
 
 
 func add_tracks(items, side):
+	# There are 2 columns of cells in ItemList so divide index by 2
 	for idx in items:
-		tracks[side].add_item(g.settings.tracks[idx].title)
-		tracks[side].set_item_metadata(tracks[side].get_item_count() - 1, idx)
+		tracks[side].add_item(g.settings.tracks[idx / 2].title)
+		tracks[side].set_item_metadata(tracks[side].get_item_count() - 1, idx / 2)
 
 
 func _on_DeleteA_pressed():
@@ -70,3 +71,18 @@ func _on_PlayB_pressed():
 
 func update_track_title(side, idx, txt):
 	tracks[side].set_item_text(idx, txt)
+
+
+func _on_Up_pressed(side):
+	var items = tracks[side].get_selected_items()
+	for idx in items:
+		if idx == 0: break
+		tracks[side].move_item(idx, idx - 1)
+
+
+func _on_Down_pressed(side):
+	var items = tracks[side].get_selected_items()
+	items.invert()
+	for idx in items:
+		if idx == tracks[side].get_item_count() - 1: break
+		tracks[side].move_item(idx, idx + 1)

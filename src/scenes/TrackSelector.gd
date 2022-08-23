@@ -15,6 +15,7 @@ func _ready():
 
 func open(_side):
 	side = _side
+	rect_position = (get_viewport().get_visible_rect().size - rect_size) / 2.0
 	show()
 
 
@@ -23,4 +24,5 @@ func _on_Cancel_pressed():
 
 
 func _on_Add_pressed():
+	hide()
 	emit_signal("add_tracks", tracks.get_selected_items(), side)

@@ -83,6 +83,7 @@ text = "Size"
 margin_top = 27.0
 margin_right = 106.0
 margin_bottom = 59.0
+pressed = true
 group = SubResource( 1 )
 text = "12\" (30cm)"
 
@@ -115,6 +116,7 @@ text = "Speed"
 margin_top = 27.0
 margin_right = 107.0
 margin_bottom = 59.0
+pressed = true
 group = SubResource( 2 )
 text = "33 1/3 rpm"
 
@@ -228,15 +230,27 @@ margin_right = 304.0
 margin_bottom = 30.0
 text = "Edit"
 
-[node name="InfoA" type="Button" parent="VBox/HB2/VB1/HB"]
+[node name="Up" type="Button" parent="VBox/HB2/VB1/HB"]
 margin_left = 324.0
-margin_right = 365.0
+margin_right = 358.0
+margin_bottom = 30.0
+text = "Up"
+
+[node name="Down" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 378.0
+margin_right = 430.0
+margin_bottom = 30.0
+text = "Down"
+
+[node name="InfoA" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 450.0
+margin_right = 491.0
 margin_bottom = 30.0
 text = "Info"
 
 [node name="PlayA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 385.0
-margin_right = 427.0
+margin_left = 511.0
+margin_right = 553.0
 margin_bottom = 30.0
 text = "Play"
 
@@ -245,6 +259,7 @@ margin_top = 34.0
 margin_right = 720.0
 margin_bottom = 478.0
 size_flags_vertical = 3
+select_mode = 1
 
 [node name="VB2" type="VBoxContainer" parent="VBox/HB2"]
 margin_left = 740.0
@@ -282,15 +297,27 @@ margin_right = 304.0
 margin_bottom = 30.0
 text = "Edit"
 
-[node name="InfoB" type="Button" parent="VBox/HB2/VB2/HB"]
+[node name="Up" type="Button" parent="VBox/HB2/VB2/HB"]
 margin_left = 324.0
-margin_right = 365.0
+margin_right = 358.0
+margin_bottom = 30.0
+text = "Up"
+
+[node name="Down" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 378.0
+margin_right = 430.0
+margin_bottom = 30.0
+text = "Down"
+
+[node name="InfoB" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 450.0
+margin_right = 491.0
 margin_bottom = 30.0
 text = "Info"
 
 [node name="PlayB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 385.0
-margin_right = 427.0
+margin_left = 511.0
+margin_right = 553.0
 margin_bottom = 30.0
 text = "Play"
 
@@ -299,6 +326,7 @@ margin_top = 34.0
 margin_right = 720.0
 margin_bottom = 478.0
 size_flags_vertical = 3
+select_mode = 1
 
 [node name="c" type="CanvasLayer" parent="."]
 
@@ -332,10 +360,13 @@ margin_bottom = 378.0
 size_flags_vertical = 3
 
 [node name="Tracks" type="ItemList" parent="c/TrackSelector/VB/SC"]
+margin_right = 643.0
+size_flags_horizontal = 3
 custom_styles/bg = SubResource( 4 )
 select_mode = 1
 auto_height = true
 max_columns = 2
+same_column_width = true
 
 [node name="HB" type="HBoxContainer" parent="c/TrackSelector/VB"]
 margin_top = 398.0
@@ -363,6 +394,7 @@ text = "Add selected tracks"
 visible = false
 margin_right = 375.0
 margin_bottom = 53.0
+theme = ExtResource( 4 )
 custom_styles/panel = ExtResource( 7 )
 script = ExtResource( 6 )
 
@@ -387,13 +419,18 @@ text = "OK"
 [connection signal="pressed" from="VBox/HB2/VB1/HB/AddToA" to="." method="_on_AddToA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/DeleteA" to="." method="_on_DeleteA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/EditA" to="." method="_on_EditA_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB1/HB/Up" to="." method="_on_Up_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="VBox/HB2/VB1/HB/Down" to="." method="_on_Down_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/InfoA" to="." method="_on_InfoA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/PlayA" to="." method="_on_PlayA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/AddToB" to="." method="_on_AddToB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/DeleteB" to="." method="_on_DeleteB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/EditB" to="." method="_on_EditB_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/Up" to="." method="_on_Up_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/Down" to="." method="_on_Down_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/InfoB" to="." method="_on_InfoB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/PlayB" to="." method="_on_PlayB_pressed"]
 [connection signal="pressed" from="c/TrackSelector/VB/HB/Cancel" to="c/TrackSelector" method="_on_Cancel_pressed"]
 [connection signal="pressed" from="c/TrackSelector/VB/HB/Add" to="c/TrackSelector" method="_on_Add_pressed"]
+[connection signal="text_entered" from="c/EditPanel/HB/LineEdit" to="c/EditPanel" method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]
