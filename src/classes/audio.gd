@@ -109,6 +109,8 @@ func parse_mp3(data: PoolByteArray):
 				info["year"] = get_string_from_data(data, idx, size)
 			"TPE1", "TPE2", "TPE3", "TPE4":
 				info["band"] = get_string_from_data(data, idx, size)
+			"TLEN":
+				info["length"] = get_string_from_data(data, idx, size)
 			"APIC":
 				# size of APIC does not use syncsafe number
 				# Ignore the encoding byte

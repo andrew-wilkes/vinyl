@@ -160,11 +160,17 @@ margin_right = 46.0
 margin_bottom = 23.0
 text = "Side A"
 
-[node name="ProgressBar" type="ProgressBar" parent="VBox/HB1/VB3/HB"]
+[node name="UA" type="ProgressBar" parent="VBox/HB1/VB3/HB"]
 margin_left = 66.0
-margin_right = 1126.0
+margin_right = 1106.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
+allow_greater = true
+
+[node name="TimeA" type="Label" parent="VBox/HB1/VB3/HB"]
+margin_left = 1126.0
+margin_right = 1126.0
+margin_bottom = 23.0
 
 [node name="HB2" type="HBoxContainer" parent="VBox/HB1/VB3"]
 margin_top = 86.0
@@ -177,8 +183,48 @@ margin_right = 46.0
 margin_bottom = 23.0
 text = "Side B"
 
-[node name="ProgressBar" type="ProgressBar" parent="VBox/HB1/VB3/HB2"]
+[node name="UB" type="ProgressBar" parent="VBox/HB1/VB3/HB2"]
 margin_left = 66.0
+margin_right = 1106.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="TimeB" type="Label" parent="VBox/HB1/VB3/HB2"]
+margin_left = 1126.0
+margin_right = 1126.0
+margin_bottom = 23.0
+
+[node name="HB3" type="HBoxContainer" parent="VBox/HB1/VB3"]
+margin_top = 129.0
+margin_right = 1126.0
+margin_bottom = 152.0
+custom_constants/separation = 20
+
+[node name="Label2" type="Label" parent="VBox/HB1/VB3/HB3"]
+margin_right = 102.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 3 )
+text = "Groove pitch"
+
+[node name="Pitch" type="HSlider" parent="VBox/HB1/VB3/HB3"]
+margin_left = 122.0
+margin_right = 271.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+min_value = 0.1
+max_value = 0.4
+step = 0.01
+value = 0.23
+
+[node name="PV" type="Label" parent="VBox/HB1/VB3/HB3"]
+margin_left = 291.0
+margin_right = 356.0
+margin_bottom = 23.0
+text = "0.23 mm"
+
+[node name="Player" type="Control" parent="VBox/HB1/VB3/HB3"]
+margin_left = 376.0
 margin_right = 1126.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
@@ -200,6 +246,7 @@ custom_constants/separation = 20
 margin_right = 720.0
 margin_bottom = 457.0
 size_flags_horizontal = 3
+custom_constants/separation = 10
 
 [node name="HB" type="HBoxContainer" parent="VBox/HB2/VB1"]
 margin_right = 720.0
@@ -256,7 +303,7 @@ margin_bottom = 39.0
 text = "Play"
 
 [node name="ATracks" type="ItemList" parent="VBox/HB2/VB1"]
-margin_top = 43.0
+margin_top = 49.0
 margin_right = 720.0
 margin_bottom = 457.0
 size_flags_vertical = 3
@@ -363,6 +410,7 @@ size_flags_vertical = 3
 [node name="Tracks" type="ItemList" parent="c/TrackSelector/VB/SC"]
 margin_right = 643.0
 size_flags_horizontal = 3
+custom_constants/hseparation = 10
 custom_styles/bg = SubResource( 4 )
 select_mode = 1
 auto_height = true
@@ -529,6 +577,7 @@ text = "OK"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
+[connection signal="value_changed" from="VBox/HB1/VB3/HB3/Pitch" to="." method="_on_Pitch_value_changed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/AddToA" to="." method="_on_AddToA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/DeleteA" to="." method="_on_DeleteA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/EditA" to="." method="_on_EditA_pressed"]
@@ -548,3 +597,4 @@ text = "OK"
 [connection signal="pressed" from="c/TrackInfo/VB/HB/OK" to="c/TrackInfo" method="_on_OK_pressed"]
 [connection signal="text_entered" from="c/EditPanel/HB/LineEdit" to="c/EditPanel" method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]
