@@ -66,7 +66,7 @@ g="*res://global.gd"
 
 [display]
 
-window/size/width=1500
+window/size/width=1280
 window/size/height=800
 
 [editor_plugins]
@@ -101,5 +101,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_clear_color=Color( 0.321569, 0.321569, 0.321569, 1 )
+environment/default_clear_color=Color( 0.0941176, 0.364706, 0.458824, 1 )
 environment/default_environment="res://default_env.tres"

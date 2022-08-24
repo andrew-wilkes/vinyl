@@ -24,7 +24,7 @@ func _ready():
 	audio = Audio.new($AudioStreamPlayer)
 	size_group = $VBox/HB1/VB1/size10.group
 	speed_group = $VBox/HB1/VB2/speed33.group
-	$VBox/Title.grab_focus()
+	$VBox/HB/VB1/Title.grab_focus()
 	_on_Pitch_value_changed(0.23)
 	$VBox/HB1/VB3/HB3/Pitch.value = pitch
 	for b in size_group.get_buttons():
