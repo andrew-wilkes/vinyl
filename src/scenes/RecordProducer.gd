@@ -7,6 +7,7 @@ const LAST_MUSIC_GROOVE = [120.6, 108.0, 120.6]
 const FIRST_MUSIC_GROOVE = [292.1, 168.3, 241.3]
 const RPMS = { "speed33": 33.33, "speed45": 45.0, "speed78": 78.0 }
 const SIZES = [ "size12", "size7", "size10" ]
+const GAP_TIME = 5
 
 onready var tracks = [$VBox/HB2/VB1/ATracks, $VBox/HB2/VB2/BTracks]
 onready var bars = [$VBox/HB1/VB3/HB/UA, $VBox/HB1/VB3/HB2/UB]
@@ -18,19 +19,29 @@ var pitch
 var size_group
 var speed_group
 
+export(Color) var gap_color
+export(Color) var ok_color
+export(Color) var warn_color
+export(Color) var spare_color
+
 func _ready():
 	var _e = $c/TrackSelector.connect("add_tracks", self, "add_tracks")
 	_e = $c/EditPanel.connect("text_updated", self, "update_track_title")
 	audio = Audio.new($AudioStreamPlayer)
 	size_group = $VBox/HB1/VB1/size10.group
 	speed_group = $VBox/HB1/VB2/speed33.group
-	$VBox/HB/VB1/Title.grab_focus()
+	$VBox/HB/VB1/VB1/Title.grab_focus()
 	_on_Pitch_value_changed(0.23)
 	$VBox/HB1/VB3/HB3/Pitch.value = pitch
 	for b in size_group.get_buttons():
 		_e = b.connect("pressed", self, "update_utilizations")
 	for b in speed_group.get_buttons():
 		_e = b.connect("pressed", self, "update_utilizations")
+	for idx in 2:
+		bars[idx].material.set_shader_param("gap_color", gap_color)
+		bars[idx].material.set_shader_param("ok_color", ok_color)
+		bars[idx].material.set_shader_param("warn_color", warn_color)
+		bars[idx].material.set_shader_param("spare_color", spare_color)
 
 
 func get_rpm():
@@ -53,11 +64,15 @@ func add_tracks(items, side):
 	# Add track to list and get meta data from audio file
 	# There are 2 columns of cells in ItemList so divide index by 2
 	for idx in items:
-		var track = g.settings.tracks[idx / 2]
+		var track = g.settings.tracks[idx / 2].duplicate()
 		audio.load_data(track.path)
 		track.title = audio.info.get("title", "")
 		track.band = audio.info.get("band", "")
+		if $VBox/HB/VB1/VB2/Band.text.empty():
+			$VBox/HB/VB1/VB2/Band.text = track.band
 		track.album = audio.info.get("album", "")
+		if $VBox/HB/VB1/VB1/Title.text.empty():
+			$VBox/HB/VB1/VB1/Title.text = track.album
 		track.year = audio.info.get("year", "")
 		track.length = audio.player.stream.get_length()
 		tracks[side].add_item(track.title)
@@ -67,6 +82,7 @@ func add_tracks(items, side):
 
 func _on_DeleteA_pressed():
 	remove_tracks(tracks[SIDE_A])
+	update_utilization(SIDE_A)
 
 
 func remove_tracks(list):
@@ -97,6 +113,7 @@ func _on_PlayA_pressed():
 
 func _on_DeleteB_pressed():
 	remove_tracks(tracks[SIDE_B])
+	update_utilization(SIDE_B)
 
 
 func _on_EditB_pressed():
@@ -163,22 +180,58 @@ func _on_AudioStreamPlayer_finished():
 	set_play_button_text(false)
 
 
+func get_capacity(rpm, size):
+	return (FIRST_MUSIC_GROOVE[size] - LAST_MUSIC_GROOVE[size]) * 60 / rpm / pitch
+
+
 func utilization(rpm, tsecs, size):
-	return rpm / 60 * tsecs * pitch / (FIRST_MUSIC_GROOVE[size] - LAST_MUSIC_GROOVE[size])
+	return tsecs / get_capacity(rpm, size)
 
 
 func update_utilization(side):
-	var u = 0
 	var time = 0
-	var rpm = get_rpm()
-	var size = get_size()
+	var img = Image.new()
+	var idata = PoolByteArray()
+	var overflow = false
+	var capacity = get_capacity(get_rpm(), get_size())
+	var data = PoolByteArray()
 	for idx in tracks[side].get_item_count():
 		var track = tracks[side].get_item_metadata(idx)
-		u += utilization(rpm, track.length, size)
 		time += track.length
-	bars[side].value = u * 100
+		if idx > 0:
+			time += GAP_TIME
+			data.resize(GAP_TIME)
+			data.fill(100)
+			idata.append_array(data)
+		if not overflow:
+			if time > capacity:
+				overflow = true
+				var size = capacity - idata.size()
+				if size > 0:
+					data.resize(size)
+					data.fill(255)
+					idata.append_array(data)
+				break
+			else:
+				data.resize(track.length)
+				data.fill(140)
+				idata.append_array(data)
+	if idata.size() < capacity:
+		data.resize(capacity - idata.size())
+		data.fill(0)
+		idata.append_array(data)
+	img.create_from_data(idata.size(), 1, false, Image.FORMAT_R8, idata)
+	var texture = ImageTexture.new()
+	texture.create_from_image(img, 0)
+	bars[side].material.set_shader_param("data", texture)
 # warning-ignore:integer_division
 	times[side].text = "%02d:%02d" % [int(time) / 60, int(time) % 60]
+	if overflow:
+		times[side].modulate = Color.red
+	else:
+		times[side].modulate = Color.white
+# warning-ignore:integer_division
+	$VBox/HB1/VB3/HB4/Capacity.text = "%02d:%02d" % [int(capacity) / 60, int(capacity) % 60]
 
 
 func _on_Pitch_value_changed(value):

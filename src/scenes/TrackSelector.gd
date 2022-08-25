@@ -14,6 +14,7 @@ func _ready():
 
 
 func open(_side):
+	tracks.unselect_all()
 	side = _side
 	rect_position = (get_viewport().get_visible_rect().size - rect_size) / 2.0
 	show()
