@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://assets/Remove.svg" type="Texture" id=20]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=21]
 [ext_resource path="res://assets/Edit.svg" type="Texture" id=22]
+[ext_resource path="res://assets/button-bar.png" type="Texture" id=23]
+[ext_resource path="res://assets/Stop.svg" type="Texture" id=24]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -42,6 +44,40 @@ shader_param/gap_color = Color( 0.270588, 0.270588, 0.270588, 1 )
 shader_param/ok_color = Color( 0, 0.580392, 0.211765, 1 )
 shader_param/warn_color = Color( 0.701961, 0.247059, 0, 1 )
 shader_param/spare_color = null
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform vec4 max_color : hint_color;
+uniform vec4 min_color : hint_color;
+uniform vec4 top_color : hint_color;
+uniform vec4 base_color : hint_color;
+uniform vec4 bg_color : hint_color;
+uniform sampler2D data;
+uniform float divisor = 8.0;
+
+void fragment() {
+	vec2 pos = vec2(UV.x, 1.0 - UV.y);
+	float level = log(texture(data, pos).r) / divisor;
+	float left = -level;
+	float right = 1.0 + level;
+	float mix_val = abs(UV.x - 0.5) * 2.0;
+	vec4 inner_color = mix(top_color, base_color, UV.y);
+	COLOR = bg_color;
+	if (UV.x < 0.5 && UV.x > left)
+		COLOR = mix(inner_color, max_color, mix_val);
+	if (UV.x >= 0.5 && UV.x < right)
+		COLOR = mix(inner_color, max_color, mix_val);
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/max_color = Color( 0, 0.952941, 1, 1 )
+shader_param/min_color = Color( 0.67451, 0.964706, 1, 1 )
+shader_param/top_color = Color( 0.662745, 1, 0.992157, 1 )
+shader_param/base_color = Color( 0, 0.184314, 0.819608, 1 )
+shader_param/bg_color = Color( 0, 0, 0, 0.141176 )
+shader_param/divisor = 8.0
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.180392, 0.180392, 0.180392, 1 )
@@ -382,11 +418,16 @@ margin_right = 320.0
 margin_bottom = 23.0
 text = "0.23 mm"
 
-[node name="Player" type="Control" parent="VBox/HB1/VB3/HB3"]
+[node name="AudioBar" type="TextureRect" parent="VBox/HB1/VB3/HB3"]
+material = SubResource( 9 )
 margin_left = 340.0
 margin_right = 906.0
 margin_bottom = 23.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
+texture = ExtResource( 23 )
+expand = true
+stretch_mode = 1
 
 [node name="Sp3" type="Control" parent="VBox"]
 margin_top = 348.0
@@ -468,6 +509,13 @@ margin_bottom = 39.0
 hint_tooltip = "Play track"
 icon = ExtResource( 19 )
 
+[node name="StopA" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 486.0
+margin_right = 518.0
+margin_bottom = 39.0
+hint_tooltip = "Play track"
+icon = ExtResource( 24 )
+
 [node name="ATracks" type="ItemList" parent="VBox/HB2/VB1"]
 margin_top = 49.0
 margin_right = 610.0
@@ -542,6 +590,13 @@ margin_right = 466.0
 margin_bottom = 39.0
 hint_tooltip = "Play track"
 icon = ExtResource( 19 )
+
+[node name="StopB" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 486.0
+margin_right = 518.0
+margin_bottom = 39.0
+hint_tooltip = "Play track"
+icon = ExtResource( 24 )
 
 [node name="BTracks" type="ItemList" parent="VBox/HB2/VB2"]
 margin_top = 49.0
@@ -759,6 +814,7 @@ text = "OK"
 [connection signal="pressed" from="VBox/HB2/VB1/HB/Down" to="." method="_on_Down_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/InfoA" to="." method="_on_InfoA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/PlayA" to="." method="_on_PlayA_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB1/HB/StopA" to="." method="_on_Stop_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/AddToB" to="." method="_on_AddToB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/DeleteB" to="." method="_on_DeleteB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/EditB" to="." method="_on_EditB_pressed"]
@@ -766,6 +822,7 @@ text = "OK"
 [connection signal="pressed" from="VBox/HB2/VB2/HB/Down" to="." method="_on_Down_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/InfoB" to="." method="_on_InfoB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/PlayB" to="." method="_on_PlayB_pressed"]
+[connection signal="pressed" from="VBox/HB2/VB2/HB/StopB" to="." method="_on_Stop_pressed"]
 [connection signal="pressed" from="c/TrackSelector/VB/HB/Add" to="c/TrackSelector" method="_on_Add_pressed"]
 [connection signal="pressed" from="c/TrackSelector/VB/HB/Cancel" to="c/TrackSelector" method="_on_Cancel_pressed"]
 [connection signal="pressed" from="c/TrackInfo/VB/HB/OK" to="c/TrackInfo" method="_on_OK_pressed"]

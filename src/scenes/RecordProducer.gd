@@ -8,16 +8,20 @@ const FIRST_MUSIC_GROOVE = [292.1, 168.3, 241.3]
 const RPMS = { "speed33": 33.33, "speed45": 45.0, "speed78": 78.0 }
 const SIZES = [ "size12", "size7", "size10" ]
 const GAP_TIME = 5
+const VU_COUNT = 8
+const FREQ_MAX = 11050.0
 
 onready var tracks = [$VBox/HB2/VB1/ATracks, $VBox/HB2/VB2/BTracks]
 onready var bars = [$VBox/HB1/VB3/HB/UA, $VBox/HB1/VB3/HB2/UB]
 onready var times = [$VBox/HB1/VB3/HB/TimeA, $VBox/HB1/VB3/HB2/TimeB]
+onready var audio_bar = $VBox/HB1/VB3/HB3/AudioBar
 
 var audio
 var current_track
 var pitch
 var size_group
 var speed_group
+var spectrum
 
 export(Color) var gap_color
 export(Color) var ok_color
@@ -42,6 +46,26 @@ func _ready():
 		bars[idx].material.set_shader_param("ok_color", ok_color)
 		bars[idx].material.set_shader_param("warn_color", warn_color)
 		bars[idx].material.set_shader_param("spare_color", spare_color)
+	set_play_state(false)
+	AudioServer.add_bus_effect(0, AudioEffectSpectrumAnalyzer.new())
+	spectrum = AudioServer.get_bus_effect_instance(0, 0)
+
+var count = 0
+func _process(_delta):
+	if audio.player.playing:
+		count += 1
+		var prev_hz = 0
+		var data = PoolByteArray()
+		for i in range(1, VU_COUNT + 1):
+			var hz = i * FREQ_MAX / VU_COUNT;
+			var magnitude = spectrum.get_magnitude_for_frequency_range(prev_hz, hz).length()
+			data.append(255 * clamp(magnitude * 3.0, 0, 1))
+			prev_hz = hz
+		var img = Image.new()
+		img.create_from_data(1, VU_COUNT, false, Image.FORMAT_R8, data)
+		var texture = ImageTexture.new()
+		texture.create_from_image(img, 0)
+		audio_bar.material.set_shader_param("data", texture)
 
 
 func get_rpm():
@@ -77,6 +101,10 @@ func add_tracks(items, side):
 		track.length = audio.player.stream.get_length()
 		tracks[side].add_item(track.title)
 		tracks[side].set_item_metadata(tracks[side].get_item_count() - 1, track)
+		if current_track == null:
+			current_track = track
+			tracks[side].select(tracks[side].get_item_count() - 1)
+			
 	update_utilization(side)
 
 
@@ -103,12 +131,26 @@ func _on_InfoA_pressed():
 
 
 func _on_PlayA_pressed():
-	if audio.player.playing:
-		audio.player.stop()
-	else:
-		load_track(SIDE_A)
+	load_track(SIDE_A)
+	if current_track:
+		set_play_state(true)
+
+
+func set_play_state(play):
+	if play:
 		audio.player.play()
-	set_play_button_text(audio.player.playing)
+		audio_bar.modulate.a = 1
+		$VBox/HB2/VB1/HB/PlayA.hide()
+		$VBox/HB2/VB2/HB/PlayB.hide()
+		$VBox/HB2/VB1/HB/StopA.show()
+		$VBox/HB2/VB2/HB/StopB.show()
+	else:
+		audio.player.stop()
+		audio_bar.modulate.a = 0
+		$VBox/HB2/VB1/HB/PlayA.show()
+		$VBox/HB2/VB2/HB/PlayB.show()
+		$VBox/HB2/VB1/HB/StopA.hide()
+		$VBox/HB2/VB2/HB/StopB.hide()
 
 
 func _on_DeleteB_pressed():
@@ -133,12 +175,9 @@ func _on_InfoB_pressed():
 
 
 func _on_PlayB_pressed():
-	if audio.player.playing:
-		audio.player.stop()
-	else:
-		load_track(SIDE_B)
-		audio.player.play()
-	set_play_button_text(audio.player.playing)
+	load_track(SIDE_B)
+	if current_track:
+		set_play_state(true)
 
 
 func update_track_title(side, idx, txt):
@@ -170,14 +209,8 @@ func load_track(side):
 			current_track = track
 
 
-func set_play_button_text(play = true):
-	var ptext = "Stop" if play else "Play"
-	$VBox/HB2/VB1/HB/PlayA.text = ptext
-	$VBox/HB2/VB2/HB/PlayB.text = ptext
-
-
 func _on_AudioStreamPlayer_finished():
-	set_play_button_text(false)
+	set_play_state(false)
 
 
 func get_capacity(rpm, size):
@@ -243,3 +276,7 @@ func _on_Pitch_value_changed(value):
 func update_utilizations():
 	update_utilization(SIDE_A)
 	update_utilization(SIDE_B)
+
+
+func _on_Stop_pressed():
+	set_play_state(false)
