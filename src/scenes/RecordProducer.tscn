@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -8,9 +8,13 @@
 [ext_resource path="res://scenes/EditPanel.gd" type="Script" id=6]
 [ext_resource path="res://assets/panel.stylebox" type="StyleBox" id=7]
 [ext_resource path="res://scenes/TrackInfo.gd" type="Script" id=8]
-[ext_resource path="res://assets/player-button.png" type="Texture" id=9]
+[ext_resource path="res://assets/a-side.png" type="Texture" id=9]
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/bar.shader" type="Shader" id=11]
+[ext_resource path="res://assets/cover-front.png" type="Texture" id=12]
+[ext_resource path="res://assets/cover-rear.png" type="Texture" id=13]
+[ext_resource path="res://assets/b-side.png" type="Texture" id=14]
+[ext_resource path="res://scenes/HoverTextureButton.gd" type="Script" id=15]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -63,96 +67,114 @@ size_flags_horizontal = 3
 custom_constants/separation = 20
 
 [node name="VB1" type="VBoxContainer" parent="VBox/HB"]
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 148.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.59
 
 [node name="Label" type="Label" parent="VBox/HB/VB1"]
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 2 )
 text = "Record Producer"
 
 [node name="Sp1" type="Control" parent="VBox/HB/VB1"]
 margin_top = 38.0
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 38.0
 
 [node name="VB1" type="VBoxContainer" parent="VBox/HB/VB1"]
 margin_top = 42.0
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 93.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="VBox/HB/VB1/VB1"]
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 3 )
 text = "Title"
 
 [node name="Title" type="LineEdit" parent="VBox/HB/VB1/VB1"]
 margin_top = 27.0
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 51.0
 
 [node name="VB2" type="VBoxContainer" parent="VBox/HB/VB1"]
 margin_top = 97.0
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 148.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="VBox/HB/VB1/VB2"]
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 3 )
 text = "Band / Artist"
 
 [node name="Band" type="LineEdit" parent="VBox/HB/VB1/VB2"]
 margin_top = 27.0
-margin_right = 326.0
+margin_right = 218.0
 margin_bottom = 51.0
 
 [node name="Sp" type="Control" parent="VBox/HB"]
-margin_left = 346.0
-margin_right = 437.0
+margin_left = 238.0
+margin_right = 299.0
 margin_bottom = 148.0
 size_flags_horizontal = 3
 
-[node name="Art" type="GridContainer" parent="VBox/HB"]
-margin_left = 457.0
-margin_right = 605.0
+[node name="VBoxContainer" type="VBoxContainer" parent="VBox/HB"]
+margin_left = 319.0
+margin_right = 635.0
 margin_bottom = 148.0
-custom_constants/vseparation = 20
-custom_constants/hseparation = 20
-columns = 2
 
-[node name="TextureButton" type="TextureButton" parent="VBox/HB/Art"]
+[node name="Sp" type="Control" parent="VBox/HB/VBoxContainer"]
+margin_right = 316.0
+margin_bottom = 53.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBox/HB/VBoxContainer"]
+margin_top = 57.0
+margin_right = 316.0
+margin_bottom = 80.0
+custom_fonts/font = ExtResource( 3 )
+text = "Artwork"
+
+[node name="Art" type="HBoxContainer" parent="VBox/HB/VBoxContainer"]
+margin_top = 84.0
+margin_right = 316.0
+margin_bottom = 148.0
+custom_constants/separation = 20
+
+[node name="FrontCover" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
 margin_right = 64.0
 margin_bottom = 64.0
-texture_normal = ExtResource( 9 )
+texture_normal = ExtResource( 12 )
+script = ExtResource( 15 )
 
-[node name="TextureButton2" type="TextureButton" parent="VBox/HB/Art"]
+[node name="RearCover" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
 margin_left = 84.0
 margin_right = 148.0
 margin_bottom = 64.0
-texture_normal = ExtResource( 9 )
+texture_normal = ExtResource( 13 )
+script = ExtResource( 15 )
 
-[node name="TextureButton3" type="TextureButton" parent="VBox/HB/Art"]
-margin_top = 84.0
-margin_right = 64.0
-margin_bottom = 148.0
+[node name="ASide" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
+margin_left = 168.0
+margin_right = 232.0
+margin_bottom = 64.0
 texture_normal = ExtResource( 9 )
+script = ExtResource( 15 )
 
-[node name="TextureButton4" type="TextureButton" parent="VBox/HB/Art"]
-margin_left = 84.0
-margin_top = 84.0
-margin_right = 148.0
-margin_bottom = 148.0
-texture_normal = ExtResource( 9 )
+[node name="BSide" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
+margin_left = 252.0
+margin_right = 316.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 14 )
+script = ExtResource( 15 )
 
 [node name="Sp2" type="Control" parent="VBox/HB"]
-margin_left = 625.0
+margin_left = 655.0
 margin_right = 715.0
 margin_bottom = 148.0
 size_flags_horizontal = 3

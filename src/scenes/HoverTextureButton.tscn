@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/HoverTextureButton.gd" type="Script" id=1]
+[ext_resource path="res://assets/cover-front.png" type="Texture" id=2]
+
+[node name="HoverTextureButton" type="TextureButton"]
+modulate = Color( 0.745098, 0.745098, 0.745098, 1 )
+margin_right = 64.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 2 )
+script = ExtResource( 1 )
+mod_color = Color( 0.6, 0.203922, 0.203922, 1 )
+
+[connection signal="mouse_entered" from="." to="." method="_on_HoverTextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_HoverTextureButton_mouse_exited"]
