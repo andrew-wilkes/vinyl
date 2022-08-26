@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -15,6 +15,13 @@
 [ext_resource path="res://assets/cover-rear.png" type="Texture" id=13]
 [ext_resource path="res://assets/b-side.png" type="Texture" id=14]
 [ext_resource path="res://scenes/HoverTextureButton.gd" type="Script" id=15]
+[ext_resource path="res://assets/Add.svg" type="Texture" id=16]
+[ext_resource path="res://assets/info.png" type="Texture" id=17]
+[ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=18]
+[ext_resource path="res://assets/MainPlay.svg" type="Texture" id=19]
+[ext_resource path="res://assets/Remove.svg" type="Texture" id=20]
+[ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=21]
+[ext_resource path="res://assets/Edit.svg" type="Texture" id=22]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -414,45 +421,52 @@ text = "Side A Tracks"
 
 [node name="AddToA" type="Button" parent="VBox/HB2/VB1/HB"]
 margin_left = 124.0
-margin_right = 170.0
+margin_right = 156.0
 margin_bottom = 39.0
-text = "Add"
+hint_tooltip = "Add tracks"
+icon = ExtResource( 16 )
 
 [node name="DeleteA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 190.0
-margin_right = 255.0
+margin_left = 176.0
+margin_right = 208.0
 margin_bottom = 39.0
-text = "Delete"
+hint_tooltip = "Remove selected tracks"
+icon = ExtResource( 20 )
 
 [node name="EditA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 275.0
-margin_right = 320.0
+margin_left = 228.0
+margin_right = 260.0
 margin_bottom = 39.0
-text = "Edit"
+hint_tooltip = "Edit track title"
+icon = ExtResource( 22 )
 
 [node name="Up" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 340.0
-margin_right = 378.0
+margin_left = 280.0
+margin_right = 312.0
 margin_bottom = 39.0
-text = "Up"
+hint_tooltip = "Move selected tracks up"
+icon = ExtResource( 21 )
 
 [node name="Down" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 398.0
-margin_right = 459.0
+margin_left = 332.0
+margin_right = 364.0
 margin_bottom = 39.0
-text = "Down"
+hint_tooltip = "Move selected tracks down"
+icon = ExtResource( 18 )
 
 [node name="InfoA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 479.0
-margin_right = 526.0
+margin_left = 384.0
+margin_right = 414.0
 margin_bottom = 39.0
-text = "Info"
+hint_tooltip = "Show track info."
+icon = ExtResource( 17 )
 
 [node name="PlayA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 546.0
-margin_right = 593.0
+margin_left = 434.0
+margin_right = 466.0
 margin_bottom = 39.0
-text = "Play"
+hint_tooltip = "Play track"
+icon = ExtResource( 19 )
 
 [node name="ATracks" type="ItemList" parent="VBox/HB2/VB1"]
 margin_top = 49.0
@@ -482,45 +496,52 @@ text = "Side B Tracks"
 
 [node name="AddToB" type="Button" parent="VBox/HB2/VB2/HB"]
 margin_left = 124.0
-margin_right = 170.0
+margin_right = 156.0
 margin_bottom = 39.0
-text = "Add"
+hint_tooltip = "Add tracks"
+icon = ExtResource( 16 )
 
 [node name="DeleteB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 190.0
-margin_right = 255.0
+margin_left = 176.0
+margin_right = 208.0
 margin_bottom = 39.0
-text = "Delete"
+hint_tooltip = "Remove selected tracks"
+icon = ExtResource( 20 )
 
 [node name="EditB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 275.0
-margin_right = 320.0
+margin_left = 228.0
+margin_right = 260.0
 margin_bottom = 39.0
-text = "Edit"
+hint_tooltip = "Edit track title"
+icon = ExtResource( 22 )
 
 [node name="Up" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 340.0
-margin_right = 378.0
+margin_left = 280.0
+margin_right = 312.0
 margin_bottom = 39.0
-text = "Up"
+hint_tooltip = "Move selected tracks up"
+icon = ExtResource( 21 )
 
 [node name="Down" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 398.0
-margin_right = 459.0
+margin_left = 332.0
+margin_right = 364.0
 margin_bottom = 39.0
-text = "Down"
+hint_tooltip = "Move selected tracks down"
+icon = ExtResource( 18 )
 
 [node name="InfoB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 479.0
-margin_right = 526.0
+margin_left = 384.0
+margin_right = 414.0
 margin_bottom = 39.0
-text = "Info"
+hint_tooltip = "Show track info."
+icon = ExtResource( 17 )
 
 [node name="PlayB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 546.0
-margin_right = 593.0
+margin_left = 434.0
+margin_right = 466.0
 margin_bottom = 39.0
-text = "Play"
+hint_tooltip = "Play track"
+icon = ExtResource( 19 )
 
 [node name="BTracks" type="ItemList" parent="VBox/HB2/VB2"]
 margin_top = 49.0
