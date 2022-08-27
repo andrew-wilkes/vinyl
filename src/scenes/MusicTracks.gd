@@ -1,7 +1,6 @@
 extends Control
 
 onready var items: ItemList = find_node("TrackList")
-onready var path_list: ItemList = find_node("PathList")
 onready var headings = find_node("Headings")
 
 func _ready():
@@ -35,11 +34,11 @@ func _on_Remove_pressed():
 		g.settings.tracks.remove(idx - array_offset)
 		array_offset += 1
 		items.remove_item(idx - list_offset)
-		path_list.remove_item(idx - list_offset)
+		list_offset += 1
+		items.remove_item(idx - list_offset)
 		list_offset += 1
 
 
 func add_item(track):
 	items.add_item(track.title)
-	path_list.add_item(track.path.get_base_dir(), null, false)
-	#items.add_item(track.path.get_base_dir().split("/")[-1], null, false)
+	items.add_item("     " + track.path.get_base_dir(), null, false)

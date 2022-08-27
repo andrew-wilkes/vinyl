@@ -50,10 +50,9 @@ func _ready():
 	AudioServer.add_bus_effect(0, AudioEffectSpectrumAnalyzer.new())
 	spectrum = AudioServer.get_bus_effect_instance(0, 0)
 
-var count = 0
+
 func _process(_delta):
 	if audio.player.playing:
-		count += 1
 		var prev_hz = 0
 		var data = PoolByteArray()
 		for i in range(1, VU_COUNT + 1):

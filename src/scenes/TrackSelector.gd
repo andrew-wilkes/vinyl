@@ -2,15 +2,16 @@ extends PanelContainer
 
 signal add_tracks(items, side)
 
-onready var tracks = $VB/SC/Tracks
+onready var tracks = $VB/Tracks
 
 var side
 
 func _ready():
 	hide()
-	for track in g.settings.tracks:
-		tracks.add_item(track.title)
-		tracks.add_item(track.path.get_base_dir().split("/")[-1], null, false)
+	for n in 4:
+		for track in g.settings.tracks:
+			tracks.add_item(track.title)
+			tracks.add_item("     " + track.path.get_base_dir().split("/")[-1], null, false)
 
 
 func open(_side):

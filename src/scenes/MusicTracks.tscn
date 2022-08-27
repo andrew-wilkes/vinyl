@@ -50,12 +50,12 @@ margin_right = 1240.0
 margin_bottom = 93.0
 
 [node name="Select" type="Button" parent="VB/Menu"]
-margin_right = 96.0
+margin_right = 101.0
 margin_bottom = 39.0
-text = "Select files"
+text = "Locate files"
 
 [node name="Spacer" type="Control" parent="VB/Menu"]
-margin_left = 100.0
+margin_left = 105.0
 margin_right = 1092.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
@@ -71,48 +71,20 @@ margin_top = 103.0
 margin_right = 1240.0
 margin_bottom = 103.0
 
-[node name="Headings" type="HBoxContainer" parent="VB"]
+[node name="Heading" type="Label" parent="VB"]
 margin_top = 113.0
 margin_right = 1240.0
-margin_bottom = 136.0
-custom_constants/separation = 0
-
-[node name="Filename" type="Label" parent="VB/Headings"]
-margin_right = 620.0
-margin_bottom = 23.0
+margin_bottom = 162.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
-text = "Filename"
+text = "Filename
+      Directory"
 
-[node name="Path" type="Label" parent="VB/Headings"]
-margin_left = 620.0
-margin_right = 1240.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 2 )
-text = "Path"
-
-[node name="HB" type="HBoxContainer" parent="VB"]
-margin_top = 146.0
+[node name="TrackList" type="ItemList" parent="VB"]
+margin_top = 172.0
 margin_right = 1240.0
 margin_bottom = 760.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 0
-
-[node name="TrackList" type="ItemList" parent="VB/HB"]
-margin_right = 620.0
-margin_bottom = 614.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/hseparation = 10
-select_mode = 1
-
-[node name="PathList" type="ItemList" parent="VB/HB"]
-margin_left = 620.0
-margin_right = 1240.0
-margin_bottom = 614.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/hseparation = 10
