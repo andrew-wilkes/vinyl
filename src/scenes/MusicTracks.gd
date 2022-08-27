@@ -1,6 +1,7 @@
 extends Control
 
-onready var items: ItemList = find_node("ItemList")
+onready var items: ItemList = find_node("TrackList")
+onready var path_list: ItemList = find_node("PathList")
 onready var headings = find_node("Headings")
 
 func _ready():
@@ -31,32 +32,14 @@ func _on_Remove_pressed():
 	var list_offset = 0
 	var array_offset = 0
 	for idx in items.get_selected_items():
-		g.settings.tracks.remove(idx / 3 - array_offset)
+		g.settings.tracks.remove(idx - array_offset)
 		array_offset += 1
-		for n in 3:
-			items.remove_item(idx + n - list_offset)
-			list_offset += 1
+		items.remove_item(idx - list_offset)
+		path_list.remove_item(idx - list_offset)
+		list_offset += 1
 
 
 func add_item(track):
 	items.add_item(track.title)
-	items.add_item(track.path.get_base_dir().split("/")[-1], null, false)
-	items.add_item(track.path.get_base_dir(), null, false)
-
-
-func _on_SC_sort_children():
-	var max_chars = 0
-	var text = ""
-	for idx in items.get_item_count():
-		var txt = items.get_item_text(idx)
-		var n = txt.length()
-		if n > max_chars:
-			max_chars = n
-			text = txt
-	if max_chars > 0:
-		$c/Text.text = text
-		$c/Text.rect_size.x = 0
-		yield(get_tree(), "idle_frame")
-		for n in 2:
-			headings.get_child(n).rect_min_size.x = $c/Text.rect_size.x
-
+	path_list.add_item(track.path.get_base_dir(), null, false)
+	#items.add_item(track.path.get_base_dir().split("/")[-1], null, false)

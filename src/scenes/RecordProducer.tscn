@@ -513,7 +513,7 @@ icon = ExtResource( 19 )
 margin_left = 486.0
 margin_right = 518.0
 margin_bottom = 39.0
-hint_tooltip = "Play track"
+hint_tooltip = "Stop playing"
 icon = ExtResource( 24 )
 
 [node name="ATracks" type="ItemList" parent="VBox/HB2/VB1"]
@@ -595,7 +595,7 @@ icon = ExtResource( 19 )
 margin_left = 486.0
 margin_right = 518.0
 margin_bottom = 39.0
-hint_tooltip = "Play track"
+hint_tooltip = "Stop playing"
 icon = ExtResource( 24 )
 
 [node name="BTracks" type="ItemList" parent="VBox/HB2/VB2"]

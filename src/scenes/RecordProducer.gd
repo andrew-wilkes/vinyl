@@ -101,10 +101,8 @@ func add_tracks(items, side):
 		track.length = audio.player.stream.get_length()
 		tracks[side].add_item(track.title)
 		tracks[side].set_item_metadata(tracks[side].get_item_count() - 1, track)
-		if current_track == null:
-			current_track = track
-			tracks[side].select(tracks[side].get_item_count() - 1)
-			
+		current_track = track
+	tracks[side].select(tracks[side].get_item_count() - 1)
 	update_utilization(side)
 
 

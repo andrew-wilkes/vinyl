@@ -78,44 +78,45 @@ margin_bottom = 136.0
 custom_constants/separation = 0
 
 [node name="Filename" type="Label" parent="VB/Headings"]
-margin_right = 100.0
+margin_right = 620.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 text = "Filename"
 
-[node name="Directory" type="Label" parent="VB/Headings"]
-margin_left = 100.0
-margin_right = 200.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 100, 0 )
-custom_fonts/font = ExtResource( 2 )
-text = "Directory"
-
 [node name="Path" type="Label" parent="VB/Headings"]
-margin_left = 200.0
-margin_right = 238.0
+margin_left = 620.0
+margin_right = 1240.0
 margin_bottom = 23.0
+size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 text = "Path"
 
-[node name="SC" type="ScrollContainer" parent="VB"]
+[node name="HB" type="HBoxContainer" parent="VB"]
 margin_top = 146.0
 margin_right = 1240.0
 margin_bottom = 760.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-scroll_horizontal_enabled = false
+custom_constants/separation = 0
 
-[node name="ItemList" type="ItemList" parent="VB/SC"]
-margin_right = 1240.0
-margin_bottom = 9.0
+[node name="TrackList" type="ItemList" parent="VB/HB"]
+margin_right = 620.0
+margin_bottom = 614.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/hseparation = 10
 select_mode = 1
-auto_height = true
-max_columns = 3
-same_column_width = true
+
+[node name="PathList" type="ItemList" parent="VB/HB"]
+margin_left = 620.0
+margin_right = 1240.0
+margin_bottom = 614.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 10
+select_mode = 1
 
 [node name="c" type="CanvasLayer" parent="."]
 
@@ -128,4 +129,3 @@ text = "Text"
 [connection signal="files_selected" from="FileDialog" to="." method="_on_FileDialog_files_selected"]
 [connection signal="pressed" from="VB/Menu/Select" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VB/Menu/Remove" to="." method="_on_Remove_pressed"]
-[connection signal="sort_children" from="VB/SC" to="." method="_on_SC_sort_children"]
