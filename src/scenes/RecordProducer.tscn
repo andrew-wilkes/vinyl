@@ -608,6 +608,7 @@ select_mode = 1
 [node name="c" type="CanvasLayer" parent="."]
 
 [node name="TrackSelector" type="PanelContainer" parent="c"]
+visible = false
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 936.0
