@@ -5,7 +5,9 @@ class_name Album
 export var title = ""
 export var band = ""
 export var genre = ""
-export var type = 0
+export var size = ""
+export var rpm = ""
+export var pitch = 0.23
 export var front_image = ""
 export var rear_image = ""
 export var label = ""

@@ -17,25 +17,67 @@ onready var times = [$VBox/HB1/VB3/HB/TimeA, $VBox/HB1/VB3/HB2/TimeB]
 onready var audio_bar = $VBox/HB1/VB3/HB3/AudioBar
 
 var audio
+var spectrum
 var current_track
 var pitch
 var size_group
 var speed_group
-var spectrum
 
 export(Color) var gap_color
 export(Color) var ok_color
 export(Color) var warn_color
 export(Color) var spare_color
 
+func load_album(id):
+	g.settings.album_id = id
+	var album = g.settings.albums[id]
+	$VBox/HB/VB1/VB1/Title.text = album.title
+	$VBox/HB/VB1/VB2/Band.text = album.band
+	for button in size_group.get_buttons():
+		if button.name == album.size: button.pressed = true
+	for button in speed_group.get_buttons():
+		if button.name == album.rpm: button.pressed = true
+	set_pitch(album.pitch)
+	tracks[SIDE_A].clear()
+	tracks[SIDE_B].clear()
+	add_tracks(album.a_side, SIDE_A)
+	add_tracks(album.b_side, SIDE_B)
+	update_utilizations()
+
+
+func new_album():
+	g.settings.new_album()
+	clear_record()
+
+
+func clear_record():
+	tracks[SIDE_A].clear()
+	tracks[SIDE_B].clear()
+	$VBox/HB/VB1/VB1/Title.text = ""
+	$VBox/HB/VB1/VB2/Band.text = ""
+	size_group.get_buttons()[0].pressed = true
+	speed_group.get_buttons()[0].pressed = true
+	set_pitch(2.3)
+	update_utilizations()
+
+
+func delete_album():
+	g.settings.delete_album()
+	new_album()
+
+
 func _ready():
+	if g.settings.album_id:
+		load_album(g.settings.album_id)
+	else:
+		g.settings.new_album()
 	var _e = $c/TrackSelector.connect("add_tracks", self, "add_tracks")
 	_e = $c/EditPanel.connect("text_updated", self, "update_track_title")
 	audio = Audio.new($AudioStreamPlayer)
 	size_group = $VBox/HB1/VB1/size10.group
 	speed_group = $VBox/HB1/VB2/speed33.group
 	$VBox/HB/VB1/VB1/Title.grab_focus()
-	_on_Pitch_value_changed(0.23)
+	set_pitch(0.23)
 	$VBox/HB1/VB3/HB3/Pitch.value = pitch
 	for b in size_group.get_buttons():
 		_e = b.connect("pressed", self, "update_utilizations")
@@ -68,11 +110,15 @@ func _process(_delta):
 
 
 func get_rpm():
-	return RPMS[speed_group.get_pressed_button().name]
+	var rpm = speed_group.get_pressed_button().name
+	g.settings.set_album_property("rpm", rpm)
+	return RPMS[rpm]
 
 
 func get_size():
-	return SIZES.find(size_group.get_pressed_button().name)
+	var size = size_group.get_pressed_button().name
+	g.settings.set_album_property("size", size)
+	return SIZES.find(size)
 
 
 func _on_AddToA_pressed():
@@ -101,19 +147,22 @@ func add_tracks(items, side):
 		tracks[side].add_item(track.title)
 		tracks[side].set_item_metadata(tracks[side].get_item_count() - 1, track)
 		current_track = track
-	tracks[side].select(tracks[side].get_item_count() - 1)
+	if items.size() > 0:
+		tracks[side].select(tracks[side].get_item_count() - 1)
 	update_utilization(side)
 
 
 func _on_DeleteA_pressed():
-	remove_tracks(tracks[SIDE_A])
+	remove_tracks(SIDE_A)
 	update_utilization(SIDE_A)
 
 
-func remove_tracks(list):
+func remove_tracks(side):
 	var list_offset = 0
-	for idx in list.get_selected_items():
-		list.remove_item(idx - list_offset)
+	for idx in tracks[side].get_selected_items():
+		var track = tracks[side].get_item_metadata(idx - list_offset)
+		g.settings.remove_track(side, track)
+		tracks[side].remove_item(idx - list_offset)
 		list_offset += 1
 
 
@@ -151,7 +200,7 @@ func set_play_state(play):
 
 
 func _on_DeleteB_pressed():
-	remove_tracks(tracks[SIDE_B])
+	remove_tracks(SIDE_B)
 	update_utilization(SIDE_B)
 
 
@@ -265,9 +314,14 @@ func update_utilization(side):
 
 
 func _on_Pitch_value_changed(value):
+	set_pitch(value)
+
+
+func set_pitch(value):
 	$VBox/HB1/VB3/HB3/PV.text = "%0.2f mm" % value
 	pitch = value
 	update_utilizations()
+	g.settings.set_album_property("pitch", value)
 
 
 func update_utilizations():
@@ -280,16 +334,28 @@ func _on_Stop_pressed():
 
 
 func _on_New_pressed():
-	pass # Replace with function body.
+	new_album()
 
 
 func _on_Load_pressed():
-	pass # Replace with function body.
+	$c/AlbumSelector.open()
 
 
 func _on_Delete_pressed():
-	pass # Replace with function body.
+	$c/ConfirmDelete.popup_centered()
 
 
 func _on_ConfirmDelete_confirmed():
-	pass # Replace with function body.
+	delete_album()
+
+
+func _on_Title_text_changed(new_text):
+	g.settings.set_album_property("title", new_text)
+
+
+func _on_Band_text_changed(new_text):
+	g.settings.set_album_property("band", new_text)
+
+
+func _on_AlbumSelector_album_selected(album_id):
+	load_album(album_id)

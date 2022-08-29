@@ -5,7 +5,7 @@ var settings
 func _init():
 	settings = Settings.new()
 	settings = settings.load_data()
-
+	pass
 
 func _unhandled_input(event):
 	if event is InputEventKey:

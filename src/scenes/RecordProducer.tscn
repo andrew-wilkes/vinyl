@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://assets/button-bar.png" type="Texture" id=23]
 [ext_resource path="res://assets/Stop.svg" type="Texture" id=24]
 [ext_resource path="res://assets/rec-stack.png" type="Texture" id=25]
+[ext_resource path="res://scenes/AlbumSelector.gd" type="Script" id=26]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -672,7 +673,6 @@ size_flags_vertical = 3
 custom_constants/hseparation = 10
 custom_styles/bg = SubResource( 4 )
 select_mode = 1
-same_column_width = true
 
 [node name="HB" type="HBoxContainer" parent="c/TrackSelector/VB"]
 margin_top = 375.0
@@ -695,6 +695,38 @@ margin_left = 819.0
 margin_right = 876.0
 margin_bottom = 39.0
 text = "Close"
+
+[node name="AlbumSelector" type="PanelContainer" parent="c"]
+visible = false
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 440.0
+margin_bottom = 424.0
+theme = ExtResource( 4 )
+custom_styles/panel = ExtResource( 7 )
+script = ExtResource( 26 )
+
+[node name="VB" type="VBoxContainer" parent="c/AlbumSelector"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 400.0
+margin_bottom = 384.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="c/AlbumSelector/VB"]
+margin_right = 380.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+text = "Select Album"
+
+[node name="Albums" type="ItemList" parent="c/AlbumSelector/VB"]
+margin_top = 54.0
+margin_right = 380.0
+margin_bottom = 364.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 10
+custom_styles/bg = SubResource( 4 )
 
 [node name="TrackInfo" type="PanelContainer" parent="c"]
 visible = false
@@ -840,6 +872,8 @@ dialog_text = "Do you really want to delete this record?"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
+[connection signal="text_changed" from="VBox/HB/VB1/VB1/Title" to="." method="_on_Title_text_changed"]
+[connection signal="text_changed" from="VBox/HB/VB1/VB2/Band" to="." method="_on_Band_text_changed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Delete" to="." method="_on_Delete_pressed"]
@@ -862,6 +896,8 @@ dialog_text = "Do you really want to delete this record?"
 [connection signal="pressed" from="VBox/HB2/VB2/HB/StopB" to="." method="_on_Stop_pressed"]
 [connection signal="pressed" from="c/TrackSelector/VB/HB/Add" to="c/TrackSelector" method="_on_Add_pressed"]
 [connection signal="pressed" from="c/TrackSelector/VB/HB/Cancel" to="c/TrackSelector" method="_on_Cancel_pressed"]
+[connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
+[connection signal="item_selected" from="c/AlbumSelector/VB/Albums" to="c/AlbumSelector" method="_on_Albums_item_selected"]
 [connection signal="pressed" from="c/TrackInfo/VB/HB/OK" to="c/TrackInfo" method="_on_OK_pressed"]
 [connection signal="text_entered" from="c/EditPanel/HB/LineEdit" to="c/EditPanel" method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]
