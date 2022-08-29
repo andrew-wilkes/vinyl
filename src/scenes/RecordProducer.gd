@@ -40,8 +40,8 @@ func load_album(id):
 	set_pitch(album.pitch)
 	tracks[SIDE_A].clear()
 	tracks[SIDE_B].clear()
-	add_tracks(album.a_side, SIDE_A)
-	add_tracks(album.b_side, SIDE_B)
+	add_tracks(album.a_side, SIDE_A, false)
+	add_tracks(album.b_side, SIDE_B, false)
 	update_utilizations()
 
 
@@ -129,23 +129,27 @@ func _on_AddToB_pressed():
 	$c/TrackSelector.open(SIDE_B)
 
 
-func add_tracks(items, side):
+func add_tracks(items, side, new_tracks = true):
 	# Add track to list and get meta data from audio file
 	# There are 2 columns of cells in ItemList so divide index by 2
-	for idx in items:
-		var track = g.settings.tracks[idx / 2].duplicate()
+	for item in items:
+		var track = item if item is Track else g.settings.tracks[item / 2].duplicate()
 		audio.load_data(track.path)
 		track.title = audio.info.get("title", "")
 		track.band = audio.info.get("band", "")
 		if $VBox/HB/VB1/VB2/Band.text.empty():
 			$VBox/HB/VB1/VB2/Band.text = track.band
+			g.settings.set_album_property("band", track.band)
 		track.album = audio.info.get("album", "")
 		if $VBox/HB/VB1/VB1/Title.text.empty():
 			$VBox/HB/VB1/VB1/Title.text = track.album
+			g.settings.set_album_property("title", track.album)
 		track.year = audio.info.get("year", "")
 		track.length = audio.player.stream.get_length()
 		tracks[side].add_item(track.title)
 		tracks[side].set_item_metadata(tracks[side].get_item_count() - 1, track)
+		if new_tracks:
+			g.settings.add_track(side, track)
 		current_track = track
 	if items.size() > 0:
 		tracks[side].select(tracks[side].get_item_count() - 1)
