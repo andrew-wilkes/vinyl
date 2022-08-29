@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://assets/Edit.svg" type="Texture" id=22]
 [ext_resource path="res://assets/button-bar.png" type="Texture" id=23]
 [ext_resource path="res://assets/Stop.svg" type="Texture" id=24]
+[ext_resource path="res://assets/rec-stack.png" type="Texture" id=25]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -171,7 +172,39 @@ margin_left = 319.0
 margin_right = 635.0
 margin_bottom = 148.0
 
+[node name="Menu" type="HBoxContainer" parent="VBox/HB/VBoxContainer"]
+margin_right = 316.0
+margin_bottom = 39.0
+custom_constants/separation = 20
+
+[node name="New" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
+margin_right = 32.0
+margin_bottom = 39.0
+hint_tooltip = "Produce new record"
+icon = ExtResource( 16 )
+
+[node name="Load" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
+margin_left = 52.0
+margin_right = 86.0
+margin_bottom = 39.0
+hint_tooltip = "Load record"
+icon = ExtResource( 25 )
+
+[node name="Sp" type="Control" parent="VBox/HB/VBoxContainer/Menu"]
+margin_left = 106.0
+margin_right = 264.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+
+[node name="Delete" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
+margin_left = 284.0
+margin_right = 316.0
+margin_bottom = 39.0
+hint_tooltip = "Delete record"
+icon = ExtResource( 20 )
+
 [node name="Sp" type="Control" parent="VBox/HB/VBoxContainer"]
+margin_top = 43.0
 margin_right = 316.0
 margin_bottom = 53.0
 size_flags_vertical = 3
@@ -799,8 +832,17 @@ margin_right = 335.0
 margin_bottom = 24.0
 text = "OK"
 
+[node name="ConfirmDelete" type="ConfirmationDialog" parent="c"]
+margin_right = 322.0
+margin_bottom = 112.0
+theme = ExtResource( 4 )
+dialog_text = "Do you really want to delete this record?"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/New" to="." method="_on_New_pressed"]
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Load" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Delete" to="." method="_on_Delete_pressed"]
 [connection signal="value_changed" from="VBox/HB1/VB3/HB3/Pitch" to="." method="_on_Pitch_value_changed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/AddToA" to="." method="_on_AddToA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/DeleteA" to="." method="_on_DeleteA_pressed"]
@@ -823,4 +865,5 @@ text = "OK"
 [connection signal="pressed" from="c/TrackInfo/VB/HB/OK" to="c/TrackInfo" method="_on_OK_pressed"]
 [connection signal="text_entered" from="c/EditPanel/HB/LineEdit" to="c/EditPanel" method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]
+[connection signal="confirmed" from="c/ConfirmDelete" to="." method="_on_ConfirmDelete_confirmed"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

@@ -277,3 +277,19 @@ func update_utilizations():
 
 func _on_Stop_pressed():
 	set_play_state(false)
+
+
+func _on_New_pressed():
+	pass # Replace with function body.
+
+
+func _on_Load_pressed():
+	pass # Replace with function body.
+
+
+func _on_Delete_pressed():
+	pass # Replace with function body.
+
+
+func _on_ConfirmDelete_confirmed():
+	pass # Replace with function body.
