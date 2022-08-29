@@ -138,7 +138,7 @@ size_flags_horizontal = 3
 margin_right = 218.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 3 )
-text = "Title"
+text = "Album Title"
 
 [node name="Title" type="LineEdit" parent="VBox/HB/VB1/VB1"]
 margin_top = 27.0
@@ -181,14 +181,14 @@ custom_constants/separation = 20
 [node name="New" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
 margin_right = 32.0
 margin_bottom = 39.0
-hint_tooltip = "Produce new record"
+hint_tooltip = "Produce new album"
 icon = ExtResource( 16 )
 
 [node name="Load" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
 margin_left = 52.0
 margin_right = 86.0
 margin_bottom = 39.0
-hint_tooltip = "Load record"
+hint_tooltip = "Load album"
 icon = ExtResource( 25 )
 
 [node name="Sp" type="Control" parent="VBox/HB/VBoxContainer/Menu"]
@@ -201,7 +201,7 @@ size_flags_horizontal = 3
 margin_left = 284.0
 margin_right = 316.0
 margin_bottom = 39.0
-hint_tooltip = "Delete record"
+hint_tooltip = "Delete album"
 icon = ExtResource( 20 )
 
 [node name="Sp" type="Control" parent="VBox/HB/VBoxContainer"]
