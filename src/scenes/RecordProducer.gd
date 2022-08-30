@@ -67,15 +67,15 @@ func delete_album():
 
 
 func _ready():
-	if g.settings.album_id:
-		load_album(g.settings.album_id)
-	else:
-		g.settings.new_album()
 	var _e = $c/TrackSelector.connect("add_tracks", self, "add_tracks")
 	_e = $c/EditPanel.connect("text_updated", self, "update_track_title")
 	audio = Audio.new($AudioStreamPlayer)
 	size_group = $VBox/HB1/VB1/size10.group
 	speed_group = $VBox/HB1/VB2/speed33.group
+	if g.settings.album_id:
+		load_album(g.settings.album_id)
+	else:
+		g.settings.new_album()
 	$VBox/HB/VB1/VB1/Title.grab_focus()
 	set_pitch(0.23)
 	$VBox/HB1/VB3/HB3/Pitch.value = pitch

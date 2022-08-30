@@ -1,7 +1,7 @@
 extends Control
 
 func _on_Tracks_pressed():
-	var _e = get_tree().change_scene("res://scenes/MusicTracks.tscn")
+	$c/Fader.fade_out("MusicTracks")
 
 
 func _on_Artwork_pressed():

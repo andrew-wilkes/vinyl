@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/UI.theme" type="Theme" id=1]
 [ext_resource path="res://assets/tracks-button.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/collection-button.png" type="Texture" id=7]
 [ext_resource path="res://assets/player-button.png" type="Texture" id=8]
 [ext_resource path="res://scenes/Navigation.gd" type="Script" id=9]
+[ext_resource path="res://scenes/Fader.tscn" type="PackedScene" id=10]
 
 [node name="Navigation" type="PanelContainer"]
 margin_right = 14.0
@@ -123,3 +124,7 @@ margin_top = 69.0
 margin_right = 64.0
 margin_bottom = 77.0
 texture = ExtResource( 4 )
+
+[node name="c" type="CanvasLayer" parent="."]
+
+[node name="Fader" parent="c" instance=ExtResource( 10 )]

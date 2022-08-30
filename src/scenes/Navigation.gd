@@ -26,7 +26,7 @@ func _ready():
 func button_pressed(idx):
 	hovered_bar = null
 	if idx != current_selection:
-		var _e = get_tree().change_scene("res://scenes/" + scenes[idx] + ".tscn")
+		$c/Fader.fade_out(scenes[idx])
 
 
 func mouse_entered(idx):
