@@ -1,12 +1,12 @@
 extends PanelContainer
 
-signal nav_button_pressed(idx)
-
-var current_selection = 0
 var hovered_bar
 
+export var current_selection = 0
 export var selected_color = Color.green
 export var hovered_color = Color.yellow
+
+const scenes = ["MusicTracks", "AlbumArt", "RecordProducer", "MusicLibrary", "Turntable", "Gear"]
 
 func _ready():
 	for n in $HBox.get_child_count():
@@ -14,28 +14,25 @@ func _ready():
 		var _e = node.get_child(0).connect("pressed", self, "button_pressed", [n])
 		_e = node.get_child(0).connect("mouse_entered", self, "mouse_entered", [n])
 		_e = node.get_child(0).connect("mouse_exited", self, "mouse_exited")
-		node.get_child(1).visible = n < 1
-		node.get_child(1).modulate = selected_color
+		var bar = node.get_child(1)
+		if n == current_selection:
+			bar.show()
+			bar.modulate = selected_color
+		else:
+			bar.hide()
+			bar.modulate = hovered_color
 
 
 func button_pressed(idx):
-	current_selection = idx
 	hovered_bar = null
-	for n in $HBox.get_child_count():
-		var bar = $HBox.get_child(n).get_child(1)
-		if  n == idx:
-			bar.modulate = selected_color
-			bar.show()
-		else:
-			bar.hide()
-	emit_signal("nav_button_pressed", idx)
+	if idx != current_selection:
+		var _e = get_tree().change_scene("res://scenes/" + scenes[idx] + ".tscn")
 
 
 func mouse_entered(idx):
 	hovered_bar = null
 	if idx != current_selection:
 		hovered_bar = $HBox.get_child(idx).get_child(1) 
-		hovered_bar.modulate = hovered_color
 		hovered_bar.show()
 
 

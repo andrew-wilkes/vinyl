@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/gear-button.png" type="Texture" id=1]
+[ext_resource path="res://scenes/Main.gd" type="Script" id=2]
+[ext_resource path="res://assets/artwork-button.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/NotoSansUI_Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/collection-button.png" type="Texture" id=5]
+[ext_resource path="res://assets/tracks-button.png" type="Texture" id=6]
+[ext_resource path="res://assets/production-button.png" type="Texture" id=7]
+[ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=8]
+[ext_resource path="res://assets/player-button.png" type="Texture" id=9]
+[ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 72
+font_data = ExtResource( 4 )
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="C" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VB" type="VBoxContainer" parent="C"]
+margin_left = 426.0
+margin_top = 53.0
+margin_right = 854.0
+margin_bottom = 746.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="C/VB"]
+margin_right = 428.0
+margin_bottom = 99.0
+custom_fonts/font = SubResource( 1 )
+text = "VINYL"
+align = 1
+
+[node name="Label2" type="Label" parent="C/VB"]
+margin_top = 119.0
+margin_right = 428.0
+margin_bottom = 153.0
+custom_fonts/font = ExtResource( 10 )
+text = "The analog music playing simulator"
+
+[node name="Tracks" type="Button" parent="C/VB"]
+margin_top = 173.0
+margin_right = 428.0
+margin_bottom = 243.0
+custom_fonts/font = ExtResource( 8 )
+text = "Music Tracks"
+icon = ExtResource( 6 )
+
+[node name="Artwork" type="Button" parent="C/VB"]
+margin_top = 263.0
+margin_right = 428.0
+margin_bottom = 333.0
+custom_fonts/font = ExtResource( 8 )
+text = "Cover and Label Artwork"
+icon = ExtResource( 3 )
+
+[node name="Producer" type="Button" parent="C/VB"]
+margin_top = 353.0
+margin_right = 428.0
+margin_bottom = 423.0
+custom_fonts/font = ExtResource( 8 )
+text = "Record Producer"
+icon = ExtResource( 7 )
+
+[node name="Collection" type="Button" parent="C/VB"]
+margin_top = 443.0
+margin_right = 428.0
+margin_bottom = 513.0
+custom_fonts/font = ExtResource( 8 )
+text = "Music Collection"
+icon = ExtResource( 5 )
+
+[node name="Player" type="Button" parent="C/VB"]
+margin_top = 533.0
+margin_right = 428.0
+margin_bottom = 603.0
+custom_fonts/font = ExtResource( 8 )
+text = "Record Player"
+icon = ExtResource( 9 )
+
+[node name="Gear" type="Button" parent="C/VB"]
+margin_top = 623.0
+margin_right = 428.0
+margin_bottom = 693.0
+custom_fonts/font = ExtResource( 8 )
+text = "Gear"
+icon = ExtResource( 1 )
+
+[connection signal="pressed" from="C/VB/Tracks" to="." method="_on_Tracks_pressed"]
+[connection signal="pressed" from="C/VB/Artwork" to="." method="_on_Artwork_pressed"]
+[connection signal="pressed" from="C/VB/Producer" to="." method="_on_Producer_pressed"]
+[connection signal="pressed" from="C/VB/Collection" to="." method="_on_Collection_pressed"]
+[connection signal="pressed" from="C/VB/Player" to="." method="_on_Player_pressed"]
+[connection signal="pressed" from="C/VB/Gear" to="." method="_on_Gear_pressed"]

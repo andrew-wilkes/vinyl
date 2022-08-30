@@ -264,6 +264,7 @@ margin_bottom = 148.0
 [node name="Navigation" parent="VBox/HB/NVB" instance=ExtResource( 10 )]
 margin_right = 504.0
 margin_bottom = 97.0
+current_selection = 2
 
 [node name="Sp2" type="Control" parent="VBox"]
 margin_top = 158.0
