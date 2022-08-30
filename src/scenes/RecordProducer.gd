@@ -14,7 +14,8 @@ const FREQ_MAX = 11050.0
 onready var tracks = [$VBox/HB2/VB1/ATracks, $VBox/HB2/VB2/BTracks]
 onready var bars = [$VBox/HB1/VB3/HB/UA, $VBox/HB1/VB3/HB2/UB]
 onready var times = [$VBox/HB1/VB3/HB/TimeA, $VBox/HB1/VB3/HB2/TimeB]
-onready var audio_bar = $VBox/HB1/VB3/HB3/AudioBar
+onready var audio_bar = find_node("AudioBar")
+onready var audio_progress = find_node("AudioProgress")
 
 var audio
 var spectrum
@@ -27,6 +28,7 @@ export(Color) var gap_color
 export(Color) var ok_color
 export(Color) var warn_color
 export(Color) var spare_color
+export var FFSTEP = 10.0
 
 func load_album(id):
 	g.settings.album_id = id
@@ -91,6 +93,7 @@ func _ready():
 	set_play_state(false)
 	AudioServer.add_bus_effect(0, AudioEffectSpectrumAnalyzer.new())
 	spectrum = AudioServer.get_bus_effect_instance(0, 0)
+	$VBox/HB1/VB/Volume.value = g.settings.volume
 
 
 func _process(_delta):
@@ -107,6 +110,7 @@ func _process(_delta):
 		var texture = ImageTexture.new()
 		texture.create_from_image(img, 0)
 		audio_bar.material.set_shader_param("data", texture)
+		audio_progress.material.set_shader_param("value", audio.player.get_playback_position() / current_track.length)
 
 
 func get_rpm():
@@ -189,18 +193,23 @@ func _on_PlayA_pressed():
 func set_play_state(play):
 	if play:
 		audio.player.play()
-		audio_bar.modulate.a = 1
+		audio_controls_visibility(1)
 		$VBox/HB2/VB1/HB/PlayA.hide()
 		$VBox/HB2/VB2/HB/PlayB.hide()
 		$VBox/HB2/VB1/HB/StopA.show()
 		$VBox/HB2/VB2/HB/StopB.show()
 	else:
 		audio.player.stop()
-		audio_bar.modulate.a = 0
+		audio_controls_visibility(0)
 		$VBox/HB2/VB1/HB/PlayA.show()
 		$VBox/HB2/VB2/HB/PlayB.show()
 		$VBox/HB2/VB1/HB/StopA.hide()
 		$VBox/HB2/VB2/HB/StopB.hide()
+
+
+func audio_controls_visibility(alpha_value):
+	for node in get_tree().get_nodes_in_group("audio"):
+		node.modulate.a = alpha_value
 
 
 func _on_DeleteB_pressed():
@@ -363,3 +372,12 @@ func _on_Band_text_changed(new_text):
 
 func _on_AlbumSelector_album_selected(album_id):
 	load_album(album_id)
+
+
+func _on_FastForward_pressed():
+	audio.player.seek(audio.player.get_playback_position() + FFSTEP)
+
+
+func _on_Volume_value_changed(value):
+	g.settings.volume = value
+	AudioServer.set_bus_volume_db(0, -pow(8.0 - value, 1.8))

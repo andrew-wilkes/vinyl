@@ -7,6 +7,7 @@ const FILENAME = "user://settings.res"
 export var albums = {}
 export var tracks = []
 export var last_dir = ""
+export var volume = 8.0
 
 var album_id
 

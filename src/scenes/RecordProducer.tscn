@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -15,15 +15,15 @@
 [ext_resource path="res://assets/cover-rear.png" type="Texture" id=13]
 [ext_resource path="res://assets/b-side.png" type="Texture" id=14]
 [ext_resource path="res://scenes/HoverTextureButton.gd" type="Script" id=15]
-[ext_resource path="res://assets/Add.svg" type="Texture" id=16]
+[ext_resource path="res://assets/add.png" type="Texture" id=16]
 [ext_resource path="res://assets/info.png" type="Texture" id=17]
-[ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=18]
-[ext_resource path="res://assets/MainPlay.svg" type="Texture" id=19]
-[ext_resource path="res://assets/Remove.svg" type="Texture" id=20]
-[ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=21]
-[ext_resource path="res://assets/Edit.svg" type="Texture" id=22]
-[ext_resource path="res://assets/button-bar.png" type="Texture" id=23]
-[ext_resource path="res://assets/Stop.svg" type="Texture" id=24]
+[ext_resource path="res://assets/down-arrow.png" type="Texture" id=18]
+[ext_resource path="res://assets/play.png" type="Texture" id=19]
+[ext_resource path="res://assets/up-arrow.png" type="Texture" id=20]
+[ext_resource path="res://assets/edit.png" type="Texture" id=21]
+[ext_resource path="res://assets/remove.png" type="Texture" id=22]
+[ext_resource path="res://assets/fast-forward.png" type="Texture" id=23]
+[ext_resource path="res://assets/stop.png" type="Texture" id=24]
 [ext_resource path="res://assets/rec-stack.png" type="Texture" id=25]
 [ext_resource path="res://scenes/AlbumSelector.gd" type="Script" id=26]
 
@@ -80,6 +80,21 @@ shader_param/top_color = Color( 0.662745, 1, 0.992157, 1 )
 shader_param/base_color = Color( 0, 0.184314, 0.819608, 1 )
 shader_param/bg_color = Color( 0, 0, 0, 0.141176 )
 shader_param/divisor = 8.0
+
+[sub_resource type="Shader" id=10]
+code = "shader_type canvas_item;
+
+uniform float value = 0.5;
+
+void fragment() {
+	if (UV.x > value) {
+		COLOR.a = 0.0;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
+shader_param/value = 0.4
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.180392, 0.180392, 0.180392, 1 )
@@ -179,30 +194,30 @@ margin_bottom = 39.0
 custom_constants/separation = 20
 
 [node name="New" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
-margin_right = 32.0
+margin_right = 30.0
 margin_bottom = 39.0
 hint_tooltip = "Produce new album"
 icon = ExtResource( 16 )
 
 [node name="Load" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
-margin_left = 52.0
-margin_right = 86.0
+margin_left = 50.0
+margin_right = 84.0
 margin_bottom = 39.0
 hint_tooltip = "Load album"
 icon = ExtResource( 25 )
 
 [node name="Sp" type="Control" parent="VBox/HB/VBoxContainer/Menu"]
-margin_left = 106.0
-margin_right = 264.0
+margin_left = 104.0
+margin_right = 266.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="Delete" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
-margin_left = 284.0
+margin_left = 286.0
 margin_right = 316.0
 margin_bottom = 39.0
 hint_tooltip = "Delete album"
-icon = ExtResource( 20 )
+icon = ExtResource( 22 )
 
 [node name="Sp" type="Control" parent="VBox/HB/VBoxContainer"]
 margin_top = 43.0
@@ -275,7 +290,6 @@ margin_bottom = 158.0
 margin_top = 168.0
 margin_right = 1240.0
 margin_bottom = 338.0
-custom_constants/separation = 50
 
 [node name="VB1" type="VBoxContainer" parent="VBox/HB1"]
 margin_right = 116.0
@@ -310,9 +324,15 @@ margin_bottom = 170.0
 group = SubResource( 1 )
 text = "10\" (25cm)"
 
+[node name="Sp1" type="Control" parent="VBox/HB1"]
+margin_left = 120.0
+margin_right = 170.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 50, 0 )
+
 [node name="VB2" type="VBoxContainer" parent="VBox/HB1"]
-margin_left = 166.0
-margin_right = 284.0
+margin_left = 174.0
+margin_right = 292.0
 margin_bottom = 170.0
 custom_constants/separation = 10
 
@@ -345,15 +365,21 @@ mouse_default_cursor_shape = 2
 group = SubResource( 2 )
 text = "78 rpm"
 
+[node name="Sp2" type="Control" parent="VBox/HB1"]
+margin_left = 296.0
+margin_right = 346.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 50, 0 )
+
 [node name="VB3" type="VBoxContainer" parent="VBox/HB1"]
-margin_left = 334.0
-margin_right = 1240.0
+margin_left = 350.0
+margin_right = 1187.0
 margin_bottom = 170.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 
 [node name="HB4" type="HBoxContainer" parent="VBox/HB1/VB3"]
-margin_right = 906.0
+margin_right = 837.0
 margin_bottom = 23.0
 custom_constants/separation = 20
 
@@ -365,7 +391,7 @@ text = "Play time utilization"
 
 [node name="Cap" type="Label" parent="VBox/HB1/VB3/HB4"]
 margin_left = 183.0
-margin_right = 886.0
+margin_right = 817.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
@@ -373,13 +399,13 @@ text = "Max"
 align = 2
 
 [node name="Capacity" type="Label" parent="VBox/HB1/VB3/HB4"]
-margin_left = 906.0
-margin_right = 906.0
+margin_left = 837.0
+margin_right = 837.0
 margin_bottom = 23.0
 
 [node name="HB" type="HBoxContainer" parent="VBox/HB1/VB3"]
 margin_top = 43.0
-margin_right = 906.0
+margin_right = 837.0
 margin_bottom = 66.0
 custom_constants/separation = 20
 
@@ -391,19 +417,19 @@ text = "Side A"
 [node name="UA" type="ColorRect" parent="VBox/HB1/VB3/HB"]
 material = SubResource( 6 )
 margin_left = 66.0
-margin_right = 886.0
+margin_right = 817.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 color = Color( 0.372549, 0.372549, 0.372549, 1 )
 
 [node name="TimeA" type="Label" parent="VBox/HB1/VB3/HB"]
-margin_left = 906.0
-margin_right = 906.0
+margin_left = 837.0
+margin_right = 837.0
 margin_bottom = 23.0
 
 [node name="HB2" type="HBoxContainer" parent="VBox/HB1/VB3"]
 margin_top = 86.0
-margin_right = 906.0
+margin_right = 837.0
 margin_bottom = 109.0
 custom_constants/separation = 20
 
@@ -415,30 +441,31 @@ text = "Side B"
 [node name="UB" type="ColorRect" parent="VBox/HB1/VB3/HB2"]
 material = SubResource( 7 )
 margin_left = 66.0
-margin_right = 886.0
+margin_right = 817.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 
 [node name="TimeB" type="Label" parent="VBox/HB1/VB3/HB2"]
-margin_left = 906.0
-margin_right = 906.0
+margin_left = 837.0
+margin_right = 837.0
 margin_bottom = 23.0
 
 [node name="HB3" type="HBoxContainer" parent="VBox/HB1/VB3"]
 margin_top = 129.0
-margin_right = 906.0
-margin_bottom = 152.0
+margin_right = 837.0
+margin_bottom = 168.0
 custom_constants/separation = 20
 
 [node name="Label2" type="Label" parent="VBox/HB1/VB3/HB3"]
+margin_top = 8.0
 margin_right = 102.0
-margin_bottom = 23.0
+margin_bottom = 31.0
 custom_fonts/font = ExtResource( 3 )
 text = "Groove pitch"
 
 [node name="Pitch" type="HSlider" parent="VBox/HB1/VB3/HB3"]
 margin_left = 122.0
-margin_right = 235.0
+margin_right = 215.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
@@ -448,21 +475,66 @@ step = 0.01
 value = 0.23
 
 [node name="PV" type="Label" parent="VBox/HB1/VB3/HB3"]
-margin_left = 255.0
-margin_right = 320.0
-margin_bottom = 23.0
+margin_left = 235.0
+margin_top = 8.0
+margin_right = 300.0
+margin_bottom = 31.0
 text = "0.23 mm"
 
-[node name="AudioBar" type="TextureRect" parent="VBox/HB1/VB3/HB3"]
+[node name="Audio" type="VBoxContainer" parent="VBox/HB1/VB3/HB3" groups=["audio"]]
+margin_left = 320.0
+margin_right = 786.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+custom_constants/separation = 1
+
+[node name="AudioBar" type="ColorRect" parent="VBox/HB1/VB3/HB3/Audio"]
 material = SubResource( 9 )
-margin_left = 340.0
-margin_right = 906.0
-margin_bottom = 23.0
+margin_right = 466.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
-texture = ExtResource( 23 )
-expand = true
-stretch_mode = 1
+
+[node name="AudioProgress" type="ColorRect" parent="VBox/HB1/VB3/HB3/Audio"]
+material = SubResource( 11 )
+margin_top = 21.0
+margin_right = 466.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 2 )
+color = Color( 0.172549, 0.458824, 0.796078, 1 )
+
+[node name="FastForward" type="Button" parent="VBox/HB1/VB3/HB3" groups=["audio"]]
+margin_left = 806.0
+margin_right = 836.0
+margin_bottom = 39.0
+icon = ExtResource( 23 )
+
+[node name="Sp3" type="Control" parent="VBox/HB1"]
+margin_left = 1191.0
+margin_right = 1211.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="VB" type="VBoxContainer" parent="VBox/HB1"]
+margin_left = 1215.0
+margin_right = 1240.0
+margin_bottom = 170.0
+custom_constants/separation = 10
+
+[node name="Volume" type="VSlider" parent="VBox/HB1/VB"]
+margin_right = 16.0
+margin_bottom = 137.0
+size_flags_vertical = 3
+max_value = 8.0
+step = 0.1
+value = 8.0
+
+[node name="Label" type="Label" parent="VBox/HB1/VB"]
+margin_top = 147.0
+margin_right = 25.0
+margin_bottom = 170.0
+custom_fonts/font = ExtResource( 3 )
+text = "Vol"
 
 [node name="Sp3" type="Control" parent="VBox"]
 margin_top = 348.0
@@ -497,56 +569,56 @@ text = "Side A Tracks"
 
 [node name="AddToA" type="Button" parent="VBox/HB2/VB1/HB"]
 margin_left = 124.0
-margin_right = 156.0
+margin_right = 154.0
 margin_bottom = 39.0
 hint_tooltip = "Add tracks"
 icon = ExtResource( 16 )
 
 [node name="DeleteA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 176.0
-margin_right = 208.0
+margin_left = 174.0
+margin_right = 204.0
 margin_bottom = 39.0
 hint_tooltip = "Remove selected tracks"
-icon = ExtResource( 20 )
-
-[node name="EditA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 228.0
-margin_right = 260.0
-margin_bottom = 39.0
-hint_tooltip = "Edit track title"
 icon = ExtResource( 22 )
 
-[node name="Up" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 280.0
-margin_right = 312.0
+[node name="EditA" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 224.0
+margin_right = 244.0
 margin_bottom = 39.0
-hint_tooltip = "Move selected tracks up"
+hint_tooltip = "Edit track title"
 icon = ExtResource( 21 )
 
+[node name="Up" type="Button" parent="VBox/HB2/VB1/HB"]
+margin_left = 264.0
+margin_right = 296.0
+margin_bottom = 39.0
+hint_tooltip = "Move selected tracks up"
+icon = ExtResource( 20 )
+
 [node name="Down" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 332.0
-margin_right = 364.0
+margin_left = 316.0
+margin_right = 348.0
 margin_bottom = 39.0
 hint_tooltip = "Move selected tracks down"
 icon = ExtResource( 18 )
 
 [node name="InfoA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 384.0
-margin_right = 414.0
+margin_left = 368.0
+margin_right = 398.0
 margin_bottom = 39.0
 hint_tooltip = "Show track info."
 icon = ExtResource( 17 )
 
 [node name="PlayA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 434.0
-margin_right = 466.0
+margin_left = 418.0
+margin_right = 445.0
 margin_bottom = 39.0
 hint_tooltip = "Play track"
 icon = ExtResource( 19 )
 
 [node name="StopA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 486.0
-margin_right = 518.0
+margin_left = 465.0
+margin_right = 495.0
 margin_bottom = 39.0
 hint_tooltip = "Stop playing"
 icon = ExtResource( 24 )
@@ -579,56 +651,56 @@ text = "Side B Tracks"
 
 [node name="AddToB" type="Button" parent="VBox/HB2/VB2/HB"]
 margin_left = 124.0
-margin_right = 156.0
+margin_right = 154.0
 margin_bottom = 39.0
 hint_tooltip = "Add tracks"
 icon = ExtResource( 16 )
 
 [node name="DeleteB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 176.0
-margin_right = 208.0
+margin_left = 174.0
+margin_right = 204.0
 margin_bottom = 39.0
 hint_tooltip = "Remove selected tracks"
-icon = ExtResource( 20 )
-
-[node name="EditB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 228.0
-margin_right = 260.0
-margin_bottom = 39.0
-hint_tooltip = "Edit track title"
 icon = ExtResource( 22 )
 
-[node name="Up" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 280.0
-margin_right = 312.0
+[node name="EditB" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 224.0
+margin_right = 244.0
 margin_bottom = 39.0
-hint_tooltip = "Move selected tracks up"
+hint_tooltip = "Edit track title"
 icon = ExtResource( 21 )
 
+[node name="Up" type="Button" parent="VBox/HB2/VB2/HB"]
+margin_left = 264.0
+margin_right = 296.0
+margin_bottom = 39.0
+hint_tooltip = "Move selected tracks up"
+icon = ExtResource( 20 )
+
 [node name="Down" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 332.0
-margin_right = 364.0
+margin_left = 316.0
+margin_right = 348.0
 margin_bottom = 39.0
 hint_tooltip = "Move selected tracks down"
 icon = ExtResource( 18 )
 
 [node name="InfoB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 384.0
-margin_right = 414.0
+margin_left = 368.0
+margin_right = 398.0
 margin_bottom = 39.0
 hint_tooltip = "Show track info."
 icon = ExtResource( 17 )
 
 [node name="PlayB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 434.0
-margin_right = 466.0
+margin_left = 418.0
+margin_right = 445.0
 margin_bottom = 39.0
 hint_tooltip = "Play track"
 icon = ExtResource( 19 )
 
 [node name="StopB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 486.0
-margin_right = 518.0
+margin_left = 465.0
+margin_right = 495.0
 margin_bottom = 39.0
 hint_tooltip = "Stop playing"
 icon = ExtResource( 24 )
@@ -879,6 +951,8 @@ dialog_text = "Do you really want to delete this record?"
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Delete" to="." method="_on_Delete_pressed"]
 [connection signal="value_changed" from="VBox/HB1/VB3/HB3/Pitch" to="." method="_on_Pitch_value_changed"]
+[connection signal="pressed" from="VBox/HB1/VB3/HB3/FastForward" to="." method="_on_FastForward_pressed"]
+[connection signal="value_changed" from="VBox/HB1/VB/Volume" to="." method="_on_Volume_value_changed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/AddToA" to="." method="_on_AddToA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/DeleteA" to="." method="_on_DeleteA_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/EditA" to="." method="_on_EditA_pressed"]
