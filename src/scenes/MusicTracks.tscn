@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/MusicTracks.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=4]
+[ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=5]
 
 [node name="MusicTracks" type="MarginContainer"]
 anchor_right = 1.0
@@ -33,21 +34,41 @@ margin_right = 1260.0
 margin_bottom = 780.0
 custom_constants/separation = 10
 
-[node name="Label" type="Label" parent="VB"]
+[node name="HB" type="HBoxContainer" parent="VB"]
 margin_right = 1240.0
+margin_bottom = 97.0
+
+[node name="VB" type="VBoxContainer" parent="VB/HB"]
+margin_right = 155.0
+margin_bottom = 97.0
+
+[node name="Label" type="Label" parent="VB/HB/VB"]
+margin_right = 155.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 3 )
 text = "Music Tracks"
 
-[node name="Sp1" type="Control" parent="VB"]
-margin_top = 44.0
+[node name="Sp1" type="Control" parent="VB/HB"]
+margin_left = 159.0
+margin_right = 443.0
+margin_bottom = 97.0
+size_flags_horizontal = 3
+
+[node name="Navigation" parent="VB/HB" instance=ExtResource( 5 )]
+margin_left = 447.0
+margin_right = 951.0
+margin_bottom = 97.0
+
+[node name="Sp2" type="Control" parent="VB/HB"]
+margin_left = 955.0
 margin_right = 1240.0
-margin_bottom = 44.0
+margin_bottom = 97.0
+size_flags_horizontal = 3
 
 [node name="Menu" type="HBoxContainer" parent="VB"]
-margin_top = 54.0
+margin_top = 107.0
 margin_right = 1240.0
-margin_bottom = 93.0
+margin_bottom = 146.0
 
 [node name="Select" type="Button" parent="VB/Menu"]
 margin_right = 101.0
@@ -67,14 +88,14 @@ margin_bottom = 39.0
 text = "Remove selected"
 
 [node name="Sp2" type="Control" parent="VB"]
-margin_top = 103.0
+margin_top = 156.0
 margin_right = 1240.0
-margin_bottom = 103.0
+margin_bottom = 156.0
 
 [node name="Heading" type="Label" parent="VB"]
-margin_top = 113.0
+margin_top = 166.0
 margin_right = 1240.0
-margin_bottom = 162.0
+margin_bottom = 215.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
@@ -82,7 +103,7 @@ text = "Filename
       Directory"
 
 [node name="TrackList" type="ItemList" parent="VB"]
-margin_top = 172.0
+margin_top = 225.0
 margin_right = 1240.0
 margin_bottom = 760.0
 size_flags_horizontal = 3

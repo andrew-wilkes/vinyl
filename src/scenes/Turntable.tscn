@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Turntable.gd" type="Script" id=7]
 [ext_resource path="res://assets/turntable.glb" type="PackedScene" id=8]
@@ -54,6 +55,11 @@ shape = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="SwitchArea"]
 shape = SubResource( 3 )
+
+[node name="c" type="CanvasLayer" parent="."]
+
+[node name="Navigation" parent="c" instance=ExtResource( 1 )]
+current_selection = 4
 
 [connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
 [connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]
