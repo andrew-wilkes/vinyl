@@ -42,9 +42,11 @@ func load_album(id):
 	for button in speed_group.get_buttons():
 		if button.name == album.rpm: button.pressed = true
 	for idx in 4:
-		var texture = default_art[idx]
+		var texture
 		if album.images[idx]:
 			texture = get_resized_texture(album.images[idx], 64)
+		if texture == null:
+			texture = default_art[idx]
 		$VBox/HB/VBoxContainer/Art.get_child(idx).texture_normal = texture
 	set_pitch(album.pitch)
 	tracks[SIDE_A].clear()
@@ -407,10 +409,14 @@ func _on_ImageSelector_file_selected(path):
 func get_resized_texture(path, size):
 	var texture = ImageTexture.new()
 	var image = Image.new()
-	image.load(path)
-	image.resize(size, size)
-	texture.create_from_image(image)
-	return texture
+	var file = File.new()
+	if file.file_exists(path):
+		image.load(path)
+		image.resize(size, size)
+		texture.create_from_image(image)
+		return texture
+	else:
+		alert("Unable to load image from: " + path)
 
 
 func _on_FrontCover_pressed():
@@ -438,3 +444,8 @@ func open_image_selector(idx):
 		$c/ImageSelector.current_dir = path.get_base_dir()
 		$c/ImageSelector.current_path = path
 	$c/ImageSelector.popup_centered()
+
+
+func alert(msg):
+	$c/Alert.dialog_text = msg
+	$c/Alert.popup_centered()

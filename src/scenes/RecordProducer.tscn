@@ -995,6 +995,14 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.jpg, *.png, *.webp ; Supported Image Files" )
 
+[node name="Alert" type="AcceptDialog" parent="c"]
+margin_right = 493.0
+margin_bottom = 106.0
+theme = ExtResource( 4 )
+window_title = "Alert"
+resizable = true
+dialog_autowrap = true
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="text_changed" from="VBox/HB/VB1/VB1/Title" to="." method="_on_Title_text_changed"]
