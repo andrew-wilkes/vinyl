@@ -194,30 +194,34 @@ margin_bottom = 39.0
 custom_constants/separation = 20
 
 [node name="New" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
-margin_right = 30.0
+margin_right = 34.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 34, 0 )
 hint_tooltip = "Produce new album"
 icon = ExtResource( 16 )
+icon_align = 1
 
 [node name="Load" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
-margin_left = 50.0
-margin_right = 84.0
+margin_left = 54.0
+margin_right = 88.0
 margin_bottom = 39.0
 hint_tooltip = "Load album"
 icon = ExtResource( 25 )
 
 [node name="Sp" type="Control" parent="VBox/HB/VBoxContainer/Menu"]
-margin_left = 104.0
-margin_right = 266.0
+margin_left = 108.0
+margin_right = 264.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="Delete" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
-margin_left = 286.0
+margin_left = 284.0
 margin_right = 316.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Delete album"
 icon = ExtResource( 22 )
+icon_align = 1
 
 [node name="Sp" type="Control" parent="VBox/HB/VBoxContainer"]
 margin_top = 43.0
@@ -463,10 +467,21 @@ margin_bottom = 31.0
 custom_fonts/font = ExtResource( 3 )
 text = "Groove pitch"
 
-[node name="Pitch" type="HSlider" parent="VBox/HB1/VB3/HB3"]
+[node name="VB" type="VBoxContainer" parent="VBox/HB1/VB3/HB3"]
 margin_left = 122.0
-margin_right = 215.0
-margin_bottom = 16.0
+margin_right = 222.0
+margin_bottom = 39.0
+
+[node name="Sp" type="Control" parent="VBox/HB1/VB3/HB3/VB"]
+margin_right = 100.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Pitch" type="HSlider" parent="VBox/HB1/VB3/HB3/VB"]
+margin_top = 14.0
+margin_right = 100.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 min_value = 0.1
@@ -475,22 +490,22 @@ step = 0.01
 value = 0.23
 
 [node name="PV" type="Label" parent="VBox/HB1/VB3/HB3"]
-margin_left = 235.0
+margin_left = 242.0
 margin_top = 8.0
-margin_right = 300.0
+margin_right = 307.0
 margin_bottom = 31.0
 text = "0.23 mm"
 
 [node name="Audio" type="VBoxContainer" parent="VBox/HB1/VB3/HB3" groups=["audio"]]
-margin_left = 320.0
-margin_right = 786.0
+margin_left = 327.0
+margin_right = 785.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 custom_constants/separation = 1
 
 [node name="AudioBar" type="ColorRect" parent="VBox/HB1/VB3/HB3/Audio"]
 material = SubResource( 9 )
-margin_right = 466.0
+margin_right = 458.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
@@ -498,16 +513,19 @@ size_flags_horizontal = 3
 [node name="AudioProgress" type="ColorRect" parent="VBox/HB1/VB3/HB3/Audio"]
 material = SubResource( 11 )
 margin_top = 21.0
-margin_right = 466.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 0, 2 )
+margin_right = 458.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 4 )
 color = Color( 0.172549, 0.458824, 0.796078, 1 )
 
 [node name="FastForward" type="Button" parent="VBox/HB1/VB3/HB3" groups=["audio"]]
-margin_left = 806.0
-margin_right = 836.0
+margin_left = 805.0
+margin_right = 837.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
+hint_tooltip = "Skip forward 10s"
 icon = ExtResource( 23 )
+icon_align = 1
 
 [node name="Sp3" type="Control" parent="VBox/HB1"]
 margin_left = 1191.0
@@ -527,7 +545,7 @@ margin_bottom = 137.0
 size_flags_vertical = 3
 max_value = 8.0
 step = 0.1
-value = 8.0
+value = 3.7
 
 [node name="Label" type="Label" parent="VBox/HB1/VB"]
 margin_top = 147.0
@@ -569,59 +587,71 @@ text = "Side A Tracks"
 
 [node name="AddToA" type="Button" parent="VBox/HB2/VB1/HB"]
 margin_left = 124.0
-margin_right = 154.0
+margin_right = 156.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Add tracks"
 icon = ExtResource( 16 )
+icon_align = 1
 
 [node name="DeleteA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 174.0
-margin_right = 204.0
+margin_left = 176.0
+margin_right = 208.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Remove selected tracks"
 icon = ExtResource( 22 )
+icon_align = 1
 
 [node name="EditA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 224.0
-margin_right = 244.0
+margin_left = 228.0
+margin_right = 260.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Edit track title"
 icon = ExtResource( 21 )
+icon_align = 1
 
 [node name="Up" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 264.0
-margin_right = 296.0
+margin_left = 280.0
+margin_right = 312.0
 margin_bottom = 39.0
 hint_tooltip = "Move selected tracks up"
 icon = ExtResource( 20 )
 
 [node name="Down" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 316.0
-margin_right = 348.0
+margin_left = 332.0
+margin_right = 364.0
 margin_bottom = 39.0
 hint_tooltip = "Move selected tracks down"
 icon = ExtResource( 18 )
 
 [node name="InfoA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 368.0
-margin_right = 398.0
+margin_left = 384.0
+margin_right = 416.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Show track info."
 icon = ExtResource( 17 )
+icon_align = 1
 
 [node name="PlayA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 418.0
-margin_right = 445.0
+margin_left = 436.0
+margin_right = 468.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Play track"
 icon = ExtResource( 19 )
+icon_align = 1
 
 [node name="StopA" type="Button" parent="VBox/HB2/VB1/HB"]
-margin_left = 465.0
-margin_right = 495.0
+margin_left = 488.0
+margin_right = 520.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Stop playing"
 icon = ExtResource( 24 )
+icon_align = 1
 
 [node name="ATracks" type="ItemList" parent="VBox/HB2/VB1"]
 margin_top = 49.0
@@ -651,59 +681,70 @@ text = "Side B Tracks"
 
 [node name="AddToB" type="Button" parent="VBox/HB2/VB2/HB"]
 margin_left = 124.0
-margin_right = 154.0
+margin_right = 156.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Add tracks"
 icon = ExtResource( 16 )
+icon_align = 1
 
 [node name="DeleteB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 174.0
-margin_right = 204.0
+margin_left = 176.0
+margin_right = 208.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Remove selected tracks"
 icon = ExtResource( 22 )
 
 [node name="EditB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 224.0
-margin_right = 244.0
+margin_left = 228.0
+margin_right = 260.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Edit track title"
 icon = ExtResource( 21 )
+icon_align = 1
 
 [node name="Up" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 264.0
-margin_right = 296.0
+margin_left = 280.0
+margin_right = 312.0
 margin_bottom = 39.0
 hint_tooltip = "Move selected tracks up"
 icon = ExtResource( 20 )
 
 [node name="Down" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 316.0
-margin_right = 348.0
+margin_left = 332.0
+margin_right = 364.0
 margin_bottom = 39.0
 hint_tooltip = "Move selected tracks down"
 icon = ExtResource( 18 )
 
 [node name="InfoB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 368.0
-margin_right = 398.0
+margin_left = 384.0
+margin_right = 416.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Show track info."
 icon = ExtResource( 17 )
+icon_align = 1
 
 [node name="PlayB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 418.0
-margin_right = 445.0
+margin_left = 436.0
+margin_right = 468.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Play track"
 icon = ExtResource( 19 )
+icon_align = 1
 
 [node name="StopB" type="Button" parent="VBox/HB2/VB2/HB"]
-margin_left = 465.0
-margin_right = 495.0
+margin_left = 488.0
+margin_right = 520.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
 hint_tooltip = "Stop playing"
 icon = ExtResource( 24 )
+icon_align = 1
 
 [node name="BTracks" type="ItemList" parent="VBox/HB2/VB2"]
 margin_top = 49.0
@@ -943,6 +984,17 @@ margin_bottom = 112.0
 theme = ExtResource( 4 )
 dialog_text = "Do you really want to delete this record?"
 
+[node name="ImageSelector" type="FileDialog" parent="c"]
+margin_left = 198.0
+margin_top = 193.0
+margin_right = 1008.0
+margin_bottom = 680.0
+theme = ExtResource( 4 )
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.jpg, *.png, *.webp ; Supported Image Files" )
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="text_changed" from="VBox/HB/VB1/VB1/Title" to="." method="_on_Title_text_changed"]
@@ -950,7 +1002,11 @@ dialog_text = "Do you really want to delete this record?"
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Delete" to="." method="_on_Delete_pressed"]
-[connection signal="value_changed" from="VBox/HB1/VB3/HB3/Pitch" to="." method="_on_Pitch_value_changed"]
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/FrontCover" to="." method="_on_FrontCover_pressed"]
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/RearCover" to="." method="_on_RearCover_pressed"]
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/ASide" to="." method="_on_ASide_pressed"]
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/BSide" to="." method="_on_BSide_pressed"]
+[connection signal="value_changed" from="VBox/HB1/VB3/HB3/VB/Pitch" to="." method="_on_Pitch_value_changed"]
 [connection signal="pressed" from="VBox/HB1/VB3/HB3/FastForward" to="." method="_on_FastForward_pressed"]
 [connection signal="value_changed" from="VBox/HB1/VB/Volume" to="." method="_on_Volume_value_changed"]
 [connection signal="pressed" from="VBox/HB2/VB1/HB/AddToA" to="." method="_on_AddToA_pressed"]
@@ -977,4 +1033,5 @@ dialog_text = "Do you really want to delete this record?"
 [connection signal="text_entered" from="c/EditPanel/HB/LineEdit" to="c/EditPanel" method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]
 [connection signal="confirmed" from="c/ConfirmDelete" to="." method="_on_ConfirmDelete_confirmed"]
+[connection signal="file_selected" from="c/ImageSelector" to="." method="_on_ImageSelector_file_selected"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

@@ -23,6 +23,8 @@ var current_track
 var pitch
 var size_group
 var speed_group
+var image_idx = 0
+var default_art = []
 
 export(Color) var gap_color
 export(Color) var ok_color
@@ -39,6 +41,11 @@ func load_album(id):
 		if button.name == album.size: button.pressed = true
 	for button in speed_group.get_buttons():
 		if button.name == album.rpm: button.pressed = true
+	for idx in 4:
+		var texture = default_art[idx]
+		if album.images[idx]:
+			texture = get_resized_texture(album.images[idx], 64)
+		$VBox/HB/VBoxContainer/Art.get_child(idx).texture_normal = texture
 	set_pitch(album.pitch)
 	tracks[SIDE_A].clear()
 	tracks[SIDE_B].clear()
@@ -57,6 +64,8 @@ func clear_record():
 	tracks[SIDE_B].clear()
 	$VBox/HB/VB1/VB1/Title.text = ""
 	$VBox/HB/VB1/VB2/Band.text = ""
+	for idx in 4:
+		$VBox/HB/VBoxContainer/Art.get_child(idx).texture_normal = default_art[idx]
 	size_group.get_buttons()[0].pressed = true
 	speed_group.get_buttons()[0].pressed = true
 	set_pitch(2.3)
@@ -69,6 +78,10 @@ func delete_album():
 
 
 func _ready():
+	default_art.append(load("res://assets/cover-front.png"))
+	default_art.append(load("res://assets/cover-rear.png"))
+	default_art.append(load("res://assets/a-side.png"))
+	default_art.append(load("res://assets/b-side.png"))
 	var _e = $c/TrackSelector.connect("add_tracks", self, "add_tracks")
 	_e = $c/EditPanel.connect("text_updated", self, "update_track_title")
 	audio = Audio.new($AudioStreamPlayer)
@@ -77,10 +90,10 @@ func _ready():
 	if g.settings.album_id:
 		load_album(g.settings.album_id)
 	else:
-		g.settings.new_album()
+		new_album()
 	$VBox/HB/VB1/VB1/Title.grab_focus()
 	set_pitch(0.23)
-	$VBox/HB1/VB3/HB3/Pitch.value = pitch
+	$VBox/HB1/VB3/HB3/VB/Pitch.value = pitch
 	for b in size_group.get_buttons():
 		_e = b.connect("pressed", self, "update_utilizations")
 	for b in speed_group.get_buttons():
@@ -380,4 +393,48 @@ func _on_FastForward_pressed():
 
 func _on_Volume_value_changed(value):
 	g.settings.volume = value
-	AudioServer.set_bus_volume_db(0, -pow(8.0 - value, 1.8))
+	var db = -pow(8.0 - value, 1.8)
+	AudioServer.set_bus_volume_db(0, db)
+	$VBox/HB1/VB/Volume.hint_tooltip = "%d db" % db
+
+
+func _on_ImageSelector_file_selected(path):
+	g.settings.last_image_dir = path.get_base_dir()
+	g.settings.get_album_property("images")[image_idx] = path
+	$VBox/HB/VBoxContainer/Art.get_child(image_idx).texture_normal = get_resized_texture(path, 64)
+
+
+func get_resized_texture(path, size):
+	var texture = ImageTexture.new()
+	var image = Image.new()
+	image.load(path)
+	image.resize(size, size)
+	texture.create_from_image(image)
+	return texture
+
+
+func _on_FrontCover_pressed():
+	open_image_selector(0)
+
+
+func _on_RearCover_pressed():
+	open_image_selector(1)
+
+
+func _on_ASide_pressed():
+	open_image_selector(2)
+
+
+func _on_BSide_pressed():
+	open_image_selector(3)
+
+
+func open_image_selector(idx):
+	image_idx = idx
+	var path = g.settings.get_album_property("images")[idx]
+	if path == null:
+		$c/ImageSelector.current_dir = g.settings.last_image_dir
+	else:
+		$c/ImageSelector.current_dir = path.get_base_dir()
+		$c/ImageSelector.current_path = path
+	$c/ImageSelector.popup_centered()

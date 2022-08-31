@@ -9,10 +9,13 @@ func _ready():
 
 
 func _on_Button_pressed():
-	$FileDialog.popup_centered()
+	$c/FileDialog.current_dir = g.settings.last_dir
+	$c/FileDialog.popup_centered()
 
 
 func _on_FileDialog_files_selected(paths):
+	# Set dir to parent directory of this path's dir
+	g.settings.last_dir = $c/FileDialog.current_path.get_base_dir().rsplit("/", true, 1)[0]
 	for path in paths:
 		var new = true
 		for track in g.settings.tracks:

@@ -16,17 +16,6 @@ custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 script = ExtResource( 1 )
 
-[node name="FileDialog" type="FileDialog" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1260.0
-margin_bottom = 780.0
-window_title = "Open File(s)"
-dialog_hide_on_ok = true
-mode = 1
-access = 2
-filters = PoolStringArray( "*.mp3, *.ogg ; Supported Music Files" )
-
 [node name="VB" type="VBoxContainer" parent="."]
 margin_left = 20.0
 margin_top = 20.0
@@ -113,12 +102,19 @@ select_mode = 1
 
 [node name="c" type="CanvasLayer" parent="."]
 
-[node name="Text" type="Label" parent="c"]
-self_modulate = Color( 1, 1, 1, 0 )
-margin_right = 27.0
-margin_bottom = 14.0
-text = "Text"
+[node name="FileDialog" type="FileDialog" parent="c"]
+visible = true
+margin_left = 109.0
+margin_top = 82.0
+margin_right = 792.0
+margin_bottom = 585.0
+theme = ExtResource( 4 )
+window_title = "Open File(s)"
+dialog_hide_on_ok = true
+mode = 1
+access = 2
+filters = PoolStringArray( "*.mp3, *.ogg ; Supported Music Files" )
 
-[connection signal="files_selected" from="FileDialog" to="." method="_on_FileDialog_files_selected"]
 [connection signal="pressed" from="VB/Menu/Select" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VB/Menu/Remove" to="." method="_on_Remove_pressed"]
+[connection signal="files_selected" from="c/FileDialog" to="." method="_on_FileDialog_files_selected"]

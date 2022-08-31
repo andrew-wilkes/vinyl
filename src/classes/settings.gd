@@ -7,6 +7,7 @@ const FILENAME = "user://settings.res"
 export var albums = {}
 export var tracks = []
 export var last_dir = ""
+export var last_image_dir = ""
 export var volume = 8.0
 
 var album_id
@@ -21,6 +22,7 @@ func load_data():
 		return ResourceLoader.load(FILENAME)
 	else:
 		last_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+		last_image_dir = last_dir
 		return self
 
 
@@ -49,6 +51,10 @@ func remove_empty_albums():
 
 func set_album_property(prop, value):
 	albums[album_id][prop] = value
+
+
+func get_album_property(prop):
+	return albums[album_id][prop]
 
 
 func add_track(side, track):

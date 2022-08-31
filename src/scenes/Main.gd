@@ -5,20 +5,20 @@ func _on_Tracks_pressed():
 
 
 func _on_Artwork_pressed():
-	var _e = get_tree().change_scene("res://scenes/AlbumArt.tscn")
+	$c/Fader.fade_out("AlbumArt")
 
 
 func _on_Producer_pressed():
-	var _e = get_tree().change_scene("res://scenes/RecordProducer.tscn")
+	$c/Fader.fade_out("RecordProducer")
 
 
 func _on_Collection_pressed():
-	var _e = get_tree().change_scene("res://scenes/MusicLibrary.tscn")
+	$c/Fader.fade_out("MusicLibrary")
 
 
 func _on_Player_pressed():
-	var _e = get_tree().change_scene("res://scenes/Turntable.tscn")
+	$c/Fader.fade_out("Turntable")
 
 
 func _on_Gear_pressed():
-	var _e = get_tree().change_scene("res://scenes/Gear.tscn")
+	$c/Fader.fade_out("Gear")

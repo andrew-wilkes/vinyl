@@ -128,3 +128,4 @@ texture = ExtResource( 4 )
 [node name="c" type="CanvasLayer" parent="."]
 
 [node name="Fader" parent="c" instance=ExtResource( 10 )]
+visible = false

@@ -97,6 +97,7 @@ text = "Gear"
 icon = ExtResource( 1 )
 
 [node name="c" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Fader" parent="c" instance=ExtResource( 11 )]
 mouse_filter = 2
