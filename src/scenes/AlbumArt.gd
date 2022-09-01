@@ -16,9 +16,10 @@ func _ready():
 	label_b = load("res://assets/labelb.png")
 	blank = Image.new()
 	find_node("Large").visible = false
-	$VB/HB2/LabelStyle.hide()
+	show_album_details(false)
 	if g.settings.album_id:
 		load_album(g.settings.album_id)
+	$VB/Header/VB/NoRecords.visible = g.settings.albums.size() < 1
 
 
 func _on_Load_pressed():
@@ -58,7 +59,7 @@ func load_album(id):
 	else:
 		blank = label_a.get_data()
 	label_blank.icon = get_icon_texture(album.label_color)
-	$VB/HB2/LabelStyle.show()
+	show_album_details()
 
 
 func _on_Label_pressed():
@@ -72,11 +73,14 @@ func _on_Color_popup_hide():
 
 
 func _on_Save_pressed():
+	$c/SaveDialog.current_dir = g.settings.last_image_dir
+	$c/SaveDialog.current_file = ""
 	$c/SaveDialog.popup_centered()
 
 
 func _on_SaveDialog_file_selected(path):
 	label.save_png(path)
+	g.settings.last_image_dir = path.get_base_dir()
 
 
 func get_icon_texture(color):
@@ -91,3 +95,12 @@ func get_icon_texture(color):
 	var texture = ImageTexture.new()
 	texture.create_from_image(label)
 	return texture
+
+
+func _on_CopyText_pressed():
+	OS.set_clipboard($VB/A2/VB/Text.text)
+
+
+func show_album_details(show = true):
+	$VB/A1.visible = show
+	$VB/A2.visible = show

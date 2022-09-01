@@ -6,7 +6,7 @@ export var current_selection = 0
 export var selected_color = Color.green
 export var hovered_color = Color.yellow
 
-const scenes = ["MusicTracks", "AlbumArt", "RecordProducer", "MusicLibrary", "Turntable", "Gear"]
+const scenes = ["MusicTracks", "RecordProducer", "AlbumArt", "MusicLibrary", "Turntable", "Gear"]
 
 func _ready():
 	for n in $HBox.get_child_count():

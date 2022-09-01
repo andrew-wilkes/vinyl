@@ -59,6 +59,7 @@ size_flags_horizontal = 3
 margin_left = 217.0
 margin_right = 251.0
 margin_bottom = 39.0
+hint_tooltip = "Load album"
 icon = ExtResource( 5 )
 
 [node name="Sp2" type="Control" parent="VB/Header/VB/HB"]
@@ -67,11 +68,17 @@ margin_right = 364.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
+[node name="NoRecords" type="Label" parent="VB/Header/VB"]
+margin_top = 43.0
+margin_right = 364.0
+margin_bottom = 66.0
+text = "No records have been produced yet."
+
 [node name="Navigation" parent="VB/Header" instance=ExtResource( 2 )]
 margin_left = 368.0
 margin_right = 872.0
 margin_bottom = 97.0
-current_selection = 1
+current_selection = 2
 
 [node name="Sp3" type="Control" parent="VB/Header"]
 margin_left = 876.0
@@ -79,124 +86,132 @@ margin_right = 1240.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 
-[node name="HB" type="HBoxContainer" parent="VB"]
+[node name="A1" type="HBoxContainer" parent="VB"]
 margin_top = 117.0
 margin_right = 1240.0
 margin_bottom = 173.0
 custom_constants/separation = 20
 
-[node name="VB" type="VBoxContainer" parent="VB/HB"]
+[node name="VB" type="VBoxContainer" parent="VB/A1"]
 margin_right = 200.0
 margin_bottom = 56.0
 custom_constants/separation = 10
 
-[node name="Label2" type="Label" parent="VB/HB/VB"]
+[node name="Label2" type="Label" parent="VB/A1/VB"]
 margin_right = 200.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Album Title"
 
-[node name="Title" type="Label" parent="VB/HB/VB"]
+[node name="Title" type="Label" parent="VB/A1/VB"]
 margin_top = 33.0
 margin_right = 200.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 200, 0 )
 
-[node name="VB2" type="VBoxContainer" parent="VB/HB"]
+[node name="VB2" type="VBoxContainer" parent="VB/A1"]
 margin_left = 220.0
 margin_right = 420.0
 margin_bottom = 56.0
 custom_constants/separation = 10
 
-[node name="Label3" type="Label" parent="VB/HB/VB2"]
+[node name="Label3" type="Label" parent="VB/A1/VB2"]
 margin_right = 200.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Band / Artist"
 
-[node name="Band" type="Label" parent="VB/HB/VB2"]
+[node name="Band" type="Label" parent="VB/A1/VB2"]
 margin_top = 33.0
 margin_right = 200.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 200, 0 )
 
-[node name="VB3" type="VBoxContainer" parent="VB/HB"]
+[node name="VB3" type="VBoxContainer" parent="VB/A1"]
 margin_left = 440.0
 margin_right = 640.0
 margin_bottom = 56.0
 custom_constants/separation = 10
 
-[node name="Label3" type="Label" parent="VB/HB/VB3"]
+[node name="Label3" type="Label" parent="VB/A1/VB3"]
 margin_right = 200.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Record Type"
 
-[node name="Type" type="Label" parent="VB/HB/VB3"]
+[node name="Type" type="Label" parent="VB/A1/VB3"]
 margin_top = 33.0
 margin_right = 200.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 200, 0 )
 
-[node name="HB2" type="HBoxContainer" parent="VB"]
+[node name="A2" type="HBoxContainer" parent="VB"]
 margin_top = 193.0
 margin_right = 1240.0
-margin_bottom = 520.0
+margin_bottom = 760.0
+size_flags_vertical = 3
 custom_constants/separation = 20
 
-[node name="VB" type="VBoxContainer" parent="VB/HB2"]
-margin_right = 542.0
-margin_bottom = 327.0
+[node name="VB" type="VBoxContainer" parent="VB/A2"]
+margin_right = 539.0
+margin_bottom = 567.0
 size_flags_horizontal = 3
 
-[node name="Label4" type="Label" parent="VB/HB2/VB"]
-margin_right = 542.0
+[node name="Label4" type="Label" parent="VB/A2/VB"]
+margin_right = 539.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
-text = "Text"
+text = "Useful Text"
 
-[node name="Text" type="TextEdit" parent="VB/HB2/VB"]
+[node name="Text" type="TextEdit" parent="VB/A2/VB"]
 margin_top = 27.0
-margin_right = 542.0
-margin_bottom = 327.0
+margin_right = 539.0
+margin_bottom = 524.0
 rect_min_size = Vector2( 0, 300 )
+size_flags_vertical = 3
 readonly = true
 
-[node name="LabelStyle" type="VBoxContainer" parent="VB/HB2"]
-margin_left = 562.0
-margin_right = 678.0
-margin_bottom = 327.0
+[node name="CopyText" type="Button" parent="VB/A2/VB"]
+margin_top = 528.0
+margin_right = 539.0
+margin_bottom = 567.0
+text = "Copy to clipboard"
+
+[node name="LabelStyle" type="VBoxContainer" parent="VB/A2"]
+margin_left = 559.0
+margin_right = 681.0
+margin_bottom = 567.0
 custom_constants/separation = 20
 
-[node name="Label4" type="Label" parent="VB/HB2/LabelStyle"]
-margin_right = 116.0
+[node name="Label4" type="Label" parent="VB/A2/LabelStyle"]
+margin_right = 122.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
-text = "Label Style"
+text = "Label Template"
 
-[node name="Large" type="CheckBox" parent="VB/HB2/LabelStyle"]
+[node name="Large" type="CheckBox" parent="VB/A2/LabelStyle"]
 margin_top = 43.0
-margin_right = 116.0
+margin_right = 122.0
 margin_bottom = 82.0
 group = SubResource( 2 )
 text = "Large hole"
 
-[node name="LabelBlank" type="Button" parent="VB/HB2/LabelStyle"]
+[node name="LabelBlank" type="Button" parent="VB/A2/LabelStyle"]
 margin_top = 102.0
-margin_right = 116.0
+margin_right = 122.0
 margin_bottom = 206.0
 icon = ExtResource( 9 )
 
-[node name="Save" type="Button" parent="VB/HB2/LabelStyle"]
+[node name="Save" type="Button" parent="VB/A2/LabelStyle"]
 margin_top = 226.0
-margin_right = 116.0
+margin_right = 122.0
 margin_bottom = 265.0
 text = "Save"
 
-[node name="Sp" type="Control" parent="VB/HB2"]
-margin_left = 698.0
+[node name="Sp" type="Control" parent="VB/A2"]
+margin_left = 701.0
 margin_right = 1240.0
-margin_bottom = 327.0
+margin_bottom = 567.0
 size_flags_horizontal = 3
 
 [node name="c" type="CanvasLayer" parent="."]
@@ -227,15 +242,16 @@ edit_alpha = false
 presets_visible = false
 
 [node name="SaveDialog" type="FileDialog" parent="c"]
-margin_right = 962.0
-margin_bottom = 339.0
+margin_right = 882.0
+margin_bottom = 531.0
 theme = ExtResource( 6 )
 access = 2
 filters = PoolStringArray( "*.png ; PNG file" )
 
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
-[connection signal="pressed" from="VB/HB2/LabelStyle/LabelBlank" to="." method="_on_Label_pressed"]
-[connection signal="pressed" from="VB/HB2/LabelStyle/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VB/A2/VB/CopyText" to="." method="_on_CopyText_pressed"]
+[connection signal="pressed" from="VB/A2/LabelStyle/LabelBlank" to="." method="_on_Label_pressed"]
+[connection signal="pressed" from="VB/A2/LabelStyle/Save" to="." method="_on_Save_pressed"]
 [connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]
 [connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]

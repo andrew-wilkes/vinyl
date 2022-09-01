@@ -46,10 +46,10 @@ margin_right = 148.0
 margin_bottom = 77.0
 custom_constants/separation = 5
 
-[node name="Artwork" type="TextureButton" parent="HBox/VBox2"]
+[node name="Production" type="TextureButton" parent="HBox/VBox2"]
 margin_right = 64.0
 margin_bottom = 64.0
-texture_normal = ExtResource( 6 )
+texture_normal = ExtResource( 3 )
 
 [node name="Bar" type="TextureRect" parent="HBox/VBox2"]
 margin_top = 69.0
@@ -63,10 +63,10 @@ margin_right = 232.0
 margin_bottom = 77.0
 custom_constants/separation = 5
 
-[node name="Production" type="TextureButton" parent="HBox/VBox3"]
+[node name="Artwork" type="TextureButton" parent="HBox/VBox3"]
 margin_right = 64.0
 margin_bottom = 64.0
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 6 )
 
 [node name="Bar" type="TextureRect" parent="HBox/VBox3"]
 margin_top = 69.0

@@ -56,21 +56,21 @@ custom_fonts/font = ExtResource( 8 )
 text = "Music Tracks"
 icon = ExtResource( 6 )
 
-[node name="Artwork" type="Button" parent="C/VB"]
+[node name="Producer" type="Button" parent="C/VB"]
 margin_top = 263.0
 margin_right = 428.0
 margin_bottom = 333.0
 custom_fonts/font = ExtResource( 8 )
-text = "Cover and Label Artwork"
-icon = ExtResource( 3 )
+text = "Record Producer"
+icon = ExtResource( 7 )
 
-[node name="Producer" type="Button" parent="C/VB"]
+[node name="Artwork" type="Button" parent="C/VB"]
 margin_top = 353.0
 margin_right = 428.0
 margin_bottom = 423.0
 custom_fonts/font = ExtResource( 8 )
-text = "Record Producer"
-icon = ExtResource( 7 )
+text = "Cover and Label Artwork"
+icon = ExtResource( 3 )
 
 [node name="Collection" type="Button" parent="C/VB"]
 margin_top = 443.0
@@ -104,8 +104,8 @@ mouse_filter = 2
 fade_in_enabled = false
 
 [connection signal="pressed" from="C/VB/Tracks" to="." method="_on_Tracks_pressed"]
-[connection signal="pressed" from="C/VB/Artwork" to="." method="_on_Artwork_pressed"]
 [connection signal="pressed" from="C/VB/Producer" to="." method="_on_Producer_pressed"]
+[connection signal="pressed" from="C/VB/Artwork" to="." method="_on_Artwork_pressed"]
 [connection signal="pressed" from="C/VB/Collection" to="." method="_on_Collection_pressed"]
 [connection signal="pressed" from="C/VB/Player" to="." method="_on_Player_pressed"]
 [connection signal="pressed" from="C/VB/Gear" to="." method="_on_Gear_pressed"]

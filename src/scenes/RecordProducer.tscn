@@ -284,7 +284,7 @@ margin_bottom = 148.0
 [node name="Navigation" parent="VBox/HB/NVB" instance=ExtResource( 10 )]
 margin_right = 504.0
 margin_bottom = 97.0
-current_selection = 2
+current_selection = 1
 
 [node name="Sp2" type="Control" parent="VBox"]
 margin_top = 158.0
@@ -900,7 +900,7 @@ text = "OK"
 margin_right = 322.0
 margin_bottom = 112.0
 theme = ExtResource( 4 )
-dialog_text = "Do you really want to delete this record?"
+dialog_text = "Do you really want to delete this album?"
 
 [node name="ImageSelector" type="FileDialog" parent="c"]
 margin_left = 198.0
@@ -951,6 +951,7 @@ dialog_autowrap = true
 [connection signal="pressed" from="VBox/HB2/VB2/HB/InfoB" to="." method="_on_InfoB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/PlayB" to="." method="_on_PlayB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/StopB" to="." method="_on_Stop_pressed"]
+[connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="pressed" from="c/TrackInfo/VB/HB/OK" to="c/TrackInfo" method="_on_OK_pressed"]
 [connection signal="text_entered" from="c/EditPanel/HB/LineEdit" to="c/EditPanel" method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]
