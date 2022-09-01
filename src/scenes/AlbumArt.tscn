@@ -1,12 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/AlbumArt.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/rec-stack.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI.theme" type="Theme" id=6]
+[ext_resource path="res://scenes/AlbumSelector.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/labela.png" type="Texture" id=9]
+
+[sub_resource type="ButtonGroup" id=2]
+resource_name = "hole"
 
 [node name="AlbumArt" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 6 )
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -18,36 +27,215 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = 1260.0
 margin_bottom = 780.0
-custom_constants/separation = 10
+custom_constants/separation = 20
 
 [node name="Header" type="HBoxContainer" parent="VB"]
 margin_right = 1240.0
 margin_bottom = 97.0
 
 [node name="VB" type="VBoxContainer" parent="VB/Header"]
-margin_right = 100.0
+margin_right = 364.0
 margin_bottom = 97.0
+size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VB/Header/VB"]
+[node name="HB" type="HBoxContainer" parent="VB/Header/VB"]
+margin_right = 364.0
+margin_bottom = 39.0
+
+[node name="Label" type="Label" parent="VB/Header/VB/HB"]
+margin_top = 2.0
 margin_right = 100.0
-margin_bottom = 34.0
+margin_bottom = 36.0
 custom_fonts/font = ExtResource( 3 )
 text = "Artwork"
 
-[node name="Sp1" type="Control" parent="VB/Header"]
+[node name="Sp1" type="Control" parent="VB/Header/VB/HB"]
 margin_left = 104.0
-margin_right = 416.0
-margin_bottom = 97.0
+margin_right = 213.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+
+[node name="Load" type="Button" parent="VB/Header/VB/HB"]
+margin_left = 217.0
+margin_right = 251.0
+margin_bottom = 39.0
+icon = ExtResource( 5 )
+
+[node name="Sp2" type="Control" parent="VB/Header/VB/HB"]
+margin_left = 255.0
+margin_right = 364.0
+margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="Navigation" parent="VB/Header" instance=ExtResource( 2 )]
-margin_left = 420.0
-margin_right = 924.0
+margin_left = 368.0
+margin_right = 872.0
 margin_bottom = 97.0
 current_selection = 1
 
-[node name="Sp2" type="Control" parent="VB/Header"]
-margin_left = 928.0
+[node name="Sp3" type="Control" parent="VB/Header"]
+margin_left = 876.0
 margin_right = 1240.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
+
+[node name="HB" type="HBoxContainer" parent="VB"]
+margin_top = 117.0
+margin_right = 1240.0
+margin_bottom = 173.0
+custom_constants/separation = 20
+
+[node name="VB" type="VBoxContainer" parent="VB/HB"]
+margin_right = 200.0
+margin_bottom = 56.0
+custom_constants/separation = 10
+
+[node name="Label2" type="Label" parent="VB/HB/VB"]
+margin_right = 200.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Album Title"
+
+[node name="Title" type="Label" parent="VB/HB/VB"]
+margin_top = 33.0
+margin_right = 200.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="VB2" type="VBoxContainer" parent="VB/HB"]
+margin_left = 220.0
+margin_right = 420.0
+margin_bottom = 56.0
+custom_constants/separation = 10
+
+[node name="Label3" type="Label" parent="VB/HB/VB2"]
+margin_right = 200.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Band / Artist"
+
+[node name="Band" type="Label" parent="VB/HB/VB2"]
+margin_top = 33.0
+margin_right = 200.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="VB3" type="VBoxContainer" parent="VB/HB"]
+margin_left = 440.0
+margin_right = 640.0
+margin_bottom = 56.0
+custom_constants/separation = 10
+
+[node name="Label3" type="Label" parent="VB/HB/VB3"]
+margin_right = 200.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Record Type"
+
+[node name="Type" type="Label" parent="VB/HB/VB3"]
+margin_top = 33.0
+margin_right = 200.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="HB2" type="HBoxContainer" parent="VB"]
+margin_top = 193.0
+margin_right = 1240.0
+margin_bottom = 520.0
+custom_constants/separation = 20
+
+[node name="VB" type="VBoxContainer" parent="VB/HB2"]
+margin_right = 542.0
+margin_bottom = 327.0
+size_flags_horizontal = 3
+
+[node name="Label4" type="Label" parent="VB/HB2/VB"]
+margin_right = 542.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Text"
+
+[node name="Text" type="TextEdit" parent="VB/HB2/VB"]
+margin_top = 27.0
+margin_right = 542.0
+margin_bottom = 327.0
+rect_min_size = Vector2( 0, 300 )
+readonly = true
+
+[node name="LabelStyle" type="VBoxContainer" parent="VB/HB2"]
+margin_left = 562.0
+margin_right = 678.0
+margin_bottom = 327.0
+custom_constants/separation = 20
+
+[node name="Label4" type="Label" parent="VB/HB2/LabelStyle"]
+margin_right = 116.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Label Style"
+
+[node name="Large" type="CheckBox" parent="VB/HB2/LabelStyle"]
+margin_top = 43.0
+margin_right = 116.0
+margin_bottom = 82.0
+group = SubResource( 2 )
+text = "Large hole"
+
+[node name="LabelBlank" type="Button" parent="VB/HB2/LabelStyle"]
+margin_top = 102.0
+margin_right = 116.0
+margin_bottom = 206.0
+icon = ExtResource( 9 )
+
+[node name="Save" type="Button" parent="VB/HB2/LabelStyle"]
+margin_top = 226.0
+margin_right = 116.0
+margin_bottom = 265.0
+text = "Save"
+
+[node name="Sp" type="Control" parent="VB/HB2"]
+margin_left = 698.0
+margin_right = 1240.0
+margin_bottom = 327.0
+size_flags_horizontal = 3
+
+[node name="c" type="CanvasLayer" parent="."]
+
+[node name="AlbumSelector" parent="c" instance=ExtResource( 7 )]
+
+[node name="Color" type="PopupDialog" parent="c"]
+margin_left = 153.0
+margin_top = 282.0
+margin_right = 503.0
+margin_bottom = 737.0
+theme = ExtResource( 6 )
+
+[node name="M" type="MarginContainer" parent="c/Color"]
+margin_right = 349.0
+margin_bottom = 455.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="ColorPicker" type="ColorPicker" parent="c/Color/M"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 339.0
+margin_bottom = 445.0
+edit_alpha = false
+presets_visible = false
+
+[node name="SaveDialog" type="FileDialog" parent="c"]
+margin_right = 962.0
+margin_bottom = 339.0
+theme = ExtResource( 6 )
+access = 2
+filters = PoolStringArray( "*.png ; PNG file" )
+
+[connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="VB/HB2/LabelStyle/LabelBlank" to="." method="_on_Label_pressed"]
+[connection signal="pressed" from="VB/HB2/LabelStyle/Save" to="." method="_on_Save_pressed"]
+[connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
+[connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]
+[connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]

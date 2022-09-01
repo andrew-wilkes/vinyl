@@ -1,10 +1,10 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=4]
-[ext_resource path="res://scenes/TrackSelector.gd" type="Script" id=5]
+[ext_resource path="res://scenes/TrackSelector.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/EditPanel.gd" type="Script" id=6]
 [ext_resource path="res://assets/panel.stylebox" type="StyleBox" id=7]
 [ext_resource path="res://scenes/TrackInfo.gd" type="Script" id=8]
@@ -25,7 +25,7 @@
 [ext_resource path="res://assets/fast-forward.png" type="Texture" id=23]
 [ext_resource path="res://assets/stop.png" type="Texture" id=24]
 [ext_resource path="res://assets/rec-stack.png" type="Texture" id=25]
-[ext_resource path="res://scenes/AlbumSelector.gd" type="Script" id=26]
+[ext_resource path="res://scenes/AlbumSelector.tscn" type="PackedScene" id=26]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -95,9 +95,6 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=11]
 shader = SubResource( 10 )
 shader_param/value = 0.4
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.180392, 0.180392, 0.180392, 1 )
 
 [node name="RecordProducer" type="MarginContainer"]
 anchor_right = 1.0
@@ -245,6 +242,7 @@ custom_constants/separation = 20
 [node name="FrontCover" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
 margin_right = 64.0
 margin_bottom = 64.0
+hint_tooltip = "Front cover"
 texture_normal = ExtResource( 12 )
 script = ExtResource( 15 )
 
@@ -252,6 +250,7 @@ script = ExtResource( 15 )
 margin_left = 84.0
 margin_right = 148.0
 margin_bottom = 64.0
+hint_tooltip = "Rear  cover"
 texture_normal = ExtResource( 13 )
 script = ExtResource( 15 )
 
@@ -259,6 +258,7 @@ script = ExtResource( 15 )
 margin_left = 168.0
 margin_right = 232.0
 margin_bottom = 64.0
+hint_tooltip = "A side"
 texture_normal = ExtResource( 9 )
 script = ExtResource( 15 )
 
@@ -266,6 +266,7 @@ script = ExtResource( 15 )
 margin_left = 252.0
 margin_right = 316.0
 margin_bottom = 64.0
+hint_tooltip = "B side"
 texture_normal = ExtResource( 14 )
 script = ExtResource( 15 )
 
@@ -755,92 +756,9 @@ select_mode = 1
 
 [node name="c" type="CanvasLayer" parent="."]
 
-[node name="TrackSelector" type="PanelContainer" parent="c"]
-visible = false
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 936.0
-margin_bottom = 474.0
-theme = ExtResource( 4 )
-custom_styles/panel = ExtResource( 7 )
-script = ExtResource( 5 )
+[node name="TrackSelector" parent="c" instance=ExtResource( 5 )]
 
-[node name="VB" type="VBoxContainer" parent="c/TrackSelector"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 896.0
-margin_bottom = 434.0
-custom_constants/separation = 20
-
-[node name="Label" type="Label" parent="c/TrackSelector/VB"]
-margin_right = 876.0
-margin_bottom = 34.0
-custom_fonts/font = ExtResource( 2 )
-text = "Track Selector"
-
-[node name="Tracks" type="ItemList" parent="c/TrackSelector/VB"]
-margin_top = 54.0
-margin_right = 876.0
-margin_bottom = 355.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/hseparation = 10
-custom_styles/bg = SubResource( 4 )
-select_mode = 1
-
-[node name="HB" type="HBoxContainer" parent="c/TrackSelector/VB"]
-margin_top = 375.0
-margin_right = 876.0
-margin_bottom = 414.0
-
-[node name="Add" type="Button" parent="c/TrackSelector/VB/HB"]
-margin_right = 164.0
-margin_bottom = 39.0
-text = "Add selected tracks"
-
-[node name="Sp" type="Control" parent="c/TrackSelector/VB/HB"]
-margin_left = 168.0
-margin_right = 815.0
-margin_bottom = 39.0
-size_flags_horizontal = 3
-
-[node name="Cancel" type="Button" parent="c/TrackSelector/VB/HB"]
-margin_left = 819.0
-margin_right = 876.0
-margin_bottom = 39.0
-text = "Close"
-
-[node name="AlbumSelector" type="PanelContainer" parent="c"]
-visible = false
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 440.0
-margin_bottom = 424.0
-theme = ExtResource( 4 )
-custom_styles/panel = ExtResource( 7 )
-script = ExtResource( 26 )
-
-[node name="VB" type="VBoxContainer" parent="c/AlbumSelector"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 400.0
-margin_bottom = 384.0
-custom_constants/separation = 20
-
-[node name="Label" type="Label" parent="c/AlbumSelector/VB"]
-margin_right = 380.0
-margin_bottom = 34.0
-custom_fonts/font = ExtResource( 2 )
-text = "Select Album"
-
-[node name="Albums" type="ItemList" parent="c/AlbumSelector/VB"]
-margin_top = 54.0
-margin_right = 380.0
-margin_bottom = 364.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/hseparation = 10
-custom_styles/bg = SubResource( 4 )
+[node name="AlbumSelector" parent="c" instance=ExtResource( 26 )]
 
 [node name="TrackInfo" type="PanelContainer" parent="c"]
 visible = false
@@ -1033,10 +951,6 @@ dialog_autowrap = true
 [connection signal="pressed" from="VBox/HB2/VB2/HB/InfoB" to="." method="_on_InfoB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/PlayB" to="." method="_on_PlayB_pressed"]
 [connection signal="pressed" from="VBox/HB2/VB2/HB/StopB" to="." method="_on_Stop_pressed"]
-[connection signal="pressed" from="c/TrackSelector/VB/HB/Add" to="c/TrackSelector" method="_on_Add_pressed"]
-[connection signal="pressed" from="c/TrackSelector/VB/HB/Cancel" to="c/TrackSelector" method="_on_Cancel_pressed"]
-[connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
-[connection signal="item_selected" from="c/AlbumSelector/VB/Albums" to="c/AlbumSelector" method="_on_Albums_item_selected"]
 [connection signal="pressed" from="c/TrackInfo/VB/HB/OK" to="c/TrackInfo" method="_on_OK_pressed"]
 [connection signal="text_entered" from="c/EditPanel/HB/LineEdit" to="c/EditPanel" method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="c/EditPanel/HB/OK" to="c/EditPanel" method="_on_OK_pressed"]

@@ -200,8 +200,7 @@ func _on_InfoA_pressed():
 
 
 func _on_PlayA_pressed():
-	load_track(SIDE_A)
-	if current_track:
+	if load_track(SIDE_A) and current_track:
 		set_play_state(true)
 
 
@@ -249,8 +248,7 @@ func _on_InfoB_pressed():
 
 
 func _on_PlayB_pressed():
-	load_track(SIDE_B)
-	if current_track:
+	if load_track(SIDE_B) and current_track:
 		set_play_state(true)
 
 
@@ -275,12 +273,19 @@ func _on_Down_pressed(side):
 
 
 func load_track(side):
+	var ok = true
 	var items = tracks[side].get_selected_items()
 	if items.size() > 0:
 		var track = tracks[side].get_item_metadata(items[0])
 		if current_track != track:
-			audio.load_data(track.path) # Set the stream
-			current_track = track
+			var file = File.new()
+			if file.file_exists(track.path):
+				audio.load_data(track.path) # Set the stream
+				current_track = track
+			else:
+				ok = false
+				alert("Unable to load the audio file from " + track.path)
+	return ok
 
 
 func _on_AudioStreamPlayer_finished():
@@ -440,6 +445,7 @@ func open_image_selector(idx):
 	var path = g.settings.get_album_property("images")[idx]
 	if path == null:
 		$c/ImageSelector.current_dir = g.settings.last_image_dir
+		$c/ImageSelector.current_file = ""
 	else:
 		$c/ImageSelector.current_dir = path.get_base_dir()
 		$c/ImageSelector.current_path = path
