@@ -22,3 +22,7 @@ func _on_Player_pressed():
 
 func _on_Gear_pressed():
 	$c/Fader.fade_out("Gear")
+
+
+func _on_About_pressed():
+	$c2/AboutDialog.popup_centered()
