@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/gear-button.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Main.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=10]
 [ext_resource path="res://scenes/Fader.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=12]
+[ext_resource path="res://assets/regular.tres" type="DynamicFont" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -136,15 +137,26 @@ margin_top = 8.0
 margin_right = 807.0
 margin_bottom = 469.0
 
-[node name="Author" type="Label" parent="c2/AboutDialog/TabContainer"]
+[node name="Author" type="RichTextLabel" parent="c2/AboutDialog/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-text = "This software was created by Andrew Wilkes starting August 2022."
-autowrap = true
+custom_fonts/bold_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 13 )
+bbcode_enabled = true
+bbcode_text = "This software was created by [b]Andrew Wilkes[/b] starting August 2022.
+
+If you enjoyed using this software, please consider [url=https://buymeacoffee.com/gdscriptdude]buying me a coffee[/url].
+
+Thanks!"
+text = "This software was created by Andrew Wilkes starting August 2022.
+
+If you enjoyed using this software, please consider buying me a coffee.
+
+Thanks!"
 
 [node name="Licences" type="ScrollContainer" parent="c2/AboutDialog/TabContainer"]
 visible = false
@@ -154,10 +166,12 @@ scroll_horizontal_enabled = false
 
 [node name="Text" type="Label" parent="c2/AboutDialog/TabContainer/Licences"]
 margin_right = 797.0
-margin_bottom = 1869.0
+margin_bottom = 1895.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+text = "Copyright © 2022 Andrew Wilkes
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -----------------------------------------------
 GODOT ENGINE LICENCE
@@ -214,3 +228,4 @@ fade_in_enabled = false
 [connection signal="pressed" from="C/VB/Player" to="." method="_on_Player_pressed"]
 [connection signal="pressed" from="C/VB/Gear" to="." method="_on_Gear_pressed"]
 [connection signal="pressed" from="c2/M/TopBar/About" to="." method="_on_About_pressed"]
+[connection signal="meta_clicked" from="c2/AboutDialog/TabContainer/Author" to="." method="_on_Author_meta_clicked"]

@@ -22,4 +22,12 @@ func _notification(what):
 
 func save_and_quit():
 	settings.save_data()
-	get_tree().quit()
+	if get_parent().get_child(1).name == "Main":
+		get_tree().quit()
+	else:
+		get_parent().get_child(1).find_node("Fader").fade_out("Main")
+
+
+func format_time(time):
+# warning-ignore:integer_division
+	return "%02d:%02d" % [int(time) / 60, int(time) % 60]

@@ -51,6 +51,11 @@ func load_album(id):
 	for track in album.b_side:
 		text.append("%d. %s" % [n, track.title])
 		n += 1
+	text.append("\n")
+	for track in album.a_side:
+		text.append(get_track_details(track))
+	for track in album.b_side:
+		text.append(get_track_details(track))
 	find_node("Text").text = text.join("\n")
 	var large_hole = album.size == "size7"
 	find_node("Large").visible = large_hole
@@ -60,6 +65,10 @@ func load_album(id):
 		blank = label_a.get_data()
 	label_blank.icon = get_icon_texture(album.label_color)
 	show_album_details()
+
+
+func get_track_details(track):
+	return "%s %s %s %s" % [track.title, track.album, track.year, g.format_time(track.length)]
 
 
 func _on_Label_pressed():

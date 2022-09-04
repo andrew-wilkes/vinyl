@@ -65,6 +65,7 @@ _global_script_class_icons={
 config/name="Vinyl"
 run/main_scene="res://scenes/Main.tscn"
 config/icon="res://assets/player-button.png"
+config/auto_accept_quit=false
 
 [autoload]
 

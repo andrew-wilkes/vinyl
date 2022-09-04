@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/AlbumArt.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=2]
@@ -7,10 +7,38 @@
 [ext_resource path="res://assets/rec-stack.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=6]
 [ext_resource path="res://scenes/AlbumSelector.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/tracks-button.png" type="Texture" id=8]
 [ext_resource path="res://assets/labela.png" type="Texture" id=9]
+[ext_resource path="res://scenes/Blank.gd" type="Script" id=10]
 
 [sub_resource type="ButtonGroup" id=2]
 resource_name = "hole"
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform float hole_size = 0.1;
+uniform sampler2D image;
+uniform vec4 mod_color : hint_color = vec4(1.0);
+
+void fragment() {
+	float a = 0.01;
+	vec4 color = texture(image, UV) * mod_color;
+	float dist = length(2.0 * UV - vec2(1.0));
+	if (dist < hole_size + a) {
+		color.a = clamp((dist - hole_size) / a, 0.0, 1.0);
+	} else {
+		if (dist > 1.0 - a)
+			color.a = clamp((1.0 - dist) / a, 0.0, 1.0);
+	}
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/hole_size = 0.1
+shader_param/mod_color = Color( 1, 1, 1, 1 )
+shader_param/image = ExtResource( 8 )
 
 [node name="AlbumArt" type="MarginContainer"]
 anchor_right = 1.0
@@ -153,19 +181,19 @@ size_flags_vertical = 3
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="VB/A2"]
-margin_right = 539.0
+margin_right = 541.0
 margin_bottom = 567.0
 size_flags_horizontal = 3
 
 [node name="Label4" type="Label" parent="VB/A2/VB"]
-margin_right = 539.0
+margin_right = 541.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Useful Text"
 
 [node name="Text" type="TextEdit" parent="VB/A2/VB"]
 margin_top = 27.0
-margin_right = 539.0
+margin_right = 541.0
 margin_bottom = 524.0
 rect_min_size = Vector2( 0, 300 )
 size_flags_vertical = 3
@@ -173,46 +201,168 @@ readonly = true
 
 [node name="CopyText" type="Button" parent="VB/A2/VB"]
 margin_top = 528.0
-margin_right = 539.0
+margin_right = 541.0
 margin_bottom = 567.0
 text = "Copy to clipboard"
 
-[node name="LabelStyle" type="VBoxContainer" parent="VB/A2"]
-margin_left = 559.0
-margin_right = 681.0
+[node name="Settings" type="VBoxContainer" parent="VB/A2"]
+margin_left = 561.0
+margin_right = 678.0
 margin_bottom = 567.0
-custom_constants/separation = 20
+custom_constants/separation = 10
 
-[node name="Label4" type="Label" parent="VB/A2/LabelStyle"]
-margin_right = 122.0
+[node name="Label4" type="Label" parent="VB/A2/Settings"]
+margin_right = 117.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
-text = "Label Template"
+text = "Settings"
 
-[node name="Large" type="CheckBox" parent="VB/A2/LabelStyle"]
-margin_top = 43.0
-margin_right = 122.0
-margin_bottom = 82.0
+[node name="Large" type="CheckBox" parent="VB/A2/Settings"]
+margin_top = 33.0
+margin_right = 117.0
+margin_bottom = 72.0
 group = SubResource( 2 )
 text = "Large hole"
 
-[node name="LabelBlank" type="Button" parent="VB/A2/LabelStyle"]
-margin_top = 102.0
-margin_right = 122.0
-margin_bottom = 206.0
-icon = ExtResource( 9 )
+[node name="Style" type="CheckBox" parent="VB/A2/Settings"]
+margin_top = 82.0
+margin_right = 117.0
+margin_bottom = 121.0
+group = SubResource( 2 )
+text = "Same style"
 
-[node name="Save" type="Button" parent="VB/A2/LabelStyle"]
-margin_top = 226.0
-margin_right = 122.0
-margin_bottom = 265.0
-text = "Save"
-
-[node name="Sp" type="Control" parent="VB/A2"]
-margin_left = 701.0
+[node name="Tabs" type="TabContainer" parent="VB/A2"]
+margin_left = 698.0
 margin_right = 1240.0
 margin_bottom = 567.0
 size_flags_horizontal = 3
+
+[node name="Side A" type="VBoxContainer" parent="VB/A2/Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/separation = 20
+
+[node name="label" type="Label" parent="VB/A2/Tabs/Side A"]
+margin_right = 534.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Label design"
+
+[node name="VP" type="ViewportContainer" parent="VB/A2/Tabs/Side A"]
+margin_top = 43.0
+margin_right = 534.0
+margin_bottom = 472.0
+size_flags_vertical = 3
+
+[node name="Viewport" type="Viewport" parent="VB/A2/Tabs/Side A/VP"]
+size = Vector2( 400, 400 )
+transparent_bg = true
+handle_input_locally = false
+hdr = false
+usage = 0
+render_target_update_mode = 3
+
+[node name="C" type="CanvasLayer" parent="VB/A2/Tabs/Side A/VP/Viewport"]
+
+[node name="Blank" type="ColorRect" parent="VB/A2/Tabs/Side A/VP/Viewport/C"]
+material = SubResource( 4 )
+margin_right = 400.0
+margin_bottom = 400.0
+script = ExtResource( 10 )
+
+[node name="Save" type="Button" parent="VB/A2/Tabs/Side A"]
+margin_top = 492.0
+margin_right = 534.0
+margin_bottom = 531.0
+text = "Save"
+
+[node name="Side B" type="VBoxContainer" parent="VB/A2/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/separation = 20
+
+[node name="label" type="Label" parent="VB/A2/Tabs/Side B"]
+margin_right = 347.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Label design"
+
+[node name="LabelBlank" type="Button" parent="VB/A2/Tabs/Side B"]
+margin_top = 43.0
+margin_right = 347.0
+margin_bottom = 147.0
+icon = ExtResource( 9 )
+
+[node name="Save" type="Button" parent="VB/A2/Tabs/Side B"]
+margin_top = 167.0
+margin_right = 347.0
+margin_bottom = 206.0
+text = "Save"
+
+[node name="Front Cover" type="VBoxContainer" parent="VB/A2/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/separation = 20
+
+[node name="label" type="Label" parent="VB/A2/Tabs/Front Cover"]
+margin_right = 347.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Cover art"
+
+[node name="LabelBlank" type="Button" parent="VB/A2/Tabs/Front Cover"]
+margin_top = 43.0
+margin_right = 347.0
+margin_bottom = 147.0
+icon = ExtResource( 9 )
+
+[node name="Save" type="Button" parent="VB/A2/Tabs/Front Cover"]
+margin_top = 167.0
+margin_right = 347.0
+margin_bottom = 206.0
+text = "Save"
+
+[node name="Back Cover" type="VBoxContainer" parent="VB/A2/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/separation = 20
+
+[node name="label" type="Label" parent="VB/A2/Tabs/Back Cover"]
+margin_right = 347.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Cover art"
+
+[node name="LabelBlank" type="Button" parent="VB/A2/Tabs/Back Cover"]
+margin_top = 43.0
+margin_right = 347.0
+margin_bottom = 147.0
+icon = ExtResource( 9 )
+
+[node name="Save" type="Button" parent="VB/A2/Tabs/Back Cover"]
+margin_top = 167.0
+margin_right = 347.0
+margin_bottom = 206.0
+text = "Save"
 
 [node name="c" type="CanvasLayer" parent="."]
 
@@ -250,8 +400,13 @@ filters = PoolStringArray( "*.png ; PNG file" )
 
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VB/A2/VB/CopyText" to="." method="_on_CopyText_pressed"]
-[connection signal="pressed" from="VB/A2/LabelStyle/LabelBlank" to="." method="_on_Label_pressed"]
-[connection signal="pressed" from="VB/A2/LabelStyle/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Side A/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Side B/LabelBlank" to="." method="_on_Label_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Side B/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Front Cover/LabelBlank" to="." method="_on_Label_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Front Cover/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Back Cover/LabelBlank" to="." method="_on_Label_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Back Cover/Save" to="." method="_on_Save_pressed"]
 [connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]
 [connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]

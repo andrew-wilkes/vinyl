@@ -337,13 +337,12 @@ func update_utilization(side):
 	texture.create_from_image(img, 0)
 	bars[side].material.set_shader_param("data", texture)
 # warning-ignore:integer_division
-	times[side].text = "%02d:%02d" % [int(time) / 60, int(time) % 60]
+	times[side].text = g.format_time(time)
 	if overflow:
 		times[side].modulate = Color.red
 	else:
 		times[side].modulate = Color.white
-# warning-ignore:integer_division
-	$VBox/HB1/VB3/HB4/Capacity.text = "%02d:%02d" % [int(capacity) / 60, int(capacity) % 60]
+	$VBox/HB1/VB3/HB4/Capacity.text = g.format_time(capacity)
 
 
 func _on_Pitch_value_changed(value):

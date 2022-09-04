@@ -26,3 +26,8 @@ func _on_Gear_pressed():
 
 func _on_About_pressed():
 	$c2/AboutDialog.popup_centered()
+
+
+func _on_Author_meta_clicked(meta):
+	var e = OS.shell_open(str(meta))
+	if e != OK: print(e)
