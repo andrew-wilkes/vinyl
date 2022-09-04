@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/AlbumArt.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/tracks-button.png" type="Texture" id=8]
 [ext_resource path="res://assets/labela.png" type="Texture" id=9]
 [ext_resource path="res://scenes/Blank.gd" type="Script" id=10]
+[ext_resource path="res://scenes/Overlay.gd" type="Script" id=11]
 
 [sub_resource type="ButtonGroup" id=2]
 resource_name = "hole"
@@ -54,7 +55,7 @@ script = ExtResource( 1 )
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1260.0
-margin_bottom = 780.0
+margin_bottom = 810.0
 custom_constants/separation = 20
 
 [node name="Header" type="HBoxContainer" parent="VB"]
@@ -176,13 +177,13 @@ rect_min_size = Vector2( 200, 0 )
 [node name="A2" type="HBoxContainer" parent="VB"]
 margin_top = 193.0
 margin_right = 1240.0
-margin_bottom = 760.0
+margin_bottom = 790.0
 size_flags_vertical = 3
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="VB/A2"]
 margin_right = 541.0
-margin_bottom = 567.0
+margin_bottom = 597.0
 size_flags_horizontal = 3
 
 [node name="Label4" type="Label" parent="VB/A2/VB"]
@@ -194,21 +195,21 @@ text = "Useful Text"
 [node name="Text" type="TextEdit" parent="VB/A2/VB"]
 margin_top = 27.0
 margin_right = 541.0
-margin_bottom = 524.0
+margin_bottom = 554.0
 rect_min_size = Vector2( 0, 300 )
 size_flags_vertical = 3
 readonly = true
 
 [node name="CopyText" type="Button" parent="VB/A2/VB"]
-margin_top = 528.0
+margin_top = 558.0
 margin_right = 541.0
-margin_bottom = 567.0
+margin_bottom = 597.0
 text = "Copy to clipboard"
 
 [node name="Settings" type="VBoxContainer" parent="VB/A2"]
 margin_left = 561.0
 margin_right = 678.0
-margin_bottom = 567.0
+margin_bottom = 597.0
 custom_constants/separation = 10
 
 [node name="Label4" type="Label" parent="VB/A2/Settings"]
@@ -234,7 +235,7 @@ text = "Same style"
 [node name="Tabs" type="TabContainer" parent="VB/A2"]
 margin_left = 698.0
 margin_right = 1240.0
-margin_bottom = 567.0
+margin_bottom = 597.0
 size_flags_horizontal = 3
 
 [node name="Side A" type="VBoxContainer" parent="VB/A2/Tabs"]
@@ -255,7 +256,7 @@ text = "Label design"
 [node name="VP" type="ViewportContainer" parent="VB/A2/Tabs/Side A"]
 margin_top = 43.0
 margin_right = 534.0
-margin_bottom = 472.0
+margin_bottom = 443.0
 size_flags_vertical = 3
 
 [node name="Viewport" type="Viewport" parent="VB/A2/Tabs/Side A/VP"]
@@ -266,19 +267,31 @@ hdr = false
 usage = 0
 render_target_update_mode = 3
 
-[node name="C" type="CanvasLayer" parent="VB/A2/Tabs/Side A/VP/Viewport"]
-
-[node name="Blank" type="ColorRect" parent="VB/A2/Tabs/Side A/VP/Viewport/C"]
+[node name="Blank" type="ColorRect" parent="VB/A2/Tabs/Side A/VP/Viewport"]
 material = SubResource( 4 )
 margin_right = 400.0
 margin_bottom = 400.0
 script = ExtResource( 10 )
 
+[node name="C" type="CanvasLayer" parent="VB/A2/Tabs/Side A/VP/Viewport"]
+
+[node name="Overlay" type="ColorRect" parent="VB/A2/Tabs/Side A/VP/Viewport/C"]
+margin_right = 400.0
+margin_bottom = 400.0
+color = Color( 0.341176, 0.341176, 0.341176, 0 )
+script = ExtResource( 11 )
+
 [node name="Save" type="Button" parent="VB/A2/Tabs/Side A"]
-margin_top = 492.0
+margin_top = 463.0
 margin_right = 534.0
-margin_bottom = 531.0
+margin_bottom = 502.0
 text = "Save"
+
+[node name="Snap" type="Button" parent="VB/A2/Tabs/Side A"]
+margin_top = 522.0
+margin_right = 534.0
+margin_bottom = 561.0
+text = "Snapshot"
 
 [node name="Side B" type="VBoxContainer" parent="VB/A2/Tabs"]
 visible = false
@@ -401,6 +414,7 @@ filters = PoolStringArray( "*.png ; PNG file" )
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VB/A2/VB/CopyText" to="." method="_on_CopyText_pressed"]
 [connection signal="pressed" from="VB/A2/Tabs/Side A/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VB/A2/Tabs/Side A/Snap" to="VB/A2/Tabs/Side A/VP/Viewport/Blank" method="_on_Snap_pressed"]
 [connection signal="pressed" from="VB/A2/Tabs/Side B/LabelBlank" to="." method="_on_Label_pressed"]
 [connection signal="pressed" from="VB/A2/Tabs/Side B/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="VB/A2/Tabs/Front Cover/LabelBlank" to="." method="_on_Label_pressed"]
