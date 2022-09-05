@@ -9,12 +9,7 @@ var blank
 var label
 var album
 
-onready var label_blank = find_node("LabelBlank")
-
 func _ready():
-	label_a = load("res://assets/labela.png")
-	label_b = load("res://assets/labelb.png")
-	blank = Image.new()
 	find_node("Large").visible = false
 	show_album_details(false)
 	if g.settings.album_id:
@@ -60,10 +55,11 @@ func load_album(id):
 	var large_hole = album.size == "size7"
 	find_node("Large").visible = large_hole
 	if large_hole:
-		blank = label_b.get_data()
+		$"VB/A2/Tabs/Side A/ImageView".hole_size = 0.3
+		$"VB/A2/Tabs/Side B/ImageView".hole_size = 0.3
 	else:
-		blank = label_a.get_data()
-	label_blank.icon = get_icon_texture(album.label_color)
+		$"VB/A2/Tabs/Side A/ImageView".hole_size = 0.1
+		$"VB/A2/Tabs/Side B/ImageView".hole_size = 0.1
 	show_album_details()
 
 
@@ -71,14 +67,8 @@ func get_track_details(track):
 	return "%s %s %s %s" % [track.title, track.album, track.year, g.format_time(track.length)]
 
 
-func _on_Label_pressed():
-	$c/Color/M/ColorPicker.color = album.label_color
-	$c/Color.popup_centered()
-
-
 func _on_Color_popup_hide():
 	album.label_color = $c/Color/M/ColorPicker.color
-	label_blank.icon = get_icon_texture(album.label_color)
 
 
 func _on_Save_pressed():
@@ -92,6 +82,7 @@ func _on_SaveDialog_file_selected(path):
 	g.settings.last_image_dir = path.get_base_dir()
 
 
+# Archive this code
 func get_icon_texture(color):
 	var sqr_color = Image.new()
 	sqr_color.copy_from(blank)
