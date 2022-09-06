@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/album.gd"
 }, {
+"base": "Resource",
+"class": "ArtElement",
+"language": "GDScript",
+"path": "res://classes/art-element.gd"
+}, {
 "base": "Reference",
 "class": "Audio",
 "language": "GDScript",
@@ -51,6 +56,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Album": "",
+"ArtElement": "",
 "Audio": "",
 "Database": "",
 "GutHookScript": "",

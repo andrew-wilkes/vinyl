@@ -55,11 +55,11 @@ func load_album(id):
 	var large_hole = album.size == "size7"
 	find_node("Large").visible = large_hole
 	if large_hole:
-		$"VB/A2/Tabs/Side A/ImageView".hole_size = 0.3
-		$"VB/A2/Tabs/Side B/ImageView".hole_size = 0.3
+		$"VB/A2/Tabs/Side A/HB/ImageView".hole_size = 0.3
+		$"VB/A2/Tabs/Side B/HB/ImageView".hole_size = 0.3
 	else:
-		$"VB/A2/Tabs/Side A/ImageView".hole_size = 0.1
-		$"VB/A2/Tabs/Side B/ImageView".hole_size = 0.1
+		$"VB/A2/Tabs/Side A/HB/ImageView".hole_size = 0.1
+		$"VB/A2/Tabs/Side B/HB/ImageView".hole_size = 0.1
 	show_album_details()
 
 
@@ -95,10 +95,6 @@ func get_icon_texture(color):
 	var texture = ImageTexture.new()
 	texture.create_from_image(label)
 	return texture
-
-
-func _on_CopyText_pressed():
-	OS.set_clipboard($VB/A2/VB/Text.text)
 
 
 func show_album_details(show = true):

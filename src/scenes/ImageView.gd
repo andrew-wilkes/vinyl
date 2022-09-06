@@ -21,7 +21,6 @@ func _ready():
 	blank.material.set_shader_param("is_disc", is_disc)
 	blank.material.set_shader_param("image", image)
 	blank.material.set_shader_param("mod_color", mod_color)
-	print(blank.material)
 
 
 func set_hole_size(n):
