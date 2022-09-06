@@ -25,7 +25,11 @@ func save_and_quit():
 	if get_parent().get_child(1).name == "Main":
 		get_tree().quit()
 	else:
-		get_parent().get_child(1).find_node("Fader").fade_out("Main")
+		var fader = get_parent().get_child(1).find_node("Fader")
+		if fader:
+			fader.fade_out("Main")
+		else:
+			get_tree().quit()
 
 
 func format_time(time):
