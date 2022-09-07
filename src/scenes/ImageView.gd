@@ -32,6 +32,7 @@ func _on_ImageView_sort_children():
 	if base_size == null: base_size = size
 	# Allow size to be reduced
 	$Viewport.size = Vector2.ZERO
+	overlay.rect_size = Vector2(size, size)
 	overlay.rect_scale = Vector2(size, size) / base_size
 	#overlay.update()
 	$Viewport/Blank.rect_size = Vector2(size, size)

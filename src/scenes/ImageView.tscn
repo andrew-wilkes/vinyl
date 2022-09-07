@@ -12,8 +12,9 @@ shader_param/mod_color = Color( 1, 1, 1, 1 )
 
 [node name="ImageView" type="ViewportContainer"]
 margin_top = 43.0
-margin_right = 534.0
+margin_right = 370.0
 margin_bottom = 413.0
+mouse_filter = 1
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
@@ -29,13 +30,16 @@ render_target_update_mode = 3
 material = SubResource( 1 )
 margin_right = 370.0
 margin_bottom = 370.0
+mouse_filter = 1
 
 [node name="C" type="CanvasLayer" parent="Viewport"]
+layer = -1
 
 [node name="Overlay" type="ColorRect" parent="Viewport/C"]
 margin_right = 400.0
 margin_bottom = 400.0
-color = Color( 0.341176, 0.341176, 0.341176, 0 )
+mouse_filter = 1
+color = Color( 1, 1, 1, 0 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05

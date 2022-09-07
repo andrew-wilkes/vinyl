@@ -8,20 +8,36 @@ var label_b
 var blank
 var label
 var album
+var canvas_group
+onready var art = find_node("ArtDesigner")
 
 func _ready():
 	find_node("Large").visible = false
 	show_album_details(false)
 	if g.settings.album_id:
 		load_album(g.settings.album_id)
+	else:
+		album = Album.new()
 	$VB/Header/VB/NoRecords.visible = g.settings.albums.size() < 1
+	canvas_group = find_node("Canvas1").group
+	var idx = 0
+	for b in canvas_group.get_buttons():
+		var _e = b.connect("pressed", self, "change_canvas", [idx])
+		idx += 1
+	art.disable_input()
+
+
+func change_canvas(idx):
+	art.init_canvas(idx, album)
 
 
 func _on_Load_pressed():
+	art.disable_input()
 	$c/AlbumSelector.open()
 
 
 func _on_AlbumSelector_album_selected(album_id):
+	art.disable_input(false)
 	load_album(album_id)
 
 
@@ -54,12 +70,7 @@ func load_album(id):
 	find_node("Text").text = text.join("\n")
 	var large_hole = album.size == "size7"
 	find_node("Large").visible = large_hole
-	if large_hole:
-		$"VB/A2/Tabs/Side A/HB/ImageView".hole_size = 0.3
-		$"VB/A2/Tabs/Side B/HB/ImageView".hole_size = 0.3
-	else:
-		$"VB/A2/Tabs/Side A/HB/ImageView".hole_size = 0.1
-		$"VB/A2/Tabs/Side B/HB/ImageView".hole_size = 0.1
+	art.set_hole_size(large_hole)
 	show_album_details()
 
 

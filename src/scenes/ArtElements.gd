@@ -2,20 +2,23 @@ extends VBoxContainer
 
 signal added_element(el)
 signal selected_element(el)
-
-export var tab = 0
+signal removed_element(el)
 
 var selected_item = -1
-var album: Album
 
-func _ready():
-	album = Album.new()
+func init_elements(elements):
+	$Elements.clear()
+	$Props.hide()
+	var idx = 0
+	for el in elements:
+		$Elements.add_icon_item($Grid.get_child(el.type).icon.duplicate())
+		$Elements.set_item_metadata(idx, el)
+		idx += 1
 
 
 func add_element(type):
 	var el = ArtElement.new()
 	el.type = type
-	album.elements[tab].append(el)
 	$Elements.add_icon_item($Grid.get_child(el.type).icon.duplicate())
 	selected_item = $Elements.get_item_count() - 1
 	$Elements.set_item_metadata(selected_item, el)
@@ -25,7 +28,7 @@ func add_element(type):
 
 func _unhandled_key_input(event):
 	if event.scancode == KEY_DELETE and selected_item > -1:
-		album.elements[tab].erase($Elements.get_item_metadata(selected_item))
+		emit_signal("removed_element", $Elements.get_item_metadata(selected_item))
 		$Elements.remove_item(selected_item)
 		selected_item = -1
 

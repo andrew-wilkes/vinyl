@@ -215,9 +215,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 autowrap = true
 
 [node name="c" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Fader" parent="c" instance=ExtResource( 11 )]
+visible = false
 mouse_filter = 2
 fade_in_enabled = false
 

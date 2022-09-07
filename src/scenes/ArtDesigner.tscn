@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=2]
@@ -19,56 +19,148 @@
 [ext_resource path="res://assets/stop.png" type="Texture" id=17]
 [ext_resource path="res://assets/up-down.png" type="Texture" id=18]
 [ext_resource path="res://assets/bar.png" type="Texture" id=19]
+[ext_resource path="res://scenes/ArtDesigner.gd" type="Script" id=20]
+[ext_resource path="res://assets/tracks-button.png" type="Texture" id=21]
 
-[node name="ArtDesigner" type="HBoxContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+[node name="ArtDesigner" type="PanelContainer"]
+margin_right = 901.0
+margin_bottom = 764.0
+size_flags_horizontal = 3
+script = ExtResource( 20 )
+
+[node name="HB" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 894.0
+margin_bottom = 757.0
+size_flags_horizontal = 3
 theme = ExtResource( 2 )
 custom_constants/separation = 20
 
-[node name="VB" type="VBoxContainer" parent="."]
-margin_right = 468.0
-margin_bottom = 764.0
+[node name="VB" type="VBoxContainer" parent="HB"]
+margin_right = 370.0
+margin_bottom = 750.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="label" type="Label" parent="VB"]
-margin_right = 468.0
+[node name="Title" type="Label" parent="HB/VB"]
+margin_right = 370.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
 text = "Label design"
 
-[node name="ImageView" parent="VB" instance=ExtResource( 12 )]
+[node name="ImageView" parent="HB/VB" instance=ExtResource( 12 )]
 margin_top = 33.0
-margin_right = 468.0
-margin_bottom = 715.0
+margin_bottom = 603.0
 mod_color = Color( 0.682353, 0.137255, 0.137255, 1 )
 image = ExtResource( 3 )
 
-[node name="Save" type="Button" parent="VB"]
-margin_top = 725.0
-margin_right = 468.0
-margin_bottom = 764.0
-text = "Save"
+[node name="VB" type="VBoxContainer" parent="HB/VB"]
+margin_top = 613.0
+margin_right = 370.0
+margin_bottom = 750.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
 
-[node name="ArtElements" type="VBoxContainer" parent="."]
-margin_left = 488.0
-margin_right = 783.0
-margin_bottom = 764.0
+[node name="label" type="Label" parent="HB/VB/VB"]
+margin_right = 370.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 1 )
+text = "Background"
+
+[node name="HB" type="HBoxContainer" parent="HB/VB/VB"]
+margin_top = 33.0
+margin_right = 370.0
+margin_bottom = 137.0
+size_flags_horizontal = 3
+custom_constants/separation = 20
+
+[node name="BG" type="TextureRect" parent="HB/VB/VB/HB"]
+margin_right = 64.0
+margin_bottom = 104.0
+texture = ExtResource( 21 )
+
+[node name="Adjusters" type="GridContainer" parent="HB/VB/VB/HB"]
+margin_left = 84.0
+margin_right = 318.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 5
+columns = 2
+
+[node name="Label" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+margin_right = 12.0
+margin_bottom = 23.0
+text = "H"
+
+[node name="H" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+margin_left = 17.0
+margin_right = 234.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+margin_top = 27.0
+margin_right = 12.0
+margin_bottom = 50.0
+text = "S"
+
+[node name="S" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+margin_left = 17.0
+margin_top = 27.0
+margin_right = 234.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 0, 22 )
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+margin_top = 54.0
+margin_right = 12.0
+margin_bottom = 77.0
+text = "V"
+
+[node name="V" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+margin_left = 17.0
+margin_top = 54.0
+margin_right = 234.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 0, 22 )
+size_flags_horizontal = 3
+
+[node name="Label4" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+margin_top = 81.0
+margin_right = 12.0
+margin_bottom = 104.0
+text = "A"
+
+[node name="A" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+margin_left = 17.0
+margin_top = 81.0
+margin_right = 234.0
+margin_bottom = 103.0
+rect_min_size = Vector2( 0, 22 )
+size_flags_horizontal = 3
+
+[node name="ModColor" type="ColorRect" parent="HB/VB/VB/HB"]
+margin_left = 338.0
+margin_right = 370.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 32, 0 )
+
+[node name="ArtElements" type="VBoxContainer" parent="HB"]
+margin_left = 390.0
+margin_right = 685.0
+margin_bottom = 750.0
 custom_constants/separation = 10
 script = ExtResource( 4 )
 
-[node name="label" type="Label" parent="ArtElements"]
+[node name="label" type="Label" parent="HB/ArtElements"]
 margin_right = 295.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
 text = "Elements"
 
-[node name="Grid" type="GridContainer" parent="ArtElements"]
+[node name="Grid" type="GridContainer" parent="HB/ArtElements"]
 margin_top = 33.0
 margin_right = 295.0
 margin_bottom = 72.0
@@ -76,40 +168,40 @@ custom_constants/vseparation = 5
 custom_constants/hseparation = 5
 columns = 8
 
-[node name="AB" type="Button" parent="ArtElements/Grid"]
+[node name="AB" type="Button" parent="HB/ArtElements/Grid"]
 margin_right = 32.0
 margin_bottom = 39.0
 icon = ExtResource( 13 )
 icon_align = 1
 
-[node name="ABRot" type="Button" parent="ArtElements/Grid"]
+[node name="ABRot" type="Button" parent="HB/ArtElements/Grid"]
 margin_left = 37.0
 margin_right = 75.0
 margin_bottom = 39.0
 icon = ExtResource( 14 )
 icon_align = 1
 
-[node name="Circle" type="Button" parent="ArtElements/Grid"]
+[node name="Circle" type="Button" parent="HB/ArtElements/Grid"]
 margin_left = 80.0
 margin_right = 112.0
 margin_bottom = 39.0
 icon = ExtResource( 16 )
 icon_align = 1
 
-[node name="Arc" type="Button" parent="ArtElements/Grid"]
+[node name="Arc" type="Button" parent="HB/ArtElements/Grid"]
 margin_left = 117.0
 margin_right = 149.0
 margin_bottom = 39.0
 icon = ExtResource( 9 )
 icon_align = 1
 
-[node name="Line" type="Button" parent="ArtElements/Grid"]
+[node name="Line" type="Button" parent="HB/ArtElements/Grid"]
 margin_left = 154.0
 margin_right = 186.0
 margin_bottom = 39.0
 icon = ExtResource( 10 )
 
-[node name="Dot" type="Button" parent="ArtElements/Grid"]
+[node name="Dot" type="Button" parent="HB/ArtElements/Grid"]
 margin_left = 191.0
 margin_right = 223.0
 margin_bottom = 39.0
@@ -117,215 +209,308 @@ rect_min_size = Vector2( 32, 0 )
 icon = ExtResource( 6 )
 icon_align = 1
 
-[node name="Square" type="Button" parent="ArtElements/Grid"]
+[node name="Square" type="Button" parent="HB/ArtElements/Grid"]
 margin_left = 228.0
 margin_right = 258.0
 margin_bottom = 39.0
 icon = ExtResource( 17 )
 
-[node name="Box" type="Button" parent="ArtElements/Grid"]
+[node name="Box" type="Button" parent="HB/ArtElements/Grid"]
 margin_left = 263.0
 margin_right = 295.0
 margin_bottom = 39.0
 icon = ExtResource( 15 )
 
-[node name="Elements" type="ItemList" parent="ArtElements"]
+[node name="Elements" type="ItemList" parent="HB/ArtElements"]
 margin_top = 82.0
 margin_right = 295.0
-margin_bottom = 715.0
+margin_bottom = 701.0
 size_flags_vertical = 3
 custom_constants/vseparation = 10
 
-[node name="Snap" type="Button" parent="ArtElements"]
-margin_top = 725.0
+[node name="Snap" type="Button" parent="HB/ArtElements"]
+margin_top = 711.0
 margin_right = 295.0
-margin_bottom = 764.0
+margin_bottom = 750.0
 text = "Snapshot"
 
-[node name="Props" type="VBoxContainer" parent="."]
-margin_left = 803.0
-margin_right = 1272.0
-margin_bottom = 764.0
+[node name="Props" type="VBoxContainer" parent="HB"]
+margin_left = 705.0
+margin_right = 887.0
+margin_bottom = 750.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="label" type="Label" parent="Props"]
-margin_right = 469.0
+[node name="label" type="Label" parent="HB/Props"]
+margin_right = 182.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
-text = "Properties"
+text = "Element properties"
 
-[node name="Adjusters" type="GridContainer" parent="Props"]
+[node name="Adjusters" type="GridContainer" parent="HB/Props"]
 margin_top = 33.0
-margin_right = 469.0
-margin_bottom = 252.0
+margin_right = 182.0
+margin_bottom = 381.0
 custom_constants/vseparation = 10
 custom_constants/hseparation = 5
 columns = 2
 
-[node name="C" type="CenterContainer" parent="Props/Adjusters"]
+[node name="Gap7" type="Control" parent="HB/Props/Adjusters"]
 margin_right = 16.0
-margin_bottom = 16.0
 
-[node name="Icon" type="TextureRect" parent="Props/Adjusters/C"]
+[node name="Gap8" type="Control" parent="HB/Props/Adjusters"]
+margin_left = 21.0
+margin_right = 182.0
+
+[node name="Gap9" type="Control" parent="HB/Props/Adjusters"]
+margin_top = 10.0
+margin_right = 16.0
+margin_bottom = 33.0
+
+[node name="Label6" type="Label" parent="HB/Props/Adjusters"]
+margin_left = 21.0
+margin_top = 10.0
+margin_right = 182.0
+margin_bottom = 33.0
+text = "Sizing"
+
+[node name="C" type="CenterContainer" parent="HB/Props/Adjusters"]
+margin_top = 43.0
+margin_right = 16.0
+margin_bottom = 59.0
+
+[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C"]
 margin_top = 5.0
 margin_right = 16.0
 margin_bottom = 11.0
 texture = ExtResource( 7 )
 
-[node name="HSlider" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_right = 469.0
-margin_bottom = 16.0
+margin_top = 43.0
+margin_right = 182.0
+margin_bottom = 59.0
 size_flags_horizontal = 3
 
-[node name="C2" type="CenterContainer" parent="Props/Adjusters"]
-margin_top = 26.0
+[node name="C2" type="CenterContainer" parent="HB/Props/Adjusters"]
+margin_top = 69.0
 margin_right = 16.0
-margin_bottom = 42.0
+margin_bottom = 85.0
 
-[node name="Icon2" type="TextureRect" parent="Props/Adjusters/C2"]
+[node name="Icon2" type="TextureRect" parent="HB/Props/Adjusters/C2"]
 margin_top = 6.0
 margin_right = 16.0
 margin_bottom = 10.0
 texture = ExtResource( 19 )
 
-[node name="HSlider2" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider2" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_top = 26.0
-margin_right = 469.0
-margin_bottom = 42.0
+margin_top = 69.0
+margin_right = 182.0
+margin_bottom = 85.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Props/Adjusters"]
-margin_top = 52.0
+[node name="Gap4" type="Control" parent="HB/Props/Adjusters"]
+margin_top = 95.0
 margin_right = 16.0
-margin_bottom = 75.0
+margin_bottom = 95.0
+
+[node name="Gap5" type="Control" parent="HB/Props/Adjusters"]
+margin_left = 21.0
+margin_top = 95.0
+margin_right = 182.0
+margin_bottom = 95.0
+
+[node name="Gap6" type="Control" parent="HB/Props/Adjusters"]
+margin_top = 105.0
+margin_right = 16.0
+margin_bottom = 128.0
+
+[node name="Label5" type="Label" parent="HB/Props/Adjusters"]
+margin_left = 21.0
+margin_top = 105.0
+margin_right = 182.0
+margin_bottom = 128.0
+text = "Fill color"
+
+[node name="Label" type="Label" parent="HB/Props/Adjusters"]
+margin_top = 138.0
+margin_right = 16.0
+margin_bottom = 161.0
 text = "H"
 
-[node name="HSlider4" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider4" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_top = 52.0
-margin_right = 469.0
-margin_bottom = 74.0
+margin_top = 138.0
+margin_right = 182.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="Props/Adjusters"]
-margin_top = 85.0
+[node name="Label2" type="Label" parent="HB/Props/Adjusters"]
+margin_top = 171.0
 margin_right = 16.0
-margin_bottom = 108.0
+margin_bottom = 194.0
 text = "S"
 
-[node name="HSlider5" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider5" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_top = 85.0
-margin_right = 469.0
-margin_bottom = 107.0
+margin_top = 171.0
+margin_right = 182.0
+margin_bottom = 193.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
 
-[node name="Label3" type="Label" parent="Props/Adjusters"]
-margin_top = 118.0
+[node name="Label3" type="Label" parent="HB/Props/Adjusters"]
+margin_top = 204.0
 margin_right = 16.0
-margin_bottom = 141.0
+margin_bottom = 227.0
 text = "V"
 
-[node name="HSlider6" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider6" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_top = 118.0
-margin_right = 469.0
-margin_bottom = 140.0
+margin_top = 204.0
+margin_right = 182.0
+margin_bottom = 226.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
 
-[node name="C3" type="CenterContainer" parent="Props/Adjusters"]
-margin_top = 151.0
+[node name="Gap" type="Control" parent="HB/Props/Adjusters"]
+margin_top = 237.0
 margin_right = 16.0
-margin_bottom = 167.0
+margin_bottom = 237.0
 
-[node name="Icon" type="TextureRect" parent="Props/Adjusters/C3"]
+[node name="Gap2" type="Control" parent="HB/Props/Adjusters"]
+margin_left = 21.0
+margin_top = 237.0
+margin_right = 182.0
+margin_bottom = 237.0
+
+[node name="Gap3" type="Control" parent="HB/Props/Adjusters"]
+margin_top = 247.0
+margin_right = 16.0
+margin_bottom = 270.0
+
+[node name="Label4" type="Label" parent="HB/Props/Adjusters"]
+margin_left = 21.0
+margin_top = 247.0
+margin_right = 182.0
+margin_bottom = 270.0
+text = "Position and rotation"
+
+[node name="C3" type="CenterContainer" parent="HB/Props/Adjusters"]
+margin_top = 280.0
+margin_right = 16.0
+margin_bottom = 296.0
+
+[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C3"]
 margin_top = 3.0
 margin_right = 16.0
 margin_bottom = 13.0
 texture = ExtResource( 11 )
 
-[node name="HSlider3" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider3" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_top = 151.0
-margin_right = 469.0
-margin_bottom = 167.0
+margin_top = 280.0
+margin_right = 182.0
+margin_bottom = 296.0
 size_flags_horizontal = 3
 
-[node name="C4" type="CenterContainer" parent="Props/Adjusters"]
-margin_top = 177.0
+[node name="C4" type="CenterContainer" parent="HB/Props/Adjusters"]
+margin_top = 306.0
 margin_right = 16.0
-margin_bottom = 193.0
+margin_bottom = 322.0
 
-[node name="Icon" type="TextureRect" parent="Props/Adjusters/C4"]
+[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C4"]
 margin_top = 5.0
 margin_right = 16.0
 margin_bottom = 11.0
 texture = ExtResource( 8 )
 
-[node name="HSlider7" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider7" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_top = 177.0
-margin_right = 469.0
-margin_bottom = 193.0
+margin_top = 306.0
+margin_right = 182.0
+margin_bottom = 322.0
 size_flags_horizontal = 3
 
-[node name="C5" type="CenterContainer" parent="Props/Adjusters"]
-margin_top = 203.0
+[node name="C5" type="CenterContainer" parent="HB/Props/Adjusters"]
+margin_top = 332.0
 margin_right = 16.0
-margin_bottom = 219.0
+margin_bottom = 348.0
 
-[node name="Icon" type="TextureRect" parent="Props/Adjusters/C5"]
+[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C5"]
 margin_left = 5.0
 margin_right = 11.0
 margin_bottom = 16.0
 texture = ExtResource( 18 )
 
-[node name="HSlider8" type="HSlider" parent="Props/Adjusters"]
+[node name="HSlider8" type="HSlider" parent="HB/Props/Adjusters"]
 margin_left = 21.0
-margin_top = 203.0
-margin_right = 469.0
-margin_bottom = 219.0
+margin_top = 332.0
+margin_right = 182.0
+margin_bottom = 348.0
 size_flags_horizontal = 3
 
-[node name="LineEdit" type="LineEdit" parent="Props"]
-margin_top = 262.0
-margin_right = 469.0
-margin_bottom = 286.0
+[node name="Gap7" type="Control" parent="HB/Props"]
+margin_top = 391.0
+margin_right = 182.0
+margin_bottom = 483.0
+size_flags_vertical = 3
 
-[node name="HB" type="HBoxContainer" parent="Props"]
-margin_top = 296.0
-margin_right = 469.0
-margin_bottom = 335.0
+[node name="Label6" type="Label" parent="HB/Props"]
+margin_top = 493.0
+margin_right = 182.0
+margin_bottom = 516.0
+text = "Text"
 
-[node name="C" type="CenterContainer" parent="Props/HB"]
+[node name="HB" type="HBoxContainer" parent="HB/Props"]
+margin_top = 526.0
+margin_right = 182.0
+margin_bottom = 565.0
+
+[node name="C6" type="CenterContainer" parent="HB/Props/HB"]
 margin_right = 17.0
 margin_bottom = 39.0
 
-[node name="Icon" type="TextureRect" parent="Props/HB/C"]
+[node name="Icon" type="TextureRect" parent="HB/Props/HB/C6"]
 margin_top = 11.0
 margin_right = 17.0
 margin_bottom = 27.0
 texture = ExtResource( 5 )
 
-[node name="Font" type="MenuButton" parent="Props/HB"]
+[node name="Font" type="MenuButton" parent="HB/Props/HB"]
 margin_left = 21.0
-margin_right = 71.0
+margin_right = 182.0
 margin_bottom = 39.0
 focus_mode = 2
+size_flags_horizontal = 3
 text = "Font"
 
-[connection signal="pressed" from="ArtElements/Grid/AB" to="ArtElements" method="_on_AB_pressed"]
-[connection signal="pressed" from="ArtElements/Grid/ABRot" to="ArtElements" method="_on_ABRot_pressed"]
-[connection signal="pressed" from="ArtElements/Grid/Circle" to="ArtElements" method="_on_Circle_pressed"]
-[connection signal="pressed" from="ArtElements/Grid/Arc" to="ArtElements" method="_on_Arc_pressed"]
-[connection signal="pressed" from="ArtElements/Grid/Line" to="ArtElements" method="_on_Line_pressed"]
-[connection signal="pressed" from="ArtElements/Grid/Dot" to="ArtElements" method="_on_Dot_pressed"]
-[connection signal="pressed" from="ArtElements/Grid/Square" to="ArtElements" method="_on_Square_pressed"]
-[connection signal="pressed" from="ArtElements/Grid/Box" to="ArtElements" method="_on_Box_pressed"]
-[connection signal="item_selected" from="ArtElements/Elements" to="ArtElements" method="_on_Elements_item_selected"]
+[node name="Text" type="LineEdit" parent="HB/Props"]
+margin_top = 575.0
+margin_right = 182.0
+margin_bottom = 599.0
+
+[node name="Sp" type="Control" parent="HB/Props"]
+margin_top = 609.0
+margin_right = 182.0
+margin_bottom = 701.0
+size_flags_vertical = 3
+
+[node name="Save" type="Button" parent="HB/Props"]
+margin_top = 711.0
+margin_right = 182.0
+margin_bottom = 750.0
+size_flags_horizontal = 3
+text = "Save"
+
+[connection signal="pressed" from="HB/ArtElements/Grid/AB" to="HB/ArtElements" method="_on_AB_pressed"]
+[connection signal="pressed" from="HB/ArtElements/Grid/ABRot" to="HB/ArtElements" method="_on_ABRot_pressed"]
+[connection signal="pressed" from="HB/ArtElements/Grid/Circle" to="HB/ArtElements" method="_on_Circle_pressed"]
+[connection signal="pressed" from="HB/ArtElements/Grid/Arc" to="HB/ArtElements" method="_on_Arc_pressed"]
+[connection signal="pressed" from="HB/ArtElements/Grid/Line" to="HB/ArtElements" method="_on_Line_pressed"]
+[connection signal="pressed" from="HB/ArtElements/Grid/Dot" to="HB/ArtElements" method="_on_Dot_pressed"]
+[connection signal="pressed" from="HB/ArtElements/Grid/Square" to="HB/ArtElements" method="_on_Square_pressed"]
+[connection signal="pressed" from="HB/ArtElements/Grid/Box" to="HB/ArtElements" method="_on_Box_pressed"]
+[connection signal="item_selected" from="HB/ArtElements/Elements" to="HB/ArtElements" method="_on_Elements_item_selected"]
