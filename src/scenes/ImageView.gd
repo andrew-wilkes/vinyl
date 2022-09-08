@@ -8,7 +8,7 @@ var base_size
 var hole_size = 0.1 setget set_hole_size
 
 export var is_disc = true
-export(Color) var mod_color = Color.white
+export(Color) var mod_color = Color.white setget set_mod_color
 export(Texture) var image
 
 func _ready():
@@ -20,7 +20,12 @@ func _ready():
 	dynamic_font.size = 28
 	blank.material.set_shader_param("is_disc", is_disc)
 	blank.material.set_shader_param("image", image)
-	blank.material.set_shader_param("mod_color", mod_color)
+
+
+func set_mod_color(color):
+	if blank:
+		blank.material.set_shader_param("mod_color", color)
+		mod_color = color
 
 
 func set_hole_size(n):

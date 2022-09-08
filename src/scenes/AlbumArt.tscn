@@ -31,7 +31,7 @@ script = ExtResource( 1 )
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1260.0
-margin_bottom = 799.0
+margin_bottom = 832.0
 custom_constants/separation = 20
 
 [node name="Header" type="HBoxContainer" parent="VB"]
@@ -153,74 +153,75 @@ rect_min_size = Vector2( 200, 0 )
 [node name="A2" type="HBoxContainer" parent="VB"]
 margin_top = 193.0
 margin_right = 1240.0
-margin_bottom = 779.0
+margin_bottom = 812.0
 size_flags_vertical = 3
 custom_constants/separation = 20
 
 [node name="Side" type="VBoxContainer" parent="VB/A2"]
-margin_right = 117.0
-margin_bottom = 586.0
+margin_right = 97.0
+margin_bottom = 619.0
 custom_constants/separation = 10
 
 [node name="Label4" type="Label" parent="VB/A2/Side"]
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Canvas"
 
 [node name="Canvas1" type="CheckBox" parent="VB/A2/Side"]
 margin_top = 33.0
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 72.0
 group = SubResource( 3 )
 text = "Side A"
 
 [node name="Canvas2" type="CheckBox" parent="VB/A2/Side"]
 margin_top = 82.0
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 121.0
 group = SubResource( 3 )
 text = "Side B"
 
 [node name="Canvas3" type="CheckBox" parent="VB/A2/Side"]
 margin_top = 131.0
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 170.0
 group = SubResource( 3 )
 text = "Front"
 
 [node name="Canvas4" type="CheckBox" parent="VB/A2/Side"]
 margin_top = 180.0
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 219.0
 group = SubResource( 3 )
 text = "Back"
 
-[node name="Label5" type="Label" parent="VB/A2/Side"]
+[node name="ToolsLabel" type="Label" parent="VB/A2/Side"]
 margin_top = 229.0
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 252.0
 custom_fonts/font = ExtResource( 4 )
-text = "Settings"
+text = "Tools"
 
-[node name="Large" type="CheckBox" parent="VB/A2/Side"]
+[node name="Map" type="Button" parent="VB/A2/Side"]
 margin_top = 262.0
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 301.0
+hint_tooltip = "Copy settings between label and covers"
 group = SubResource( 2 )
-text = "Large hole"
+text = "Map styles"
 
-[node name="Style" type="CheckBox" parent="VB/A2/Side"]
+[node name="AI" type="Button" parent="VB/A2/Side"]
 margin_top = 311.0
-margin_right = 117.0
+margin_right = 97.0
 margin_bottom = 350.0
-group = SubResource( 2 )
-text = "Same style"
+hint_tooltip = "Generate example artwork and text"
+text = "Apply AI"
 
 [node name="ArtDesigner" parent="VB/A2" instance=ExtResource( 8 )]
-margin_left = 137.0
+margin_left = 117.0
 margin_right = 1240.0
-margin_bottom = 586.0
+margin_bottom = 619.0
 
 [node name="c" type="CanvasLayer" parent="."]
 

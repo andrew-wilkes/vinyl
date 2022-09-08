@@ -12,7 +12,7 @@ var canvas_group
 onready var art = find_node("ArtDesigner")
 
 func _ready():
-	find_node("Large").visible = false
+	#find_node("Large").visible = false
 	show_album_details(false)
 	if g.settings.album_id:
 		load_album(g.settings.album_id)
@@ -69,8 +69,9 @@ func load_album(id):
 		text.append(get_track_details(track))
 	find_node("Text").text = text.join("\n")
 	var large_hole = album.size == "size7"
-	find_node("Large").visible = large_hole
-	art.set_hole_size(large_hole)
+	#find_node("Large").visible = large_hole
+	#art.set_hole_size(large_hole)
+	art.init_canvas(0, album)
 	show_album_details()
 
 

@@ -8,7 +8,6 @@ var selected_item = -1
 
 func init_elements(elements):
 	$Elements.clear()
-	$Props.hide()
 	var idx = 0
 	for el in elements:
 		$Elements.add_icon_item($Grid.get_child(el.type).icon.duplicate())
