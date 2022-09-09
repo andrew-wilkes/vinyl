@@ -30,7 +30,7 @@ script = ExtResource( 20 )
 [node name="HB" type="HBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 914.0
+margin_right = 894.0
 margin_bottom = 757.0
 size_flags_horizontal = 3
 theme = ExtResource( 2 )
@@ -55,104 +55,128 @@ margin_bottom = 603.0
 mod_color = Color( 0.682353, 0.137255, 0.137255, 1 )
 image = ExtResource( 3 )
 
-[node name="VB" type="VBoxContainer" parent="HB/VB"]
+[node name="HB2" type="HBoxContainer" parent="HB/VB"]
 margin_top = 613.0
 margin_right = 370.0
 margin_bottom = 750.0
+custom_constants/separation = 20
+
+[node name="VB" type="VBoxContainer" parent="HB/VB/HB2"]
+margin_right = 62.0
+margin_bottom = 137.0
+custom_constants/separation = 10
+
+[node name="label" type="Label" parent="HB/VB/HB2/VB"]
+margin_right = 62.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 1 )
+text = "Current"
+
+[node name="CurrentImage" type="TextureRect" parent="HB/VB/HB2/VB"]
+unique_name_in_owner = true
+margin_top = 33.0
+margin_right = 62.0
+margin_bottom = 33.0
+
+[node name="VB2" type="VBoxContainer" parent="HB/VB/HB2"]
+margin_left = 82.0
+margin_right = 370.0
+margin_bottom = 137.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="label" type="Label" parent="HB/VB/VB"]
-margin_right = 370.0
+[node name="label" type="Label" parent="HB/VB/HB2/VB2"]
+margin_right = 288.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
-text = "Background"
+text = "Background modulation"
 
-[node name="HB" type="HBoxContainer" parent="HB/VB/VB"]
+[node name="HB" type="HBoxContainer" parent="HB/VB/HB2/VB2"]
 margin_top = 33.0
-margin_right = 370.0
+margin_right = 288.0
 margin_bottom = 137.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 
-[node name="BGTexture" type="Button" parent="HB/VB/VB/HB"]
+[node name="BGTexture" type="Button" parent="HB/VB/HB2/VB2/HB"]
 unique_name_in_owner = true
 margin_right = 16.0
 margin_bottom = 104.0
 hint_tooltip = "Select image or RMB to delete the image"
 
-[node name="Adjusters" type="GridContainer" parent="HB/VB/VB/HB"]
+[node name="Adjusters" type="GridContainer" parent="HB/VB/HB2/VB2/HB"]
 margin_left = 36.0
-margin_right = 342.0
+margin_right = 260.0
 margin_bottom = 104.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 5
 columns = 2
 
-[node name="Label" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+[node name="Label" type="Label" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_right = 12.0
 margin_bottom = 23.0
 text = "H"
 
-[node name="H" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+[node name="H" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
-margin_right = 306.0
+margin_right = 224.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Label2" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+[node name="Label2" type="Label" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_top = 27.0
 margin_right = 12.0
 margin_bottom = 50.0
 text = "S"
 
-[node name="S" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+[node name="S" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 27.0
-margin_right = 306.0
+margin_right = 224.0
 margin_bottom = 49.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Label3" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+[node name="Label3" type="Label" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_top = 54.0
 margin_right = 12.0
 margin_bottom = 77.0
 text = "V"
 
-[node name="V" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+[node name="V" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 54.0
-margin_right = 306.0
+margin_right = 224.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Label4" type="Label" parent="HB/VB/VB/HB/Adjusters"]
+[node name="Label4" type="Label" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_top = 81.0
 margin_right = 12.0
 margin_bottom = 104.0
 text = "A"
 
-[node name="A" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
+[node name="A" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 81.0
-margin_right = 306.0
+margin_right = 224.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="ModColor" type="ColorRect" parent="HB/VB/VB/HB"]
-margin_left = 362.0
-margin_right = 370.0
+[node name="ModColor" type="ColorRect" parent="HB/VB/HB2/VB2/HB"]
+unique_name_in_owner = true
+margin_left = 280.0
+margin_right = 288.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 8, 0 )
 
@@ -243,20 +267,25 @@ margin_right = 295.0
 margin_bottom = 750.0
 text = "Snapshot"
 
-[node name="Props" type="VBoxContainer" parent="HB"]
+[node name="RHS" type="VBoxContainer" parent="HB"]
 margin_left = 705.0
 margin_right = 887.0
 margin_bottom = 750.0
 size_flags_horizontal = 3
+
+[node name="Props" type="VBoxContainer" parent="HB/RHS"]
+margin_right = 182.0
+margin_bottom = 540.0
+size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="label" type="Label" parent="HB/Props"]
+[node name="label" type="Label" parent="HB/RHS/Props"]
 margin_right = 182.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
 text = "Element properties"
 
-[node name="Adjusters" type="GridContainer" parent="HB/Props"]
+[node name="Adjusters" type="GridContainer" parent="HB/RHS/Props"]
 margin_top = 33.0
 margin_right = 182.0
 margin_bottom = 414.0
@@ -264,37 +293,37 @@ custom_constants/vseparation = 10
 custom_constants/hseparation = 5
 columns = 2
 
-[node name="Gap7" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap7" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_right = 16.0
 
-[node name="Gap8" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap8" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_right = 182.0
 
-[node name="Gap9" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap9" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_top = 10.0
 margin_right = 16.0
 margin_bottom = 33.0
 
-[node name="Label6" type="Label" parent="HB/Props/Adjusters"]
+[node name="Label6" type="Label" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 10.0
 margin_right = 182.0
 margin_bottom = 33.0
 text = "Sizing"
 
-[node name="C" type="CenterContainer" parent="HB/Props/Adjusters"]
+[node name="C" type="CenterContainer" parent="HB/RHS/Props/Adjusters"]
 margin_top = 43.0
 margin_right = 16.0
 margin_bottom = 59.0
 
-[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C"]
+[node name="Icon" type="TextureRect" parent="HB/RHS/Props/Adjusters/C"]
 margin_top = 5.0
 margin_right = 16.0
 margin_bottom = 11.0
 texture = ExtResource( 7 )
 
-[node name="Length" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="Length" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 43.0
 margin_right = 182.0
@@ -303,18 +332,18 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="C2" type="CenterContainer" parent="HB/Props/Adjusters"]
+[node name="C2" type="CenterContainer" parent="HB/RHS/Props/Adjusters"]
 margin_top = 69.0
 margin_right = 16.0
 margin_bottom = 85.0
 
-[node name="Icon2" type="TextureRect" parent="HB/Props/Adjusters/C2"]
+[node name="Icon2" type="TextureRect" parent="HB/RHS/Props/Adjusters/C2"]
 margin_top = 6.0
 margin_right = 16.0
 margin_bottom = 10.0
 texture = ExtResource( 19 )
 
-[node name="Size" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="Size" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 69.0
 margin_right = 182.0
@@ -323,47 +352,47 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Gap4" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap4" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_top = 95.0
 margin_right = 16.0
 margin_bottom = 95.0
 
-[node name="Gap5" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap5" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 95.0
 margin_right = 182.0
 margin_bottom = 95.0
 
-[node name="Gap6" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap6" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_top = 105.0
 margin_right = 16.0
 margin_bottom = 128.0
 
-[node name="HB" type="HBoxContainer" parent="HB/Props/Adjusters"]
+[node name="HB" type="HBoxContainer" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 105.0
 margin_right = 182.0
 margin_bottom = 128.0
 
-[node name="Label5" type="Label" parent="HB/Props/Adjusters/HB"]
+[node name="Label5" type="Label" parent="HB/RHS/Props/Adjusters/HB"]
 margin_right = 125.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "Fill color"
 
-[node name="FillColor" type="ColorRect" parent="HB/Props/Adjusters/HB"]
+[node name="FillColor" type="ColorRect" parent="HB/RHS/Props/Adjusters/HB"]
 margin_left = 129.0
 margin_right = 161.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 32, 0 )
 
-[node name="Label" type="Label" parent="HB/Props/Adjusters"]
+[node name="Label" type="Label" parent="HB/RHS/Props/Adjusters"]
 margin_top = 138.0
 margin_right = 16.0
 margin_bottom = 161.0
 text = "H"
 
-[node name="H2" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="H2" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 138.0
 margin_right = 182.0
@@ -373,13 +402,13 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Label2" type="Label" parent="HB/Props/Adjusters"]
+[node name="Label2" type="Label" parent="HB/RHS/Props/Adjusters"]
 margin_top = 171.0
 margin_right = 16.0
 margin_bottom = 194.0
 text = "S"
 
-[node name="S2" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="S2" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 171.0
 margin_right = 182.0
@@ -389,13 +418,13 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Label3" type="Label" parent="HB/Props/Adjusters"]
+[node name="Label3" type="Label" parent="HB/RHS/Props/Adjusters"]
 margin_top = 204.0
 margin_right = 16.0
 margin_bottom = 227.0
 text = "V"
 
-[node name="V2" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="V2" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 204.0
 margin_right = 182.0
@@ -405,13 +434,13 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Label7" type="Label" parent="HB/Props/Adjusters"]
+[node name="Label7" type="Label" parent="HB/RHS/Props/Adjusters"]
 margin_top = 237.0
 margin_right = 16.0
 margin_bottom = 260.0
 text = "A"
 
-[node name="A2" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="A2" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 237.0
 margin_right = 182.0
@@ -421,41 +450,41 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Gap" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_top = 270.0
 margin_right = 16.0
 margin_bottom = 270.0
 
-[node name="Gap2" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap2" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 270.0
 margin_right = 182.0
 margin_bottom = 270.0
 
-[node name="Gap3" type="Control" parent="HB/Props/Adjusters"]
+[node name="Gap3" type="Control" parent="HB/RHS/Props/Adjusters"]
 margin_top = 280.0
 margin_right = 16.0
 margin_bottom = 303.0
 
-[node name="Label4" type="Label" parent="HB/Props/Adjusters"]
+[node name="Label4" type="Label" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 280.0
 margin_right = 182.0
 margin_bottom = 303.0
 text = "Position and rotation"
 
-[node name="C3" type="CenterContainer" parent="HB/Props/Adjusters"]
+[node name="C3" type="CenterContainer" parent="HB/RHS/Props/Adjusters"]
 margin_top = 313.0
 margin_right = 16.0
 margin_bottom = 329.0
 
-[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C3"]
+[node name="Icon" type="TextureRect" parent="HB/RHS/Props/Adjusters/C3"]
 margin_top = 3.0
 margin_right = 16.0
 margin_bottom = 13.0
 texture = ExtResource( 11 )
 
-[node name="Rot" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="Rot" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 313.0
 margin_right = 182.0
@@ -464,18 +493,18 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="C4" type="CenterContainer" parent="HB/Props/Adjusters"]
+[node name="C4" type="CenterContainer" parent="HB/RHS/Props/Adjusters"]
 margin_top = 339.0
 margin_right = 16.0
 margin_bottom = 355.0
 
-[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C4"]
+[node name="Icon" type="TextureRect" parent="HB/RHS/Props/Adjusters/C4"]
 margin_top = 5.0
 margin_right = 16.0
 margin_bottom = 11.0
 texture = ExtResource( 8 )
 
-[node name="X" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="X" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 339.0
 margin_right = 182.0
@@ -484,18 +513,18 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="C5" type="CenterContainer" parent="HB/Props/Adjusters"]
+[node name="C5" type="CenterContainer" parent="HB/RHS/Props/Adjusters"]
 margin_top = 365.0
 margin_right = 16.0
 margin_bottom = 381.0
 
-[node name="Icon" type="TextureRect" parent="HB/Props/Adjusters/C5"]
+[node name="Icon" type="TextureRect" parent="HB/RHS/Props/Adjusters/C5"]
 margin_left = 5.0
 margin_right = 11.0
 margin_bottom = 16.0
 texture = ExtResource( 18 )
 
-[node name="Y" type="HSlider" parent="HB/Props/Adjusters"]
+[node name="Y" type="HSlider" parent="HB/RHS/Props/Adjusters"]
 margin_left = 21.0
 margin_top = 365.0
 margin_right = 182.0
@@ -504,34 +533,34 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Gap7" type="Control" parent="HB/Props"]
+[node name="Gap7" type="Control" parent="HB/RHS/Props"]
 margin_top = 424.0
 margin_right = 182.0
-margin_bottom = 499.0
+margin_bottom = 424.0
 size_flags_vertical = 3
 
-[node name="TextLabel" type="Label" parent="HB/Props"]
-margin_top = 509.0
+[node name="TextLabel" type="Label" parent="HB/RHS/Props"]
+margin_top = 434.0
 margin_right = 182.0
-margin_bottom = 532.0
+margin_bottom = 457.0
 text = "Text"
 
-[node name="Fonts" type="HBoxContainer" parent="HB/Props"]
-margin_top = 542.0
+[node name="Fonts" type="HBoxContainer" parent="HB/RHS/Props"]
+margin_top = 467.0
 margin_right = 182.0
-margin_bottom = 581.0
+margin_bottom = 506.0
 
-[node name="C6" type="CenterContainer" parent="HB/Props/Fonts"]
+[node name="C6" type="CenterContainer" parent="HB/RHS/Props/Fonts"]
 margin_right = 17.0
 margin_bottom = 39.0
 
-[node name="Icon" type="TextureRect" parent="HB/Props/Fonts/C6"]
+[node name="Icon" type="TextureRect" parent="HB/RHS/Props/Fonts/C6"]
 margin_top = 11.0
 margin_right = 17.0
 margin_bottom = 27.0
 texture = ExtResource( 5 )
 
-[node name="Font" type="MenuButton" parent="HB/Props/Fonts"]
+[node name="Font" type="MenuButton" parent="HB/RHS/Props/Fonts"]
 margin_left = 21.0
 margin_right = 182.0
 margin_bottom = 39.0
@@ -539,35 +568,29 @@ focus_mode = 2
 size_flags_horizontal = 3
 text = "Font"
 
-[node name="Text" type="LineEdit" parent="HB/Props"]
-margin_top = 591.0
+[node name="Text" type="LineEdit" parent="HB/RHS/Props"]
+margin_top = 516.0
 margin_right = 182.0
-margin_bottom = 615.0
+margin_bottom = 540.0
 
-[node name="Sp" type="Control" parent="HB/Props"]
-margin_top = 625.0
+[node name="Sp" type="Control" parent="HB/RHS"]
+margin_top = 544.0
 margin_right = 182.0
-margin_bottom = 701.0
+margin_bottom = 707.0
 size_flags_vertical = 3
 
-[node name="Save" type="Button" parent="HB/Props"]
+[node name="Save" type="Button" parent="HB/RHS"]
 margin_top = 711.0
 margin_right = 182.0
 margin_bottom = 750.0
 size_flags_horizontal = 3
 text = "Save"
 
-[node name="Spacer" type="Control" parent="HB"]
-margin_left = 907.0
-margin_right = 907.0
-margin_bottom = 750.0
-size_flags_horizontal = 3
-
-[connection signal="gui_input" from="HB/VB/VB/HB/BGTexture" to="." method="_on_BGTexture_gui_input"]
-[connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/H" to="." method="_on_H_value_changed"]
-[connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/S" to="." method="_on_S_value_changed"]
-[connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/V" to="." method="_on_V_value_changed"]
-[connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/A" to="." method="_on_A_value_changed"]
+[connection signal="gui_input" from="HB/VB/HB2/VB2/HB/BGTexture" to="." method="_on_BGTexture_gui_input"]
+[connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/H" to="." method="_on_H_value_changed"]
+[connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/S" to="." method="_on_S_value_changed"]
+[connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/V" to="." method="_on_V_value_changed"]
+[connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/A" to="." method="_on_A_value_changed"]
 [connection signal="added_element" from="HB/ArtElements" to="." method="_on_ArtElements_added_element"]
 [connection signal="removed_element" from="HB/ArtElements" to="." method="_on_ArtElements_removed_element"]
 [connection signal="selected_element" from="HB/ArtElements" to="." method="_on_ArtElements_selected_element"]
@@ -580,13 +603,13 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="HB/ArtElements/Grid/Square" to="HB/ArtElements" method="_on_Square_pressed"]
 [connection signal="pressed" from="HB/ArtElements/Grid/Box" to="HB/ArtElements" method="_on_Box_pressed"]
 [connection signal="item_selected" from="HB/ArtElements/Elements" to="HB/ArtElements" method="_on_Elements_item_selected"]
-[connection signal="value_changed" from="HB/Props/Adjusters/Length" to="." method="_on_Length_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/Size" to="." method="_on_Size_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/H2" to="." method="_on_H2_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/S2" to="." method="_on_S2_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/V2" to="." method="_on_V2_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/A2" to="." method="_on_A2_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/Rot" to="." method="_on_Rot_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/X" to="." method="_on_X_value_changed"]
-[connection signal="value_changed" from="HB/Props/Adjusters/Y" to="." method="_on_Y_value_changed"]
-[connection signal="text_changed" from="HB/Props/Text" to="." method="_on_Text_text_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/Length" to="." method="_on_Length_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/Size" to="." method="_on_Size_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/H2" to="." method="_on_H2_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/S2" to="." method="_on_S2_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/V2" to="." method="_on_V2_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/A2" to="." method="_on_A2_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/Rot" to="." method="_on_Rot_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/X" to="." method="_on_X_value_changed"]
+[connection signal="value_changed" from="HB/RHS/Props/Adjusters/Y" to="." method="_on_Y_value_changed"]
+[connection signal="text_changed" from="HB/RHS/Props/Text" to="." method="_on_Text_text_changed"]

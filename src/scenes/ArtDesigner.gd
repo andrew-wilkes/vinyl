@@ -30,8 +30,7 @@ func init_canvas(idx, album):
 	color_adjusters.get_node("S").value = color.s
 	color_adjusters.get_node("V").value = color.v
 	color_adjusters.get_node("A").value = color.a
-	$HB/Props.hide()
-	$HB/Spacer.show()
+	$HB/RHS/Props.hide()
 	$HB/ArtElements.init_elements(elements)
 
 
@@ -39,7 +38,7 @@ func update_mod_color(color = null):
 	if color == null:
 		color = Color.from_hsv(color_adjusters.get_node("H").value, color_adjusters.get_node("S").value, color_adjusters.get_node("V").value, color_adjusters.get_node("A").value)
 	get_node("%ImageView").mod_color = color
-	$HB/VB/VB/HB/ModColor.color = color
+	get_node("%ModColor").color = color
 	background["color"] = color
 
 
@@ -81,43 +80,42 @@ func _on_A_value_changed(_value):
 func _on_ArtElements_added_element(el):
 	elements.append(el)
 	fill_props(el)
-	$HB/Props.show()
-	$HB/Spacer.hide()
+	$HB/RHS/Props.show()
 
 
 func _on_ArtElements_removed_element(el):
 	elements.erase(el)
-	$HB/Props.hide()
-	$HB/Spacer.show()
+	$HB/RHS/Props.hide()
 
 
 func _on_ArtElements_selected_element(el):
 	fill_props(el)
-	$HB/Props.show()
-	$HB/Spacer.hide()
+	$HB/RHS/Props.show()
 
 
 func fill_props(el):
 	current_element = el
+	var props = $HB/RHS/Props
+	var adjusters = props.get_node("Adjusters")
 	match el.type:
 		ArtElement.AB, ArtElement.ABROT:
-			$HB/Props/Text.text = el.text
-			$HB/Props/Fonts.show()
-			$HB/Props/Text.show()
-			$HB/Props/TextLabel.show()
+			props.get_node("Text").text = el.text
+			props.get_node("Fonts").show()
+			props.get_node("Text").show()
+			props.get_node("TextLabel").show()
 		_:
-			$HB/Props/Text.hide()
-			$HB/Props/Fonts.hide()
-			$HB/Props/TextLabel.hide()
-	$HB/Props/Adjusters/Length.value = el.length
-	$HB/Props/Adjusters/Size.value = el.size
-	$HB/Props/Adjusters/H2.value = el.color.h
-	$HB/Props/Adjusters/S2.value = el.color.s
-	$HB/Props/Adjusters/V2.value = el.color.v
-	$HB/Props/Adjusters/A2.value = el.color.a
-	$HB/Props/Adjusters/Rot.value = el.rotation
-	$HB/Props/Adjusters/X.value = el.position.x
-	$HB/Props/Adjusters/Y.value = el.position.y
+			props.get_node("Text").hide()
+			props.get_node("Fonts").hide()
+			props.get_node("TextLabel").hide()
+	adjusters.get_node("Length").value = el.length
+	adjusters.get_node("Size").value = el.size
+	adjusters.get_node("H2").value = el.color.h
+	adjusters.get_node("S2").value = el.color.s
+	adjusters.get_node("V2").value = el.color.v
+	adjusters.get_node("A2").value = el.color.a
+	adjusters.get_node("Rot").value = el.rotation
+	adjusters.get_node("X").value = el.position.x
+	adjusters.get_node("Y").value = el.position.y
 	update_fill_color()
 
 
@@ -151,7 +149,7 @@ func _on_H2_value_changed(value):
 
 
 func update_fill_color():
-	$HB/Props/Adjusters/HB/FillColor.color = current_element.color
+	$HB/RHS/Props/Adjusters/HB/FillColor.color = current_element.color
 
 
 func _on_S2_value_changed(value):
