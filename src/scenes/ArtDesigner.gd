@@ -1,26 +1,30 @@
 extends PanelContainer
 
+signal bg_texture_button_pressed
+
 onready var color_adjusters = find_node("Adjusters")
 
 var current_element: ArtElement
+var background
+var elements: Array
+var default_bg = preload("res://assets/checkerboard.png")
+
 
 func disable_input(disable = true):
 	$HB/VB/ImageView/Viewport.gui_disable_input = disable
 
 
 func init_canvas(idx, album):
+	background = album.bg[idx]
+	elements = album.elements[idx]
 	$HB/VB/Title.text = ["Label design - side A", "Label design - side B", "Front Cover design", "Back Cover design"][idx]
-	$HB/VB/ImageView.is_disc = idx < 2
-	$HB/VB/VB/HB/BG.texture = null
-	$HB/VB/ImageView.image = null
-	var image_path = album.bg[idx].get("image", null)
+	get_node("%ImageView").is_disc = idx < 2
+	get_node("%BGTexture").icon = default_bg
+	get_node("%ImageView").image = null
+	var image_path = background.get("image", null)
 	if image_path:
-		var file = File.new()
-		if file.file_exists(image_path):
-			var bg_texture = load(image_path)
-			$HB/VB/VB/HB/BG.texture = bg_texture
-			$HB/VB/ImageView.image = bg_texture
-	var color = album.bg[idx].get("color", Color.white)
+		try_updating_bg_image(image_path)
+	var color = background.get("color", Color.white)
 	update_mod_color(color)
 	color_adjusters.get_node("H").value = color.h
 	color_adjusters.get_node("S").value = color.s
@@ -28,21 +32,34 @@ func init_canvas(idx, album):
 	color_adjusters.get_node("A").value = color.a
 	$HB/Props.hide()
 	$HB/Spacer.show()
-	$HB/ArtElements.init_elements(album.elements[idx])
+	$HB/ArtElements.init_elements(elements)
 
 
 func update_mod_color(color = null):
 	if color == null:
 		color = Color.from_hsv(color_adjusters.get_node("H").value, color_adjusters.get_node("S").value, color_adjusters.get_node("V").value, color_adjusters.get_node("A").value)
-	$HB/VB/ImageView.mod_color = color
+	get_node("%ImageView").mod_color = color
 	$HB/VB/VB/HB/ModColor.color = color
+	background["color"] = color
 
 
 func set_hole_size(large = true):
 	if large:
-		$HB/VB/ImageView.hole_size = 0.3
+		get_node("%ImageView").hole_size = 0.3
 	else:
-		$HB/VB/ImageView.hole_size = 0.1
+		get_node("%ImageView").hole_size = 0.1
+
+
+func update_bg_image(path, text):
+	get_node("%ImageView").image = text.texture
+	background["image"] = path
+	get_node("%BGTexture").icon = text.resized
+
+
+func try_updating_bg_image(image_path):
+	var text = g.get_resized_texture(image_path, 64)
+	if text.resized:
+		update_bg_image(image_path, text)
 
 
 func _on_H_value_changed(_value):
@@ -62,12 +79,14 @@ func _on_A_value_changed(_value):
 
 
 func _on_ArtElements_added_element(el):
+	elements.append(el)
 	fill_props(el)
 	$HB/Props.show()
 	$HB/Spacer.hide()
 
 
 func _on_ArtElements_removed_element(el):
+	elements.erase(el)
 	$HB/Props.hide()
 	$HB/Spacer.show()
 
@@ -148,3 +167,7 @@ func _on_V2_value_changed(value):
 func _on_A2_value_changed(value):
 	current_element.color.a = value
 	update_fill_color()
+
+
+func _on_BGTexture_pressed():
+	emit_signal("bg_texture_button_pressed")

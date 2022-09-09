@@ -19,7 +19,7 @@ func _ready():
 	else:
 		album = Album.new()
 	$VB/Header/VB/NoRecords.visible = g.settings.albums.size() < 1
-	canvas_group = find_node("Canvas1").group
+	canvas_group = get_node("%Canvas1").group
 	var idx = 0
 	for b in canvas_group.get_buttons():
 		var _e = b.connect("pressed", self, "change_canvas", [idx])
@@ -67,10 +67,10 @@ func load_album(id):
 		text.append(get_track_details(track))
 	for track in album.b_side:
 		text.append(get_track_details(track))
-	find_node("Text").text = text.join("\n")
+	get_node("%PanelText").text = text.join("\n")
+	get_node("%Canvas1").pressed = true
 	var large_hole = album.size == "size7"
-	#find_node("Large").visible = large_hole
-	#art.set_hole_size(large_hole)
+	art.set_hole_size(large_hole)
 	art.init_canvas(0, album)
 	show_album_details()
 
@@ -84,12 +84,14 @@ func _on_Color_popup_hide():
 
 
 func _on_Save_pressed():
+	art.disable_input()
 	$c/SaveDialog.current_dir = g.settings.last_image_dir
 	$c/SaveDialog.current_file = ""
 	$c/SaveDialog.popup_centered()
 
 
 func _on_SaveDialog_file_selected(path):
+	art.disable_input(false)
 	label.save_png(path)
 	g.settings.last_image_dir = path.get_base_dir()
 
@@ -110,5 +112,24 @@ func get_icon_texture(color):
 
 
 func show_album_details(show = true):
-	$VB/A1.visible = show
-	$VB/A2.visible = show
+	get_node("%LeftCol").visible = show
+	art.visible = show
+
+
+func _on_ShowText_pressed():
+	art.disable_input()
+	$c/TextPanel.popup_centered()
+
+
+func _on_ImageSelector_file_selected(path):
+	art.disable_input(false)
+	art.try_updating_bg_image(path)
+
+
+func _on_ArtDesigner_bg_texture_button_pressed():
+	art.disable_input()
+	$c/ImageSelector.popup_centered()
+
+
+func _on_TextPanel_popup_hide():
+	art.disable_input(false)

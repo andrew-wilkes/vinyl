@@ -7,9 +7,9 @@ var size
 var base_size
 var hole_size = 0.1 setget set_hole_size
 
-export var is_disc = true
+export var is_disc = true setget set_canvas_type
 export(Color) var mod_color = Color.white setget set_mod_color
-export(Texture) var image
+export(Texture) var image setget set_image
 
 func _ready():
 	overlay = $Viewport/C/Overlay
@@ -18,8 +18,6 @@ func _ready():
 	dynamic_font = DynamicFont.new()
 	dynamic_font.font_data = load("res://assets/fonts/NotoSansUI_Regular.ttf")
 	dynamic_font.size = 28
-	blank.material.set_shader_param("is_disc", is_disc)
-	blank.material.set_shader_param("image", image)
 
 
 func set_mod_color(color):
@@ -29,7 +27,20 @@ func set_mod_color(color):
 
 
 func set_hole_size(n):
-	blank.material.set_shader_param("hole_size", n)
+	if blank:
+		blank.material.set_shader_param("hole_size", n)
+
+
+func set_canvas_type(disc):
+	is_disc = disc
+	if blank:
+		blank.material.set_shader_param("is_disc", disc)
+
+
+func set_image(img):
+	image = img
+	if blank:
+		blank.material.set_shader_param("image", image)
 
 
 func _on_ImageView_sort_children():

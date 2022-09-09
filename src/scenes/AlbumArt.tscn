@@ -31,7 +31,7 @@ script = ExtResource( 1 )
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1260.0
-margin_bottom = 832.0
+margin_bottom = 799.0
 custom_constants/separation = 20
 
 [node name="Header" type="HBoxContainer" parent="VB"]
@@ -91,135 +91,135 @@ margin_right = 1240.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 
-[node name="A1" type="HBoxContainer" parent="VB"]
+[node name="Content" type="HBoxContainer" parent="VB"]
 margin_top = 117.0
 margin_right = 1240.0
-margin_bottom = 173.0
+margin_bottom = 736.0
 custom_constants/separation = 20
 
-[node name="VB" type="VBoxContainer" parent="VB/A1"]
+[node name="LeftCol" type="VBoxContainer" parent="VB/Content"]
+unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 56.0
+margin_bottom = 619.0
+custom_constants/separation = 20
+
+[node name="VB" type="VBoxContainer" parent="VB/Content/LeftCol"]
+margin_right = 200.0
+margin_bottom = 188.0
 custom_constants/separation = 10
 
-[node name="Label2" type="Label" parent="VB/A1/VB"]
+[node name="Label2" type="Label" parent="VB/Content/LeftCol/VB"]
 margin_right = 200.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Album Title"
 
-[node name="Title" type="Label" parent="VB/A1/VB"]
+[node name="Title" type="Label" parent="VB/Content/LeftCol/VB"]
 margin_top = 33.0
 margin_right = 200.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 200, 0 )
 
-[node name="VB2" type="VBoxContainer" parent="VB/A1"]
-margin_left = 220.0
-margin_right = 420.0
-margin_bottom = 56.0
-custom_constants/separation = 10
-
-[node name="Label3" type="Label" parent="VB/A1/VB2"]
+[node name="Label3" type="Label" parent="VB/Content/LeftCol/VB"]
+margin_top = 66.0
 margin_right = 200.0
-margin_bottom = 23.0
+margin_bottom = 89.0
 custom_fonts/font = ExtResource( 4 )
 text = "Band / Artist"
 
-[node name="Band" type="Label" parent="VB/A1/VB2"]
-margin_top = 33.0
+[node name="Band" type="Label" parent="VB/Content/LeftCol/VB"]
+margin_top = 99.0
 margin_right = 200.0
-margin_bottom = 56.0
+margin_bottom = 122.0
 rect_min_size = Vector2( 200, 0 )
 
-[node name="VB3" type="VBoxContainer" parent="VB/A1"]
-margin_left = 440.0
-margin_right = 640.0
-margin_bottom = 56.0
-custom_constants/separation = 10
-
-[node name="Label3" type="Label" parent="VB/A1/VB3"]
+[node name="Label4" type="Label" parent="VB/Content/LeftCol/VB"]
+margin_top = 132.0
 margin_right = 200.0
-margin_bottom = 23.0
+margin_bottom = 155.0
 custom_fonts/font = ExtResource( 4 )
 text = "Record Type"
 
-[node name="Type" type="Label" parent="VB/A1/VB3"]
-margin_top = 33.0
+[node name="Type" type="Label" parent="VB/Content/LeftCol/VB"]
+margin_top = 165.0
 margin_right = 200.0
-margin_bottom = 56.0
+margin_bottom = 188.0
 rect_min_size = Vector2( 200, 0 )
 
-[node name="A2" type="HBoxContainer" parent="VB"]
-margin_top = 193.0
-margin_right = 1240.0
-margin_bottom = 812.0
-size_flags_vertical = 3
-custom_constants/separation = 20
-
-[node name="Side" type="VBoxContainer" parent="VB/A2"]
-margin_right = 97.0
-margin_bottom = 619.0
+[node name="CanvasMenu" type="VBoxContainer" parent="VB/Content/LeftCol"]
+margin_top = 208.0
+margin_right = 200.0
+margin_bottom = 607.0
 custom_constants/separation = 10
 
-[node name="Label4" type="Label" parent="VB/A2/Side"]
-margin_right = 97.0
+[node name="Label4" type="Label" parent="VB/Content/LeftCol/CanvasMenu"]
+margin_right = 200.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Canvas"
 
-[node name="Canvas1" type="CheckBox" parent="VB/A2/Side"]
+[node name="Canvas1" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
+unique_name_in_owner = true
 margin_top = 33.0
-margin_right = 97.0
+margin_right = 200.0
 margin_bottom = 72.0
 group = SubResource( 3 )
 text = "Side A"
 
-[node name="Canvas2" type="CheckBox" parent="VB/A2/Side"]
+[node name="Canvas2" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 82.0
-margin_right = 97.0
+margin_right = 200.0
 margin_bottom = 121.0
 group = SubResource( 3 )
 text = "Side B"
 
-[node name="Canvas3" type="CheckBox" parent="VB/A2/Side"]
+[node name="Canvas3" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 131.0
-margin_right = 97.0
+margin_right = 200.0
 margin_bottom = 170.0
 group = SubResource( 3 )
 text = "Front"
 
-[node name="Canvas4" type="CheckBox" parent="VB/A2/Side"]
+[node name="Canvas4" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 180.0
-margin_right = 97.0
+margin_right = 200.0
 margin_bottom = 219.0
 group = SubResource( 3 )
 text = "Back"
 
-[node name="ToolsLabel" type="Label" parent="VB/A2/Side"]
+[node name="ToolsLabel" type="Label" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 229.0
-margin_right = 97.0
+margin_right = 200.0
 margin_bottom = 252.0
 custom_fonts/font = ExtResource( 4 )
 text = "Tools"
 
-[node name="Map" type="Button" parent="VB/A2/Side"]
+[node name="ShowText" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 262.0
-margin_right = 97.0
+margin_right = 200.0
 margin_bottom = 301.0
+hint_tooltip = "Copy settings between label and covers"
+group = SubResource( 2 )
+text = "Show Text"
+
+[node name="Map" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+margin_top = 311.0
+margin_right = 200.0
+margin_bottom = 350.0
 hint_tooltip = "Copy settings between label and covers"
 group = SubResource( 2 )
 text = "Map styles"
 
-[node name="AI" type="Button" parent="VB/A2/Side"]
-margin_top = 311.0
-margin_right = 97.0
-margin_bottom = 350.0
+[node name="AI" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+margin_top = 360.0
+margin_right = 200.0
+margin_bottom = 399.0
 hint_tooltip = "Generate example artwork and text"
 text = "Apply AI"
 
-[node name="ArtDesigner" parent="VB/A2" instance=ExtResource( 8 )]
-margin_left = 117.0
+[node name="ArtDesigner" parent="VB/Content" instance=ExtResource( 8 )]
+unique_name_in_owner = true
+margin_left = 220.0
 margin_right = 1240.0
 margin_bottom = 619.0
 
@@ -282,7 +282,8 @@ margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Useful Text"
 
-[node name="Text" type="TextEdit" parent="c/TextPanel/VB"]
+[node name="PanelText" type="TextEdit" parent="c/TextPanel/VB"]
+unique_name_in_owner = true
 margin_top = 27.0
 margin_right = 546.0
 margin_bottom = 388.0
@@ -300,15 +301,32 @@ margin_right = 150.0
 margin_bottom = 39.0
 text = "Copy to clipboard"
 
+[node name="Sp" type="Control" parent="c/TextPanel/VB/HB"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
 [node name="OK" type="Button" parent="c/TextPanel/VB/HB"]
 margin_left = 154.0
 margin_right = 193.0
 margin_bottom = 39.0
 text = "OK"
 
+[node name="ImageSelector" type="FileDialog" parent="c"]
+margin_right = 732.0
+margin_bottom = 415.0
+theme = ExtResource( 6 )
+window_title = "Open a File"
+mode = 0
+filters = PoolStringArray( "*.jpg, *.png, *.webp ; Supported Image Files" )
+
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="VB/Content/LeftCol/CanvasMenu/ShowText" to="." method="_on_ShowText_pressed"]
+[connection signal="bg_texture_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_bg_texture_button_pressed"]
 [connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]
 [connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]
+[connection signal="popup_hide" from="c/TextPanel" to="." method="_on_TextPanel_popup_hide"]
 [connection signal="pressed" from="c/TextPanel/VB/HB/CopyText" to="c/TextPanel" method="_on_CopyText_pressed"]
 [connection signal="pressed" from="c/TextPanel/VB/HB/OK" to="c/TextPanel" method="_on_OK_pressed"]
+[connection signal="file_selected" from="c/ImageSelector" to="." method="_on_ImageSelector_file_selected"]

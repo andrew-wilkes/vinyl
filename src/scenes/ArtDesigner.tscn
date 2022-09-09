@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=2]
@@ -20,7 +20,6 @@
 [ext_resource path="res://assets/up-down.png" type="Texture" id=18]
 [ext_resource path="res://assets/bar.png" type="Texture" id=19]
 [ext_resource path="res://scenes/ArtDesigner.gd" type="Script" id=20]
-[ext_resource path="res://assets/tracks-button.png" type="Texture" id=21]
 
 [node name="ArtDesigner" type="PanelContainer"]
 margin_right = 901.0
@@ -50,6 +49,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "Label design"
 
 [node name="ImageView" parent="HB/VB" instance=ExtResource( 12 )]
+unique_name_in_owner = true
 margin_top = 33.0
 margin_bottom = 603.0
 mod_color = Color( 0.682353, 0.137255, 0.137255, 1 )
@@ -75,13 +75,13 @@ margin_bottom = 137.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 
-[node name="BG" type="TextureRect" parent="HB/VB/VB/HB"]
-margin_right = 64.0
+[node name="BGTexture" type="Button" parent="HB/VB/VB/HB"]
+unique_name_in_owner = true
+margin_right = 16.0
 margin_bottom = 104.0
-texture = ExtResource( 21 )
 
 [node name="Adjusters" type="GridContainer" parent="HB/VB/VB/HB"]
-margin_left = 84.0
+margin_left = 36.0
 margin_right = 342.0
 margin_bottom = 104.0
 size_flags_horizontal = 3
@@ -95,7 +95,7 @@ text = "H"
 
 [node name="H" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
 margin_left = 17.0
-margin_right = 258.0
+margin_right = 306.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
@@ -110,7 +110,7 @@ text = "S"
 [node name="S" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 27.0
-margin_right = 258.0
+margin_right = 306.0
 margin_bottom = 49.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
@@ -126,7 +126,7 @@ text = "V"
 [node name="V" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 54.0
-margin_right = 258.0
+margin_right = 306.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
@@ -142,7 +142,7 @@ text = "A"
 [node name="A" type="HSlider" parent="HB/VB/VB/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 81.0
-margin_right = 258.0
+margin_right = 306.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
@@ -562,6 +562,7 @@ margin_right = 907.0
 margin_bottom = 750.0
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="HB/VB/VB/HB/BGTexture" to="." method="_on_BGTexture_pressed"]
 [connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/H" to="." method="_on_H_value_changed"]
 [connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/S" to="." method="_on_S_value_changed"]
 [connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/V" to="." method="_on_V_value_changed"]

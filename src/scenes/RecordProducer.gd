@@ -42,12 +42,12 @@ func load_album(id):
 	for button in speed_group.get_buttons():
 		if button.name == album.rpm: button.pressed = true
 	for idx in 4:
-		var texture
+		var text
 		if album.images[idx]:
-			texture = get_resized_texture(album.images[idx], 64)
-		if texture == null:
-			texture = default_art[idx]
-		$VBox/HB/VBoxContainer/Art.get_child(idx).texture_normal = texture
+			text = g.get_resized_texture(album.images[idx], 64)
+		if text.resized == null:
+			text.resized = default_art[idx]
+		$VBox/HB/VBoxContainer/Art.get_child(idx).texture_normal = text.resized
 	set_pitch(album.pitch)
 	tracks[SIDE_A].clear()
 	tracks[SIDE_B].clear()
@@ -407,20 +407,11 @@ func _on_Volume_value_changed(value):
 func _on_ImageSelector_file_selected(path):
 	g.settings.last_image_dir = path.get_base_dir()
 	g.settings.get_album_property("images")[image_idx] = path
-	$VBox/HB/VBoxContainer/Art.get_child(image_idx).texture_normal = get_resized_texture(path, 64)
-
-
-func get_resized_texture(path, size):
-	var texture = ImageTexture.new()
-	var image = Image.new()
-	var file = File.new()
-	if file.file_exists(path):
-		image.load(path)
-		image.resize(size, size)
-		texture.create_from_image(image)
-		return texture
-	else:
+	var text = g.get_resized_texture(path, 64)
+	if text.resized == null:
+		text.resized = default_art[image_idx]
 		alert("Unable to load image from: " + path)
+	$VBox/HB/VBoxContainer/Art.get_child(image_idx).texture_normal = text.resized
 
 
 func _on_FrontCover_pressed():

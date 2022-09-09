@@ -35,3 +35,18 @@ func save_and_quit():
 func format_time(time):
 # warning-ignore:integer_division
 	return "%02d:%02d" % [int(time) / 60, int(time) % 60]
+
+
+func get_resized_texture(path, size):
+	var resized = ImageTexture.new()
+	var texture = ImageTexture.new()
+	var image = Image.new()
+	var file = File.new()
+	if file.file_exists(path):
+		image.load(path)
+		texture.create_from_image(image)
+		image.resize(size, size)
+		resized.create_from_image(image)
+	else:
+		texture = null
+	return { texture = texture, resized = resized}
