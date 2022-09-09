@@ -169,5 +169,11 @@ func _on_A2_value_changed(value):
 	update_fill_color()
 
 
-func _on_BGTexture_pressed():
-	emit_signal("bg_texture_button_pressed")
+func _on_BGTexture_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == 1:
+			emit_signal("bg_texture_button_pressed")
+		else:
+			get_node("%ImageView").image = null
+			background["image"] = null
+			get_node("%BGTexture").icon = default_bg

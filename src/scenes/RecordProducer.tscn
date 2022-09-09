@@ -233,20 +233,21 @@ margin_bottom = 80.0
 custom_fonts/font = ExtResource( 3 )
 text = "Artwork"
 
-[node name="Art" type="HBoxContainer" parent="VBox/HB/VBoxContainer"]
+[node name="ArtButtons" type="HBoxContainer" parent="VBox/HB/VBoxContainer"]
+unique_name_in_owner = true
 margin_top = 84.0
 margin_right = 316.0
 margin_bottom = 148.0
 custom_constants/separation = 20
 
-[node name="FrontCover" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
+[node name="FrontCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
 margin_right = 64.0
 margin_bottom = 64.0
 hint_tooltip = "Front cover"
 texture_normal = ExtResource( 12 )
 script = ExtResource( 15 )
 
-[node name="RearCover" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
+[node name="RearCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
 margin_left = 84.0
 margin_right = 148.0
 margin_bottom = 64.0
@@ -254,7 +255,7 @@ hint_tooltip = "Rear  cover"
 texture_normal = ExtResource( 13 )
 script = ExtResource( 15 )
 
-[node name="ASide" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
+[node name="ASide" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
 margin_left = 168.0
 margin_right = 232.0
 margin_bottom = 64.0
@@ -262,7 +263,7 @@ hint_tooltip = "A side"
 texture_normal = ExtResource( 9 )
 script = ExtResource( 15 )
 
-[node name="BSide" type="TextureButton" parent="VBox/HB/VBoxContainer/Art"]
+[node name="BSide" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
 margin_left = 252.0
 margin_right = 316.0
 margin_bottom = 64.0
@@ -928,10 +929,6 @@ dialog_autowrap = true
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Delete" to="." method="_on_Delete_pressed"]
-[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/FrontCover" to="." method="_on_FrontCover_pressed"]
-[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/RearCover" to="." method="_on_RearCover_pressed"]
-[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/ASide" to="." method="_on_ASide_pressed"]
-[connection signal="pressed" from="VBox/HB/VBoxContainer/Art/BSide" to="." method="_on_BSide_pressed"]
 [connection signal="value_changed" from="VBox/HB1/VB3/HB3/VB/Pitch" to="." method="_on_Pitch_value_changed"]
 [connection signal="pressed" from="VBox/HB1/VB3/HB3/FastForward" to="." method="_on_FastForward_pressed"]
 [connection signal="value_changed" from="VBox/HB1/VB/Volume" to="." method="_on_Volume_value_changed"]

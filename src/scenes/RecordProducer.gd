@@ -42,12 +42,10 @@ func load_album(id):
 	for button in speed_group.get_buttons():
 		if button.name == album.rpm: button.pressed = true
 	for idx in 4:
-		var text
+		var text = { resized = default_art[idx] }
 		if album.images[idx]:
 			text = g.get_resized_texture(album.images[idx], 64)
-		if text.resized == null:
-			text.resized = default_art[idx]
-		$VBox/HB/VBoxContainer/Art.get_child(idx).texture_normal = text.resized
+		get_node("%ArtButtons").get_child(idx).texture_normal = text.resized
 	set_pitch(album.pitch)
 	tracks[SIDE_A].clear()
 	tracks[SIDE_B].clear()
@@ -67,7 +65,7 @@ func clear_record():
 	$VBox/HB/VB1/VB1/Title.text = ""
 	$VBox/HB/VB1/VB2/Band.text = ""
 	for idx in 4:
-		$VBox/HB/VBoxContainer/Art.get_child(idx).texture_normal = default_art[idx]
+		get_node("%ArtButtons").get_child(idx).texture_normal = default_art[idx]
 	size_group.get_buttons()[0].pressed = true
 	speed_group.get_buttons()[0].pressed = true
 	set_pitch(2.3)
@@ -84,6 +82,11 @@ func _ready():
 	default_art.append(load("res://assets/cover-rear.png"))
 	default_art.append(load("res://assets/a-side.png"))
 	default_art.append(load("res://assets/b-side.png"))
+	var id = 0
+	for button in get_node("%ArtButtons").get_children():
+		button.hint_tooltip = "Select image or RMB to delete the image"
+		var _e = button.connect("gui_input", self, "art_button_clicked", [button, id])
+		id += 1
 	var _e = $c/TrackSelector.connect("add_tracks", self, "add_tracks")
 	_e = $c/EditPanel.connect("text_updated", self, "update_track_title")
 	audio = Audio.new($AudioStreamPlayer)
@@ -411,23 +414,16 @@ func _on_ImageSelector_file_selected(path):
 	if text.resized == null:
 		text.resized = default_art[image_idx]
 		alert("Unable to load image from: " + path)
-	$VBox/HB/VBoxContainer/Art.get_child(image_idx).texture_normal = text.resized
+	get_node("%ArtButtons").get_child(image_idx).texture_normal = text.resized
 
 
-func _on_FrontCover_pressed():
-	open_image_selector(0)
-
-
-func _on_RearCover_pressed():
-	open_image_selector(1)
-
-
-func _on_ASide_pressed():
-	open_image_selector(2)
-
-
-func _on_BSide_pressed():
-	open_image_selector(3)
+func art_button_clicked(event, button, idx):
+	if event is InputEventMouseButton:
+		if event.button_index == 1:
+			open_image_selector(idx)
+		else:
+			button.texture_normal = default_art[idx]
+			g.settings.get_album_property("images")[image_idx] = null
 
 
 func open_image_selector(idx):

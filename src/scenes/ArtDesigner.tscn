@@ -79,6 +79,7 @@ custom_constants/separation = 20
 unique_name_in_owner = true
 margin_right = 16.0
 margin_bottom = 104.0
+hint_tooltip = "Select image or RMB to delete the image"
 
 [node name="Adjusters" type="GridContainer" parent="HB/VB/VB/HB"]
 margin_left = 36.0
@@ -562,7 +563,7 @@ margin_right = 907.0
 margin_bottom = 750.0
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="HB/VB/VB/HB/BGTexture" to="." method="_on_BGTexture_pressed"]
+[connection signal="gui_input" from="HB/VB/VB/HB/BGTexture" to="." method="_on_BGTexture_gui_input"]
 [connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/H" to="." method="_on_H_value_changed"]
 [connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/S" to="." method="_on_S_value_changed"]
 [connection signal="value_changed" from="HB/VB/VB/HB/Adjusters/V" to="." method="_on_V_value_changed"]
