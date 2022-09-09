@@ -117,7 +117,7 @@ func fill_props(el):
 	$HB/Props/Adjusters/A2.value = el.color.a
 	$HB/Props/Adjusters/Rot.value = el.rotation
 	$HB/Props/Adjusters/X.value = el.position.x
-	$HB/Props/Adjusters/X.value = el.position.y
+	$HB/Props/Adjusters/Y.value = el.position.y
 	update_fill_color()
 
 
@@ -138,7 +138,7 @@ func _on_X_value_changed(value):
 
 
 func _on_Y_value_changed(value):
-	current_element.position = value
+	current_element.position.y = value
 
 
 func _on_Text_text_changed(new_text):
