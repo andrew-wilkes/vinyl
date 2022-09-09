@@ -106,7 +106,7 @@ hint_tooltip = "Select image or RMB to delete the image"
 
 [node name="Adjusters" type="GridContainer" parent="HB/VB/HB2/VB2/HB"]
 margin_left = 36.0
-margin_right = 260.0
+margin_right = 252.0
 margin_bottom = 104.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 5
@@ -119,7 +119,7 @@ text = "H"
 
 [node name="H" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
-margin_right = 224.0
+margin_right = 216.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
@@ -134,7 +134,7 @@ text = "S"
 [node name="S" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 27.0
-margin_right = 224.0
+margin_right = 216.0
 margin_bottom = 49.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
@@ -150,7 +150,7 @@ text = "V"
 [node name="V" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 54.0
-margin_right = 224.0
+margin_right = 216.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
@@ -166,7 +166,7 @@ text = "A"
 [node name="A" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 81.0
-margin_right = 224.0
+margin_right = 216.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 0, 22 )
 size_flags_horizontal = 3
@@ -175,10 +175,10 @@ step = 0.01
 
 [node name="ModColor" type="ColorRect" parent="HB/VB/HB2/VB2/HB"]
 unique_name_in_owner = true
-margin_left = 280.0
+margin_left = 272.0
 margin_right = 288.0
 margin_bottom = 104.0
-rect_min_size = Vector2( 8, 0 )
+rect_min_size = Vector2( 16, 0 )
 
 [node name="ArtElements" type="VBoxContainer" parent="HB"]
 margin_left = 390.0
@@ -584,7 +584,7 @@ margin_top = 711.0
 margin_right = 182.0
 margin_bottom = 750.0
 size_flags_horizontal = 3
-text = "Save"
+text = "Save Design"
 
 [connection signal="gui_input" from="HB/VB/HB2/VB2/HB/BGTexture" to="." method="_on_BGTexture_gui_input"]
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/H" to="." method="_on_H_value_changed"]

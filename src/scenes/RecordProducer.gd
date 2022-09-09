@@ -24,7 +24,6 @@ var pitch
 var size_group
 var speed_group
 var image_idx = 0
-var default_art = []
 
 export(Color) var gap_color
 export(Color) var ok_color
@@ -42,7 +41,7 @@ func load_album(id):
 	for button in speed_group.get_buttons():
 		if button.name == album.rpm: button.pressed = true
 	for idx in 4:
-		var text = { resized = default_art[idx] }
+		var text = { resized = g.default_art[idx] }
 		if album.images[idx]:
 			text = g.get_resized_texture(album.images[idx], 64)
 		get_node("%ArtButtons").get_child(idx).texture_normal = text.resized
@@ -65,7 +64,7 @@ func clear_record():
 	$VBox/HB/VB1/VB1/Title.text = ""
 	$VBox/HB/VB1/VB2/Band.text = ""
 	for idx in 4:
-		get_node("%ArtButtons").get_child(idx).texture_normal = default_art[idx]
+		get_node("%ArtButtons").get_child(idx).texture_normal = g.default_art[idx]
 	size_group.get_buttons()[0].pressed = true
 	speed_group.get_buttons()[0].pressed = true
 	set_pitch(2.3)
@@ -78,10 +77,6 @@ func delete_album():
 
 
 func _ready():
-	default_art.append(load("res://assets/cover-front.png"))
-	default_art.append(load("res://assets/cover-rear.png"))
-	default_art.append(load("res://assets/a-side.png"))
-	default_art.append(load("res://assets/b-side.png"))
 	var id = 0
 	for button in get_node("%ArtButtons").get_children():
 		button.hint_tooltip = "Select image or RMB to delete the image"
@@ -412,7 +407,7 @@ func _on_ImageSelector_file_selected(path):
 	g.settings.get_album_property("images")[image_idx] = path
 	var text = g.get_resized_texture(path, 64)
 	if text.resized == null:
-		text.resized = default_art[image_idx]
+		text.resized = g.default_art[image_idx]
 		alert("Unable to load image from: " + path)
 	get_node("%ArtButtons").get_child(image_idx).texture_normal = text.resized
 
@@ -422,7 +417,7 @@ func art_button_clicked(event, button, idx):
 		if event.button_index == 1:
 			open_image_selector(idx)
 		else:
-			button.texture_normal = default_art[idx]
+			button.texture_normal = g.default_art[idx]
 			g.settings.get_album_property("images")[image_idx] = null
 
 

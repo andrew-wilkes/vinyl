@@ -8,6 +8,7 @@ var current_element: ArtElement
 var background
 var elements: Array
 var default_bg = preload("res://assets/checkerboard.png")
+var current_images = [null, null, null, null]
 
 
 func disable_input(disable = true):
@@ -17,6 +18,9 @@ func disable_input(disable = true):
 func init_canvas(idx, album):
 	background = album.bg[idx]
 	elements = album.elements[idx]
+	if current_images[idx] == null:
+		set_currect_image(idx, album)
+	get_node("%CurrentImage").texture = current_images[idx]
 	$HB/VB/Title.text = ["Label design - side A", "Label design - side B", "Front Cover design", "Back Cover design"][idx]
 	get_node("%ImageView").is_disc = idx < 2
 	get_node("%BGTexture").icon = default_bg
@@ -175,3 +179,11 @@ func _on_BGTexture_gui_input(event):
 			get_node("%ImageView").image = null
 			background["image"] = null
 			get_node("%BGTexture").icon = default_bg
+
+
+func set_currect_image(idx, album):
+	# Need to re-map image indexes here
+	var text = { resized = g.default_art[[2, 3, 0, 1][idx]] }
+	if album.images[idx]:
+		text = g.get_resized_texture(album.images[idx], 64)
+	current_images[idx] = text.resized
