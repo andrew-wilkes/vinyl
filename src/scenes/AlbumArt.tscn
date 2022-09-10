@@ -49,26 +49,26 @@ margin_bottom = 39.0
 
 [node name="Label" type="Label" parent="VB/Header/VB/HB"]
 margin_top = 2.0
-margin_right = 100.0
+margin_right = 185.0
 margin_bottom = 36.0
 custom_fonts/font = ExtResource( 3 )
-text = "Artwork"
+text = "Album Artwork"
 
 [node name="Sp1" type="Control" parent="VB/Header/VB/HB"]
-margin_left = 104.0
-margin_right = 213.0
+margin_left = 189.0
+margin_right = 255.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="Load" type="Button" parent="VB/Header/VB/HB"]
-margin_left = 217.0
-margin_right = 251.0
+margin_left = 259.0
+margin_right = 293.0
 margin_bottom = 39.0
 hint_tooltip = "Load album"
 icon = ExtResource( 5 )
 
 [node name="Sp2" type="Control" parent="VB/Header/VB/HB"]
-margin_left = 255.0
+margin_left = 297.0
 margin_right = 364.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
@@ -156,7 +156,7 @@ custom_constants/separation = 10
 margin_right = 200.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
-text = "Canvas"
+text = "Canvas Target"
 
 [node name="Canvas1" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
 unique_name_in_owner = true
@@ -194,28 +194,28 @@ margin_bottom = 252.0
 custom_fonts/font = ExtResource( 4 )
 text = "Tools"
 
-[node name="ShowText" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+[node name="SuggestText" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 262.0
 margin_right = 200.0
 margin_bottom = 301.0
-hint_tooltip = "Copy settings between label and covers"
+hint_tooltip = "Offer copy and paste text samples."
 group = SubResource( 2 )
-text = "Show Text"
+text = "Suggest Text"
 
-[node name="AI" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+[node name="ConfigureStyles" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 311.0
 margin_right = 200.0
 margin_bottom = 350.0
-hint_tooltip = "Generate example artwork and text"
-text = "Generate"
+hint_tooltip = "Load templates or mirror styles."
+group = SubResource( 2 )
+text = "Configure Styles"
 
-[node name="MirrorStyles" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+[node name="GenerateStyles" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 360.0
 margin_right = 200.0
 margin_bottom = 399.0
-hint_tooltip = "Copy settings between label and covers"
-group = SubResource( 2 )
-text = "Mirror Styles"
+hint_tooltip = "Cycle through example artwork and text"
+text = "Generate Styles"
 
 [node name="ArtDesigner" parent="VB/Content" instance=ExtResource( 8 )]
 unique_name_in_owner = true
@@ -322,7 +322,7 @@ mode = 0
 filters = PoolStringArray( "*.jpg, *.png, *.webp ; Supported Image Files" )
 
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
-[connection signal="pressed" from="VB/Content/LeftCol/CanvasMenu/ShowText" to="." method="_on_ShowText_pressed"]
+[connection signal="pressed" from="VB/Content/LeftCol/CanvasMenu/SuggestText" to="." method="_on_ShowText_pressed"]
 [connection signal="bg_texture_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_bg_texture_button_pressed"]
 [connection signal="pick_bg_color" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_pick_bg_color"]
 [connection signal="pick_fill_color" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_pick_fill_color"]
