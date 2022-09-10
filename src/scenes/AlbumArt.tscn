@@ -94,13 +94,13 @@ size_flags_horizontal = 3
 [node name="Content" type="HBoxContainer" parent="VB"]
 margin_top = 117.0
 margin_right = 1240.0
-margin_bottom = 736.0
+margin_bottom = 724.0
 custom_constants/separation = 20
 
 [node name="LeftCol" type="VBoxContainer" parent="VB/Content"]
 unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 619.0
+margin_bottom = 607.0
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="VB/Content/LeftCol"]
@@ -164,28 +164,28 @@ margin_top = 33.0
 margin_right = 200.0
 margin_bottom = 72.0
 group = SubResource( 3 )
-text = "Side A"
+text = "Side A Label"
 
 [node name="Canvas2" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 82.0
 margin_right = 200.0
 margin_bottom = 121.0
 group = SubResource( 3 )
-text = "Side B"
+text = "Side B Label"
 
 [node name="Canvas3" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 131.0
 margin_right = 200.0
 margin_bottom = 170.0
 group = SubResource( 3 )
-text = "Front"
+text = "Front Cover"
 
 [node name="Canvas4" type="CheckBox" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 180.0
 margin_right = 200.0
 margin_bottom = 219.0
 group = SubResource( 3 )
-text = "Back"
+text = "Back Cover"
 
 [node name="ToolsLabel" type="Label" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 229.0
@@ -208,20 +208,20 @@ margin_right = 200.0
 margin_bottom = 350.0
 hint_tooltip = "Copy settings between label and covers"
 group = SubResource( 2 )
-text = "Map styles"
+text = "Mirror Styles"
 
 [node name="AI" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 360.0
 margin_right = 200.0
 margin_bottom = 399.0
 hint_tooltip = "Generate example artwork and text"
-text = "Apply AI"
+text = "Generate"
 
 [node name="ArtDesigner" parent="VB/Content" instance=ExtResource( 8 )]
 unique_name_in_owner = true
 margin_left = 220.0
 margin_right = 1240.0
-margin_bottom = 619.0
+margin_bottom = 607.0
 
 [node name="c" type="CanvasLayer" parent="."]
 
@@ -323,6 +323,7 @@ filters = PoolStringArray( "*.jpg, *.png, *.webp ; Supported Image Files" )
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VB/Content/LeftCol/CanvasMenu/ShowText" to="." method="_on_ShowText_pressed"]
 [connection signal="bg_texture_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_bg_texture_button_pressed"]
+[connection signal="save_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_save_button_pressed"]
 [connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]
 [connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]

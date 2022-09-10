@@ -26,10 +26,10 @@ func _notification(what):
 
 
 func save_and_quit():
-	settings.save_data()
 	if get_parent().get_child(1).name == "Main":
 		get_tree().quit()
 	else:
+		settings.save_data()
 		var fader = get_parent().get_child(1).find_node("Fader")
 		if fader:
 			fader.fade_out("Main")

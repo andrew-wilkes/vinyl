@@ -1,6 +1,7 @@
 extends PanelContainer
 
 signal bg_texture_button_pressed
+signal save_button_pressed(texture, idx)
 
 onready var color_adjusters = find_node("Adjusters")
 
@@ -9,13 +10,14 @@ var background
 var elements: Array
 var default_bg = preload("res://assets/checkerboard.png")
 var current_images = [null, null, null, null]
-
+var canvas_index = 0
 
 func disable_input(disable = true):
 	$HB/VB/ImageView/Viewport.gui_disable_input = disable
 
 
 func init_canvas(idx, album):
+	canvas_index = idx
 	background = album.bg[idx]
 	elements = album.elements[idx]
 	if current_images[idx] == null:
@@ -182,8 +184,17 @@ func _on_BGTexture_gui_input(event):
 
 
 func set_currect_image(idx, album):
-	# Need to re-map image indexes here
-	var text = { resized = g.default_art[[2, 3, 0, 1][idx]] }
+	var text = { resized = default_bg }
 	if album.images[idx]:
 		text = g.get_resized_texture(album.images[idx], 64)
 	current_images[idx] = text.resized
+
+
+func _on_Save_pressed():
+	var image = get_node("%ImageView").get_texture()
+	emit_signal("save_button_pressed", image.duplicate(), canvas_index)
+	image.resize(64, 64)
+	var texture = ImageTexture.new()
+	texture.create_from_image(image)
+	get_node("%CurrentImage").texture = texture
+	current_images[canvas_index] = texture

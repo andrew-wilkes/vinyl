@@ -60,12 +60,12 @@ func _on_Timer_timeout():
 	$Viewport.size = Vector2(size, size)
 
 
-func _on_Snap_pressed():
+func get_texture():
 	var img = $Viewport.get_viewport().get_texture().get_data()
 	img.flip_y()
 	# Allow for enlarged viewport
 	img.resize(base_size, base_size)
-	img.save_png("res://temp.png")
+	return img
 
 
 func draw():

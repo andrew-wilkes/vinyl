@@ -68,15 +68,16 @@ custom_constants/separation = 10
 
 [node name="label" type="Label" parent="HB/VB/HB2/VB"]
 margin_right = 62.0
-margin_bottom = 23.0
+margin_bottom = 49.0
 custom_fonts/font = ExtResource( 1 )
-text = "Current"
+text = "Current
+Design"
 
 [node name="CurrentImage" type="TextureRect" parent="HB/VB/HB2/VB"]
 unique_name_in_owner = true
-margin_top = 33.0
+margin_top = 59.0
 margin_right = 62.0
-margin_bottom = 33.0
+margin_bottom = 59.0
 
 [node name="VB2" type="VBoxContainer" parent="HB/VB/HB2"]
 margin_left = 82.0
@@ -257,15 +258,9 @@ icon = ExtResource( 15 )
 [node name="Elements" type="ItemList" parent="HB/ArtElements"]
 margin_top = 82.0
 margin_right = 295.0
-margin_bottom = 701.0
+margin_bottom = 750.0
 size_flags_vertical = 3
 custom_constants/vseparation = 10
-
-[node name="Snap" type="Button" parent="HB/ArtElements"]
-margin_top = 711.0
-margin_right = 295.0
-margin_bottom = 750.0
-text = "Snapshot"
 
 [node name="RHS" type="VBoxContainer" parent="HB"]
 margin_left = 705.0
@@ -613,3 +608,4 @@ text = "Save Design"
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/X" to="." method="_on_X_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Y" to="." method="_on_Y_value_changed"]
 [connection signal="text_changed" from="HB/RHS/Props/Text" to="." method="_on_Text_text_changed"]
+[connection signal="pressed" from="HB/RHS/Save" to="." method="_on_Save_pressed"]
