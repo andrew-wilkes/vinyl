@@ -2,6 +2,8 @@ extends PanelContainer
 
 signal bg_texture_button_pressed
 signal save_button_pressed(texture, idx)
+signal pick_bg_color(color)
+signal pick_fill_color(color)
 
 onready var color_adjusters = find_node("Adjusters")
 
@@ -31,13 +33,17 @@ func init_canvas(idx, album):
 	if image_path:
 		try_updating_bg_image(image_path)
 	var color = background.get("color", Color.white)
+	init_mod_color(color)
+	$HB/RHS/Props.hide()
+	$HB/ArtElements.init_elements(elements)
+
+
+func init_mod_color(color):
 	update_mod_color(color)
 	color_adjusters.get_node("H").value = color.h
 	color_adjusters.get_node("S").value = color.s
 	color_adjusters.get_node("V").value = color.v
 	color_adjusters.get_node("A").value = color.a
-	$HB/RHS/Props.hide()
-	$HB/ArtElements.init_elements(elements)
 
 
 func update_mod_color(color = null):
@@ -102,7 +108,6 @@ func _on_ArtElements_selected_element(el):
 func fill_props(el):
 	current_element = el
 	var props = $HB/RHS/Props
-	var adjusters = props.get_node("Adjusters")
 	match el.type:
 		ArtElement.AB, ArtElement.ABROT:
 			props.get_node("Text").text = el.text
@@ -113,6 +118,11 @@ func fill_props(el):
 			props.get_node("Text").hide()
 			props.get_node("Fonts").hide()
 			props.get_node("TextLabel").hide()
+	set_adjusters(el)
+
+
+func set_adjusters(el):
+	var adjusters = get_node("%Adjusters")
 	adjusters.get_node("Length").value = el.length
 	adjusters.get_node("Size").value = el.size
 	adjusters.get_node("H2").value = el.color.h
@@ -123,6 +133,11 @@ func fill_props(el):
 	adjusters.get_node("X").value = el.position.x
 	adjusters.get_node("Y").value = el.position.y
 	update_fill_color()
+
+
+func set_fill_adjusters(color):
+	current_element.color = color
+	set_adjusters(current_element)
 
 
 func _on_Length_value_changed(value):
@@ -198,3 +213,13 @@ func _on_Save_pressed():
 	texture.create_from_image(image)
 	get_node("%CurrentImage").texture = texture
 	current_images[canvas_index] = texture
+
+
+func _on_ModColor_gui_input(event):
+	if event is InputEventMouseButton:
+		emit_signal("pick_bg_color", background["color"])
+
+
+func _on_FillColor_gui_input(event):
+	if event is InputEventMouseButton:
+		emit_signal("pick_fill_color", current_element.color)

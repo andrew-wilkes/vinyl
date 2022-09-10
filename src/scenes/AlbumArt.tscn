@@ -247,6 +247,7 @@ custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
 [node name="ColorPicker" type="ColorPicker" parent="c/Color/M"]
+unique_name_in_owner = true
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 339.0
@@ -323,6 +324,8 @@ filters = PoolStringArray( "*.jpg, *.png, *.webp ; Supported Image Files" )
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VB/Content/LeftCol/CanvasMenu/ShowText" to="." method="_on_ShowText_pressed"]
 [connection signal="bg_texture_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_bg_texture_button_pressed"]
+[connection signal="pick_bg_color" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_pick_bg_color"]
+[connection signal="pick_fill_color" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_pick_fill_color"]
 [connection signal="save_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_save_button_pressed"]
 [connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]

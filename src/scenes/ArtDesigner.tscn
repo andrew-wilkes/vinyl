@@ -122,6 +122,7 @@ text = "H"
 margin_left = 17.0
 margin_right = 216.0
 margin_bottom = 16.0
+hint_tooltip = "Hue"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -138,6 +139,7 @@ margin_top = 27.0
 margin_right = 216.0
 margin_bottom = 49.0
 rect_min_size = Vector2( 0, 22 )
+hint_tooltip = "Saturation"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -154,6 +156,7 @@ margin_top = 54.0
 margin_right = 216.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 0, 22 )
+hint_tooltip = "Value"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -170,6 +173,7 @@ margin_top = 81.0
 margin_right = 216.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 0, 22 )
+hint_tooltip = "Alpha"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -281,6 +285,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "Element properties"
 
 [node name="Adjusters" type="GridContainer" parent="HB/RHS/Props"]
+unique_name_in_owner = true
 margin_top = 33.0
 margin_right = 182.0
 margin_bottom = 414.0
@@ -323,6 +328,7 @@ margin_left = 21.0
 margin_top = 43.0
 margin_right = 182.0
 margin_bottom = 59.0
+hint_tooltip = "Length"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -343,6 +349,7 @@ margin_left = 21.0
 margin_top = 69.0
 margin_right = 182.0
 margin_bottom = 85.0
+hint_tooltip = "Size"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -393,6 +400,7 @@ margin_top = 138.0
 margin_right = 182.0
 margin_bottom = 160.0
 rect_min_size = Vector2( 0, 22 )
+hint_tooltip = "Hue"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -409,6 +417,7 @@ margin_top = 171.0
 margin_right = 182.0
 margin_bottom = 193.0
 rect_min_size = Vector2( 0, 22 )
+hint_tooltip = "Saturation"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -425,6 +434,7 @@ margin_top = 204.0
 margin_right = 182.0
 margin_bottom = 226.0
 rect_min_size = Vector2( 0, 22 )
+hint_tooltip = "Value"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -441,6 +451,7 @@ margin_top = 237.0
 margin_right = 182.0
 margin_bottom = 259.0
 rect_min_size = Vector2( 0, 22 )
+hint_tooltip = "Alpha"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -484,6 +495,7 @@ margin_left = 21.0
 margin_top = 313.0
 margin_right = 182.0
 margin_bottom = 329.0
+hint_tooltip = "Rotation"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -504,6 +516,7 @@ margin_left = 21.0
 margin_top = 339.0
 margin_right = 182.0
 margin_bottom = 355.0
+hint_tooltip = "Horixontal position"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -524,6 +537,7 @@ margin_left = 21.0
 margin_top = 365.0
 margin_right = 182.0
 margin_bottom = 381.0
+hint_tooltip = "Vertical position"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -559,6 +573,7 @@ texture = ExtResource( 5 )
 margin_left = 21.0
 margin_right = 182.0
 margin_bottom = 39.0
+hint_tooltip = "Font"
 focus_mode = 2
 size_flags_horizontal = 3
 text = "Font"
@@ -567,6 +582,7 @@ text = "Font"
 margin_top = 516.0
 margin_right = 182.0
 margin_bottom = 540.0
+hint_tooltip = "Text"
 
 [node name="Sp" type="Control" parent="HB/RHS"]
 margin_top = 544.0
@@ -586,6 +602,7 @@ text = "Save Design"
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/S" to="." method="_on_S_value_changed"]
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/V" to="." method="_on_V_value_changed"]
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/A" to="." method="_on_A_value_changed"]
+[connection signal="gui_input" from="HB/VB/HB2/VB2/HB/ModColor" to="." method="_on_ModColor_gui_input"]
 [connection signal="added_element" from="HB/ArtElements" to="." method="_on_ArtElements_added_element"]
 [connection signal="removed_element" from="HB/ArtElements" to="." method="_on_ArtElements_removed_element"]
 [connection signal="selected_element" from="HB/ArtElements" to="." method="_on_ArtElements_selected_element"]
@@ -600,6 +617,7 @@ text = "Save Design"
 [connection signal="item_selected" from="HB/ArtElements/Elements" to="HB/ArtElements" method="_on_Elements_item_selected"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Length" to="." method="_on_Length_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Size" to="." method="_on_Size_value_changed"]
+[connection signal="gui_input" from="HB/RHS/Props/Adjusters/HB/FillColor" to="." method="_on_FillColor_gui_input"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/H2" to="." method="_on_H2_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/S2" to="." method="_on_S2_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/V2" to="." method="_on_V2_value_changed"]

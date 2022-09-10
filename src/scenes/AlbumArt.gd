@@ -3,6 +3,8 @@ extends Control
 const RPMS = { "speed33": "33 1/3", "speed45": "45", "speed78": "78" }
 const SIZES = { "size12": "12", "size7": "7", "size10": "10" }
 
+enum { PICK_MOD, PICK_FILL }
+
 var label_a
 var label_b
 var blank
@@ -11,6 +13,7 @@ var album
 var canvas_group
 var texture_to_save
 var canvas_index
+var color_pick_mode
 onready var art = find_node("ArtDesigner")
 
 func _ready():
@@ -81,10 +84,6 @@ func get_track_details(track):
 	return "%s %s %s %s" % [track.title, track.album, track.year, g.format_time(track.length)]
 
 
-func _on_Color_popup_hide():
-	album.label_color = $c/Color/M/ColorPicker.color
-
-
 func _on_ArtDesigner_save_button_pressed(_texture, _canvas_index):
 	texture_to_save = _texture
 	canvas_index = _canvas_index
@@ -138,3 +137,28 @@ func _on_ArtDesigner_bg_texture_button_pressed():
 
 func _on_TextPanel_popup_hide():
 	art.disable_input(false)
+
+
+func _on_ArtDesigner_pick_bg_color(color):
+	open_color_picker(PICK_MOD, color)
+
+
+func _on_ArtDesigner_pick_fill_color(color):
+	open_color_picker(PICK_FILL, color)
+
+
+func open_color_picker(mode, color):
+	color_pick_mode = mode
+	get_node("%ColorPicker").color = color
+	art.disable_input()
+	$c/Color.popup_centered()
+
+
+func _on_Color_popup_hide():
+	art.disable_input(false)
+	var color = get_node("%ColorPicker").color
+	match color_pick_mode:
+		PICK_MOD:
+			art.init_mod_color(color)
+		PICK_FILL:
+			art.set_fill_adjusters(color)
