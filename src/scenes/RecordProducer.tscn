@@ -240,35 +240,35 @@ margin_right = 316.0
 margin_bottom = 148.0
 custom_constants/separation = 20
 
-[node name="FrontCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
-margin_right = 64.0
-margin_bottom = 64.0
-hint_tooltip = "Front cover"
-texture_normal = ExtResource( 12 )
-script = ExtResource( 15 )
-
-[node name="RearCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
-margin_left = 84.0
-margin_right = 148.0
-margin_bottom = 64.0
-hint_tooltip = "Rear  cover"
-texture_normal = ExtResource( 13 )
-script = ExtResource( 15 )
-
 [node name="ASide" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
-margin_left = 168.0
-margin_right = 232.0
+margin_right = 64.0
 margin_bottom = 64.0
 hint_tooltip = "A side"
 texture_normal = ExtResource( 9 )
 script = ExtResource( 15 )
 
 [node name="BSide" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
-margin_left = 252.0
-margin_right = 316.0
+margin_left = 84.0
+margin_right = 148.0
 margin_bottom = 64.0
 hint_tooltip = "B side"
 texture_normal = ExtResource( 14 )
+script = ExtResource( 15 )
+
+[node name="FrontCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
+margin_left = 168.0
+margin_right = 232.0
+margin_bottom = 64.0
+hint_tooltip = "Front cover"
+texture_normal = ExtResource( 12 )
+script = ExtResource( 15 )
+
+[node name="RearCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
+margin_left = 252.0
+margin_right = 316.0
+margin_bottom = 64.0
+hint_tooltip = "Rear  cover"
+texture_normal = ExtResource( 13 )
 script = ExtResource( 15 )
 
 [node name="Sp2" type="Control" parent="VBox/HB"]

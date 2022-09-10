@@ -7,11 +7,10 @@ func _init():
 	settings = Settings.new()
 	settings = settings.load_data()
 	pass #settings.albums.clear()
-	default_art.append(load("res://assets/cover-front.png"))
-	default_art.append(load("res://assets/cover-rear.png"))
 	default_art.append(load("res://assets/a-side.png"))
 	default_art.append(load("res://assets/b-side.png"))
-
+	default_art.append(load("res://assets/cover-front.png"))
+	default_art.append(load("res://assets/cover-rear.png"))
 
 func _unhandled_input(event):
 	if event is InputEventKey:
