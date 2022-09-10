@@ -202,20 +202,20 @@ hint_tooltip = "Copy settings between label and covers"
 group = SubResource( 2 )
 text = "Show Text"
 
-[node name="Map" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+[node name="AI" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 311.0
 margin_right = 200.0
 margin_bottom = 350.0
-hint_tooltip = "Copy settings between label and covers"
-group = SubResource( 2 )
-text = "Mirror Styles"
+hint_tooltip = "Generate example artwork and text"
+text = "Generate"
 
-[node name="AI" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+[node name="MirrorStyles" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
 margin_top = 360.0
 margin_right = 200.0
 margin_bottom = 399.0
-hint_tooltip = "Generate example artwork and text"
-text = "Generate"
+hint_tooltip = "Copy settings between label and covers"
+group = SubResource( 2 )
+text = "Mirror Styles"
 
 [node name="ArtDesigner" parent="VB/Content" instance=ExtResource( 8 )]
 unique_name_in_owner = true
