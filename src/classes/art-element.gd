@@ -14,3 +14,7 @@ export(float) var rotation
 export(Color) var color = Color.white
 export var text = ""
 export var font = ""
+
+func get_hash():
+	var t = text + font
+	return t.hash() + color.to_argb32() + size + length + rotation + position.x + position.y

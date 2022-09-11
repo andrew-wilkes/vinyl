@@ -13,6 +13,7 @@ var elements: Array
 var default_bg = preload("res://assets/checkerboard.png")
 var current_images = [null, null, null, null]
 var canvas_index = 0
+var last_hash = 0
 
 func disable_input(disable = true):
 	$HB/VB/ImageView/Viewport.gui_disable_input = disable
@@ -223,3 +224,27 @@ func _on_ModColor_gui_input(event):
 func _on_FillColor_gui_input(event):
 	if event is InputEventMouseButton:
 		emit_signal("pick_fill_color", current_element.color)
+
+
+func update_strings():
+	get_node("%ImageView").strings.clear()
+	get_node("%ImageView").rotated_strings.clear()
+	for el in elements:
+		if el.type == ArtElement.AB:
+			get_node("%ImageView").strings.append(el)
+		if el.type == ArtElement.ABROT:
+			get_node("%ImageView").rotated_strings.append(el)
+	get_node("%ImageView").overlay.update()
+
+
+func _process(_delta):
+	if current_element:
+		var h = current_element.get_hash()
+		if last_hash != h:
+			last_hash = h
+			update_strings()
+
+
+func _on_Text_gui_input(event):
+	if event is InputEventKey and event.scancode == KEY_DELETE:
+		get_tree().set_input_as_handled()

@@ -22,6 +22,25 @@ func add_element(type):
 	selected_item = $Elements.get_item_count() - 1
 	$Elements.set_item_metadata(selected_item, el)
 	$Elements.select(selected_item)
+	match el.type:
+		el.AB:
+			el.position = Vector2(0.2, 0.5)
+		el.ABROT:
+			el.length = 0.3
+			el.position = Vector2(0.8, 0.8)
+			el.rotation = 0.5
+		el.ARC:
+			el.size = 0.2
+			el.length = 0.3
+			el.position = Vector2(0.9, 0.9)
+			el.rotation = 0.5
+		el.BOX:
+			el.size = 0.2
+			el.length = 0.6
+			el.position = Vector2(0.2, 0.2)
+		el.CIRC:
+			el.size = 0.7
+			el.position = Vector2(0.8, 0.8)
 	emit_signal("added_element", el)
 
 

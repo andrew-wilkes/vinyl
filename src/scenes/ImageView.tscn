@@ -33,7 +33,6 @@ margin_bottom = 370.0
 mouse_filter = 1
 
 [node name="C" type="CanvasLayer" parent="Viewport"]
-layer = -1
 
 [node name="Overlay" type="ColorRect" parent="Viewport/C"]
 margin_right = 400.0

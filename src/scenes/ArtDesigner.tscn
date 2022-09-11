@@ -636,5 +636,6 @@ text = "Save As..."
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Rot" to="." method="_on_Rot_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/X" to="." method="_on_X_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Y" to="." method="_on_Y_value_changed"]
+[connection signal="gui_input" from="HB/RHS/Props/Text" to="." method="_on_Text_gui_input"]
 [connection signal="text_changed" from="HB/RHS/Props/Text" to="." method="_on_Text_text_changed"]
 [connection signal="pressed" from="HB/RHS/HB/Save" to="." method="_on_Save_pressed"]
