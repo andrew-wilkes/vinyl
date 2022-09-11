@@ -77,7 +77,9 @@ func draw():
 	for s in strings:
 		#dynamic_font.size = s.size * 32
 		var pos = Vector2(min(s.position.x, 0.95), max(s.position.y, 0.05)) * base_size
-		overlay.draw_string(dynamic_font, pos, s.text, s.color)
+		var ang = s.rotation + 0.5
+		overlay.draw_set_transform(pos, ang * PI * 2.0, Vector2(1, 1))
+		overlay.draw_string(dynamic_font, Vector2.ZERO, s.text, s.color)
 	var b2 = base_size / 2
 	for s in rotated_strings:
 		if s.text.length() == 0:

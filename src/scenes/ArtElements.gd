@@ -25,6 +25,7 @@ func add_element(type):
 	match el.type:
 		el.AB:
 			el.position = Vector2(0.2, 0.5)
+			el.rotation = 0.5
 		el.ABROT:
 			el.length = 0.3
 			el.position = Vector2(0.8, 0.8)
