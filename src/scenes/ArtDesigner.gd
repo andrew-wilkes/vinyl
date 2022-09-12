@@ -37,6 +37,7 @@ func init_canvas(idx, album):
 	init_mod_color(color)
 	$HB/RHS/Props.hide()
 	$HB/ArtElements.init_elements(elements)
+	update_elements()
 
 
 func init_mod_color(color):
@@ -98,6 +99,7 @@ func _on_ArtElements_added_element(el):
 
 func _on_ArtElements_removed_element(el):
 	elements.erase(el)
+	update_elements()
 	$HB/RHS/Props.hide()
 
 
@@ -226,15 +228,34 @@ func _on_FillColor_gui_input(event):
 		emit_signal("pick_fill_color", current_element.color)
 
 
-func update_strings():
-	get_node("%ImageView").strings.clear()
-	get_node("%ImageView").rotated_strings.clear()
+func update_elements():
+	var iv = get_node("%ImageView")
+	iv.strings.clear()
+	iv.rotated_strings.clear()
+	iv.arcs.clear()
+	iv.rings.clear()
+	iv.boxes.clear()
+	iv.circles.clear()
+	iv.lines.clear()
+	iv.squares.clear()
 	for el in elements:
 		if el.type == ArtElement.AB:
-			get_node("%ImageView").strings.append(el)
+			iv.strings.append(el)
 		if el.type == ArtElement.ABROT:
-			get_node("%ImageView").rotated_strings.append(el)
-	get_node("%ImageView").overlay.update()
+			iv.rotated_strings.append(el)
+		if el.type == ArtElement.ARC:
+			iv.arcs.append(el)
+		if el.type == ArtElement.CIRC:
+			iv.rings.append(el)
+		if el.type == ArtElement.BOX:
+			iv.boxes.append(el)
+		if el.type == ArtElement.DOT:
+			iv.circles.append(el)
+		if el.type == ArtElement.LINE:
+			iv.lines.append(el)
+		if el.type == ArtElement.SQR:
+			iv.squares.append(el)
+	iv.overlay.update()
 
 
 func _process(_delta):
@@ -242,7 +263,7 @@ func _process(_delta):
 		var h = current_element.get_hash()
 		if last_hash != h:
 			last_hash = h
-			update_strings()
+			update_elements()
 
 
 func _on_Text_gui_input(event):

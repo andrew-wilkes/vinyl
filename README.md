@@ -29,3 +29,8 @@ https://www.cnet.com/tech/home-entertainment/best-record-player/
 
 https://www.whatisvinyl.com/different-types-of-vinyl-records/
 
+# Notes
+
+## How to make circle
+
+Found a solution by myself, If you had the same problem, try to draw it with Particles2D. Just make particles emit by ring (Emission Shape), and there you can set the radius of inner and outer circles, and scale of particles.

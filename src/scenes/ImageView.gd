@@ -9,6 +9,13 @@ var scale
 var hole_size = 0.1 setget set_hole_size
 var strings = []
 var rotated_strings = []
+var circles = []
+var rings = []
+var boxes = []
+var squares = []
+var arcs = []
+var lines = []
+var arc_width = 4.0
 
 export var is_disc = true setget set_canvas_type
 export(Color) var mod_color = Color.white setget set_mod_color
@@ -74,13 +81,19 @@ func get_texture():
 
 
 func draw():
+	var _chr_width = overlay.draw_char(dynamic_font, Vector2(-10, -10), "A", "")
+	var b2 = base_size / 2
+	for c in circles:
+		overlay.draw_circle(c.position * base_size, b2 * max(c.length, 0.1), c.color)
+	for ring in rings:
+		arc_width = ring.size * 32 # Use for arc also
+		overlay.draw_arc(ring.position * base_size, b2 * ring.length, -PI, PI, ring.length * 16 + 32, ring.color, arc_width)
 	for s in strings:
 		#dynamic_font.size = s.size * 32
 		var pos = Vector2(min(s.position.x, 0.95), max(s.position.y, 0.05)) * base_size
 		var ang = s.rotation + 0.5
 		overlay.draw_set_transform(pos, ang * PI * 2.0, Vector2(1, 1))
 		overlay.draw_string(dynamic_font, Vector2.ZERO, s.text, s.color)
-	var b2 = base_size / 2
 	for s in rotated_strings:
 		if s.text.length() == 0:
 			continue
@@ -98,12 +111,22 @@ func draw():
 			overlay.draw_set_transform(pos, th2, Vector2(1, 1))
 			var _advance = overlay.draw_char(dynamic_font, Vector2.ZERO, chr, "")
 			ang = ang + astep
-	"""
-	draw_circle_arc_poly(Vector2(100, 150), 40, 0, 90, Color.aquamarine)
-	var advance = overlay.draw_char(dynamic_font, Vector2(100, 250), "A", "")
-	overlay.draw_set_transform(Vector2(100 + advance, 250), PI / 2.0, Vector2(1, 1))
-	advance = overlay.draw_char(dynamic_font, Vector2.ZERO , "b", "")
-	"""
+	for a in arcs:
+		var ang = a.rotation + 0.5
+		overlay.draw_set_transform(a.position * base_size, ang * PI, Vector2(1, 1))
+		overlay.draw_arc(Vector2.ZERO, b2 * a.length, ang * PI * 2.0, (ang + a.size) * PI * 2.0, a.size * a.length * 16 + 32, a.color, arc_width)
+	for box in boxes:
+		var ang = box.rotation + 0.5
+		overlay.draw_set_transform(box.position * base_size, ang * PI * 2.0, Vector2(1, 1))
+		overlay.draw_rect(Rect2(Vector2.ZERO, Vector2(box.length, box.length) * b2), box.color, false, box.size * 32)
+	for sq in squares:
+		var ang = sq.rotation + 0.5
+		overlay.draw_set_transform(sq.position * base_size, ang * PI * 2.0, Vector2(1, 1))
+		overlay.draw_rect(Rect2(Vector2.ZERO, Vector2(sq.length, sq.length) * b2), sq.color, true)
+	for line in lines:
+		var ang = line.rotation + 0.5
+		overlay.draw_set_transform(line.position * base_size, ang * PI * 2.0, Vector2(1, 1))
+		overlay.draw_line(Vector2.ZERO, Vector2(line.length * base_size, 0), line.color, line.size * 32)
 
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):

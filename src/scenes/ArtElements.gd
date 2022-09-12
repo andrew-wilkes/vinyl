@@ -33,15 +33,21 @@ func add_element(type):
 		el.ARC:
 			el.size = 0.2
 			el.length = 0.3
-			el.position = Vector2(0.9, 0.9)
+			el.position = Vector2(0.5, 0.5)
 			el.rotation = 0.5
-		el.BOX:
+		el.BOX, el.SQR:
 			el.size = 0.2
-			el.length = 0.6
+			el.length = 0.3
 			el.position = Vector2(0.2, 0.2)
-		el.CIRC:
+			el.rotation = 0.5
+		el.CIRC, el.DOT:
 			el.size = 0.7
 			el.position = Vector2(0.8, 0.8)
+		el.LINE:
+			el.size = 0.2
+			el.length = 0.5
+			el.position = Vector2(0.25, 0.25)
+			el.rotation = 0.5
 	emit_signal("added_element", el)
 
 
