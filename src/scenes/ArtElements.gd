@@ -26,10 +26,12 @@ func add_element(type):
 		el.AB:
 			el.position = Vector2(0.2, 0.5)
 			el.rotation = 0.5
+			el.size = 0.5
 		el.ABROT:
 			el.length = 0.3
 			el.position = Vector2(0.8, 0.8)
 			el.rotation = 0.5
+			el.size = 0.5
 		el.ARC:
 			el.size = 0.2
 			el.length = 0.3

@@ -54,3 +54,25 @@ func get_resized_texture(path, size):
 	else:
 		texture = null
 	return { texture = texture, resized = resized}
+
+
+func get_font_dir():
+	var dir = ""
+	var dirs = []
+	match OS.get_name():
+		"Windows":
+			dirs = ["%appdata%/Local/Microsoft/Windows/Fonts", "/%windir%/fonts"]
+		"OSX":
+			dirs = ["~/Library/Fonts/", "/Library/Fonts/", " /System/Library/Fonts/"]
+		"X11":
+			dirs = ["~/.fonts", "/usr/share/fonts"]
+	var d = Directory.new()
+	for path in dirs:
+		if d.dir_exists(path):
+			dir = path
+			break
+	return dir
+
+
+func get_font_size(size):
+	return int(lerp(16, 128, size))
