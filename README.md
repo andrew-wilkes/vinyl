@@ -42,7 +42,7 @@ Found a solution by myself, If you had the same problem, try to draw it with Par
  %WINDIR%/Fonts
  c:\%windir%\fonts
  C:\Windows\Fonts
- AppData\Local\Microsoft\Windows\Fonts
+ %appdata%\Local\Microsoft\Windows\Fonts
 
  ### Linux
 
