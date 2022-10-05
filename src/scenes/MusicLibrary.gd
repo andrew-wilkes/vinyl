@@ -22,6 +22,8 @@ var xoff: int
 var yoff: int
 var x_spacing
 var y_spacing
+var selected_item
+var not_handled = true
 
 func _ready():
 	build_shelves(50, 3)
@@ -49,7 +51,24 @@ func edge_exited(item):
 
 func edge_input(_camera, event, _position, _normal, _shape_idx, item):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		print(item)
+		if selected_item and selected_item == item:
+			print("Play")
+		else:
+			selected_item = item
+			print(item)
+		not_handled = false
+
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		not_handled = true
+		call_deferred("got_click")
+
+
+func got_click():
+	if not_handled:
+		print("Cancel")
+		selected_item = null
 
 
 func calc_cabinet_width(x_capacity):
