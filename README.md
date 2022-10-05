@@ -34,3 +34,23 @@ https://www.whatisvinyl.com/different-types-of-vinyl-records/
 ## How to make circle
 
 Found a solution by myself, If you had the same problem, try to draw it with Particles2D. Just make particles emit by ring (Emission Shape), and there you can set the radius of inner and outer circles, and scale of particles.
+
+## Fonts
+
+### Windows
+
+ %WINDIR%/Fonts
+ c:\%windir%\fonts
+ C:\Windows\Fonts
+ %appdata%\Local\Microsoft\Windows\Fonts
+
+ ### Linux
+
+/usr/share/fonts
+~/.fonts
+
+ ### Mac
+
+ /System/Library/Fonts/
+ /Library/Fonts/
+ ~/Library/Fonts/

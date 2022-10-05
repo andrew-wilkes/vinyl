@@ -1,9 +1,10 @@
 extends PanelContainer
 
-signal bg_texture_button_pressed
+signal bg_texture_button_pressed()
 signal save_button_pressed(texture, idx)
 signal pick_bg_color(color)
 signal pick_fill_color(color)
+signal font_button_pressed()
 
 onready var color_adjusters = find_node("Adjusters")
 
@@ -37,6 +38,7 @@ func init_canvas(idx, album):
 	init_mod_color(color)
 	$HB/RHS/Props.hide()
 	$HB/ArtElements.init_elements(elements)
+	assign_fonts()
 	update_elements()
 
 
@@ -54,6 +56,31 @@ func update_mod_color(color = null):
 	get_node("%ImageView").mod_color = color
 	get_node("%ModColor").color = color
 	background["color"] = color
+
+
+func update_element_font(path):
+	current_element.font_path = path
+	assign_font_to_element(current_element)
+
+
+func assign_fonts():
+	for el in elements:
+		if el.type == ArtElement.AB or el.type == ArtElement.ABROT:
+			assign_font_to_element(el)
+
+
+func assign_font_to_element(element):
+	var path = element.font_path
+	var df = DynamicFont.new()
+	df.use_filter = true
+	df.size = g.get_font_size(element.size)
+	if path.empty():
+		path = "res://assets/fonts/NotoSansUI_Regular.ttf"
+		get_node("%Font").text = "Font"
+	else:
+		get_node("%Font").text = path.get_file()
+	df.font_data = load(path)
+	element.font = df
 
 
 func set_hole_size(large = true):
@@ -93,6 +120,7 @@ func _on_A_value_changed(_value):
 
 func _on_ArtElements_added_element(el):
 	elements.append(el)
+	assign_font_to_element(el)
 	fill_props(el)
 	$HB/RHS/Props.show()
 
@@ -114,12 +142,13 @@ func fill_props(el):
 	match el.type:
 		ArtElement.AB, ArtElement.ABROT:
 			props.get_node("Text").text = el.text
-			props.get_node("Fonts").show()
+			props.get_node("Font").text = el.font_path.get_file()
+			props.get_node("Font").show()
 			props.get_node("Text").show()
 			props.get_node("TextLabel").show()
 		_:
 			props.get_node("Text").hide()
-			props.get_node("Fonts").hide()
+			props.get_node("Font").hide()
 			props.get_node("TextLabel").hide()
 	set_adjusters(el)
 
@@ -149,6 +178,9 @@ func _on_Length_value_changed(value):
 
 func _on_Size_value_changed(value):
 	current_element.size = value
+	match current_element.type:
+		ArtElement.AB, ArtElement.ABROT:
+			current_element.font.size = g.get_font_size(value)
 
 
 func _on_Rot_value_changed(value):
@@ -269,3 +301,7 @@ func _process(_delta):
 func _on_Text_gui_input(event):
 	if event is InputEventKey and event.scancode == KEY_DELETE:
 		get_tree().set_input_as_handled()
+
+
+func _on_Font_pressed():
+	emit_signal("font_button_pressed")

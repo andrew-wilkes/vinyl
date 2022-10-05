@@ -516,7 +516,7 @@ margin_left = 21.0
 margin_top = 339.0
 margin_right = 213.0
 margin_bottom = 355.0
-hint_tooltip = "Horixontal position"
+hint_tooltip = "Horizontal position"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -554,29 +554,16 @@ margin_right = 213.0
 margin_bottom = 457.0
 text = "Text"
 
-[node name="Fonts" type="HBoxContainer" parent="HB/RHS/Props"]
+[node name="Font" type="Button" parent="HB/RHS/Props"]
+unique_name_in_owner = true
 margin_top = 467.0
 margin_right = 213.0
 margin_bottom = 506.0
-
-[node name="C6" type="CenterContainer" parent="HB/RHS/Props/Fonts"]
-margin_right = 17.0
-margin_bottom = 39.0
-
-[node name="Icon" type="TextureRect" parent="HB/RHS/Props/Fonts/C6"]
-margin_top = 11.0
-margin_right = 17.0
-margin_bottom = 27.0
-texture = ExtResource( 5 )
-
-[node name="Font" type="MenuButton" parent="HB/RHS/Props/Fonts"]
-margin_left = 21.0
-margin_right = 213.0
-margin_bottom = 39.0
 hint_tooltip = "Font"
-focus_mode = 2
 size_flags_horizontal = 3
 text = "Font"
+icon = ExtResource( 5 )
+flat = true
 
 [node name="Text" type="LineEdit" parent="HB/RHS/Props"]
 margin_top = 516.0
@@ -636,6 +623,7 @@ text = "Save As..."
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Rot" to="." method="_on_Rot_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/X" to="." method="_on_X_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Y" to="." method="_on_Y_value_changed"]
+[connection signal="pressed" from="HB/RHS/Props/Font" to="." method="_on_Font_pressed"]
 [connection signal="gui_input" from="HB/RHS/Props/Text" to="." method="_on_Text_gui_input"]
 [connection signal="text_changed" from="HB/RHS/Props/Text" to="." method="_on_Text_text_changed"]
 [connection signal="pressed" from="HB/RHS/HB/Save" to="." method="_on_Save_pressed"]

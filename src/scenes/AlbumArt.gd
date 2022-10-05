@@ -162,3 +162,17 @@ func _on_Color_popup_hide():
 			art.init_mod_color(color)
 		PICK_FILL:
 			art.set_fill_adjusters(color)
+
+
+func _on_ArtDesigner_font_button_pressed():
+	art.disable_input()
+	$c/FontSelector.current_dir = g.settings.last_font_dir
+	$c/FontSelector.current_file = ""
+	$c/FontSelector.popup_centered()
+
+
+func _on_FontSelector_file_selected(path):
+	art.disable_input(false)
+	g.settings.last_font_dir = path.get_base_dir()
+	art.current_element.font_path = path
+	art.update_element_font(path)

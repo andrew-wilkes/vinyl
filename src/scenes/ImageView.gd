@@ -2,7 +2,6 @@ extends ViewportContainer
 
 var blank
 var overlay
-var dynamic_font
 var size
 var base_size
 var scale
@@ -25,10 +24,6 @@ func _ready():
 	overlay = $Viewport/C/Overlay
 	blank = $Viewport/Blank
 	overlay.connect("draw", self, "draw")
-	dynamic_font = DynamicFont.new()
-	dynamic_font.font_data = load("res://assets/fonts/NotoSansUI_Regular.ttf")
-	dynamic_font.use_filter = true
-	dynamic_font.size = 32
 
 
 func set_mod_color(color):
@@ -81,7 +76,7 @@ func get_texture():
 
 
 func draw():
-	var _chr_width = overlay.draw_char(dynamic_font, Vector2(-10, -10), "A", "")
+	#var _chr_width = overlay.draw_char(dynamic_font, Vector2(-10, -10), "A", "")
 	var b2 = base_size / 2
 	for c in circles:
 		overlay.draw_circle(c.position * base_size, b2 * max(c.length, 0.1), c.color)
@@ -93,7 +88,7 @@ func draw():
 		var pos = Vector2(min(s.position.x, 0.95), max(s.position.y, 0.05)) * base_size
 		var ang = s.rotation + 0.5
 		overlay.draw_set_transform(pos, ang * PI * 2.0, Vector2(1, 1))
-		overlay.draw_string(dynamic_font, Vector2.ZERO, s.text, s.color)
+		overlay.draw_string(s.font, Vector2.ZERO, s.text, s.color)
 	for s in rotated_strings:
 		if s.text.length() == 0:
 			continue
@@ -109,7 +104,7 @@ func draw():
 			var th2 = th1 + PI / 2.0
 			var pos = Vector2(b2 + xr * cos(th1), b2 + yr * sin(th1))
 			overlay.draw_set_transform(pos, th2, Vector2(1, 1))
-			var _advance = overlay.draw_char(dynamic_font, Vector2.ZERO, chr, "")
+			var _advance = overlay.draw_char(chr.font, Vector2.ZERO, chr, "")
 			ang = ang + astep
 	for a in arcs:
 		var ang = a.rotation + 0.5
