@@ -32,6 +32,24 @@ func _ready():
 		var lp2 = lp.duplicate()
 		lp2.translation.x = x
 		add_child(lp2)
+		lp2.get_child(0).connect("mouse_entered", self, "edge_entered", [lp2])
+		lp2.get_child(0).connect("mouse_exited", self, "edge_exited", [lp2])
+		lp2.get_child(0).connect("input_event", self, "edge_input", [lp2])
+		lp2.material = lp.material.duplicate()
+		lp2.material.next_pass = lp.material.next_pass.duplicate()
+
+
+func edge_entered(item):
+	item.material.next_pass.set_shader_param("Level", 1.0)
+
+
+func edge_exited(item):
+	item.material.next_pass.set_shader_param("Level", 0.0)
+
+
+func edge_input(_camera, event, _position, _normal, _shape_idx, item):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		print(item)
 
 
 func calc_cabinet_width(x_capacity):
