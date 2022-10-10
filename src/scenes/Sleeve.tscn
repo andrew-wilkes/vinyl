@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/highlight-shader.tres" type="Shader" id=1]
+[ext_resource path="res://scenes/Sleeve.gd" type="Script" id=2]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 1 )
+shader_param/Level = 0.0
+
+[sub_resource type="SpatialMaterial" id=5]
+next_pass = SubResource( 4 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.003, 0.155, 0.155 )
+
+[node name="Sleeve" type="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.256, 0.2, 0 )
+width = 0.006
+height = 0.31
+depth = 0.31
+material = SubResource( 5 )
+script = ExtResource( 2 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 3 )

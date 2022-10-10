@@ -16,7 +16,7 @@ const record_size = 0.31
 const record_gap = 0.008
 
 onready var wood = $Shelves/Wood
-onready var lp = $LP
+onready var sleeve = preload("res://scenes/Sleeve.tscn")
 
 var xoff: int
 var yoff: int
@@ -24,21 +24,24 @@ var x_spacing
 var y_spacing
 var selected_item
 var not_handled = true
+var accept_click = true
 
 func _ready():
+	var mat
 	build_shelves(50, 3)
-	lp.translation = get_record_position(0, 0)
-	var x = lp.translation.x
+	var pos = get_record_position(0, 0)
 	for n in 30:
-		x += record_gap + record_thickness
-		var lp2 = lp.duplicate()
-		lp2.translation.x = x
-		add_child(lp2)
-		lp2.get_child(0).connect("mouse_entered", self, "edge_entered", [lp2])
-		lp2.get_child(0).connect("mouse_exited", self, "edge_exited", [lp2])
-		lp2.get_child(0).connect("input_event", self, "edge_input", [lp2])
-		lp2.material = lp.material.duplicate()
-		lp2.material.next_pass = lp.material.next_pass.duplicate()
+		var lp = sleeve.instance()
+		lp.translation = pos
+		add_child(lp)
+		lp.get_child(0).connect("mouse_entered", self, "edge_entered", [lp])
+		lp.get_child(0).connect("mouse_exited", self, "edge_exited", [lp])
+		lp.get_child(0).connect("input_event", self, "edge_input", [lp])
+		if mat == null:
+			mat = lp.material
+		lp.material = mat.duplicate()
+		lp.material.next_pass = mat.next_pass.duplicate()
+		pos.x += record_gap + record_thickness
 
 
 func edge_entered(item):
@@ -51,12 +54,19 @@ func edge_exited(item):
 
 func edge_input(_camera, event, _position, _normal, _shape_idx, item):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		if selected_item and selected_item == item:
-			print("Play")
-		else:
-			selected_item = item
-			print(item)
 		not_handled = false
+		if accept_click:
+			if selected_item and selected_item == item:
+				print("Play")
+			else:
+				accept_click = false
+				if selected_item:
+					selected_item.reveal()
+					yield(selected_item.tween, "finished")
+				selected_item = item
+				item.reveal()
+				yield(item.tween, "finished")
+				accept_click = true
 
 
 func _unhandled_input(event):
@@ -66,8 +76,9 @@ func _unhandled_input(event):
 
 
 func got_click():
-	if not_handled:
+	if not_handled and selected_item:
 		print("Cancel")
+		selected_item.reveal()
 		selected_item = null
 
 

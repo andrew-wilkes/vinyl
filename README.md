@@ -54,3 +54,15 @@ Found a solution by myself, If you had the same problem, try to draw it with Par
  /System/Library/Fonts/
  /Library/Fonts/
  ~/Library/Fonts/
+
+ ## Todo
+
+ * record sleeve renderer
+ * animation to pick record
+ * display album info
+ * animation to place record on platter
+ * animation to turn record over
+ * test code to generate albums
+ * album art AI
+ * record track spiral etc.
+ 
