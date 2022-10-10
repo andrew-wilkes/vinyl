@@ -38,18 +38,18 @@ func _ready():
 		lp.get_child(0).connect("mouse_exited", self, "edge_exited", [lp])
 		lp.get_child(0).connect("input_event", self, "edge_input", [lp])
 		if mat == null:
-			mat = lp.material
-		lp.material = mat.duplicate()
-		lp.material.next_pass = mat.next_pass.duplicate()
+			mat = lp.get_active_material(0)
+		lp.set_surface_material(0, mat.duplicate())
+		lp.get_active_material(0).next_pass = mat.next_pass.duplicate()
 		pos.x += record_gap + record_thickness
 
 
 func edge_entered(item):
-	item.material.next_pass.set_shader_param("Level", 1.0)
+	item.get_active_material(0).next_pass.set_shader_param("Level", 1.0)
 
 
 func edge_exited(item):
-	item.material.next_pass.set_shader_param("Level", 0.0)
+	item.get_active_material(0).next_pass.set_shader_param("Level", 0.0)
 
 
 func edge_input(_camera, event, _position, _normal, _shape_idx, item):
