@@ -14,3 +14,4 @@ export var bg = [{}, {}, {}, {}] # Background { "color": color, "image": "path" 
 export var a_side = []
 export var b_side = []
 export var label_color = Color.white
+export var shelf_pos  = { "x": 0, "y": 0 }

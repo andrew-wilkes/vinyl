@@ -14,25 +14,27 @@ func lock():
 	locked = true
 
 func _process(delta):
-	if (Input.is_key_pressed(KEY_LEFT)):
-		$YAxis.rotate_y(delta)
-	if (Input.is_key_pressed(KEY_RIGHT)):
-		$YAxis.rotate_y(-delta)
-	if (Input.is_key_pressed(KEY_UP)):
-		$YAxis/XAxis.rotate_x(delta)
-	if (Input.is_key_pressed(KEY_DOWN)):
-		$YAxis/XAxis.rotate_x(-delta)
-	if (Input.is_key_pressed(KEY_Z)):
+	# Need to hold the shift key to use the arrow keys
+	if Input.is_physical_key_pressed(KEY_SHIFT):
+		if (Input.is_physical_key_pressed(KEY_LEFT)):
+			$YAxis.rotate_y(delta)
+		if (Input.is_physical_key_pressed(KEY_RIGHT)):
+			$YAxis.rotate_y(-delta)
+		if (Input.is_physical_key_pressed(KEY_UP)):
+			$YAxis/XAxis.rotate_x(delta)
+		if (Input.is_physical_key_pressed(KEY_DOWN)):
+			$YAxis/XAxis.rotate_x(-delta)
+	if (Input.is_physical_key_pressed(KEY_Z)):
 		$YAxis/XAxis/Camera.translation.z += delta
-	if (Input.is_key_pressed(KEY_X)):
+	if (Input.is_physical_key_pressed(KEY_X)):
 		$YAxis/XAxis/Camera.translation.z -= delta
-	if (Input.is_key_pressed(KEY_W)):
+	if (Input.is_physical_key_pressed(KEY_W)):
 		$YAxis/XAxis/Camera.translation.y -= delta
-	if (Input.is_key_pressed(KEY_A)):
+	if (Input.is_physical_key_pressed(KEY_A)):
 		$YAxis/XAxis/Camera.translation.x += delta
-	if (Input.is_key_pressed(KEY_S)):
+	if (Input.is_physical_key_pressed(KEY_S)):
 		$YAxis/XAxis/Camera.translation.y += delta
-	if (Input.is_key_pressed(KEY_D)):
+	if (Input.is_physical_key_pressed(KEY_D)):
 		$YAxis/XAxis/Camera.translation.x -= delta
 
 
@@ -45,9 +47,9 @@ func _unhandled_input(event):
 			moving = false
 	if event is InputEventMouseMotion and moving:
 		var mode = ROTATING
-		if Input.is_key_pressed(KEY_SHIFT):
+		if Input.is_physical_key_pressed(KEY_SHIFT):
 			mode = PANNING
-		if Input.is_key_pressed(KEY_CONTROL):
+		if Input.is_physical_key_pressed(KEY_CONTROL):
 			mode = ZOOMING
 		match mode:
 			PANNING:

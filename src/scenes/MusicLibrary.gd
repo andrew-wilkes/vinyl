@@ -14,6 +14,8 @@ const vspace = 0.34
 const record_thickness = 0.006
 const record_size = 0.31
 const record_gap = 0.008
+const X_CAPACITY = 50
+const Y_CAPACITY = 3
 
 onready var wood = $Shelves/Wood
 onready var sleeve = preload("res://scenes/Sleeve.tscn")
@@ -25,23 +27,43 @@ var y_spacing
 var selected_item
 var not_handled = true
 var accept_click = true
+var slots = PoolStringArray()
 
 func _ready():
-	var mat
-	build_shelves(50, 3)
-	var pos = get_record_position(0, 0)
-	for n in 30:
-		var lp = sleeve.instance()
-		lp.translation = pos
-		add_child(lp)
-		lp.get_child(0).connect("mouse_entered", self, "edge_entered", [lp])
-		lp.get_child(0).connect("mouse_exited", self, "edge_exited", [lp])
-		lp.get_child(0).connect("input_event", self, "edge_input", [lp])
-		if mat == null:
-			mat = lp.get_active_material(0)
-		lp.set_surface_material(0, mat.duplicate())
-		lp.get_active_material(0).next_pass = mat.next_pass.duplicate()
-		pos.x += record_gap + record_thickness
+	var material = sleeve.instance().get_active_material(0)
+	build_shelves(X_CAPACITY, Y_CAPACITY)
+	slots.resize(X_CAPACITY * Y_CAPACITY)
+	slots.fill("")
+	for album_id in g.settings.albums:
+		add_album(material, album_id)
+
+
+func add_album(material, album_id):
+	var lp = sleeve.instance()
+	lp.translation = get_record_position(get_album_pos(album_id))
+	lp.album_id = album_id
+	$Albums.add_child(lp)
+	lp.get_child(0).connect("mouse_entered", self, "edge_entered", [lp])
+	lp.get_child(0).connect("mouse_exited", self, "edge_exited", [lp])
+	lp.get_child(0).connect("input_event", self, "edge_input", [lp])
+	lp.set_surface_material(0, material.duplicate())
+	lp.get_active_material(0).next_pass = material.next_pass.duplicate()
+
+
+func get_album_pos(album_id):
+	var album = g.settings.albums[album_id]
+	var slot_idx = album.shelf_pos.x * album.shelf_pos.y
+	if slots[slot_idx].empty():
+		slots[slot_idx] = album_id
+	else:
+		# Try to relocate position if slot is occupied
+		for idx in slots.size():
+			if slots[idx].empty():
+				slots[idx] = album_id
+				album.shelf_pos.x = idx % X_CAPACITY
+				album.shelf_pos.y = idx / X_CAPACITY
+				break
+	return Vector2(album.shelf_pos.x, album.shelf_pos.y)
 
 
 func edge_entered(item):
@@ -73,11 +95,56 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		not_handled = true
 		call_deferred("got_click")
+	if event is InputEventKey and selected_item:
+		if Input.is_action_just_pressed("ui_left", true):
+			move_item(-1, 0)
+		if Input.is_action_just_pressed("ui_right", true):
+			move_item(1, 0)
+		if Input.is_action_just_pressed("ui_up", true):
+			move_item(0, 1)
+		if Input.is_action_just_pressed("ui_down", true):
+			move_item(0, -1)
+
+
+func move_item(x, y):
+	var album = g.settings.albums[selected_item.album_id]
+	album.shelf_pos.x = int(clamp(album.shelf_pos.x + x, 0, X_CAPACITY - 1))
+	album.shelf_pos.y = int(clamp(album.shelf_pos.y + y, 0, Y_CAPACITY - 1))
+	var pos = get_record_position(Vector2(album.shelf_pos.x, album.shelf_pos.y))
+	selected_item.translation.x = pos.x
+	selected_item.translation.y = pos.y
+
+
+func insert_item():
+	var album = g.settings.albums[selected_item.album_id]
+	var slot_idx = album.shelf_pos.x + X_CAPACITY * album.shelf_pos.y
+	# Check if item has been moved
+	if slots[slot_idx] != selected_item.album_id:
+		var id = slots[slot_idx]
+		# Add item to new slot
+		slots[slot_idx] = selected_item.album_id
+		if not id.empty():
+			# Rotate slots to right
+			while true:
+				slot_idx = (slot_idx + 1) % slots.size()
+				var id2 = slots[slot_idx]
+				slots[slot_idx] = id
+				album = g.settings.albums[id]
+				album.shelf_pos.x = slot_idx % X_CAPACITY
+				album.shelf_pos.y = slot_idx / X_CAPACITY
+				for node in $Albums.get_children():
+					if node.album_id == id:
+						node.translation = get_record_position(Vector2(album.shelf_pos.x, album.shelf_pos.y))
+						break
+				id = id2
+				if id.empty() or id == selected_item.album_id:
+					break
 
 
 func got_click():
 	if not_handled and selected_item:
 		print("Cancel")
+		insert_item()
 		selected_item.reveal()
 		selected_item = null
 
@@ -92,8 +159,8 @@ func calc_offset(capacity: int):
 	return -(capacity - 1) / 2
 
 
-func get_record_position(x: int, y: int):
-	return Vector3((xoff + x) * x_spacing, (yoff + y) * y_spacing - (vspace - record_size) / 2, record_size / 2)
+func get_record_position(pos):
+	return Vector3((xoff + pos.x) * x_spacing, (yoff + pos.y) * y_spacing - (vspace - record_size) / 2, record_size / 2)
 
 
 func build_shelves(x_capacity: int, y_capacity: int):

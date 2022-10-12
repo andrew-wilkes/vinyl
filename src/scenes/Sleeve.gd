@@ -4,6 +4,7 @@ const DISPLACEMENT = 0.25
 
 var revealed = false
 var tween
+var album_id
 
 func reveal():
 	var d = DISPLACEMENT
