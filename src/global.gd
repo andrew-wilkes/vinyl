@@ -2,6 +2,7 @@ extends Node
 
 var settings
 var default_art = []
+var current_album_id
 
 func _init():
 	settings = Settings.new()
@@ -76,3 +77,50 @@ func get_font_dir():
 
 func get_font_size(size):
 	return int(lerp(16, 128, size))
+
+
+
+
+func get_album_id():
+	return str(OS.get_unix_time()).md5_text()
+
+
+func delete_album():
+	settings.albums.erase(current_album_id)
+
+
+func new_album():
+	var album = Album.new()
+	current_album_id = get_album_id()
+	settings.albums[current_album_id] = album
+
+
+func remove_empty_albums():
+	var ids = []
+	for id in settings.albums:
+		if settings.albums[id].title.empty():
+			ids.append(id)
+	for id in ids:
+		settings.albums.erase(id)
+
+
+func set_album_property(prop, value):
+	settings.albums[current_album_id][prop] = value
+
+
+func get_album_property(prop):
+	return settings.albums[current_album_id][prop]
+
+
+func add_track(side, track):
+	if side == 0:
+		settings.albums[current_album_id].a_side.append(track)
+	else:
+		settings.albums[current_album_id].b_side.append(track)
+
+
+func remove_track(side, track):
+	if side == 0:
+		settings.albums[current_album_id].a_side.erase(track)
+	else:
+		settings.albums[current_album_id].b_side.erase(track)

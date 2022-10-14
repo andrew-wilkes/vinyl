@@ -104,7 +104,7 @@ func draw():
 			var th2 = th1 + PI / 2.0
 			var pos = Vector2(b2 + xr * cos(th1), b2 + yr * sin(th1))
 			overlay.draw_set_transform(pos, th2, Vector2(1, 1))
-			var _advance = overlay.draw_char(chr.font, Vector2.ZERO, chr, "")
+			var _advance = overlay.draw_char(s.font, Vector2.ZERO, chr, "")
 			ang = ang + astep
 	for a in arcs:
 		var ang = a.rotation + 0.5

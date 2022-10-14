@@ -30,12 +30,17 @@ var accept_click = true
 var slots = PoolStringArray()
 
 func _ready():
+	get_node("%Details").hide()
 	var material = sleeve.instance().get_active_material(0)
 	build_shelves(X_CAPACITY, Y_CAPACITY)
 	slots.resize(X_CAPACITY * Y_CAPACITY)
 	slots.fill("")
 	for album_id in g.settings.albums:
 		add_album(material, album_id)
+	if g.current_album_id:
+		for item in $Albums.get_children():
+			if item.album_id == g.current_album_id:
+				select_item(item)
 
 
 func add_album(material, album_id):
@@ -85,10 +90,15 @@ func edge_input(_camera, event, _position, _normal, _shape_idx, item):
 				if selected_item:
 					selected_item.reveal()
 					yield(selected_item.tween, "finished")
-				selected_item = item
-				item.reveal()
-				yield(item.tween, "finished")
-				accept_click = true
+				select_item(item)
+
+
+func select_item(item):
+	selected_item = item
+	g.current_album_id = item.album_id
+	item.reveal()
+	yield(item.tween, "finished")
+	accept_click = true
 
 
 func _unhandled_input(event):
@@ -147,6 +157,7 @@ func got_click():
 		insert_item()
 		selected_item.reveal()
 		selected_item = null
+		g.current_album_id = null
 
 
 func calc_cabinet_width(x_capacity):

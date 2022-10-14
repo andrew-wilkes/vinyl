@@ -32,7 +32,7 @@ export(Color) var spare_color
 export var FFSTEP = 10.0
 
 func load_album(id):
-	g.settings.album_id = id
+	g.current_album_id = id
 	var album = g.settings.albums[id]
 	$VBox/HB/VB1/VB1/Title.text = album.title
 	$VBox/HB/VB1/VB2/Band.text = album.band
@@ -54,7 +54,7 @@ func load_album(id):
 
 
 func new_album():
-	g.settings.new_album()
+	g.new_album()
 	clear_record()
 
 
@@ -72,7 +72,7 @@ func clear_record():
 
 
 func delete_album():
-	g.settings.delete_album()
+	g.delete_album()
 	new_album()
 
 
@@ -87,8 +87,8 @@ func _ready():
 	audio = Audio.new($AudioStreamPlayer)
 	size_group = $VBox/HB1/VB1/size10.group
 	speed_group = $VBox/HB1/VB2/speed33.group
-	if g.settings.album_id:
-		load_album(g.settings.album_id)
+	if g.current_album_id:
+		load_album(g.current_album_id)
 	else:
 		new_album()
 	$VBox/HB/VB1/VB1/Title.grab_focus()
@@ -128,13 +128,13 @@ func _process(_delta):
 
 func get_rpm():
 	var rpm = speed_group.get_pressed_button().name
-	g.settings.set_album_property("rpm", rpm)
+	g.set_album_property("rpm", rpm)
 	return RPMS[rpm]
 
 
 func get_size():
 	var size = size_group.get_pressed_button().name
-	g.settings.set_album_property("size", size)
+	g.set_album_property("size", size)
 	return SIZES.find(size)
 
 
@@ -351,7 +351,7 @@ func set_pitch(value):
 	$VBox/HB1/VB3/HB3/PV.text = "%0.2f mm" % value
 	pitch = value
 	update_utilizations()
-	g.settings.set_album_property("pitch", value)
+	g.set_album_property("pitch", value)
 
 
 func update_utilizations():
@@ -380,11 +380,11 @@ func _on_ConfirmDelete_confirmed():
 
 
 func _on_Title_text_changed(new_text):
-	g.settings.set_album_property("title", new_text)
+	g.set_album_property("title", new_text)
 
 
 func _on_Band_text_changed(new_text):
-	g.settings.set_album_property("band", new_text)
+	g.set_album_property("band", new_text)
 
 
 func _on_AlbumSelector_album_selected(album_id):
@@ -404,7 +404,7 @@ func _on_Volume_value_changed(value):
 
 func _on_ImageSelector_file_selected(path):
 	g.settings.last_image_dir = path.get_base_dir()
-	g.settings.get_album_property("images")[image_idx] = path
+	g.get_album_property("images")[image_idx] = path
 	var text = g.get_resized_texture(path, 64)
 	if text.resized == null:
 		text.resized = g.default_art[image_idx]
@@ -418,12 +418,12 @@ func art_button_clicked(event, button, idx):
 			open_image_selector(idx)
 		else:
 			button.texture_normal = g.default_art[idx]
-			g.settings.get_album_property("images")[image_idx] = null
+			g.get_album_property("images")[image_idx] = null
 
 
 func open_image_selector(idx):
 	image_idx = idx
-	var path = g.settings.get_album_property("images")[idx]
+	var path = g.get_album_property("images")[idx]
 	if path == null:
 		$c/ImageSelector.current_dir = g.settings.last_image_dir
 		$c/ImageSelector.current_file = ""

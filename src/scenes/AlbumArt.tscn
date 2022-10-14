@@ -248,10 +248,10 @@ custom_constants/margin_bottom = 10
 
 [node name="ColorPicker" type="ColorPicker" parent="c/Color/M"]
 unique_name_in_owner = true
-margin_left = 14.0
-margin_top = 14.0
-margin_right = 343.0
-margin_bottom = 449.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 339.0
+margin_bottom = 445.0
 edit_alpha = false
 presets_visible = false
 

@@ -19,8 +19,8 @@ onready var art = find_node("ArtDesigner")
 func _ready():
 	#find_node("Large").visible = false
 	show_album_details(false)
-	if g.settings.album_id:
-		load_album(g.settings.album_id)
+	if g.current_album_id:
+		load_album(g.current_album_id)
 	else:
 		album = Album.new()
 	$VB/Header/VB/NoRecords.visible = g.settings.albums.size() < 1
@@ -47,7 +47,7 @@ func _on_AlbumSelector_album_selected(album_id):
 
 
 func load_album(id):
-	g.settings.album_id = id
+	g.current_album_id = id
 	album = g.settings.albums[id]
 	find_node("Title").text = album.title
 	find_node("Band").text = album.band
