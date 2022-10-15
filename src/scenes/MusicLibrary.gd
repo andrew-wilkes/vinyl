@@ -231,3 +231,7 @@ func build_shelves(x_capacity: int, y_capacity: int):
 		s.translation.y = y
 		s.name = "SHELF" + str(n + 1)
 		$Shelves.add_child(s)
+
+
+func _on_Info_pressed():
+	$c/InfoDialog.popup_centered()

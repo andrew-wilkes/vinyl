@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/MusicLibrary.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/regular.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=6]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=7]
+[ext_resource path="res://assets/info.png" type="Texture" id=8]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.643137, 0.580392, 0.290196, 1 )
@@ -32,6 +33,7 @@ material = SubResource( 1 )
 margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 2
+theme = ExtResource( 7 )
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -40,13 +42,13 @@ custom_constants/margin_bottom = 20
 [node name="VB" type="VBoxContainer" parent="c/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 738.0
+margin_right = 788.0
 margin_bottom = 383.0
 mouse_filter = 2
 custom_constants/separation = 20
 
 [node name="HB" type="HBoxContainer" parent="c/MarginContainer/VB"]
-margin_right = 718.0
+margin_right = 768.0
 margin_bottom = 97.0
 custom_constants/separation = 20
 
@@ -63,31 +65,41 @@ margin_right = 718.0
 margin_bottom = 97.0
 current_selection = 3
 
+[node name="C" type="CenterContainer" parent="c/MarginContainer/VB/HB"]
+margin_left = 738.0
+margin_right = 768.0
+margin_bottom = 97.0
+
+[node name="Info" type="Button" parent="c/MarginContainer/VB/HB/C"]
+margin_top = 29.0
+margin_right = 30.0
+margin_bottom = 68.0
+icon = ExtResource( 8 )
+
 [node name="HB2" type="HBoxContainer" parent="c/MarginContainer/VB"]
 margin_top = 117.0
-margin_right = 718.0
+margin_right = 768.0
 margin_bottom = 363.0
 mouse_filter = 2
 
 [node name="Details" type="PanelContainer" parent="c/MarginContainer/VB/HB2"]
 unique_name_in_owner = true
-margin_right = 357.0
+margin_right = 382.0
 margin_bottom = 246.0
 mouse_filter = 2
 size_flags_horizontal = 3
-theme = ExtResource( 7 )
 
 [node name="Items" type="VBoxContainer" parent="c/MarginContainer/VB/HB2/Details"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 347.0
+margin_right = 372.0
 margin_bottom = 236.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 6 )
 text = "Album Title"
@@ -95,13 +107,13 @@ text = "Album Title"
 [node name="Title" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 33.0
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 56.0
 custom_fonts/font = ExtResource( 5 )
 
 [node name="Label2" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
 margin_top = 66.0
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 89.0
 custom_fonts/font = ExtResource( 6 )
 text = "Band / Artist"
@@ -109,13 +121,13 @@ text = "Band / Artist"
 [node name="Band" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 99.0
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 122.0
 custom_fonts/font = ExtResource( 5 )
 
 [node name="Label3" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
 margin_top = 132.0
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 155.0
 custom_fonts/font = ExtResource( 6 )
 text = "Side A"
@@ -123,14 +135,14 @@ text = "Side A"
 [node name="SideA" type="ItemList" parent="c/MarginContainer/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 165.0
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 174.0
 mouse_filter = 2
 auto_height = true
 
 [node name="Label4" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
 margin_top = 184.0
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 207.0
 custom_fonts/font = ExtResource( 6 )
 text = "Side B"
@@ -138,14 +150,31 @@ text = "Side B"
 [node name="SideB" type="ItemList" parent="c/MarginContainer/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 217.0
-margin_right = 337.0
+margin_right = 362.0
 margin_bottom = 226.0
 mouse_filter = 2
 auto_height = true
 
 [node name="Control" type="Control" parent="c/MarginContainer/VB/HB2"]
-margin_left = 361.0
-margin_right = 718.0
+margin_left = 386.0
+margin_right = 768.0
 margin_bottom = 246.0
 mouse_filter = 2
 size_flags_horizontal = 3
+
+[node name="InfoDialog" type="AcceptDialog" parent="c"]
+margin_right = 83.0
+margin_bottom = 58.0
+theme = ExtResource( 7 )
+window_title = "How to use"
+dialog_text = "Left click on albums to select
+Click again to play
+Click in free space to unselect
+
+Use arrow keys to move selected album
+
+Ctrl + left mouse button to rotate shelves
+Shift + left mouse button to pan shelves
+Ctrl + left mouse button to zoom in and out"
+
+[connection signal="pressed" from="c/MarginContainer/VB/HB/C/Info" to="." method="_on_Info_pressed"]
