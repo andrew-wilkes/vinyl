@@ -79,8 +79,6 @@ func get_font_size(size):
 	return int(lerp(16, 128, size))
 
 
-
-
 func get_album_id():
 	return str(OS.get_unix_time()).md5_text()
 

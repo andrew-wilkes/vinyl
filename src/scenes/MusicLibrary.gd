@@ -89,6 +89,7 @@ func edge_input(_camera, event, _position, _normal, _shape_idx, item):
 				accept_click = false
 				if selected_item:
 					selected_item.reveal()
+					get_node("%Details").hide()
 					yield(selected_item.tween, "finished")
 				select_item(item)
 
@@ -99,6 +100,17 @@ func select_item(item):
 	item.reveal()
 	yield(item.tween, "finished")
 	accept_click = true
+	var album = g.settings.albums[g.current_album_id]
+	get_node("%Title").text = album.title
+	get_node("%Band").text = album.band
+	var side_a = get_node("%SideA")
+	side_a.clear()
+	for track in album.a_side:
+		side_a.add_item(track.title)
+	var side_b = get_node("%SideA")
+	for track in album.b_side:
+		side_b.add_item(track.title)
+	get_node("%Details").show()
 
 
 func _unhandled_input(event):
@@ -158,6 +170,7 @@ func got_click():
 		selected_item.reveal()
 		selected_item = null
 		g.current_album_id = null
+		get_node("%Details").hide()
 
 
 func calc_cabinet_width(x_capacity):
