@@ -17,11 +17,10 @@ const record_gap = 0.008
 const X_CAPACITY = 50
 const Y_CAPACITY = 3
 
-onready var wood = $Shelves/Wood
 onready var sleeve = preload("res://scenes/Sleeve.tscn")
 
 var xoff: int
-var yoff: int
+var xshift
 var x_spacing
 var y_spacing
 var selected_item
@@ -32,7 +31,9 @@ var slots = PoolStringArray()
 func _ready():
 	get_node("%Details").hide()
 	var material = sleeve.instance().get_active_material(0)
-	build_shelves(X_CAPACITY, Y_CAPACITY)
+	x_spacing = record_thickness + record_gap
+	y_spacing = vspace + plank_wood
+	xoff = calc_offset(X_CAPACITY)
 	slots.resize(X_CAPACITY * Y_CAPACITY)
 	slots.fill("")
 	for album_id in g.settings.albums:
@@ -179,58 +180,18 @@ func calc_cabinet_width(x_capacity):
 
 
 func calc_offset(capacity: int):
-# warning-ignore:integer_division
-	return -(capacity - 1) / 2
+	# warning-ignore:integer_division
+	var off = -(capacity - 1) / 2
+	xshift = 0.0
+	if capacity % 2 == 0:
+		# warning-ignore:integer_division
+		off = -(capacity / 2)
+		xshift = x_spacing / 2.0
+	return off
 
 
 func get_record_position(pos):
-	return Vector3((xoff + pos.x) * x_spacing, (yoff + pos.y) * y_spacing - (vspace - record_size) / 2, record_size / 2)
-
-
-func build_shelves(x_capacity: int, y_capacity: int):
-	xoff = calc_offset(x_capacity)
-	yoff = calc_offset(y_capacity)
-	var width = calc_cabinet_width(x_capacity)
-	y_spacing = vspace + plank_wood
-	# Sides
-	wood.translation = Vector3(-(width - plank_wood) / 2, 0, outer_depth / 2.0 - thin_wood)
-	wood.depth = outer_depth
-	wood.height = y_capacity * y_spacing - plank_wood
-	wood.name = "LEFT"
-	var right_side = wood.duplicate()
-	right_side.translation.x *= -1
-	right_side.name = "RIGHT"
-	$Shelves.add_child(right_side)
-	var base = wood.duplicate()
-	base.height = thick_wood
-	base.width = width
-	base.translation.x = 0
-	base.translation.y = -(right_side.height + thick_wood) / 2.0
-	base.name = "BASE"
-	$Shelves.add_child(base)
-	var top = base.duplicate()
-	top.name = "TOP"
-	top.translation.y *= -1
-	$Shelves.add_child(top)
-	var back = wood.duplicate()
-	back.depth = thin_wood
-	back.width = width - 2 * plank_wood
-	back.translation = Vector3(0, 0, -thin_wood / 2.0)
-	back.name = "BACK"
-	$Shelves.add_child(back)
-	var shelf = back.duplicate()
-	shelf.height = plank_wood
-	shelf.depth = shelf_depth
-	shelf.translation.z = shelf_depth / 2.0
-	var y = -(wood.height + plank_wood) / 2.0
-	for n in y_capacity - 1:
-		y += vspace + plank_wood
-		var s = shelf
-		if n > 0:
-			s = shelf.duplicate()
-		s.translation.y = y
-		s.name = "SHELF" + str(n + 1)
-		$Shelves.add_child(s)
+	return Vector3((xoff + pos.x) * x_spacing + xshift, thick_wood + pos.y * y_spacing + record_size / 2, record_size / 2)
 
 
 func _on_Info_pressed():

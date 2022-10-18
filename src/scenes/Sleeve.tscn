@@ -40,7 +40,6 @@ shader_param/side_b = ExtResource( 3 )
 extents = Vector3( 0.003, 0.155, 0.155 )
 
 [node name="Sleeve" type="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.256, 0.2, 0 )
 mesh = ExtResource( 5 )
 material/0 = SubResource( 5 )
 script = ExtResource( 2 )

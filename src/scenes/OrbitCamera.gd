@@ -1,8 +1,9 @@
 extends Spatial
 
 export var ROTATION_SPEED = 0.01
-export var PANNING_SPEED = 0.05
+export var PANNING_SPEED = 0.02
 export var ZOOMING_SPEED = 0.05
+export var KEY_SPEED = 2.0
 
 enum { ROTATING, PANNING, ZOOMING }
 
@@ -14,6 +15,7 @@ func lock():
 	locked = true
 
 func _process(delta):
+	delta *= KEY_SPEED
 	# Need to hold the shift key to use the arrow keys
 	if Input.is_physical_key_pressed(KEY_SHIFT):
 		if (Input.is_physical_key_pressed(KEY_LEFT)):

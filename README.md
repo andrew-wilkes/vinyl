@@ -57,9 +57,6 @@ Found a solution by myself, If you had the same problem, try to draw it with Par
 
  ## Todo
 
- * record sleeve renderer
- * animation to pick record
- * display album info
  * animation to place record on platter
  * animation to turn record over
  * test code to generate albums
