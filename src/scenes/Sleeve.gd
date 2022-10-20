@@ -16,6 +16,11 @@ func reveal():
 
 
 func set_textures(side_a, side_b, edge_color):
-	mesh.surface_get_material(0).set_shader_param("side_a", side_a)
-	mesh.surface_get_material(0).set_shader_param("side_b", side_b)
-	mesh.surface_get_material(0).set_shader_param("edge_color", edge_color)
+	var mat = get_surface_material(0)
+	mat.set_shader_param("edge_color", edge_color)
+	if side_a:
+		var img_a = g.get_resized_texture(side_a).texture
+		mat.set_shader_param("side_a", img_a)
+	if side_b:
+		var img_b = g.get_resized_texture(side_b).texture
+		mat.set_shader_param("side_b", img_b)

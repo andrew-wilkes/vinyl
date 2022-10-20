@@ -42,7 +42,7 @@ func format_time(time):
 	return "%02d:%02d" % [int(time) / 60, int(time) % 60]
 
 
-func get_resized_texture(path, size):
+func get_resized_texture(path, size = 0):
 	var resized = ImageTexture.new()
 	var texture = ImageTexture.new()
 	var image = Image.new()
@@ -50,8 +50,9 @@ func get_resized_texture(path, size):
 	if file.file_exists(path):
 		image.load(path)
 		texture.create_from_image(image)
-		image.resize(size, size)
-		resized.create_from_image(image)
+		if size > 0:
+			image.resize(size, size)
+			resized.create_from_image(image)
 	else:
 		texture = null
 	return { texture = texture, resized = resized}

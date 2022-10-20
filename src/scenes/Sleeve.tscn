@@ -22,7 +22,7 @@ void fragment() {
 		ALBEDO = edge_color.rgb;
 	} else {
 		if (UV.x > 0.5) {
-			ALBEDO = texture(side_b, (UV - vec2(0.5)) * 2.0).rgb;
+			ALBEDO = texture(side_b, vec2(1.0 - UV.x, UV.y - 0.5) * 2.0).rgb;
 		} else {
 			ALBEDO = texture(side_a, UV * 2.0).rgb;
 		}

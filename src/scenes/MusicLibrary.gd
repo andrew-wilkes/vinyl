@@ -54,6 +54,9 @@ func add_album(material, album_id):
 	lp.get_child(0).connect("input_event", self, "edge_input", [lp])
 	lp.set_surface_material(0, material.duplicate())
 	lp.get_active_material(0).next_pass = material.next_pass.duplicate()
+	var album = g.settings.albums[album_id]
+	var edge_color = Color.whitesmoke if album.bg[2].empty() else album.bg[2].color
+	lp.set_textures(album.images[2], album.images[3], edge_color)
 
 
 func get_album_pos(album_id):

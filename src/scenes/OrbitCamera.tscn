@@ -15,6 +15,8 @@ current = true
 
 [node name="DirectionalLight" type="DirectionalLight" parent="YAxis/XAxis"]
 transform = Transform( 0.957284, 0.112068, -0.266548, 0, 0.921836, 0.38758, 0.289149, -0.371024, 0.882459, -15.9675, 0, 0.28694 )
+visible = false
 
 [node name="DirectionalLight2" type="DirectionalLight" parent="YAxis/XAxis"]
 transform = Transform( 0.952108, -0.118507, 0.281862, 0.187808, 0.954108, -0.233252, -0.241285, 0.275018, 0.93067, 10.0511, 0, 0.28694 )
+visible = false

@@ -27,6 +27,10 @@ script = ExtResource( 2 )
 [node name="C" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -36.0
+margin_top = -194.0
+margin_right = -36.0
+margin_bottom = -194.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

@@ -33,11 +33,12 @@ visible = false
 
 [node name="DirectionalLight" parent="OrbitCamera/YAxis/XAxis" index="1"]
 transform = Transform( 0.183247, 0.971622, 0.149569, -0.953329, 0.138497, 0.268293, 0.239964, -0.191753, 0.951655, 0, 0, 0 )
+visible = true
 light_energy = 4.736
 
 [node name="DirectionalLight2" parent="OrbitCamera/YAxis/XAxis" index="2"]
 transform = Transform( 0.967362, 0.165005, 0.192312, 0.088716, 0.490364, -0.86699, -0.237361, 0.855755, 0.45972, 3.95064, 8.27146, -0.530499 )
-visible = false
+visible = true
 light_specular = 0.013
 
 [node name="LeverArea" type="Area" parent="."]
