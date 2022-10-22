@@ -17,7 +17,7 @@ const record_gap = 0.008
 const X_CAPACITY = 50
 const Y_CAPACITY = 3
 
-onready var sleeve = preload("res://scenes/Sleeve.tscn")
+onready var record = preload("res://scenes/Record.tscn")
 
 var xoff: int
 var xshift
@@ -30,7 +30,7 @@ var slots = PoolStringArray()
 
 func _ready():
 	get_node("%Details").hide()
-	var material = sleeve.instance().get_active_material(0)
+	var material = record.instance().get_child(0).get_active_material(0)
 	x_spacing = record_thickness + record_gap
 	y_spacing = vspace + plank_wood
 	xoff = calc_offset(X_CAPACITY)
@@ -45,15 +45,15 @@ func _ready():
 
 
 func add_album(material, album_id):
-	var lp = sleeve.instance()
+	var lp = record.instance()
 	lp.translation = get_record_position(get_album_pos(album_id))
 	lp.album_id = album_id
 	$Albums.add_child(lp)
-	lp.get_child(0).connect("mouse_entered", self, "edge_entered", [lp])
-	lp.get_child(0).connect("mouse_exited", self, "edge_exited", [lp])
-	lp.get_child(0).connect("input_event", self, "edge_input", [lp])
-	lp.set_surface_material(0, material.duplicate())
-	lp.get_active_material(0).next_pass = material.next_pass.duplicate()
+	lp.get_child(0).get_child(0).connect("mouse_entered", self, "edge_entered", [lp])
+	lp.get_child(0).get_child(0).connect("mouse_exited", self, "edge_exited", [lp])
+	lp.get_child(0).get_child(0).connect("input_event", self, "edge_input", [lp])
+	lp.get_child(0).set_surface_material(0, material.duplicate())
+	lp.get_child(0).get_active_material(0).next_pass = material.next_pass.duplicate()
 	var album = g.settings.albums[album_id]
 	var edge_color = Color.whitesmoke if album.bg[2].empty() else album.bg[2].color
 	lp.set_textures(album.images[2], album.images[3], edge_color)
@@ -76,11 +76,11 @@ func get_album_pos(album_id):
 
 
 func edge_entered(item):
-	item.get_active_material(0).next_pass.set_shader_param("Level", 1.0)
+	item.get_child(0).get_active_material(0).next_pass.set_shader_param("Level", 1.0)
 
 
 func edge_exited(item):
-	item.get_active_material(0).next_pass.set_shader_param("Level", 0.0)
+	item.get_child(0).get_active_material(0).next_pass.set_shader_param("Level", 0.0)
 
 
 func edge_input(_camera, event, _position, _normal, _shape_idx, item):

@@ -28,7 +28,7 @@ roughness_texture_channel = 4
 script = ExtResource( 2 )
 
 [node name="OrbitCamera" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700818, 0 )
+transform = Transform( 0.894568, 0, -0.446932, 0, 1, 0, 0.446932, 0, 0.894568, 0, 0.694, 0.003 )
 
 [node name="Albums" type="Spatial" parent="."]
 

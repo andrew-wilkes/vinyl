@@ -627,3 +627,4 @@ text = "Save As..."
 [connection signal="gui_input" from="HB/RHS/Props/Text" to="." method="_on_Text_gui_input"]
 [connection signal="text_changed" from="HB/RHS/Props/Text" to="." method="_on_Text_text_changed"]
 [connection signal="pressed" from="HB/RHS/HB/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="HB/RHS/HB/SaveAs" to="." method="_on_SaveAs_pressed"]

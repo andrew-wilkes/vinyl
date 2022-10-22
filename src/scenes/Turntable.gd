@@ -25,6 +25,7 @@ var arm_base_transform
 var switch_transform
 var angle_limit
 var has_record = false
+var last_slider_value = 0.0
 
 
 func _ready():
@@ -34,6 +35,13 @@ func _ready():
 	arm_transform = arm.transform
 	arm_base_transform = arm_base.transform
 	switch_transform = switch.transform
+	if g.current_album_id:
+		var album = g.settings.albums[g.current_album_id]
+		get_node("%Title").text = album.title
+		get_node("%Band").text = album.band
+		get_node("%Details").show()
+	else:
+		get_node("%Details").hide()
 
 
 func relocate_collision_area(src: Spatial, dest: Spatial):
@@ -65,6 +73,11 @@ func _process(delta):
 	else:
 		arm.transform = arm_transform
 		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
+	
+	var v = get_node("%HSlider").value
+	if v != last_slider_value:
+		last_slider_value = v
+		get_node("%Record").animate(v)
 
 
 func arm_limit_y():

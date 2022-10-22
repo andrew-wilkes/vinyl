@@ -84,13 +84,16 @@ func get_track_details(track):
 	return "%s %s %s %s" % [track.title, track.album, track.year, g.format_time(track.length)]
 
 
-func _on_ArtDesigner_save_button_pressed(_texture, _canvas_index):
+func _on_ArtDesigner_save_button_pressed(_texture, _canvas_index, show_dialog):
 	texture_to_save = _texture
 	canvas_index = _canvas_index
-	art.disable_input()
-	$c/SaveDialog.current_dir = g.settings.last_image_dir
-	$c/SaveDialog.current_file = ""
-	$c/SaveDialog.popup_centered()
+	if album.images[canvas_index].empty() or show_dialog:
+		art.disable_input()
+		$c/SaveDialog.current_dir = g.settings.last_image_dir
+		$c/SaveDialog.current_file = "" if album.images[canvas_index].empty() else album.images[canvas_index]
+		$c/SaveDialog.popup_centered()
+	else:
+		texture_to_save.save_png(album.images[canvas_index])
 
 
 func _on_SaveDialog_file_selected(path):

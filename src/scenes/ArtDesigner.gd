@@ -1,7 +1,7 @@
 extends PanelContainer
 
 signal bg_texture_button_pressed()
-signal save_button_pressed(texture, idx)
+signal save_button_pressed(texture, idx, show_dialog)
 signal pick_bg_color(color)
 signal pick_fill_color(color)
 signal font_button_pressed()
@@ -240,9 +240,13 @@ func set_currect_image(idx, album):
 	current_images[idx] = text.resized
 
 
-func _on_Save_pressed():
+func _on_SaveAs_pressed():
+	_on_Save_pressed(true)
+
+
+func _on_Save_pressed(show_dialog = false):
 	var image = get_node("%ImageView").get_texture()
-	emit_signal("save_button_pressed", image.duplicate(), canvas_index)
+	emit_signal("save_button_pressed", image.duplicate(), canvas_index, show_dialog)
 	image.resize(64, 64)
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)

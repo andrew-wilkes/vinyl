@@ -166,7 +166,7 @@ func add_tracks(items, side, new_tracks = true):
 		tracks[side].add_item(track.title)
 		tracks[side].set_item_metadata(tracks[side].get_item_count() - 1, track)
 		if new_tracks:
-			g.settings.add_track(side, track)
+			g.add_track(side, track)
 		current_track = track
 	if items.size() > 0:
 		tracks[side].select(tracks[side].get_item_count() - 1)
@@ -182,7 +182,7 @@ func remove_tracks(side):
 	var list_offset = 0
 	for idx in tracks[side].get_selected_items():
 		var track = tracks[side].get_item_metadata(idx - list_offset)
-		g.settings.remove_track(side, track)
+		g.remove_track(side, track)
 		tracks[side].remove_item(idx - list_offset)
 		list_offset += 1
 
