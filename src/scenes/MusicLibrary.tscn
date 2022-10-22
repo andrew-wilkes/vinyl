@@ -65,6 +65,7 @@ custom_fonts/font = ExtResource( 4 )
 text = "Music Collection"
 
 [node name="Navigation" parent="c/MarginContainer/VB/HB" instance=ExtResource( 3 )]
+unique_name_in_owner = true
 margin_left = 214.0
 margin_right = 718.0
 margin_bottom = 97.0

@@ -88,7 +88,7 @@ func edge_input(_camera, event, _position, _normal, _shape_idx, item):
 		not_handled = false
 		if accept_click:
 			if selected_item and selected_item == item:
-				print("Play")
+				get_node("%Navigation").goto_turntable()
 			else:
 				accept_click = false
 				if selected_item:
@@ -169,7 +169,6 @@ func insert_item():
 
 func got_click():
 	if not_handled and selected_item:
-		print("Cancel")
 		insert_item()
 		selected_item.reveal()
 		selected_item = null

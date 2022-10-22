@@ -38,3 +38,7 @@ func mouse_entered(idx):
 
 func mouse_exited():
 	if hovered_bar: hovered_bar.hide()
+
+
+func goto_turntable():
+	$c/Fader.fade_out(scenes[4])
