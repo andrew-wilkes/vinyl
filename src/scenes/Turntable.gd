@@ -40,6 +40,8 @@ func _ready():
 		get_node("%Title").text = album.title
 		get_node("%Band").text = album.band
 		get_node("%Details").show()
+		var edge_color = Color.whitesmoke if album.bg[2].empty() else album.bg[2].color
+		get_node("%Record").set_textures(album, edge_color)
 	else:
 		get_node("%Details").hide()
 

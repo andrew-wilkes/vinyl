@@ -6,6 +6,10 @@ var revealed = false
 var tween
 var album_id
 
+func _ready():
+	$Sleeve/disc.translation.z = 0
+
+
 func reveal():
 	var d = DISPLACEMENT
 	tween = get_tree().create_tween()
@@ -15,15 +19,22 @@ func reveal():
 	revealed = !revealed
 
 
-func set_textures(side_a, side_b, edge_color):
+func set_textures(album, edge_color):
 	var mat = $Sleeve.get_surface_material(0)
 	mat.set_shader_param("edge_color", edge_color)
-	if side_a:
-		var img_a = g.get_resized_texture(side_a).texture
+	if album.images[2]:
+		var img_a = g.get_resized_texture(album.images[2]).texture
 		mat.set_shader_param("side_a", img_a)
-	if side_b:
-		var img_b = g.get_resized_texture(side_b).texture
+	if album.images[3]:
+		var img_b = g.get_resized_texture(album.images[3]).texture
 		mat.set_shader_param("side_b", img_b)
+	mat = $Sleeve/disc.get_surface_material(0)
+	if album.images[0]:
+		var img_a = g.get_resized_texture(album.images[0]).texture
+		mat.set_shader_param("label_a", img_a)
+	if album.images[1]:
+		var img_b = g.get_resized_texture(album.images[1]).texture
+		mat.set_shader_param("label_b", img_b)
 
 
 func animate(pos):
