@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -11,6 +11,10 @@
 [ext_resource path="res://assets/eject-record.png" type="Texture" id=9]
 [ext_resource path="res://assets/play-record.png" type="Texture" id=10]
 [ext_resource path="res://scenes/Record.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/rec33rpm.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://assets/checkerboard.png" type="Texture" id=13]
+[ext_resource path="res://assets/tracks-button.png" type="Texture" id=14]
+[ext_resource path="res://assets/highlight-shader.tres" type="Shader" id=15]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.19
@@ -22,6 +26,83 @@ extents = Vector3( 0.01, 0.1, 0.025 )
 [sub_resource type="CylinderShape" id=3]
 height = 0.18
 radius = 0.15
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 15 )
+shader_param/Level = null
+
+[sub_resource type="Shader" id=4]
+code = "shader_type spatial;
+
+uniform float num_rings = 32;
+uniform float rmax = 0.95;
+uniform float rmin = 0.4;
+uniform float label_radius = 0.3;
+uniform sampler2D label_a;
+uniform sampler2D label_b;
+uniform float inner_smoothing = 30.0;
+uniform float outer_smoothing = 10.0;
+uniform float alphav = 1.0;
+
+const float PI = 3.14159265358979323846;
+
+void fragment() {
+	if (UV.y < 0.5) {
+		ALBEDO = vec3(0.0);
+	} else {
+		float thickness = 0.5;
+		vec4 col = COLOR;
+		// Get point in bottom 2 square areas
+		vec2 pt = vec2(fract(UV.x * 2.0), (UV.y - 0.5) * 2.0);
+		pt = 2.0 * (pt - vec2(0.5)); // 0,0 .. +/-1,+/-1
+		float ang = atan(-pt.y / pt.x); // +PI .. -PI
+		float dr = 0.5 / num_rings;
+		float pr = length(pt);
+		float radius = pr + dr * (0.5 + ang / PI); // radius of the point on a spiral
+		if (pt.x < 0.0) radius += dr;
+		float pos_in_band = fract(radius * num_rings); // 0 .. 1
+		if (pr < label_radius) {
+			// Display label
+			if (UV.x < 0.5)
+				ALBEDO = texture(label_a, pt / label_radius / 2.0 + vec2(0.5)).rgb;
+			else
+				ALBEDO = texture(label_b, pt / label_radius / 2.0 + vec2(0.5)).rgb;
+			// Smooth edge
+			ALBEDO *= clamp((label_radius - pr) * inner_smoothing, 0.0, 1.0);
+		} else {
+			if (pr < rmax) {
+				if (pos_in_band > thickness && radius > rmin)
+					ALBEDO.rgb = vec3(0.02);
+				else {
+					ALBEDO = vec3(0.0);
+				}
+			} else {
+				// Outside
+				ALBEDO = vec3(0.0);
+				// Smooth edge
+				ALPHA = clamp((1.0 - pr) * outer_smoothing, 0.0, 1.0);
+			}
+		}
+	}
+	ALPHA *= alphav;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+next_pass = SubResource( 7 )
+shader = SubResource( 4 )
+shader_param/num_rings = 100.0
+shader_param/rmax = 0.95
+shader_param/rmin = 0.4
+shader_param/label_radius = 0.3
+shader_param/inner_smoothing = 30.0
+shader_param/outer_smoothing = 10.0
+shader_param/alphav = 0.0
+shader_param/label_a = ExtResource( 14 )
+shader_param/label_b = ExtResource( 13 )
+
+[sub_resource type="CylinderShape" id=6]
+height = 0.003
+radius = 0.148
 
 [node name="Turntable" type="Spatial"]
 script = ExtResource( 7 )
@@ -69,6 +150,7 @@ shape = SubResource( 3 )
 [node name="M" type="MarginContainer" parent="c"]
 margin_right = 729.0
 margin_bottom = 680.0
+mouse_filter = 2
 theme = ExtResource( 4 )
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -80,6 +162,7 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = 709.0
 margin_bottom = 660.0
+mouse_filter = 2
 custom_constants/separation = 20
 
 [node name="HB" type="HBoxContainer" parent="c/M/VB"]
@@ -164,15 +247,19 @@ size_flags_horizontal = 3
 value = 30.0
 
 [node name="Play" type="Button" parent="c/M/VB/HB2/Details/Items/HB"]
+unique_name_in_owner = true
 margin_left = 242.0
 margin_right = 272.0
 margin_bottom = 39.0
+hint_tooltip = "Play"
 icon = ExtResource( 10 )
 
 [node name="Eject" type="Button" parent="c/M/VB/HB2/Details/Items/HB"]
+unique_name_in_owner = true
 margin_left = 292.0
 margin_right = 322.0
 margin_bottom = 39.0
+hint_tooltip = "Eject"
 icon = ExtResource( 9 )
 
 [node name="VPC" type="ViewportContainer" parent="c/M/VB/HB2/Details/Items"]
@@ -197,6 +284,17 @@ margin_bottom = 362.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
+[node name="Disc" type="MeshInstance" parent="."]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.145, 0 )
+mesh = ExtResource( 12 )
+material/0 = SubResource( 5 )
+
+[node name="Area" type="Area" parent="Disc"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Disc/Area"]
+shape = SubResource( 6 )
+
 [connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
 [connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]
 [connection signal="mouse_exited" from="LeverArea" to="." method="_on_Lever_mouse_exited"]
@@ -206,5 +304,10 @@ size_flags_horizontal = 3
 [connection signal="input_event" from="SwitchArea" to="." method="_on_SwitchArea_input_event"]
 [connection signal="mouse_entered" from="SwitchArea" to="." method="_on_SwitchArea_mouse_entered"]
 [connection signal="mouse_exited" from="SwitchArea" to="." method="_on_SwitchArea_mouse_exited"]
+[connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Eject" to="." method="_on_Eject_pressed"]
+[connection signal="input_event" from="Disc/Area" to="." method="_on_disc_input_event"]
+[connection signal="mouse_entered" from="Disc/Area" to="." method="_on_disc_mouse_entered"]
+[connection signal="mouse_exited" from="Disc/Area" to="." method="_on_disc_mouse_exited"]
 
 [editable path="OrbitCamera"]

@@ -9,6 +9,10 @@ var album_id
 func _ready():
 	$Sleeve/disc.translation.z = 0
 
+func set_lights(show):
+	$DirectionalLight.visible = show
+	$DirectionalLight2.visible = show
+
 
 func reveal():
 	var d = DISPLACEMENT

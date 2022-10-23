@@ -45,10 +45,10 @@ extents = Vector3( 0.003, 0.155, 0.155 )
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 8 )
 shader_param/num_rings = 32.0
-shader_param/rmax = 0.96
+shader_param/rmax = 0.95
 shader_param/rmin = 0.4
 shader_param/label_radius = 0.3
-shader_param/inner_smoothing = 200.0
+shader_param/inner_smoothing = 30.0
 shader_param/outer_smoothing = 10.0
 shader_param/label_a = ExtResource( 6 )
 shader_param/label_b = ExtResource( 5 )

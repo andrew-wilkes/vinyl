@@ -46,6 +46,7 @@ func _ready():
 
 func add_album(material, album_id):
 	var lp = record.instance()
+	lp.set_lights(false)
 	lp.translation = get_record_position(get_album_pos(album_id))
 	lp.album_id = album_id
 	$Albums.add_child(lp)

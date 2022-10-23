@@ -1,12 +1,12 @@
 shader_type spatial;
 
 uniform float num_rings = 32;
-uniform float rmax = 0.96;
+uniform float rmax = 0.95;
 uniform float rmin = 0.4;
 uniform float label_radius = 0.3;
 uniform sampler2D label_a;
 uniform sampler2D label_b;
-uniform float inner_smoothing = 200.0;
+uniform float inner_smoothing = 30.0;
 uniform float outer_smoothing = 10.0;
 
 const float PI = 3.14159265358979323846;

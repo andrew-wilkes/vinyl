@@ -2,6 +2,8 @@ extends Spatial
 
 enum { NONE, MOVING_LEVER, MOVING_HANDLE, MOVING_SWITCH }
 
+enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT }
+
 onready var arm = find_node("Arm")
 onready var arm_base = find_node("ArmBase")
 onready var arm_handle = find_node("Handle")
@@ -14,6 +16,7 @@ onready var lever_handle = find_node("LeverHandle")
 onready var lever_handle_shader = lever_handle.mesh.surface_get_material(0).next_pass
 onready var switch_handle_shader = switch.mesh.surface_get_material(0).next_pass
 onready var arm_handle_shader = arm_handle.mesh.surface_get_material(0).next_pass
+onready var disc_shader = $Disc.get_surface_material(0).next_pass
 onready var needle = find_node("Needle")
 
 var arm_angle = 0
@@ -26,7 +29,8 @@ var switch_transform
 var angle_limit
 var has_record = false
 var last_slider_value = 0.0
-
+var record_state = WAITING
+var side = 0
 
 func _ready():
 	relocate_collision_area($LeverArea, lever_handle)
@@ -42,6 +46,12 @@ func _ready():
 		get_node("%Details").show()
 		var edge_color = Color.whitesmoke if album.bg[2].empty() else album.bg[2].color
 		get_node("%Record").set_textures(album, edge_color)
+		if album.images[0]:
+			var img_a = g.get_resized_texture(album.images[0]).texture
+			$Disc.get_surface_material(0).set_shader_param("label_a", img_a)
+		if album.images[1]:
+			var img_b = g.get_resized_texture(album.images[1]).texture
+			$Disc.get_surface_material(0).set_shader_param("label_b", img_b)
 	else:
 		get_node("%Details").hide()
 
@@ -80,6 +90,24 @@ func _process(delta):
 	if v != last_slider_value:
 		last_slider_value = v
 		get_node("%Record").animate(v)
+		match record_state:
+			WAITING:
+				if v > 65:
+					record_state = CAN_PLAY
+					get_node("%Play").disabled = false
+					get_node("%Eject").disabled = true
+				else:
+					get_node("%Play").disabled = true
+					get_node("%Eject").disabled = true
+			CAN_PLAY:
+				if v < 65:
+					record_state = WAITING
+					get_node("%Play").disabled = true
+			CAN_EJECT:
+				get_node("%Play").disabled = true
+				get_node("%Eject").disabled = false
+		if v > 65: side = 0
+		if v > 85: side = 1
 
 
 func arm_limit_y():
@@ -148,6 +176,8 @@ func _unhandled_input(event):
 				arm.rotate_object_local(Vector3(1, 0, 0), -arm_angle)
 			MOVING_SWITCH:
 				pass
+			MOVING_DISC:
+				pass
 
 
 func _on_Lever_input_event(_camera, event, _position, _normal, _shape_idx):
@@ -195,3 +225,38 @@ func _on_SwitchArea_mouse_exited():
 
 func get_arm_angle():
 	return (1.5708 - arm.rotation.x) * 11.162
+
+
+func _on_disc_mouse_entered():
+	disc_shader.set_shader_param("Level", 1.0)
+
+
+func _on_disc_mouse_exited():
+	disc_shader.set_shader_param("Level", 0.0)
+
+
+func _on_disc_input_event(_camera, event, _position, _normal, _shape_idx):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		mode = MOVING_DISC
+		$OrbitCamera.lock()
+
+
+func _on_Play_pressed():
+	get_node("%Play").disabled = true
+	record_state = MOVING_DISC
+	var tween = create_tween()
+	# Doesn't work if parameter is called alpha (thinks it's an INT)
+	tween.tween_property($Disc.get_surface_material(0), "shader_param/alphav", 1.0, 0.5) #.from_current()
+	yield(tween, "finished")
+	record_state = CAN_EJECT
+	last_slider_value = -1.0 # trigger update of button states
+
+
+func _on_Eject_pressed():
+	get_node("%Eject").disabled = true
+	record_state = MOVING_DISC
+	var tween = create_tween()
+	tween.tween_property($Disc.get_surface_material(0), "shader_param/alphav", 0.0, 0.5).from_current()
+	yield(tween, "finished")
+	record_state = WAITING
+	last_slider_value = -1.0	
