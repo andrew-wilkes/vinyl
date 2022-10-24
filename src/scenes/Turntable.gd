@@ -244,6 +244,7 @@ func _on_disc_input_event(_camera, event, _position, _normal, _shape_idx):
 func _on_Play_pressed():
 	get_node("%Play").disabled = true
 	record_state = MOVING_DISC
+	$Disc.rotation.x = 0.0 if side == 0.0 else PI
 	var tween = create_tween()
 	# Doesn't work if parameter is called alpha (thinks it's an INT)
 	tween.tween_property($Disc.get_surface_material(0), "shader_param/alphav", 1.0, 0.5) #.from_current()
