@@ -2,7 +2,9 @@ extends Spatial
 
 enum { NONE, MOVING_LEVER, MOVING_HANDLE, MOVING_SWITCH }
 
-enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT }
+enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT, SPINNING }
+
+const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 
 onready var arm = find_node("Arm")
 onready var arm_base = find_node("ArmBase")
@@ -13,6 +15,7 @@ onready var switch = find_node("Switch")
 onready var weight = find_node("Weight")
 onready var support = find_node("SupportPin")
 onready var lever_handle = find_node("LeverHandle")
+onready var led = find_node("Led").mesh.surface_get_material(0)
 onready var lever_handle_shader = lever_handle.mesh.surface_get_material(0).next_pass
 onready var switch_handle_shader = switch.mesh.surface_get_material(0).next_pass
 onready var arm_handle_shader = arm_handle.mesh.surface_get_material(0).next_pass
@@ -31,8 +34,13 @@ var has_record = false
 var last_slider_value = 0.0
 var record_state = WAITING
 var side = 0
+var target_speed = 33.33
+var spinup_time = 0.5
+var rpm = 0.0
+var switch_pos = 75.0
 
 func _ready():
+	set_led_color(0)
 	relocate_collision_area($LeverArea, lever_handle)
 	relocate_collision_area($HandleArea, arm_handle)
 	relocate_collision_area($SwitchArea, switch)
@@ -56,6 +64,10 @@ func _ready():
 		get_node("%Details").hide()
 
 
+func set_led_color(idx):
+	led.set("albedo_color", LED_COLORS[idx])
+
+
 func relocate_collision_area(src: Spatial, dest: Spatial):
 	src.translation = Vector3.ZERO
 	remove_child(src)
@@ -65,6 +77,13 @@ func relocate_collision_area(src: Spatial, dest: Spatial):
 
 func _process(delta):
 	if mode == MOVING_HANDLE: return
+	
+	if rpm < target_speed:
+		rpm += spinup_time / target_speed * delta
+	if rpm > target_speed:
+		rpm -= spinup_time / target_speed * delta
+	if rpm > 0 and record_state == SPINNING:
+		$Disc.rotate_y(rpm * delta * -2 * PI)
 	
 	if Input.is_key_pressed(KEY_1):
 		prints(arm_base.rotation, needle.global_translation)
@@ -175,7 +194,8 @@ func _unhandled_input(event):
 				arm.transform = arm_transform
 				arm.rotate_object_local(Vector3(1, 0, 0), -arm_angle)
 			MOVING_SWITCH:
-				pass
+				switch_pos = clamp(switch_pos + event.relative.x, 0.0, 199.0)
+				set_led_color(int(switch_pos / 50.0))
 			MOVING_DISC:
 				pass
 
@@ -251,6 +271,7 @@ func _on_Play_pressed():
 	yield(tween, "finished")
 	record_state = CAN_EJECT
 	last_slider_value = -1.0 # trigger update of button states
+	record_state = SPINNING
 
 
 func _on_Eject_pressed():
