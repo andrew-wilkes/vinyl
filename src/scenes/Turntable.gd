@@ -2,9 +2,10 @@ extends Spatial
 
 enum { NONE, MOVING_LEVER, MOVING_HANDLE, MOVING_SWITCH }
 
-enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT, SPINNING }
+enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
+const SPEEDS = [0.0, 33.3, 45.0, 78.0 ]
 
 onready var arm = find_node("Arm")
 onready var arm_base = find_node("ArmBase")
@@ -35,7 +36,6 @@ var last_slider_value = 0.0
 var record_state = WAITING
 var side = 0
 var target_speed = 33.33
-var spinup_time = 0.5
 var rpm = 0.0
 var switch_pos = 75.0
 
@@ -66,6 +66,7 @@ func _ready():
 
 func set_led_color(idx):
 	led.set("albedo_color", LED_COLORS[idx])
+	target_speed = SPEEDS[idx]
 
 
 func relocate_collision_area(src: Spatial, dest: Spatial):
@@ -79,11 +80,11 @@ func _process(delta):
 	if mode == MOVING_HANDLE: return
 	
 	if rpm < target_speed:
-		rpm += spinup_time / target_speed * delta
+		rpm += 66 * delta # Take 0.5s to reach 33
 	if rpm > target_speed:
-		rpm -= spinup_time / target_speed * delta
-	if rpm > 0 and record_state == SPINNING:
-		$Disc.rotate_y(rpm * delta * -2 * PI)
+		rpm -= 66 * delta
+	if rpm > 0:
+		$Disc.rotate_y(clamp(rpm, 0.0, target_speed) / 30.0 * delta * -PI)
 	
 	if Input.is_key_pressed(KEY_1):
 		prints(arm_base.rotation, needle.global_translation)
@@ -271,7 +272,6 @@ func _on_Play_pressed():
 	yield(tween, "finished")
 	record_state = CAN_EJECT
 	last_slider_value = -1.0 # trigger update of button states
-	record_state = SPINNING
 
 
 func _on_Eject_pressed():
