@@ -1,11 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/highlight-shader.tres" type="Shader" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/rec33rpm.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://scenes/Record.gd" type="Script" id=4]
-[ext_resource path="res://assets/tracks-button.png" type="Texture" id=5]
-[ext_resource path="res://assets/player-button.png" type="Texture" id=6]
 [ext_resource path="res://assets/sleeve.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://scenes/record.shader" type="Shader" id=8]
 
@@ -35,9 +32,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=5]
 next_pass = SubResource( 6 )
 shader = SubResource( 4 )
-shader_param/edge_color = Color( 0.945098, 0.25098, 0.25098, 1 )
-shader_param/side_a = ExtResource( 5 )
-shader_param/side_b = ExtResource( 2 )
+shader_param/edge_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.003, 0.155, 0.155 )
@@ -50,8 +45,6 @@ shader_param/rmin = 0.4
 shader_param/label_radius = 0.3
 shader_param/inner_smoothing = 30.0
 shader_param/outer_smoothing = 10.0
-shader_param/label_a = ExtResource( 6 )
-shader_param/label_b = ExtResource( 5 )
 
 [node name="Record" type="Spatial"]
 script = ExtResource( 4 )
