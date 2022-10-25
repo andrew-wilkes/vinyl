@@ -5,7 +5,7 @@ enum { NONE, MOVING_LEVER, MOVING_HANDLE, MOVING_SWITCH }
 enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
-const SPEEDS = [0.0, 33.3, 45.0, 78.0 ]
+const SPEEDS = [0.0, 33.3, 45.0, 78.0]
 
 onready var arm = find_node("Arm")
 onready var arm_base = find_node("ArmBase")
@@ -38,6 +38,7 @@ var side = 0
 var target_speed = 33.33
 var rpm = 0.0
 var switch_pos = 75.0
+var area_clear = true
 
 func _ready():
 	set_led_color(0)
@@ -114,7 +115,7 @@ func _process(delta):
 			WAITING:
 				if v > 65:
 					record_state = CAN_PLAY
-					get_node("%Play").disabled = false
+					get_node("%Play").disabled = not area_clear
 					get_node("%Eject").disabled = true
 				else:
 					get_node("%Play").disabled = true
@@ -125,7 +126,7 @@ func _process(delta):
 					get_node("%Play").disabled = true
 			CAN_EJECT:
 				get_node("%Play").disabled = true
-				get_node("%Eject").disabled = false
+				get_node("%Eject").disabled = not area_clear
 		if v > 65: side = 0
 		if v > 85: side = 1
 
@@ -150,6 +151,11 @@ func arm_limit_y():
 func arm_limit_x(dir):
 	var limit = false
 	var np = needle.global_translation
+	area_clear = np.x >= 1.348
+	if has_record:
+		get_node("%Eject").disabled = not area_clear
+	elif record_state == CAN_PLAY:
+		get_node("%Play").disabled = not area_clear
 	if dir < 0:
 		if np.x < 1.0827:
 			if has_record:
@@ -157,6 +163,8 @@ func arm_limit_x(dir):
 			else:
 				if np.y <= 0.145: limit = true
 		elif np.x < 1.121:
+			area_clear = false
+			get_node("%Eject").disabled = true
 			if has_record:
 				if np.y <= 0.115: limit = true
 			else:
@@ -270,6 +278,7 @@ func _on_Play_pressed():
 	# Doesn't work if parameter is called alpha (thinks it's an INT)
 	tween.tween_property($Disc.get_surface_material(0), "shader_param/alphav", 1.0, 0.5) #.from_current()
 	yield(tween, "finished")
+	has_record = true
 	record_state = CAN_EJECT
 	last_slider_value = -1.0 # trigger update of button states
 
@@ -280,5 +289,6 @@ func _on_Eject_pressed():
 	var tween = create_tween()
 	tween.tween_property($Disc.get_surface_material(0), "shader_param/alphav", 0.0, 0.5).from_current()
 	yield(tween, "finished")
+	has_record = false
 	record_state = WAITING
-	last_slider_value = -1.0	
+	last_slider_value = -1.0
