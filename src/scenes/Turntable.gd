@@ -39,6 +39,10 @@ var target_speed = 33.33
 var rpm = 0.0
 var switch_pos = 75.0
 var area_clear = true
+var dot_dx = 0.0
+var dot_dy = 0.0
+var dot_mx = 1.0
+var dot_my = 1.0
 
 func _ready():
 	set_led_color(0)
@@ -130,45 +134,57 @@ func _process(delta):
 		if v > 65: side = 0
 		if v > 85: side = 1
 
-
+# It's possible to manually move the arm to go past the limits
 func arm_limit_y():
 	var limit = false
+	area_clear = false
 	var np = needle.global_translation
-	if np.x < 1.0827:
-		if has_record:
-			if np.y <= 0.16: limit = true
+	if has_record:
+		if np.x < 1.124:
+			if np.y <= 0.164: limit = true
+		elif np.x < 1.241:
+			if np.y <= 0.116: limit = true
+		elif np.x < 1.398:
+			if np.y <= -0.003: limit = true
 		else:
-			if np.y <= 0.145: limit = true
-	elif np.x < 1.121:
-		if has_record:
-			if np.y <= 0.115: limit = true
+			area_clear = true
+	else:
+		if np.x < 1.046:
+			if np.y <= 0.144: limit = true
+		elif np.x < 1.158:
+			if np.y <= 0.098: limit = true
+		elif np.x < 1.296:
+			if np.y <= -0.021: limit = true
 		else:
-			if np.y <= 0.1: limit = true
-	elif np.y <= -0.075: limit = true
+			area_clear = true
+	#elif np.y <= -0.086: limit = true # Limited by the support and angle of arm
+	get_node("%Eject").disabled = not area_clear
 	return limit
 
 
 func arm_limit_x(dir):
 	var limit = false
 	var np = needle.global_translation
-	area_clear = np.x >= 1.348
+	$Disc.get_surface_material(0).set_shader_param("dot_position", Vector2(np.x / 1.55, np.z / 1.55))
 	if has_record:
 		get_node("%Eject").disabled = not area_clear
 	elif record_state == CAN_PLAY:
 		get_node("%Play").disabled = not area_clear
 	if dir < 0:
-		if np.x < 1.0827:
-			if has_record:
-				if np.y <= 0.16: limit = true
-			else:
-				if np.y <= 0.145: limit = true
-		elif np.x < 1.121:
-			area_clear = false
-			get_node("%Eject").disabled = true
-			if has_record:
-				if np.y <= 0.115: limit = true
-			else:
-				if np.y <= 0.1: limit = true
+		if has_record:
+			if np.x < 1.124:
+				if np.y <= 0.164: limit = true
+			elif np.x < 1.241:
+				if np.y <= 0.116: limit = true
+			elif np.x < 1.398:
+				if np.y <= -0.003: limit = true
+		else:
+			if np.x < 1.046:
+				if np.y <= 0.144: limit = true
+			elif np.x < 1.158:
+				if np.y <= 0.098: limit = true
+			elif np.x < 1.296:
+				if np.y <= -0.021: limit = true
 		if np.x <= 0.182: limit = true
 	elif np.x >= 2.28: limit = true
 	return limit

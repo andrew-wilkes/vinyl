@@ -8,6 +8,10 @@ uniform sampler2D label_a;
 uniform sampler2D label_b;
 uniform float inner_smoothing = 30.0;
 uniform float outer_smoothing = 10.0;
+uniform vec2 dot_position = vec2(0.0);
+uniform float dot_radius = 1.5;
+uniform vec4 dot_color: hint_color = vec4(1.0, 0.0, 0.0, 0.0);
+uniform float alphav = 0.0;
 
 const float PI = 3.14159265358979323846;
 
@@ -48,5 +52,7 @@ void fragment() {
 				ALPHA = clamp((1.0 - pr) * outer_smoothing, 0.0, 1.0);
 			}
 		}
+		if (dot_position.x > 0.2 && length(dot_position - pt) < dot_radius / 100.0) ALBEDO = dot_color.rgb;
 	}
+	ALPHA *= alphav;
 }
