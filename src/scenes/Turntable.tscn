@@ -35,7 +35,7 @@ shader_param/Level = null
 [sub_resource type="ShaderMaterial" id=5]
 next_pass = SubResource( 7 )
 shader = ExtResource( 16 )
-shader_param/num_rings = 100.0
+shader_param/num_rings = 64.0
 shader_param/rmax = 0.95
 shader_param/rmin = 0.4
 shader_param/label_radius = 0.3
@@ -45,6 +45,9 @@ shader_param/dot_position = Vector2( 0, 0 )
 shader_param/dot_radius = 0.6
 shader_param/dot_color = Color( 1, 0, 0, 0 )
 shader_param/alphav = 0.0
+shader_param/blur = 0.1
+shader_param/width = 0.1
+shader_param/filter_width = 0.1
 shader_param/label_a = ExtResource( 14 )
 shader_param/label_b = ExtResource( 13 )
 
@@ -267,6 +270,8 @@ transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, -0.0988671, 1
 width = 0.134299
 height = 0.122767
 depth = 0.248566
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
 
 [connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
 [connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]

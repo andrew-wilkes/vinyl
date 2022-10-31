@@ -6,6 +6,7 @@ enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const SPEEDS = [0.0, 33.3, 45.0, 78.0]
+const GAP_LENGTH = 5
 
 onready var arm = find_node("Arm")
 onready var arm_base = find_node("ArmBase")
@@ -39,12 +40,10 @@ var target_speed = 33.33
 var rpm = 0.0
 var switch_pos = 75.0
 var area_clear = true
-var dot_dx = 0.0
-var dot_dy = 0.0
-var dot_mx = 1.0
-var dot_my = 1.0
+var audio
 
 func _ready():
+	audio = Audio.new($Audio)
 	set_led_color(0)
 	relocate_collision_area($LeverArea, lever_handle)
 	relocate_collision_area($HandleArea, arm_handle)
@@ -65,8 +64,38 @@ func _ready():
 		if album.images[1]:
 			var img_b = g.get_resized_texture(album.images[1]).texture
 			$Disc.get_surface_material(0).set_shader_param("label_b", img_b)
+		var radius_mod_a = get_mod_array(album.a_side)
+		$Disc.get_surface_material(0).set_shader_param("radius_mod_a", get_data_texture(radius_mod_a))
+		var radius_mod_b = get_mod_array(album.b_side)
+		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(radius_mod_b))
 	else:
 		get_node("%Details").hide()
+
+
+func get_data_texture(idata):
+	var img = Image.new()
+	img.create_from_data(idata.size(), 1, false, Image.FORMAT_R8, idata)
+	#img.save_png("res://temp.png")
+	var texture = ImageTexture.new()
+	texture.create_from_image(img, 0)
+	return texture
+
+
+func get_mod_array(tracks):
+	var arr = []
+	for track in tracks:
+		# Track length + silence
+		arr.append_array(get_mod_data(track.length + GAP_LENGTH))
+		# Crossover spiral
+		arr.append_array(get_mod_data(10, 32.0))
+	return arr
+
+
+func get_mod_data(length, value = 255.0):
+	var arr = []
+	arr.resize(length)
+	arr.fill(value)
+	return arr
 
 
 func set_led_color(idx):
@@ -220,7 +249,8 @@ func _unhandled_input(event):
 				arm.rotate_object_local(Vector3(1, 0, 0), -arm_angle)
 			MOVING_SWITCH:
 				switch_pos = clamp(switch_pos + event.relative.x, 0.0, 199.0)
-				set_led_color(int(switch_pos / 50.0))
+				var disc_state = int(switch_pos / 50.0)
+				set_led_color(disc_state)
 			MOVING_DISC:
 				pass
 
