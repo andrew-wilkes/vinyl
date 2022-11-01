@@ -29,7 +29,7 @@ void fragment() {
 		// Get point in bottom 2 square areas
 		vec2 pt = vec2(fract(UV.x * 2.0), clamp(UV.y - 0.5, 0.0, 0.5) * 2.0);
 		pt = 2.0 * (pt - vec2(0.5)); // 0,0 .. +/-1,+/-1
-		float ang = (atan(sin(UV.x - 0.5) * pt.y / pt.x) / PI * 2.0 + 1.0) / 4.0; // 0 .. 0.5
+		float ang = (atan(sign(UV.x - 0.5) * pt.y / pt.x) / PI * 2.0 + 1.0) / 4.0; // 0 .. 0.5
 		if (pt.x < 0.0) ang += 0.5;
 		float dr = 0.5 / num_rings;
 		float pr = length(pt);
@@ -62,7 +62,12 @@ void fragment() {
 				ALBEDO = vec3(0.0);
 			}
 		}
-		if (dot_position.x > 0.2 && length(dot_position - pt) < dot_radius / 100.0) ALBEDO = dot_color.rgb;
+		if (dot_position.x > 0.2 && length(vec2(dot_position.x, dot_position.y * sign(0.5 - UV.x)) - pt) < dot_radius / 100.0) {
+			if (radius_mod > 0.8)
+				ALBEDO = dot_color.rgb;
+			else
+				ALBEDO = vec3(0.0, 1.0, 0.0);
+		}
 	}
 	ALPHA *= alphav;
 }

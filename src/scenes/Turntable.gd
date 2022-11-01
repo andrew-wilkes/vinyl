@@ -90,7 +90,7 @@ func get_mod_array(tracks):
 		# Track length + silence
 		arr.append_array(get_mod_data(track.length + GAP_LENGTH))
 		# Crossover spiral
-		arr.append_array(get_mod_data(5, 32.0))
+		arr.append_array(get_mod_data(8, 0.0))
 	return arr
 
 
