@@ -29,13 +29,13 @@ void fragment() {
 		// Get point in bottom 2 square areas
 		vec2 pt = vec2(fract(UV.x * 2.0), clamp(UV.y - 0.5, 0.0, 0.5) * 2.0);
 		pt = 2.0 * (pt - vec2(0.5)); // 0,0 .. +/-1,+/-1
-		float ang = (atan(-pt.y / pt.x) / PI * 2.0 + 1.0) / 4.0; // 0 .. 0.5
+		float ang = (atan(sin(UV.x - 0.5) * pt.y / pt.x) / PI * 2.0 + 1.0) / 4.0; // 0 .. 0.5
 		if (pt.x < 0.0) ang += 0.5;
 		float dr = 0.5 / num_rings;
 		float pr = length(pt);
 		float radius_mod = 1.0;
 		if (pr > rmin) {
-			float pos = 1.0 - (pr - rmin) / (1.0 - rmin);
+			float pos = 1.0 - (pr - rmin) / (rmax - rmin);
 			if (UV.x < 0.5) {
 				radius_mod = texture(radius_mod_a, vec2(pos, 0.0)).r;
 			} else {
@@ -60,8 +60,6 @@ void fragment() {
 			} else {
 				// Outside
 				ALBEDO = vec3(0.0);
-				// Smooth edge
-				ALPHA = clamp((1.0 - pr) * outer_smoothing, 0.0, 1.0);
 			}
 		}
 		if (dot_position.x > 0.2 && length(dot_position - pt) < dot_radius / 100.0) ALBEDO = dot_color.rgb;

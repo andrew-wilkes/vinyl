@@ -4,6 +4,8 @@ enum { NONE, MOVING_LEVER, MOVING_HANDLE, MOVING_SWITCH }
 
 enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT }
 
+enum { NOT_PLAYING, PLAYING }
+
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const SPEEDS = [0.0, 33.3, 45.0, 78.0]
 const GAP_LENGTH = 5
@@ -41,6 +43,7 @@ var rpm = 0.0
 var switch_pos = 75.0
 var area_clear = true
 var audio
+var play_state = NOT_PLAYING
 
 func _ready():
 	audio = Audio.new($Audio)
@@ -87,7 +90,7 @@ func get_mod_array(tracks):
 		# Track length + silence
 		arr.append_array(get_mod_data(track.length + GAP_LENGTH))
 		# Crossover spiral
-		arr.append_array(get_mod_data(10, 32.0))
+		arr.append_array(get_mod_data(5, 32.0))
 	return arr
 
 
@@ -189,6 +192,18 @@ func arm_limit_y():
 	#elif np.y <= -0.086: limit = true # Limited by the support and angle of arm
 	get_node("%Eject").disabled = not area_clear
 	return limit
+
+
+func check_play_state():
+	if has_record and rpm > 0 and needle_on_record():
+		if play_state == NOT_PLAYING:
+			#arm_base.rotation.y
+			pass
+
+
+func needle_on_record():
+	var np = needle.global_translation
+	return np.y <= 0.164 and np.x < 1.124 and np.x > 0.182
 
 
 func arm_limit_x(dir):
