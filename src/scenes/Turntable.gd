@@ -169,7 +169,6 @@ func _process(delta):
 # It's possible to manually move the arm to go past the limits
 func arm_limit_y():
 	var limit = false
-	area_clear = false
 	var np = needle.global_translation
 	if has_record:
 		if np.x < 1.124:
@@ -178,8 +177,6 @@ func arm_limit_y():
 			if np.y <= 0.116: limit = true
 		elif np.x < 1.398:
 			if np.y <= -0.003: limit = true
-		else:
-			area_clear = true
 	else:
 		if np.x < 1.046:
 			if np.y <= 0.144: limit = true
@@ -187,10 +184,7 @@ func arm_limit_y():
 			if np.y <= 0.098: limit = true
 		elif np.x < 1.296:
 			if np.y <= -0.021: limit = true
-		else:
-			area_clear = true
 	#elif np.y <= -0.086: limit = true # Limited by the support and angle of arm
-	get_node("%Eject").disabled = not area_clear
 	return limit
 
 
@@ -210,10 +204,6 @@ func arm_limit_x(dir):
 	var limit = false
 	var np = needle.global_translation
 	$Disc.get_surface_material(0).set_shader_param("dot_position", Vector2(np.x / 1.55, np.z / 1.55))
-	if has_record:
-		get_node("%Eject").disabled = not area_clear
-	elif record_state == CAN_PLAY:
-		get_node("%Play").disabled = not area_clear
 	if dir < 0:
 		if has_record:
 			if np.x < 1.124:
@@ -231,6 +221,10 @@ func arm_limit_x(dir):
 				if np.y <= -0.021: limit = true
 		if np.x <= 0.182: limit = true
 	elif np.x >= 2.28: limit = true
+	if has_record:
+		get_node("%Eject").disabled = np.x < 1.398
+	elif record_state == CAN_PLAY:
+		get_node("%Play").disabled = np.x < 1.296
 	return limit
 
 
