@@ -87,10 +87,10 @@ func get_track_details(track):
 func _on_ArtDesigner_save_button_pressed(_texture, _canvas_index, show_dialog):
 	texture_to_save = _texture
 	canvas_index = _canvas_index
-	if album.images[canvas_index].empty() or show_dialog:
+	if album.images[canvas_index] == null or show_dialog:
 		art.disable_input()
 		$c/SaveDialog.current_dir = g.settings.last_image_dir
-		$c/SaveDialog.current_file = "" if album.images[canvas_index].empty() else album.images[canvas_index]
+		$c/SaveDialog.current_file = "" if album.images[canvas_index] == null else album.images[canvas_index]
 		$c/SaveDialog.popup_centered()
 	else:
 		texture_to_save.save_png(album.images[canvas_index])

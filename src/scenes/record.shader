@@ -45,10 +45,13 @@ void fragment() {
 		//if (ang < 0.25) radius += dr / 2.0;
 		if (pr < label_radius) {
 			// Display label
+			vec2 p = pt / label_radius / 2.0;
 			if (UV.x < 0.5)
-				ALBEDO = texture(label_a, pt / label_radius / 2.0 + vec2(0.5)).rgb;
-			else
-				ALBEDO = texture(label_b, pt / label_radius / 2.0 + vec2(0.5)).rgb;
+				ALBEDO = texture(label_a, p + vec2(0.5)).rgb;
+			else {
+				p.x = -p.x;
+				ALBEDO = texture(label_b, p + vec2(0.5)).rgb;
+			}
 			// Smooth edge
 			ALBEDO *= clamp((label_radius - pr) * inner_smoothing, 0.0, 1.0);
 		} else {

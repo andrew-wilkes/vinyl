@@ -114,37 +114,6 @@ func relocate_collision_area(src: Spatial, dest: Spatial):
 
 
 func _process(delta):
-	if mode == MOVING_HANDLE: return
-	
-	if rpm < target_speed:
-		rpm += 66 * delta # Take 0.5s to reach 33
-	if rpm > target_speed:
-		rpm -= 66 * delta
-	if rpm > 0:
-		$Disc.rotate_y(clamp(rpm, 0.0, target_speed) / 30.0 * delta)
-		set_dot_position()
-
-	if Input.is_key_pressed(KEY_1):
-		prints(arm_base.rotation, needle.global_translation)
-	# Move support in relation to lever position
-	if lever_pos >= support_pos:
-		support_pos = lever_pos
-	else:
-		support_pos -= delta * 1.0
-	support.translation.y = lerp(0.06, 0.114, support_pos)
-	
-	# Calculate the angle limit for the arm
-	angle_limit = atan((0.114 - support.translation.y) / 0.3952)
-	
-	# Make arm fall if within angle_limit
-	if angle_limit > get_arm_angle() and arm_limit_y(): return
-	if get_arm_angle() < (angle_limit - 0.06):
-		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
-	else:
-		arm.transform = arm_transform
-		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
-		set_dot_position()
-	
 	var v = get_node("%HSlider").value
 	if v != last_slider_value:
 		last_slider_value = v
@@ -167,6 +136,37 @@ func _process(delta):
 				get_node("%Eject").disabled = not area_clear
 		if v > 65: side = 0
 		if v > 85: side = 1
+	
+	if rpm < target_speed:
+		rpm += 66 * delta # Take 0.5s to reach 33
+	if rpm > target_speed:
+		rpm -= 66 * delta
+	if rpm > 0:
+		$Disc.rotate_y(clamp(rpm, 0.0, -target_speed) / 30.0 * delta)
+		set_dot_position()
+	if mode == MOVING_HANDLE: return
+
+	if Input.is_key_pressed(KEY_1):
+		prints(arm_base.rotation, needle.global_translation)
+	# Move support in relation to lever position
+	if lever_pos >= support_pos:
+		support_pos = lever_pos
+	else:
+		support_pos -= delta * 1.0
+	support.translation.y = lerp(0.06, 0.114, support_pos)
+	
+	# Calculate the angle limit for the arm
+	angle_limit = atan((0.114 - support.translation.y) / 0.3952)
+	
+	# Make arm fall if within angle_limit
+	if angle_limit > get_arm_angle() and arm_limit_y(): return
+	if get_arm_angle() < (angle_limit - 0.06):
+		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
+	else:
+		arm.transform = arm_transform
+		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
+		set_dot_position()
+
 
 # It's possible to manually move the arm to go past the limits
 func arm_limit_y():
@@ -205,6 +205,7 @@ func needle_on_record():
 
 func set_dot_position():
 	var np = needle.global_translation
+	#if side > 0: np *= Vector3(-1, 1, -1)
 	var pos = Vector2(np.x / 1.55, np.z / 1.55).rotated($Disc.rotation.y)
 	if np.y <= 0.164: pos = Vector2.ZERO
 	$Disc.get_surface_material(0).set_shader_param("dot_position", pos)
@@ -338,7 +339,10 @@ func _on_disc_input_event(_camera, event, _position, _normal, _shape_idx):
 func _on_Play_pressed():
 	get_node("%Play").disabled = true
 	record_state = MOVING_DISC
-	$Disc.rotation.x = 0.0 if side == 0.0 else PI
+	# Make the correct side up
+	$Disc.rotation.x = 0.0 if side == 0 else PI
+	$Disc.rotation.y = 0.0 if side == 0 else PI
+	$Disc.rotation.z = 0.0
 	var tween = create_tween()
 	# Doesn't work if parameter is called alpha (thinks it's an INT)
 	tween.tween_property($Disc.get_surface_material(0), "shader_param/alphav", 1.0, 0.5) #.from_current()
