@@ -16,7 +16,6 @@ uniform vec4 dot_color: hint_color = vec4(1.0, 0.0, 0.0, 0.0);
 uniform float alphav = 0.0;
 uniform float blur = 0.1;
 uniform float width = 0.1;
-uniform float filter_width = 0.1;
 
 const float PI = 3.14159265358979323846;
 
@@ -62,7 +61,7 @@ void fragment() {
 				ALBEDO = vec3(0.0);
 			}
 		}
-		if (dot_position.x > 0.2 && length(vec2(dot_position.x, dot_position.y * sign(0.5 - UV.x)) - pt) < dot_radius / 100.0) {
+		if (length(dot_position) > 0.2 && length(vec2(dot_position.x, dot_position.y * sign(0.5 - UV.x)) - pt) < dot_radius / 100.0) {
 			if (radius_mod > 0.8)
 				ALBEDO = dot_color.rgb;
 			else

@@ -121,8 +121,9 @@ func _process(delta):
 	if rpm > target_speed:
 		rpm -= 66 * delta
 	if rpm > 0:
-		$Disc.rotate_y(clamp(rpm, 0.0, target_speed) / 30.0 * delta * -PI)
-	
+		$Disc.rotate_y(clamp(rpm, 0.0, target_speed) / 30.0 * delta)
+		set_dot_position()
+
 	if Input.is_key_pressed(KEY_1):
 		prints(arm_base.rotation, needle.global_translation)
 	# Move support in relation to lever position
@@ -142,6 +143,7 @@ func _process(delta):
 	else:
 		arm.transform = arm_transform
 		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
+		set_dot_position()
 	
 	var v = get_node("%HSlider").value
 	if v != last_slider_value:
@@ -170,6 +172,7 @@ func _process(delta):
 func arm_limit_y():
 	var limit = false
 	var np = needle.global_translation
+	set_dot_position()
 	if has_record:
 		if np.x < 1.124:
 			if np.y <= 0.164: limit = true
@@ -200,10 +203,17 @@ func needle_on_record():
 	return np.y <= 0.164 and np.x < 1.124 and np.x > 0.182
 
 
+func set_dot_position():
+	var np = needle.global_translation
+	var pos = Vector2(np.x / 1.55, np.z / 1.55).rotated($Disc.rotation.y)
+	if np.y <= 0.164: pos = Vector2.ZERO
+	$Disc.get_surface_material(0).set_shader_param("dot_position", pos)
+
+
 func arm_limit_x(dir):
 	var limit = false
 	var np = needle.global_translation
-	$Disc.get_surface_material(0).set_shader_param("dot_position", Vector2(np.x / 1.55, np.z / 1.55))
+	set_dot_position()
 	if dir < 0:
 		if has_record:
 			if np.x < 1.124:

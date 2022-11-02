@@ -47,7 +47,6 @@ shader_param/dot_color = Color( 1, 0, 0, 0 )
 shader_param/alphav = 0.0
 shader_param/blur = 0.1
 shader_param/width = 0.1
-shader_param/filter_width = 0.1
 shader_param/label_a = ExtResource( 14 )
 shader_param/label_b = ExtResource( 13 )
 
