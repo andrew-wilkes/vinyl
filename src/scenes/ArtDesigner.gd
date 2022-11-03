@@ -2,6 +2,7 @@ extends PanelContainer
 
 signal bg_texture_button_pressed()
 signal save_button_pressed(texture, idx, show_dialog)
+signal load_button_pressed(idx)
 signal pick_bg_color(color)
 signal pick_fill_color(color)
 signal font_button_pressed()
@@ -309,3 +310,7 @@ func _on_Text_gui_input(event):
 
 func _on_Font_pressed():
 	emit_signal("font_button_pressed")
+
+
+func _on_Load_pressed():
+	emit_signal("load_button_pressed", canvas_index)

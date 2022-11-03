@@ -47,6 +47,7 @@ func _unhandled_input(event):
 			moving = true
 		else:
 			moving = false
+		
 	if event is InputEventMouseMotion and moving:
 		var mode = ROTATING
 		if Input.is_physical_key_pressed(KEY_SHIFT):

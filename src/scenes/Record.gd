@@ -56,10 +56,7 @@ func animate(pos):
 		rotate_object(Vector3.FORWARD, $Sleeve/disc, ang)
 		$Sleeve/disc.translation.z = -0.33
 		rotate_object(Vector3.UP, $Sleeve, 0.0)
-	if pos > 85:
-		$Sleeve/disc.rotation.x = -PI / 2
-	else:
-		$Sleeve/disc.rotation.x = PI / 2
+	$Sleeve/disc.rotation.x = PI / 2
 
 
 func rotate_object(axis, ob, amount):

@@ -87,7 +87,7 @@ func edge_exited(item):
 func edge_input(_camera, event, _position, _normal, _shape_idx, item):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 		not_handled = false
-		if accept_click:
+		if accept_click: # Tweens have finished
 			if selected_item and selected_item == item:
 				get_node("%Navigation").goto_turntable()
 			else:
@@ -119,7 +119,8 @@ func select_item(item):
 
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton and event.pressed:
+	# Right click to hide album
+	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed:
 		not_handled = true
 		call_deferred("got_click")
 	if event is InputEventKey and selected_item:

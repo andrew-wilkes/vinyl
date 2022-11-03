@@ -262,6 +262,15 @@ theme = ExtResource( 6 )
 access = 2
 filters = PoolStringArray( "*.png ; PNG file" )
 
+[node name="LoadDialog" type="FileDialog" parent="c"]
+margin_right = 882.0
+margin_bottom = 531.0
+theme = ExtResource( 6 )
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png ; PNG file" )
+
 [node name="TextPanel" type="PopupPanel" parent="c"]
 margin_left = 20.0
 margin_top = 213.0
@@ -336,12 +345,14 @@ filters = PoolStringArray( "*.ttf ; True Type Font files" )
 [connection signal="pressed" from="VB/Content/LeftCol/CanvasMenu/SuggestText" to="." method="_on_ShowText_pressed"]
 [connection signal="bg_texture_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_bg_texture_button_pressed"]
 [connection signal="font_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_font_button_pressed"]
+[connection signal="load_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_load_button_pressed"]
 [connection signal="pick_bg_color" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_pick_bg_color"]
 [connection signal="pick_fill_color" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_pick_fill_color"]
 [connection signal="save_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_save_button_pressed"]
 [connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]
 [connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]
+[connection signal="file_selected" from="c/LoadDialog" to="." method="_on_LoadDialog_file_selected"]
 [connection signal="popup_hide" from="c/TextPanel" to="." method="_on_TextPanel_popup_hide"]
 [connection signal="pressed" from="c/TextPanel/VB/HB/CopyText" to="c/TextPanel" method="_on_CopyText_pressed"]
 [connection signal="pressed" from="c/TextPanel/VB/HB/OK" to="c/TextPanel" method="_on_OK_pressed"]
