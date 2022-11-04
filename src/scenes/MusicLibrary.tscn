@@ -175,7 +175,7 @@ theme = ExtResource( 7 )
 window_title = "How to use"
 dialog_text = "Left click on albums to select
 Click again to play
-Click in free space to unselect
+Right click in free space to unselect
 
 Use arrow keys to move selected album
 

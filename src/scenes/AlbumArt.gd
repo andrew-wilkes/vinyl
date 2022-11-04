@@ -17,7 +17,6 @@ var color_pick_mode
 onready var art = find_node("ArtDesigner")
 
 func _ready():
-	#find_node("Large").visible = false
 	show_album_details(false)
 	if g.current_album_id:
 		load_album(g.current_album_id)
@@ -185,7 +184,7 @@ func _on_LoadDialog_file_selected(path):
 	art.disable_input(false)
 	g.settings.last_image_dir = path.get_base_dir()
 	album.images[canvas_index] = path
-	get_node("%ArtDesigner").try_updating_bg_image(path)
+	get_node("%ArtDesigner").set_currect_image(canvas_index, album, true)
 
 
 func _on_ArtDesigner_load_button_pressed(_canvas_index):

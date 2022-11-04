@@ -51,9 +51,30 @@ text = "Label design"
 [node name="ImageView" parent="HB/VB" instance=ExtResource( 12 )]
 unique_name_in_owner = true
 margin_top = 33.0
-margin_bottom = 603.0
+margin_bottom = 403.0
 mod_color = Color( 0.682353, 0.137255, 0.137255, 1 )
 image = ExtResource( 3 )
+
+[node name="VB" type="VBoxContainer" parent="HB/VB"]
+margin_top = 413.0
+margin_right = 370.0
+margin_bottom = 603.0
+size_flags_vertical = 3
+
+[node name="HB" type="HBoxContainer" parent="HB/VB/VB"]
+margin_right = 370.0
+margin_bottom = 39.0
+
+[node name="Clear" type="Button" parent="HB/VB/VB/HB"]
+margin_right = 55.0
+margin_bottom = 39.0
+text = "Clear"
+
+[node name="Sp" type="Control" parent="HB/VB/VB"]
+margin_top = 43.0
+margin_right = 370.0
+margin_bottom = 190.0
+size_flags_vertical = 3
 
 [node name="HB2" type="HBoxContainer" parent="HB/VB"]
 margin_top = 613.0
@@ -601,6 +622,12 @@ margin_right = 286.0
 margin_bottom = 39.0
 text = "Save As..."
 
+[node name="Confirmation" type="ConfirmationDialog" parent="."]
+margin_right = 200.0
+margin_bottom = 70.0
+dialog_text = "This action will erase all settings for the current canvas design and image."
+
+[connection signal="pressed" from="HB/VB/VB/HB/Clear" to="." method="_on_Clear_pressed"]
 [connection signal="gui_input" from="HB/VB/HB2/VB2/HB/BGTexture" to="." method="_on_BGTexture_gui_input"]
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/H" to="." method="_on_H_value_changed"]
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/S" to="." method="_on_S_value_changed"]
@@ -635,3 +662,4 @@ text = "Save As..."
 [connection signal="pressed" from="HB/RHS/HB/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="HB/RHS/HB/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="HB/RHS/HB/SaveAs" to="." method="_on_SaveAs_pressed"]
+[connection signal="confirmed" from="Confirmation" to="." method="_on_Confirmation_confirmed"]

@@ -94,13 +94,13 @@ size_flags_horizontal = 3
 [node name="Content" type="HBoxContainer" parent="VB"]
 margin_top = 117.0
 margin_right = 1240.0
-margin_bottom = 724.0
+margin_bottom = 740.0
 custom_constants/separation = 20
 
 [node name="LeftCol" type="VBoxContainer" parent="VB/Content"]
 unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 607.0
+margin_bottom = 623.0
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="VB/Content/LeftCol"]
@@ -221,7 +221,7 @@ text = "Generate Styles"
 unique_name_in_owner = true
 margin_left = 220.0
 margin_right = 1240.0
-margin_bottom = 607.0
+margin_bottom = 623.0
 
 [node name="c" type="CanvasLayer" parent="."]
 

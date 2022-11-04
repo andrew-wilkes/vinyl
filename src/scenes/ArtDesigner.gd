@@ -16,17 +16,19 @@ var default_bg = preload("res://assets/checkerboard.png")
 var current_images = [null, null, null, null]
 var canvas_index = 0
 var last_hash = 0
+var album
 
 func disable_input(disable = true):
 	$HB/VB/ImageView/Viewport.gui_disable_input = disable
 
 
-func init_canvas(idx, album):
+func init_canvas(idx, _album):
+	album = _album
 	canvas_index = idx
-	background = album.bg[idx]
-	elements = album.elements[idx]
+	background = _album.bg[idx]
+	elements = _album.elements[idx]
 	if current_images[idx] == null:
-		set_currect_image(idx, album)
+		set_currect_image(idx, _album)
 	get_node("%CurrentImage").texture = current_images[idx]
 	$HB/VB/Title.text = ["Label design - side A", "Label design - side B", "Front Cover design", "Back Cover design"][idx]
 	get_node("%ImageView").is_disc = idx < 2
@@ -234,11 +236,13 @@ func _on_BGTexture_gui_input(event):
 			get_node("%BGTexture").icon = default_bg
 
 
-func set_currect_image(idx, album):
+func set_currect_image(idx, _album, update_image = false):
 	var text = { resized = default_bg }
-	if album.images[idx]:
-		text = g.get_resized_texture(album.images[idx], 64)
+	if _album.images[idx]:
+		text = g.get_resized_texture(_album.images[idx], 64)
 	current_images[idx] = text.resized
+	if update_image:
+		get_node("%CurrentImage").texture = text.resized
 
 
 func _on_SaveAs_pressed():
@@ -314,3 +318,15 @@ func _on_Font_pressed():
 
 func _on_Load_pressed():
 	emit_signal("load_button_pressed", canvas_index)
+
+
+func _on_Clear_pressed():
+	$Confirmation.popup_centered()
+
+
+func _on_Confirmation_confirmed():
+	current_images[canvas_index] = null
+	album.images[canvas_index] = null
+	album.bg[canvas_index].clear()
+	album.elements[canvas_index].clear()
+	init_canvas(canvas_index, album)
