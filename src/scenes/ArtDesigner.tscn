@@ -408,6 +408,7 @@ margin_left = 233.0
 margin_right = 265.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 32, 0 )
+color = Color( 0.2, 0.392157, 0.643137, 1 )
 
 [node name="Label" type="Label" parent="HB/RHS/Props/Adjusters"]
 margin_top = 138.0

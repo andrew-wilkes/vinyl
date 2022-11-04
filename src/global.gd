@@ -48,6 +48,7 @@ func get_resized_texture(path, size = 0):
 	var image = Image.new()
 	var file = File.new()
 	if file.file_exists(path):
+		image.load(path)
 		texture.create_from_image(image)
 		if size > 0:
 			image.resize(size, size)
