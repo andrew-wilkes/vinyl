@@ -29,6 +29,10 @@ func pause(pause = true):
 	player.stream_paused = pause
 
 
+func play(start_pos = 0.0):
+	player.play(start_pos)
+
+
 func stop():
 	player.stop()
 

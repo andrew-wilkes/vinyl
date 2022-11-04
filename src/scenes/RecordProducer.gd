@@ -5,8 +5,6 @@ enum { SIDE_A, SIDE_B }
 const X_PITCH = 25.4 / 16 * 0.1 # >= 16 grooves per inch
 const LAST_MUSIC_GROOVE = [120.6, 108.0, 120.6]
 const FIRST_MUSIC_GROOVE = [292.1, 168.3, 241.3]
-const RPMS = { "speed33": 33.33, "speed45": 45.0, "speed78": 78.0 }
-const SIZES = [ "size12", "size7", "size10" ]
 const GAP_TIME = 5
 const VU_COUNT = 8
 const FREQ_MAX = 11050.0
@@ -129,13 +127,13 @@ func _process(_delta):
 func get_rpm():
 	var rpm = speed_group.get_pressed_button().name
 	g.set_album_property("rpm", rpm)
-	return RPMS[rpm]
+	return g.RPMS[rpm]
 
 
 func get_size():
 	var size = size_group.get_pressed_button().name
 	g.set_album_property("size", size)
-	return SIZES.find(size)
+	return g.SIZES.find(size)
 
 
 func _on_AddToA_pressed():

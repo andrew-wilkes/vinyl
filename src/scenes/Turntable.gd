@@ -7,7 +7,6 @@ enum { WAITING, CAN_PLAY, MOVING_DISC, CAN_EJECT }
 enum { NOT_PLAYING, PLAYING }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
-const SPEEDS = [0.0, 33.3, 45.0, 78.0]
 const GAP_LENGTH = 8
 
 onready var arm = find_node("Arm")
@@ -105,7 +104,7 @@ func get_mod_data(length, value = 255.0):
 
 func set_led_color(idx):
 	led.set("albedo_color", LED_COLORS[idx])
-	target_speed = SPEEDS[idx]
+	target_speed = g.RPMS.values()[idx]
 
 
 func relocate_collision_area(src: Spatial, dest: Spatial):
@@ -196,16 +195,21 @@ func arm_limit_y():
 
 func check_play_state(delta):
 	if has_record and rpm > 0 and needle_on_record():
+		var rotation_scale = 1.0
 		if play_state == NOT_PLAYING:
 			var tr = get_track()
 			if tr:
 				# Start playing
 				audio.load_data(tr.path)
-				audio.player.play(tr.position)
-				play_state == PLAYING
+				audio.play(tr.position)
+				play_state = PLAYING
+			else:
+				# In crossover
+				rotation_scale = 2.67 # Reduce transit time from 8s to 3s
+		audio.set_speed(g.RPMS[album.rpm], rpm)
 		# Rotate arm
 		if arm_base.rotation.y > -0.825:
-			arm_base.rotation.y -= delta * 0.455 / timelines[side].size()
+			arm_base.rotation.y -= delta * 0.455 / timelines[side].size() * audio.player.pitch_scale * rotation_scale
 	else:
 		if audio.player.playing:
 			audio.stop()
@@ -216,7 +220,6 @@ func get_track():
 	var total_time = timelines[side].size()
 	var t_mark = (-0.37 - arm_base.rotation.y) / 0.455 * total_time
 	var t = 0.0
-	var track
 	for tr in [album.a_side, album.a_side][side]:
 		tr.position = t_mark - t
 		t += tr.length

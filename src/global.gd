@@ -1,5 +1,8 @@
 extends Node
 
+const RPMS = { "zero": 0.0, "speed33": 33.33, "speed45": 45.0, "speed78": 78.0 }
+const SIZES = [ "size12", "size7", "size10" ]
+
 var settings
 var default_art = []
 var current_album_id
