@@ -130,6 +130,7 @@ func _on_ShowText_pressed():
 
 
 func _on_ImageSelector_file_selected(path):
+	g.settings.last_image_dir = path.get_base_dir()
 	art.disable_input(false)
 	art.try_updating_bg_image(path)
 
@@ -180,18 +181,3 @@ func _on_FontSelector_file_selected(path):
 	g.settings.last_font_dir = path.get_base_dir()
 	art.current_element.font_path = path
 	art.update_element_font(path)
-
-
-func _on_LoadDialog_file_selected(path):
-	art.disable_input(false)
-	g.settings.last_image_dir = path.get_base_dir()
-	album.images[canvas_index] = path
-	get_node("%ArtDesigner").set_currect_image(canvas_index, album, true)
-
-
-func _on_ArtDesigner_load_button_pressed(_canvas_index):
-	canvas_index = _canvas_index
-	art.disable_input()
-	$c/LoadDialog.current_dir = g.settings.last_image_dir
-	$c/LoadDialog.current_file = ""
-	$c/LoadDialog.popup_centered()
