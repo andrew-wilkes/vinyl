@@ -11,7 +11,7 @@ var blank
 var label
 var album
 var canvas_group
-var texture_to_save
+var texture_to_save: Image
 var canvas_index
 var color_pick_mode
 onready var art = find_node("ArtDesigner")
@@ -92,12 +92,14 @@ func _on_ArtDesigner_save_button_pressed(_texture, _canvas_index, show_dialog):
 		$c/SaveDialog.current_file = "" if album.images[canvas_index] == null else album.images[canvas_index]
 		$c/SaveDialog.popup_centered()
 	else:
-		texture_to_save.save_png(album.images[canvas_index])
+		var _e = texture_to_save.save_png(album.images[canvas_index])
 
 
-func _on_SaveDialog_file_selected(path):
+func _on_SaveDialog_file_selected(path: String):
 	art.disable_input(false)
-	texture_to_save.save_png(path)
+	if path.get_extension() != "png":
+		path = path.rstrip(".") + ".png"
+	var _e = texture_to_save.save_png(path)
 	g.settings.last_image_dir = path.get_base_dir()
 	album.images[canvas_index] = path
 
@@ -190,4 +192,6 @@ func _on_LoadDialog_file_selected(path):
 func _on_ArtDesigner_load_button_pressed(_canvas_index):
 	canvas_index = _canvas_index
 	art.disable_input()
+	$c/LoadDialog.current_dir = g.settings.last_image_dir
+	$c/LoadDialog.current_file = ""
 	$c/LoadDialog.popup_centered()
