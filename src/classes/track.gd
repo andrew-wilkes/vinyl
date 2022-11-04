@@ -2,6 +2,8 @@ extends Resource
 
 class_name Track
 
+var position = 0
+
 export var title = ""
 export var band = ""
 export var album = ""

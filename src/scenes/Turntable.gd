@@ -8,7 +8,7 @@ enum { NOT_PLAYING, PLAYING }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const SPEEDS = [0.0, 33.3, 45.0, 78.0]
-const GAP_LENGTH = 5
+const GAP_LENGTH = 8
 
 onready var arm = find_node("Arm")
 onready var arm_base = find_node("ArmBase")
@@ -44,6 +44,8 @@ var switch_pos = 75.0
 var area_clear = true
 var audio
 var play_state = NOT_PLAYING
+var album
+var timelines = []
 
 func _ready():
 	audio = Audio.new($Audio)
@@ -55,7 +57,7 @@ func _ready():
 	arm_base_transform = arm_base.transform
 	switch_transform = switch.transform
 	if g.current_album_id:
-		var album = g.settings.albums[g.current_album_id]
+		album = g.settings.albums[g.current_album_id]
 		get_node("%Title").text = album.title
 		get_node("%Band").text = album.band
 		get_node("%Details").show()
@@ -67,10 +69,10 @@ func _ready():
 		if album.images[1]:
 			var img_b = g.get_resized_texture(album.images[1]).texture
 			$Disc.get_surface_material(0).set_shader_param("label_b", img_b)
-		var radius_mod_a = get_mod_array(album.a_side)
-		$Disc.get_surface_material(0).set_shader_param("radius_mod_a", get_data_texture(radius_mod_a))
-		var radius_mod_b = get_mod_array(album.b_side)
-		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(radius_mod_b))
+		timelines.append(get_mod_array(album.a_side))
+		$Disc.get_surface_material(0).set_shader_param("radius_mod_a", get_data_texture(timelines[0]))
+		timelines.append(get_mod_array(album.b_side))
+		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
 	else:
 		get_node("%Details").hide()
 
@@ -88,9 +90,9 @@ func get_mod_array(tracks):
 	var arr = []
 	for track in tracks:
 		# Track length + silence
-		arr.append_array(get_mod_data(track.length + GAP_LENGTH))
+		arr.append_array(get_mod_data(track.length))
 		# Crossover spiral
-		arr.append_array(get_mod_data(8, 0.0))
+		arr.append_array(get_mod_data(GAP_LENGTH, 0.0))
 	return arr
 
 
@@ -114,6 +116,7 @@ func relocate_collision_area(src: Spatial, dest: Spatial):
 
 
 func _process(delta):
+	check_play_state(delta)
 	var v = get_node("%HSlider").value
 	if v != last_slider_value:
 		last_slider_value = v
@@ -191,11 +194,37 @@ func arm_limit_y():
 	return limit
 
 
-func check_play_state():
+func check_play_state(delta):
 	if has_record and rpm > 0 and needle_on_record():
 		if play_state == NOT_PLAYING:
-			#arm_base.rotation.y
-			pass
+			var tr = get_track()
+			if tr:
+				# Start playing
+				audio.load_data(tr.path)
+				audio.player.play(tr.position)
+				play_state == PLAYING
+		# Rotate arm
+		if arm_base.rotation.y > -0.825:
+			arm_base.rotation.y -= delta * 0.455 / timelines[side].size()
+	else:
+		if audio.player.playing:
+			audio.stop()
+			play_state = NOT_PLAYING
+
+
+func get_track():
+	var total_time = timelines[side].size()
+	var t_mark = (-0.37 - arm_base.rotation.y) / 0.455 * total_time
+	var t = 0.0
+	var track
+	for tr in [album.a_side, album.a_side][side]:
+		tr.position = t_mark - t
+		t += tr.length
+		if t_mark < t:
+			return tr
+		t += GAP_LENGTH
+		if t_mark < t:
+			return
 
 
 func needle_on_record():
@@ -361,3 +390,7 @@ func _on_Eject_pressed():
 	has_record = false
 	record_state = WAITING
 	last_slider_value = -1.0
+
+
+func _on_Audio_finished():
+	play_state = NOT_PLAYING

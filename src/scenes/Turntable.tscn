@@ -286,5 +286,6 @@ depth = 0.248566
 [connection signal="input_event" from="Disc/Area" to="." method="_on_disc_input_event"]
 [connection signal="mouse_entered" from="Disc/Area" to="." method="_on_disc_mouse_entered"]
 [connection signal="mouse_exited" from="Disc/Area" to="." method="_on_disc_mouse_exited"]
+[connection signal="finished" from="Audio" to="." method="_on_Audio_finished"]
 
 [editable path="OrbitCamera"]
