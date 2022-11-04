@@ -87,6 +87,7 @@ func get_data_texture(idata):
 
 func get_mod_array(tracks):
 	var arr = []
+	arr.append_array(get_mod_data(2, 0.0))
 	for track in tracks:
 		# Track length + silence
 		arr.append_array(get_mod_data(track.length))
@@ -201,7 +202,8 @@ func check_play_state(delta):
 			if tr:
 				# Start playing
 				audio.load_data(tr.path)
-				audio.play(tr.position)
+				var start_time = 0.0 if tr.position < 10.0 else tr.position
+				audio.play(start_time)
 				play_state = PLAYING
 			else:
 				# In crossover
@@ -273,10 +275,6 @@ func arm_limit_x(dir):
 
 func rotate_arm(angle):
 	arm_base.rotate_y(angle)
-
-
-func raise_support(_dist):
-	pass
 
 
 func _unhandled_input(event):
