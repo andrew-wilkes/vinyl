@@ -199,6 +199,7 @@ func check_play_state(delta):
 		var rotation_scale = 1.0
 		if play_state == NOT_PLAYING:
 			var tr = get_track()
+			update_track_name(tr)
 			if tr:
 				# Start playing
 				audio.load_data(tr.path)
@@ -221,8 +222,9 @@ func check_play_state(delta):
 func get_track():
 	var total_time = timelines[side].size()
 	var t_mark = (-0.37 - arm_base.rotation.y) / 0.455 * total_time
+	if t_mark < 0.0 or t_mark > total_time: return
 	var t = 0.0
-	for tr in [album.a_side, album.a_side][side]:
+	for tr in [album.a_side, album.b_side][side]:
 		tr.position = t_mark - t
 		t += tr.length
 		if t_mark < t:
@@ -287,6 +289,7 @@ func _unhandled_input(event):
 				lever.rotation.x = clamp(lever.rotation.x - event.relative.y * 0.01, -1.33, -0.73)
 				lever_pos = (lever.rotation.x + 1.33) / (1.33 - 0.73)
 			MOVING_HANDLE:
+				update_track_name(get_track())
 				if arm_limit_x(event.relative.x): return
 				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.005)
 				var new_arm_angle = arm_angle + event.relative.y * 0.002
@@ -303,6 +306,13 @@ func _unhandled_input(event):
 				set_led_color(disc_state)
 			MOVING_DISC:
 				pass
+
+
+func update_track_name(track):
+	if track:
+		get_node("%TrackName").text = track.title
+	else:
+		get_node("%TrackName").text = ""
 
 
 func _on_Lever_input_event(_camera, event, _position, _normal, _shape_idx):
