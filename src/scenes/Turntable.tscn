@@ -253,6 +253,30 @@ margin_top = 3.0
 margin_right = 640.0
 margin_bottom = 17.0
 
+[node name="Vol" type="VBoxContainer" parent="c"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+margin_top = 19.0
+margin_right = -1.0
+margin_bottom = 181.0
+custom_constants/separation = 10
+
+[node name="VolSlider" type="VSlider" parent="c/Vol"]
+margin_right = 16.0
+margin_bottom = 129.0
+size_flags_vertical = 3
+max_value = 8.0
+step = 0.1
+value = 3.7
+
+[node name="Label" type="Label" parent="c/Vol"]
+margin_top = 139.0
+margin_right = 31.0
+margin_bottom = 162.0
+custom_fonts/font = ExtResource( 3 )
+text = "Vol"
+
 [node name="Disc" type="MeshInstance" parent="."]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.145, 0 )
 mesh = ExtResource( 12 )
@@ -302,6 +326,7 @@ depth = 0.248566
 [connection signal="mouse_exited" from="SwitchArea" to="." method="_on_SwitchArea_mouse_exited"]
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Eject" to="." method="_on_Eject_pressed"]
+[connection signal="value_changed" from="c/Vol/VolSlider" to="." method="_on_VolSlider_value_changed"]
 [connection signal="input_event" from="Disc/Area" to="." method="_on_disc_input_event"]
 [connection signal="mouse_entered" from="Disc/Area" to="." method="_on_disc_mouse_entered"]
 [connection signal="mouse_exited" from="Disc/Area" to="." method="_on_disc_mouse_exited"]

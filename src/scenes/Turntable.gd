@@ -47,6 +47,7 @@ var album
 var timelines = []
 
 func _ready():
+	$c/Vol/VolSlider.value = g.settings.volume
 	audio = Audio.new($Audio)
 	set_led_color(0)
 	relocate_collision_area($LeverArea, lever_handle)
@@ -405,3 +406,10 @@ func _on_Eject_pressed():
 
 func _on_Audio_finished():
 	play_state = NOT_PLAYING
+
+
+func _on_VolSlider_value_changed(value):
+	g.settings.volume = value
+	var db = -pow(8.0 - value, 1.8)
+	AudioServer.set_bus_volume_db(0, db)
+	$c/Vol/VolSlider.hint_tooltip = "%d db" % db
