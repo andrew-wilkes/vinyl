@@ -45,6 +45,7 @@ var audio
 var play_state = NOT_PLAYING
 var album
 var timelines = []
+var not_updating_track_name = true
 
 func _ready():
 	$c/Vol/VolSlider.value = g.settings.volume
@@ -118,6 +119,8 @@ func relocate_collision_area(src: Spatial, dest: Spatial):
 
 func _process(delta):
 	check_play_state(delta)
+	if not_updating_track_name:
+		update_track_name(get_track())
 	var v = get_node("%HSlider").value
 	if v != last_slider_value:
 		last_slider_value = v
@@ -196,6 +199,7 @@ func arm_limit_y():
 
 
 func check_play_state(delta):
+	area_clear = needle.global_translation.x > 1.124
 	if has_record and rpm > 0 and needle_on_record():
 		var rotation_scale = 1.0
 		if play_state == NOT_PLAYING:
@@ -290,7 +294,6 @@ func _unhandled_input(event):
 				lever.rotation.x = clamp(lever.rotation.x - event.relative.y * 0.01, -1.33, -0.73)
 				lever_pos = (lever.rotation.x + 1.33) / (1.33 - 0.73)
 			MOVING_HANDLE:
-				update_track_name(get_track())
 				if arm_limit_x(event.relative.x): return
 				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.005)
 				var new_arm_angle = arm_angle + event.relative.y * 0.002
@@ -310,10 +313,24 @@ func _unhandled_input(event):
 
 
 func update_track_name(track):
+	var tnode = get_node("%TrackName")
 	if track:
-		get_node("%TrackName").text = track.title
+		if tnode.text == track.title: return
 	else:
-		get_node("%TrackName").text = ""
+		if tnode.text == "": return
+	not_updating_track_name = false
+	var tween = create_tween()
+	if track:
+		if tnode.text == "":
+			tnode.text = track.title
+			tween.tween_property(tnode, "modulate:a", 1.0, 0.5)
+		else:
+			tween.tween_property(tnode, "modulate:a", 0.0, 0.5)
+	else:
+		tween.tween_property(tnode, "modulate:a", 0.0, 0.5)
+	yield(tween, "finished")
+	if tnode.modulate.a < 0.1: tnode.text = ""
+	not_updating_track_name = true
 
 
 func _on_Lever_input_event(_camera, event, _position, _normal, _shape_idx):
