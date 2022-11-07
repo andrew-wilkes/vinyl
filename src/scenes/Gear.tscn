@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/tape-deck.png" type="Texture" id=2]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/cassette-deck.png" type="Texture" id=5]
 
 [node name="Gear" type="MarginContainer"]
 anchor_right = 1.0
@@ -51,10 +52,27 @@ margin_right = 1240.0
 margin_bottom = 760.0
 size_flags_vertical = 3
 
-[node name="Tapedeck" type="TextureRect" parent="VB/Cent"]
+[node name="VB" type="VBoxContainer" parent="VB/Cent"]
 margin_left = 478.0
-margin_top = 161.0
+margin_top = 94.0
 margin_right = 761.0
-margin_bottom = 438.0
+margin_bottom = 505.0
+custom_constants/separation = 50
+
+[node name="Tapedeck" type="TextureRect" parent="VB/Cent/VB"]
+margin_right = 283.0
+margin_bottom = 277.0
 hint_tooltip = "Tape Deck"
 texture = ExtResource( 2 )
+
+[node name="C" type="CenterContainer" parent="VB/Cent/VB"]
+margin_top = 327.0
+margin_right = 283.0
+margin_bottom = 411.0
+
+[node name="CassetteDeck" type="TextureRect" parent="VB/Cent/VB/C"]
+margin_left = 24.0
+margin_right = 258.0
+margin_bottom = 84.0
+hint_tooltip = "Cassette Deck"
+texture = ExtResource( 5 )

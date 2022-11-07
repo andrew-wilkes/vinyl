@@ -10,6 +10,7 @@ export var last_dir = ""
 export var last_image_dir = ""
 export var last_font_dir = ""
 export var volume = 8.0
+export var background_image = ""
 
 func save_data():
 	g.remove_empty_albums()

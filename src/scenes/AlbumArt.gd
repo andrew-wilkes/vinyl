@@ -2,6 +2,9 @@ extends Control
 
 const RPMS = { "speed33": "33 1/3", "speed45": "45", "speed78": "78" }
 const SIZES = { "size12": "12", "size7": "7", "size10": "10" }
+const osx_dirs = ["/System/Library/Fonts/", "/Library/Fonts/", "~/Library/Fonts/"]
+const linux_dirs = ["/usr/share/fonts", "~/.fonts"]
+const windows_dirs = ["%WINDIR%/Fonts", "%appdata%/Local/Microsoft/Windows/Fonts"]
 
 enum { PICK_MOD, PICK_FILL }
 
@@ -171,6 +174,24 @@ func _on_Color_popup_hide():
 
 func _on_ArtDesigner_font_button_pressed():
 	art.disable_input()
+	if g.settings.last_font_dir.empty():
+		var dir = Directory.new()
+		match OS.get_name():
+			"OSX":
+				for fd in osx_dirs:
+					if dir.dir_exists(fd):
+						g.settings.last_font_dir = fd
+						break
+			"Windows":
+				for fd in windows_dirs:
+					if dir.dir_exists(fd):
+						g.settings.last_font_dir = fd
+						break
+			"X11":
+				for fd in linux_dirs:
+					if dir.dir_exists(fd):
+						g.settings.last_font_dir = fd
+						break
 	$c/FontSelector.current_dir = g.settings.last_font_dir
 	$c/FontSelector.current_file = ""
 	$c/FontSelector.popup_centered()

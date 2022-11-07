@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/AlbumArt.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/AlbumSelector.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ArtDesigner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/TextPanel.gd" type="Script" id=9]
+[ext_resource path="res://scenes/ImageSelector.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ButtonGroup" id=3]
 resource_name = "Canvas"
@@ -149,7 +150,7 @@ rect_min_size = Vector2( 200, 0 )
 [node name="CanvasMenu" type="VBoxContainer" parent="VB/Content/LeftCol"]
 margin_top = 208.0
 margin_right = 200.0
-margin_bottom = 607.0
+margin_bottom = 509.0
 custom_constants/separation = 10
 
 [node name="Label4" type="Label" parent="VB/Content/LeftCol/CanvasMenu"]
@@ -203,6 +204,7 @@ group = SubResource( 2 )
 text = "Suggest Text"
 
 [node name="ConfigureStyles" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+visible = false
 margin_top = 311.0
 margin_right = 200.0
 margin_bottom = 350.0
@@ -211,6 +213,7 @@ group = SubResource( 2 )
 text = "Configure Styles"
 
 [node name="GenerateStyles" type="Button" parent="VB/Content/LeftCol/CanvasMenu"]
+visible = false
 margin_top = 360.0
 margin_right = 200.0
 margin_bottom = 399.0
@@ -313,14 +316,7 @@ margin_right = 193.0
 margin_bottom = 39.0
 text = "OK"
 
-[node name="ImageSelector" type="FileDialog" parent="c"]
-margin_right = 732.0
-margin_bottom = 415.0
-theme = ExtResource( 6 )
-window_title = "Open a File"
-mode = 0
-access = 2
-filters = PoolStringArray( "*.jpg, *.png, *.webp ; Supported Image Files" )
+[node name="ImageSelector" parent="c" instance=ExtResource( 10 )]
 
 [node name="FontSelector" type="FileDialog" parent="c"]
 margin_right = 778.0
