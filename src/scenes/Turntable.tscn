@@ -312,12 +312,26 @@ margin_right = -11.0
 margin_bottom = 178.0
 custom_constants/separation = 10
 
-[node name="DeckColor" type="ColorPickerButton" parent="c/Controls"]
-unique_name_in_owner = true
+[node name="VB" type="VBoxContainer" parent="c/Controls"]
 margin_right = 32.0
 margin_bottom = 162.0
+custom_constants/separation = 10
+
+[node name="DeckColor" type="ColorPickerButton" parent="c/Controls/VB"]
+unique_name_in_owner = true
+margin_right = 32.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 32, 0 )
 color = Color( 0.0941176, 0.188235, 0.556863, 1 )
+edit_alpha = false
+
+[node name="CartColor" type="ColorPickerButton" parent="c/Controls/VB"]
+unique_name_in_owner = true
+margin_top = 30.0
+margin_right = 32.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 32, 0 )
+color = Color( 0.764706, 0.466667, 0, 1 )
 edit_alpha = false
 
 [node name="Vol" type="VBoxContainer" parent="c/Controls"]
@@ -434,7 +448,8 @@ centered = false
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Eject" to="." method="_on_Eject_pressed"]
 [connection signal="draw" from="c/Controls" to="." method="_on_Vol_draw"]
-[connection signal="color_changed" from="c/Controls/DeckColor" to="." method="_on_DeckColor_color_changed"]
+[connection signal="color_changed" from="c/Controls/VB/DeckColor" to="." method="_on_DeckColor_color_changed"]
+[connection signal="color_changed" from="c/Controls/VB/CartColor" to="." method="_on_CartColor_color_changed"]
 [connection signal="value_changed" from="c/Controls/Vol/VolSlider" to="." method="_on_VolSlider_value_changed"]
 [connection signal="file_selected" from="c/ImageSelector" to="." method="_on_ImageSelector_file_selected"]
 [connection signal="input_event" from="Disc/Area" to="." method="_on_disc_input_event"]

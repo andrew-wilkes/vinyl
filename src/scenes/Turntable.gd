@@ -20,6 +20,7 @@ onready var support = find_node("SupportPin")
 onready var lever_handle = find_node("LeverHandle")
 onready var led = find_node("Led").mesh.surface_get_material(0)
 onready var deck = find_node("Deck").mesh.surface_get_material(0)
+onready var cart = find_node("Cartridge").mesh.surface_get_material(0)
 onready var lever_handle_shader = lever_handle.mesh.surface_get_material(0).next_pass
 onready var switch_handle_shader = switch.mesh.surface_get_material(0).next_pass
 onready var arm_handle_shader = arm_handle.mesh.surface_get_material(0).next_pass
@@ -83,7 +84,9 @@ func _ready():
 		get_node("%Details").hide()
 		set_process(false)
 	set_deck_color(g.settings.deck_color)
+	set_cart_color(g.settings.cart_color)
 	get_node("%DeckColor").color = g.settings.deck_color
+	get_node("%CartColor").color = g.settings.cart_color
 
 
 func get_data_texture(idata):
@@ -118,8 +121,12 @@ func set_led_color(idx):
 	target_speed = g.RPMS.values()[idx]
 
 
-func set_deck_color(col):
-	deck.set("albedo_color", col)
+func set_deck_color(color):
+	deck.set("albedo_color", color)
+
+
+func set_cart_color(color):
+	cart.set("albedo_color", color)
 
 
 func relocate_collision_area(src: Spatial, dest: Spatial):
@@ -490,3 +497,8 @@ func _on_Close_pressed():
 func _on_DeckColor_color_changed(color):
 	g.settings.deck_color = color
 	set_deck_color(color)
+
+
+func _on_CartColor_color_changed(color):
+	g.settings.cart_color = color
+	set_cart_color(color)
