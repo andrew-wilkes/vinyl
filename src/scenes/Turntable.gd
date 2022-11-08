@@ -46,6 +46,7 @@ var play_state = NOT_PLAYING
 var album
 var timelines = []
 var not_updating_track_name = true
+var side_playing = 0
 
 func _ready():
 	$c/Vol/VolSlider.value = g.settings.volume
@@ -153,7 +154,8 @@ func _process(delta):
 	if rpm > target_speed:
 		rpm -= 66 * delta
 	if rpm > 0:
-		$Disc.rotate_y(clamp(rpm, 0.0, -target_speed) / 30.0 * delta)
+		var ang = clamp(rpm, 0.0, -target_speed) / 30.0 * delta
+		$Disc.rotate_y(ang)
 		set_dot_position()
 	if mode == MOVING_HANDLE: return
 
@@ -250,7 +252,7 @@ func needle_on_record():
 
 func set_dot_position():
 	var np = needle.global_translation
-	#if side > 0: np *= Vector3(-1, 1, -1)
+	if side_playing > 0: np *= Vector3(-1, 1, -1)
 	var pos = Vector2(np.x / 1.55, np.z / 1.55).rotated($Disc.rotation.y)
 	if np.y <= 0.164: pos = Vector2.ZERO
 	$Disc.get_surface_material(0).set_shader_param("dot_position", pos)
@@ -402,9 +404,9 @@ func _on_Play_pressed():
 	get_node("%Play").disabled = true
 	record_state = MOVING_DISC
 	# Make the correct side up
-	$Disc.rotation.x = 0.0 if side == 0 else PI
-	$Disc.rotation.y = 0.0 if side == 0 else PI
-	$Disc.rotation.z = 0.0
+	$Disc.rotation = Vector3.ZERO
+	if side == 1: $Disc.rotate_z(PI)
+	side_playing = side
 	var tween = create_tween()
 	# Doesn't work if parameter is called alpha (thinks it's an INT)
 	tween.tween_property($Disc.get_surface_material(0), "shader_param/alphav", 1.0, 0.5) #.from_current()
@@ -448,6 +450,7 @@ func resize_bg():
 
 
 func _on_Picture_pressed():
+	$c/ImageSelector.current_dir = g.settings.last_image_dir
 	$c/ImageSelector.popup_centered()
 
 
@@ -464,3 +467,4 @@ func _on_ImageSelector_file_selected(path):
 func set_bg_image(path):
 	var tex = g.get_resized_texture(path)
 	get_node("%Background").texture = tex.texture
+	resize_bg()

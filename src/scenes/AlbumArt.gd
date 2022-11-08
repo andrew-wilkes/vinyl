@@ -140,6 +140,7 @@ func _on_ImageSelector_file_selected(path):
 
 func _on_ArtDesigner_bg_texture_button_pressed():
 	art.disable_input()
+	$c/ImageSelector.current_dir = g.settings.last_image_dir
 	$c/ImageSelector.popup_centered()
 
 
