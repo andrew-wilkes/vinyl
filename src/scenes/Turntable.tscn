@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://assets/info.png" type="Texture" id=18]
 [ext_resource path="res://assets/picture.png" type="Texture" id=19]
 [ext_resource path="res://scenes/ImageSelector.tscn" type="PackedScene" id=20]
+[ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
+[ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.19
@@ -163,13 +165,21 @@ icon = ExtResource( 18 )
 [node name="HB2" type="HBoxContainer" parent="c/M/VB"]
 margin_top = 117.0
 margin_right = 779.0
-margin_bottom = 479.0
+margin_bottom = 495.0
 mouse_filter = 2
+
+[node name="Open" type="Button" parent="c/M/VB/HB2"]
+unique_name_in_owner = true
+visible = false
+margin_right = 32.0
+margin_bottom = 378.0
+hint_tooltip = "Show details"
+icon = ExtResource( 21 )
 
 [node name="Details" type="PanelContainer" parent="c/M/VB/HB2"]
 unique_name_in_owner = true
 margin_right = 387.0
-margin_bottom = 362.0
+margin_bottom = 378.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
@@ -177,42 +187,60 @@ size_flags_horizontal = 3
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 377.0
-margin_bottom = 352.0
+margin_bottom = 368.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="Label" type="Label" parent="c/M/VB/HB2/Details/Items"]
+[node name="HB2" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_right = 367.0
-margin_bottom = 23.0
+margin_bottom = 39.0
+
+[node name="Label" type="Label" parent="c/M/VB/HB2/Details/Items/HB2"]
+margin_top = 8.0
+margin_right = 92.0
+margin_bottom = 31.0
 custom_fonts/font = ExtResource( 3 )
 text = "Album Title"
 
+[node name="Sp" type="Control" parent="c/M/VB/HB2/Details/Items/HB2"]
+margin_left = 96.0
+margin_right = 331.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="c/M/VB/HB2/Details/Items/HB2"]
+margin_left = 335.0
+margin_right = 367.0
+margin_bottom = 39.0
+hint_tooltip = "Hide"
+icon = ExtResource( 22 )
+
 [node name="Title" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
-margin_top = 33.0
+margin_top = 49.0
 margin_right = 367.0
-margin_bottom = 56.0
+margin_bottom = 72.0
 custom_fonts/font = ExtResource( 6 )
 
 [node name="Label2" type="Label" parent="c/M/VB/HB2/Details/Items"]
-margin_top = 66.0
+margin_top = 82.0
 margin_right = 367.0
-margin_bottom = 89.0
+margin_bottom = 105.0
 custom_fonts/font = ExtResource( 3 )
 text = "Band / Artist"
 
 [node name="Band" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
-margin_top = 99.0
+margin_top = 115.0
 margin_right = 367.0
-margin_bottom = 122.0
+margin_bottom = 138.0
 custom_fonts/font = ExtResource( 6 )
 
 [node name="HB" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
-margin_top = 132.0
+margin_top = 148.0
 margin_right = 367.0
-margin_bottom = 171.0
+margin_bottom = 187.0
 custom_constants/separation = 20
 
 [node name="HSlider" type="HSlider" parent="c/M/VB/HB2/Details/Items/HB"]
@@ -240,9 +268,9 @@ hint_tooltip = "Eject"
 icon = ExtResource( 9 )
 
 [node name="VPC" type="ViewportContainer" parent="c/M/VB/HB2/Details/Items"]
-margin_top = 181.0
+margin_top = 197.0
 margin_right = 367.0
-margin_bottom = 342.0
+margin_bottom = 358.0
 rect_min_size = Vector2( 0, 160 )
 
 [node name="Viewport" type="Viewport" parent="c/M/VB/HB2/Details/Items/VPC"]
@@ -257,7 +285,7 @@ unique_name_in_owner = true
 [node name="Control" type="Control" parent="c/M/VB/HB2"]
 margin_left = 391.0
 margin_right = 779.0
-margin_bottom = 362.0
+margin_bottom = 378.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
@@ -275,26 +303,40 @@ margin_top = 3.0
 margin_right = 640.0
 margin_bottom = 17.0
 
-[node name="Vol" type="VBoxContainer" parent="c"]
+[node name="Controls" type="HBoxContainer" parent="c"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -32.0
-margin_top = 19.0
-margin_right = -1.0
-margin_bottom = 181.0
+margin_left = -78.0
+margin_top = 16.0
+margin_right = -11.0
+margin_bottom = 178.0
 custom_constants/separation = 10
 
-[node name="VolSlider" type="VSlider" parent="c/Vol"]
+[node name="DeckColor" type="ColorPickerButton" parent="c/Controls"]
+unique_name_in_owner = true
+margin_right = 32.0
+margin_bottom = 162.0
+rect_min_size = Vector2( 32, 0 )
+color = Color( 0.0941176, 0.188235, 0.556863, 1 )
+edit_alpha = false
+
+[node name="Vol" type="VBoxContainer" parent="c/Controls"]
+margin_left = 42.0
+margin_right = 67.0
+margin_bottom = 162.0
+
+[node name="VolSlider" type="VSlider" parent="c/Controls/Vol"]
+unique_name_in_owner = true
 margin_right = 16.0
-margin_bottom = 129.0
+margin_bottom = 135.0
 size_flags_vertical = 3
 max_value = 8.0
 step = 0.1
 value = 3.7
 
-[node name="Label" type="Label" parent="c/Vol"]
+[node name="Label" type="Label" parent="c/Controls/Vol"]
 margin_top = 139.0
-margin_right = 31.0
+margin_right = 25.0
 margin_bottom = 162.0
 custom_fonts/font = ExtResource( 3 )
 text = "Vol"
@@ -387,10 +429,13 @@ centered = false
 [connection signal="mouse_exited" from="SwitchArea" to="." method="_on_SwitchArea_mouse_exited"]
 [connection signal="pressed" from="c/M/VB/HB/GC/Picture" to="." method="_on_Picture_pressed"]
 [connection signal="pressed" from="c/M/VB/HB/GC/Info" to="." method="_on_Info_pressed"]
+[connection signal="pressed" from="c/M/VB/HB2/Open" to="." method="_on_Open_pressed"]
+[connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB2/Close" to="." method="_on_Close_pressed"]
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Eject" to="." method="_on_Eject_pressed"]
-[connection signal="draw" from="c/Vol" to="." method="_on_Vol_draw"]
-[connection signal="value_changed" from="c/Vol/VolSlider" to="." method="_on_VolSlider_value_changed"]
+[connection signal="draw" from="c/Controls" to="." method="_on_Vol_draw"]
+[connection signal="color_changed" from="c/Controls/DeckColor" to="." method="_on_DeckColor_color_changed"]
+[connection signal="value_changed" from="c/Controls/Vol/VolSlider" to="." method="_on_VolSlider_value_changed"]
 [connection signal="file_selected" from="c/ImageSelector" to="." method="_on_ImageSelector_file_selected"]
 [connection signal="input_event" from="Disc/Area" to="." method="_on_disc_input_event"]
 [connection signal="mouse_entered" from="Disc/Area" to="." method="_on_disc_mouse_entered"]

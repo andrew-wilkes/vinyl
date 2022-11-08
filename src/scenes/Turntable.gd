@@ -19,6 +19,7 @@ onready var weight = find_node("Weight")
 onready var support = find_node("SupportPin")
 onready var lever_handle = find_node("LeverHandle")
 onready var led = find_node("Led").mesh.surface_get_material(0)
+onready var deck = find_node("Deck").mesh.surface_get_material(0)
 onready var lever_handle_shader = lever_handle.mesh.surface_get_material(0).next_pass
 onready var switch_handle_shader = switch.mesh.surface_get_material(0).next_pass
 onready var arm_handle_shader = arm_handle.mesh.surface_get_material(0).next_pass
@@ -49,7 +50,7 @@ var not_updating_track_name = true
 var side_playing = 0
 
 func _ready():
-	$c/Vol/VolSlider.value = g.settings.volume
+	get_node("%VolSlider").value = g.settings.volume
 	audio = Audio.new($Audio)
 	set_led_color(0)
 	relocate_collision_area($LeverArea, lever_handle)
@@ -81,6 +82,8 @@ func _ready():
 	else:
 		get_node("%Details").hide()
 		set_process(false)
+	set_deck_color(g.settings.deck_color)
+	get_node("%DeckColor").color = g.settings.deck_color
 
 
 func get_data_texture(idata):
@@ -113,6 +116,10 @@ func get_mod_data(length, value = 255.0):
 func set_led_color(idx):
 	led.set("albedo_color", LED_COLORS[idx])
 	target_speed = g.RPMS.values()[idx]
+
+
+func set_deck_color(col):
+	deck.set("albedo_color", col)
 
 
 func relocate_collision_area(src: Spatial, dest: Spatial):
@@ -435,7 +442,7 @@ func _on_VolSlider_value_changed(value):
 	g.settings.volume = value
 	var db = -pow(8.0 - value, 1.8)
 	AudioServer.set_bus_volume_db(0, db)
-	$c/Vol/VolSlider.hint_tooltip = "%d db" % db
+	get_node("%VolSlider").hint_tooltip = "%d db" % db
 
 
 func _on_Vol_draw():
@@ -468,3 +475,18 @@ func set_bg_image(path):
 	var tex = g.get_resized_texture(path)
 	get_node("%Background").texture = tex.texture
 	resize_bg()
+
+
+func _on_Open_pressed():
+	get_node("%Details").visible = true
+	get_node("%Open").visible = false
+
+
+func _on_Close_pressed():
+	get_node("%Details").visible = false
+	get_node("%Open").visible = true
+
+
+func _on_DeckColor_color_changed(color):
+	g.settings.deck_color = color
+	set_deck_color(color)
