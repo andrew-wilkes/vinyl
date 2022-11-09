@@ -113,9 +113,10 @@ margin_top = 20.0
 margin_right = 1260.0
 margin_bottom = 59.0
 theme = ExtResource( 12 )
+custom_constants/separation = 10
 
 [node name="Sp" type="Control" parent="c2/M/TopBar"]
-margin_right = 1194.0
+margin_right = 1188.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 

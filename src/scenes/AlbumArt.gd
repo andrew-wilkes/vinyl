@@ -32,6 +32,13 @@ func _ready():
 		var _e = b.connect("pressed", self, "change_canvas", [idx])
 		idx += 1
 	art.disable_input()
+	$"%BgColor".color = g.settings.bg_color
+	$"%FgColor".color = g.settings.fg_color
+	set_panel_color(g.settings.fg_color)
+
+
+func set_panel_color(color):
+	theme.get_stylebox("panel", "PanelContainer").bg_color = color
 
 
 func change_canvas(idx):
@@ -203,3 +210,13 @@ func _on_FontSelector_file_selected(path):
 	g.settings.last_font_dir = path.get_base_dir()
 	art.current_element.font_path = path
 	art.update_element_font(path)
+
+
+func _on_BgColor_color_changed(color):
+	g.set_bg_color(color)
+	g.settings.bg_color = color
+
+
+func _on_FgColor_color_changed(color):
+	g.settings.fg_color = color
+	set_panel_color(color)

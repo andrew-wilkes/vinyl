@@ -10,11 +10,17 @@ var current_album_id
 func _init():
 	settings = Settings.new()
 	settings = settings.load_data()
+	set_bg_color(settings.bg_color)
 	pass #settings.albums.clear()
 	default_art.append(load("res://assets/a-side.png"))
 	default_art.append(load("res://assets/b-side.png"))
 	default_art.append(load("res://assets/cover-front.png"))
 	default_art.append(load("res://assets/cover-rear.png"))
+
+
+func set_bg_color(color):
+	VisualServer.set_default_clear_color(color)
+
 
 func _unhandled_input(event):
 	if event is InputEventKey:
@@ -30,6 +36,7 @@ func _notification(what):
 
 func save_and_quit():
 	if get_parent().get_child(1).name == "Main":
+		settings.save_data()
 		get_tree().quit()
 	else:
 		settings.save_data()

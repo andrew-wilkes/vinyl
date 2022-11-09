@@ -13,6 +13,8 @@ export var volume = 8.0
 export var background_image = ""
 export var deck_color = 0x050d42
 export var cart_color = 0xe19400
+export var bg_color = 0x185d75
+export var fg_color = 0x2f8cac
 
 func save_data():
 	g.remove_empty_albums()
