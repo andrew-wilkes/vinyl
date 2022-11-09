@@ -34,11 +34,6 @@ func _ready():
 	art.disable_input()
 	$"%BgColor".color = g.settings.bg_color
 	$"%FgColor".color = g.settings.fg_color
-	set_panel_color(g.settings.fg_color)
-
-
-func set_panel_color(color):
-	theme.get_stylebox("panel", "PanelContainer").bg_color = color
 
 
 func change_canvas(idx):
@@ -219,4 +214,4 @@ func _on_BgColor_color_changed(color):
 
 func _on_FgColor_color_changed(color):
 	g.settings.fg_color = color
-	set_panel_color(color)
+	g.set_panel_color(theme)

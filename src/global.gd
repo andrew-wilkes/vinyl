@@ -18,8 +18,16 @@ func _init():
 	default_art.append(load("res://assets/cover-rear.png"))
 
 
+func _ready():
+	set_panel_color(get_parent().get_child(1).theme)
+
+
 func set_bg_color(color):
 	VisualServer.set_default_clear_color(color)
+
+
+func set_panel_color(theme):
+	theme.get_stylebox("panel", "PanelContainer").bg_color = settings.fg_color
 
 
 func _unhandled_input(event):
