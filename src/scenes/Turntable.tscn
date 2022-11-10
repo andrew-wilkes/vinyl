@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://scenes/ImageSelector.tscn" type="PackedScene" id=20]
 [ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
+[ext_resource path="res://assets/hdri/pool_4k.exr" type="Texture" id=23]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.19
@@ -60,8 +61,16 @@ shader_param/label_b = ExtResource( 13 )
 height = 0.003
 radius = 0.148
 
-[sub_resource type="Environment" id=8]
-background_mode = 4
+[sub_resource type="PanoramaSky" id=8]
+panorama = ExtResource( 23 )
+
+[sub_resource type="Environment" id=9]
+background_mode = 2
+background_sky = SubResource( 8 )
+background_energy = 0.21
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.74
+ambient_light_sky_contribution = 0.0
 
 [node name="Turntable" type="Spatial"]
 script = ExtResource( 7 )
@@ -424,10 +433,11 @@ depth = 0.248566
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 8 )
+environment = SubResource( 9 )
 
 [node name="Background" type="Sprite" parent="WorldEnvironment"]
 unique_name_in_owner = true
+visible = false
 z_index = -1
 texture = ExtResource( 17 )
 centered = false

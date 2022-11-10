@@ -65,6 +65,7 @@ func _ready():
 		resize_bg()
 	if g.current_album_id:
 		album = g.settings.albums[g.current_album_id]
+	if g.current_album_id and not album.title.empty():
 		get_node("%Title").text = album.title
 		get_node("%Band").text = album.band
 		get_node("%Details").show()
