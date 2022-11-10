@@ -119,6 +119,8 @@ func remove_empty_albums():
 			ids.append(id)
 	for id in ids:
 		settings.albums.erase(id)
+		if current_album_id == id:
+			current_album_id = null
 
 
 func set_album_property(prop, value):
