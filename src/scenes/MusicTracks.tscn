@@ -103,7 +103,6 @@ select_mode = 1
 [node name="c" type="CanvasLayer" parent="."]
 
 [node name="FileDialog" type="FileDialog" parent="c"]
-visible = true
 margin_left = 109.0
 margin_top = 82.0
 margin_right = 792.0

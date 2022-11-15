@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/regular.tres" type="DynamicFont" id=6]
 [ext_resource path="res://scenes/Turntable.gd" type="Script" id=7]
-[ext_resource path="res://assets/turntable.glb" type="PackedScene" id=8]
+[ext_resource path="res://assets/arm.glb" type="PackedScene" id=8]
 [ext_resource path="res://assets/eject-record.png" type="Texture" id=9]
 [ext_resource path="res://assets/play-record.png" type="Texture" id=10]
 [ext_resource path="res://scenes/Record.tscn" type="PackedScene" id=11]
@@ -22,7 +22,9 @@
 [ext_resource path="res://scenes/ImageSelector.tscn" type="PackedScene" id=20]
 [ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
-[ext_resource path="res://assets/hdri/pool_4k.exr" type="Texture" id=23]
+[ext_resource path="res://assets/deck.glb" type="PackedScene" id=23]
+[ext_resource path="res://assets/arm-base.glb" type="PackedScene" id=24]
+[ext_resource path="res://assets/support.glb" type="PackedScene" id=25]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.19
@@ -62,7 +64,6 @@ height = 0.003
 radius = 0.148
 
 [sub_resource type="PanoramaSky" id=8]
-panorama = ExtResource( 23 )
 
 [sub_resource type="Environment" id=9]
 background_mode = 2
@@ -74,9 +75,20 @@ ambient_light_sky_contribution = 0.0
 
 [node name="Turntable" type="Spatial"]
 script = ExtResource( 7 )
+theme = ExtResource( 4 )
 
-[node name="deck" parent="." instance=ExtResource( 8 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
+[node name="deck" parent="." instance=ExtResource( 23 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="support" parent="deck" instance=ExtResource( 25 )]
+
+[node name="arm-base" parent="deck" instance=ExtResource( 24 )]
+
+[node name="arm" type="Position3D" parent="deck/arm-base"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71019, 0.756099, 1.21021 )
+
+[node name="arm2" parent="deck/arm-base/arm" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71019, -0.756099, -1.21021 )
 
 [node name="OrbitCamera" parent="." instance=ExtResource( 5 )]
 
@@ -88,13 +100,13 @@ transform = Transform( 1, 0, 0, 0, 1, 3.72529e-09, 0, 0, 1, 0, -0.073812, 5.2860
 visible = false
 
 [node name="DirectionalLight" parent="OrbitCamera/YAxis/XAxis" index="1"]
-transform = Transform( 0.183247, 0.971622, 0.14957, -0.956496, 0.141084, 0.255363, 0.227014, -0.189857, 0.955205, 0, 0, 0 )
+transform = Transform( 0.694733, 0.410525, 0.590607, -0.7176, 0.45149, 0.530289, -0.0489561, -0.792228, 0.608257, 0, 0, 0 )
 visible = true
 light_energy = 1.879
+shadow_enabled = true
 
 [node name="DirectionalLight2" parent="OrbitCamera/YAxis/XAxis" index="2"]
 transform = Transform( 0.967362, 0.165005, 0.192312, 0.088716, 0.490364, -0.86699, -0.237361, 0.855755, 0.45972, 3.95064, 8.27146, -0.530499 )
-visible = true
 light_specular = 0.013
 
 [node name="LeverArea" type="Area" parent="."]
@@ -299,18 +311,18 @@ mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="Cent" type="CenterContainer" parent="c"]
-anchor_top = 0.974
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.983
-margin_top = -14.0
+anchor_bottom = 1.0
+margin_top = -22.0
+margin_bottom = -8.0
 mouse_filter = 2
 
 [node name="TrackName" type="Label" parent="c/Cent"]
 unique_name_in_owner = true
 margin_left = 640.0
-margin_top = 3.0
 margin_right = 640.0
-margin_bottom = 17.0
+margin_bottom = 14.0
 
 [node name="Controls" type="HBoxContainer" parent="c"]
 anchor_left = 1.0
@@ -406,29 +418,31 @@ visible = false
 shape = SubResource( 6 )
 
 [node name="P1" type="Position3D" parent="."]
-transform = Transform( 0.96335, -0.0355146, -0.265886, 0, 0.991197, -0.132395, 0.268247, 0.127543, 0.95487, 1.803, 0.434771, -0.807425 )
+transform = Transform( 0.999993, -0.000488689, 0.00371754, 0.000488692, 1, 0, -0.00371754, 1.81673e-06, 0.999993, 1.70861, 0.434771, -1.21518 )
 visible = false
 
 [node name="Needle" type="Position3D" parent="P1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.200565, 1.9235 )
+transform = Transform( 1, -4.84945e-12, 0, 1.43451e-10, 1, 0, -2.32831e-09, 0, 1, -0.422677, -0.230073, 2.2507 )
 
-[node name="P0" type="Position3D" parent="P1/Needle"]
-transform = Transform( 0.96335, -3.9972e-09, 0.268247, -0.0355146, 0.991197, 0.127542, -0.265886, -0.132395, 0.954869, 0, 0, 0 )
-
-[node name="Tip" type="Position3D" parent="P1"]
-transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, -0.208005, 1.9235 )
+[node name="Tip" type="Position3D" parent="P1/Needle"]
+transform = Transform( 1, -4.88853e-12, 0, -4.57341e-11, 0.999999, -4.54747e-12, 6.98492e-10, -1.81899e-12, 0.999999, -1.90735e-06, -0.0107188, -1.19209e-07 )
 
 [node name="CSGBox" type="CSGBox" parent="P1"]
-transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0.00257176, 1.71609 )
+transform = Transform( 0.878525, 1.48004e-10, -0.477695, -1.29905e-10, 0.999999, 7.09207e-11, 0.477695, -2.50661e-13, 0.878525, -0.322917, 0.00257176, 2.07376 )
 width = 0.261165
 height = 0.073918
 depth = 0.525536
 
-[node name="CSGBox2" type="CSGBox" parent="P1"]
-transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, -0.0988671, 1.8175 )
+[node name="CSGBox2" type="CSGBox" parent="P1/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101439, 0.10141 )
 width = 0.134299
 height = 0.122767
 depth = 0.248566
+
+[node name="Arm" type="CSGCylinder" parent="P1"]
+transform = Transform( 0.999967, -0.00811569, 3.54748e-10, 0, -4.37114e-08, -1, 0.00811569, 0.999967, -4.37099e-08, 0, 0, 0 )
+radius = 0.062
+height = 1.708
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 
@@ -441,6 +455,37 @@ visible = false
 z_index = -1
 texture = ExtResource( 17 )
 centered = false
+
+[node name="InnerGroove" type="CSGCylinder" parent="."]
+visible = false
+radius = 0.6
+height = 0.002
+sides = 32
+
+[node name="Stand" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.709, -0.112025, -0.655 )
+visible = false
+width = 0.124
+height = 0.875
+depth = 0.089
+
+[node name="CSGBox2" type="CSGBox" parent="Stand"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.456228, 0 )
+width = 0.212
+height = 0.037
+depth = 0.034
+
+[node name="DL1" type="DirectionalLight" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.14011, -1.17937, 5.09483 )
+
+[node name="DL2" type="DirectionalLight" parent="."]
+transform = Transform( -3.91338e-08, -0.44551, 0.895277, -1.94739e-08, 0.895277, 0.44551, -1, 0, -4.37114e-08, -5.64301, 0, 3.394 )
+
+[node name="DL3" type="DirectionalLight" parent="."]
+transform = Transform( 0.0202966, 0.514294, -0.857374, 0.0338099, 0.856707, 0.514694, 0.999222, -0.0394342, 1.30284e-08, -4.09662, 0, 3.394 )
+
+[node name="DL4" type="DirectionalLight" parent="."]
+transform = Transform( 0.932406, 0.361413, 0, -0.361413, 0.932406, 0, 0, 0, 1, -2.34142, 0, 3.394 )
 
 [connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
 [connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]

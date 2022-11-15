@@ -34,6 +34,8 @@ func _ready():
 	art.disable_input()
 	$"%BgColor".color = g.settings.bg_color
 	$"%FgColor".color = g.settings.fg_color
+	for node in $c.get_children():
+		node.theme = theme
 
 
 func change_canvas(idx):

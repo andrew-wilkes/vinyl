@@ -2,6 +2,7 @@ extends Control
 
 func _ready():
 	$c2/M.theme = theme
+	$c2/AboutDialog.theme = theme
 
 
 func _on_Tracks_pressed():

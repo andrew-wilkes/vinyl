@@ -27,7 +27,14 @@ func set_bg_color(color):
 
 
 func set_panel_color(theme):
+	theme.get_stylebox("normal", "Button").bg_color = settings.fg_color * 0.615
+	theme.get_stylebox("pressed", "Button").bg_color = settings.fg_color * 0.744
+	theme.get_stylebox("hover", "Button").bg_color = settings.fg_color * 0.846
+	theme.get_stylebox("disabled", "Button").bg_color = settings.fg_color
 	theme.get_stylebox("panel", "PanelContainer").bg_color = settings.fg_color
+	theme.get_stylebox("panel", "WindowDialog").border_color = settings.fg_color
+	#print(theme.get_stylebox_types())
+	#print(theme.get_stylebox_list("Button"))
 
 
 func _unhandled_input(event):

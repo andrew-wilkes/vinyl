@@ -16,7 +16,7 @@ onready var lever: MeshInstance = find_node("Lever")
 onready var platter = find_node("Platter")
 onready var switch = find_node("Switch")
 onready var weight = find_node("Weight")
-onready var support = find_node("SupportPin")
+onready var support = find_node("Support")
 onready var lever_handle = find_node("LeverHandle")
 onready var led = find_node("Led").mesh.surface_get_material(0)
 onready var deck = find_node("Deck").mesh.surface_get_material(0)
@@ -49,6 +49,8 @@ var album
 var timelines = []
 var not_updating_track_name = true
 var side_playing = 0
+var record_loaded = false
+export(Theme) var theme
 
 func _ready():
 	get_node("%VolSlider").value = g.settings.volume
@@ -81,13 +83,14 @@ func _ready():
 		$Disc.get_surface_material(0).set_shader_param("radius_mod_a", get_data_texture(timelines[0]))
 		timelines.append(get_mod_array(album.b_side))
 		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
+		record_loaded = true
 	else:
 		get_node("%Details").hide()
-		set_process(false)
 	set_deck_color(g.settings.deck_color)
 	set_cart_color(g.settings.cart_color)
 	get_node("%DeckColor").color = g.settings.deck_color
 	get_node("%CartColor").color = g.settings.cart_color
+	$c.get_child(0).theme = theme
 
 
 func get_data_texture(idata):
@@ -138,6 +141,40 @@ func relocate_collision_area(src: Spatial, dest: Spatial):
 
 
 func _process(delta):
+	if rpm < target_speed:
+		rpm += 66 * delta # Take 0.5s to reach 33
+	if rpm > target_speed:
+		rpm -= 66 * delta
+	if rpm > 0:
+		var ang = clamp(rpm, 0.0, -target_speed) / 30.0 * delta
+		$Disc.rotate_y(ang)
+		set_dot_position()
+	if mode == MOVING_HANDLE: return
+	if Input.is_key_pressed(KEY_1):
+		prints(arm_base.rotation, needle.global_translation)
+		prints(support.translation.y)
+		print(arm.rotation.x)
+	# Move support in relation to lever position 0 .. 1
+	if lever_pos >= support_pos:
+		support_pos = lever_pos
+	else:
+		support_pos -= delta * 1.0
+	# Map the 0 .. 1 value to the y translation of the support arm
+	support.translation.y = lerp(0.3987, 0.4377, support_pos)
+	
+	# Calculate the angle limit for the arm
+	angle_limit = atan((0.114 - support.translation.y) / 0.3952)
+	return
+	# Make arm fall if within angle_limit
+	if angle_limit > get_arm_angle() and arm_limit_y(): return
+	if get_arm_angle() < (angle_limit - 0.06):
+		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
+	else:
+		arm.transform = arm_transform
+		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
+		set_dot_position()
+	if not record_loaded: return
+	
 	check_play_state(delta)
 	if not_updating_track_name:
 		update_track_name(get_track())
@@ -163,37 +200,10 @@ func _process(delta):
 				get_node("%Eject").disabled = not area_clear
 		if v > 65: side = 0
 		if v > 85: side = 1
-	
-	if rpm < target_speed:
-		rpm += 66 * delta # Take 0.5s to reach 33
-	if rpm > target_speed:
-		rpm -= 66 * delta
-	if rpm > 0:
-		var ang = clamp(rpm, 0.0, -target_speed) / 30.0 * delta
-		$Disc.rotate_y(ang)
-		set_dot_position()
-	if mode == MOVING_HANDLE: return
 
-	if Input.is_key_pressed(KEY_1):
-		prints(arm_base.rotation, needle.global_translation)
-	# Move support in relation to lever position
-	if lever_pos >= support_pos:
-		support_pos = lever_pos
-	else:
-		support_pos -= delta * 1.0
-	support.translation.y = lerp(0.06, 0.114, support_pos)
-	
-	# Calculate the angle limit for the arm
-	angle_limit = atan((0.114 - support.translation.y) / 0.3952)
-	
-	# Make arm fall if within angle_limit
-	if angle_limit > get_arm_angle() and arm_limit_y(): return
-	if get_arm_angle() < (angle_limit - 0.06):
-		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
-	else:
-		arm.transform = arm_transform
-		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
-		set_dot_position()
+
+func get_arm_angle():
+	return (1.5708 - arm.rotation.x) * 11.162
 
 
 # It's possible to manually move the arm to go past the limits
@@ -313,6 +323,7 @@ func _unhandled_input(event):
 		match mode:
 			MOVING_LEVER:
 				lever.rotation.x = clamp(lever.rotation.x - event.relative.y * 0.01, -1.33, -0.73)
+				# Get a value between 0 and 1
 				lever_pos = (lever.rotation.x + 1.33) / (1.33 - 0.73)
 			MOVING_HANDLE:
 				if arm_limit_x(event.relative.x): return
@@ -395,10 +406,6 @@ func _on_SwitchArea_mouse_entered():
 
 func _on_SwitchArea_mouse_exited():
 	switch_handle_shader.set_shader_param("Level", 0.0)
-
-
-func get_arm_angle():
-	return (1.5708 - arm.rotation.x) * 11.162
 
 
 func _on_disc_mouse_entered():

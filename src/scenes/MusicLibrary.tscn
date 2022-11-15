@@ -27,6 +27,7 @@ roughness_texture_channel = 4
 
 [node name="Music" type="Spatial"]
 script = ExtResource( 2 )
+theme = ExtResource( 7 )
 
 [node name="OrbitCamera" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.894568, 0, -0.446932, 0, 1, 0, 0.446932, 0, 0.894568, 0, 0.694, 0.003 )
@@ -35,7 +36,7 @@ transform = Transform( 0.894568, 0, -0.446932, 0, 1, 0, 0.446932, 0, 0.894568, 0
 
 [node name="c" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="c"]
+[node name="M" type="MarginContainer" parent="c"]
 margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 2
@@ -45,7 +46,7 @@ custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 
-[node name="VB" type="VBoxContainer" parent="c/MarginContainer"]
+[node name="VB" type="VBoxContainer" parent="c/M"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 788.0
@@ -53,50 +54,50 @@ margin_bottom = 383.0
 mouse_filter = 2
 custom_constants/separation = 20
 
-[node name="HB" type="HBoxContainer" parent="c/MarginContainer/VB"]
+[node name="HB" type="HBoxContainer" parent="c/M/VB"]
 margin_right = 768.0
 margin_bottom = 97.0
 custom_constants/separation = 20
 
-[node name="Label" type="Label" parent="c/MarginContainer/VB/HB"]
+[node name="Label" type="Label" parent="c/M/VB/HB"]
 margin_right = 194.0
 margin_bottom = 97.0
 size_flags_vertical = 7
 custom_fonts/font = ExtResource( 4 )
 text = "Music Collection"
 
-[node name="Navigation" parent="c/MarginContainer/VB/HB" instance=ExtResource( 3 )]
+[node name="Navigation" parent="c/M/VB/HB" instance=ExtResource( 3 )]
 unique_name_in_owner = true
 margin_left = 214.0
 margin_right = 718.0
 margin_bottom = 97.0
 current_selection = 3
 
-[node name="C" type="CenterContainer" parent="c/MarginContainer/VB/HB"]
+[node name="C" type="CenterContainer" parent="c/M/VB/HB"]
 margin_left = 738.0
 margin_right = 768.0
 margin_bottom = 97.0
 
-[node name="Info" type="Button" parent="c/MarginContainer/VB/HB/C"]
+[node name="Info" type="Button" parent="c/M/VB/HB/C"]
 margin_top = 29.0
 margin_right = 30.0
 margin_bottom = 68.0
 icon = ExtResource( 8 )
 
-[node name="HB2" type="HBoxContainer" parent="c/MarginContainer/VB"]
+[node name="HB2" type="HBoxContainer" parent="c/M/VB"]
 margin_top = 117.0
 margin_right = 768.0
 margin_bottom = 363.0
 mouse_filter = 2
 
-[node name="Details" type="PanelContainer" parent="c/MarginContainer/VB/HB2"]
+[node name="Details" type="PanelContainer" parent="c/M/VB/HB2"]
 unique_name_in_owner = true
 margin_right = 382.0
 margin_bottom = 246.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="Items" type="VBoxContainer" parent="c/MarginContainer/VB/HB2/Details"]
+[node name="Items" type="VBoxContainer" parent="c/M/VB/HB2/Details"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 372.0
@@ -105,41 +106,41 @@ mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="Label" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="Label" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_right = 362.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 6 )
 text = "Album Title"
 
-[node name="Title" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="Title" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 33.0
 margin_right = 362.0
 margin_bottom = 56.0
 custom_fonts/font = ExtResource( 5 )
 
-[node name="Label2" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="Label2" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 66.0
 margin_right = 362.0
 margin_bottom = 89.0
 custom_fonts/font = ExtResource( 6 )
 text = "Band / Artist"
 
-[node name="Band" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="Band" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 99.0
 margin_right = 362.0
 margin_bottom = 122.0
 custom_fonts/font = ExtResource( 5 )
 
-[node name="Label3" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="Label3" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 132.0
 margin_right = 362.0
 margin_bottom = 155.0
 custom_fonts/font = ExtResource( 6 )
 text = "Side A"
 
-[node name="SideA" type="ItemList" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="SideA" type="ItemList" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 165.0
 margin_right = 362.0
@@ -147,14 +148,14 @@ margin_bottom = 174.0
 mouse_filter = 2
 auto_height = true
 
-[node name="Label4" type="Label" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="Label4" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 184.0
 margin_right = 362.0
 margin_bottom = 207.0
 custom_fonts/font = ExtResource( 6 )
 text = "Side B"
 
-[node name="SideB" type="ItemList" parent="c/MarginContainer/VB/HB2/Details/Items"]
+[node name="SideB" type="ItemList" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 217.0
 margin_right = 362.0
@@ -162,7 +163,7 @@ margin_bottom = 226.0
 mouse_filter = 2
 auto_height = true
 
-[node name="Control" type="Control" parent="c/MarginContainer/VB/HB2"]
+[node name="Control" type="Control" parent="c/M/VB/HB2"]
 margin_left = 386.0
 margin_right = 768.0
 margin_bottom = 246.0
@@ -189,6 +190,19 @@ Keyboard alternatives
 Shift + arrow keys to rotate shelves
 WASD keys to pan shelves
 Z and X keys to zoom in and out"
+
+[node name="Cent" type="CenterContainer" parent="c"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -22.0
+margin_bottom = -8.0
+
+[node name="AlbumTitle" type="Label" parent="c/Cent"]
+unique_name_in_owner = true
+margin_left = 640.0
+margin_right = 640.0
+margin_bottom = 14.0
 
 [node name="Floor" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 2 )
@@ -226,4 +240,4 @@ __meta__ = {
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 13 )
 
-[connection signal="pressed" from="c/MarginContainer/VB/HB/C/Info" to="." method="_on_Info_pressed"]
+[connection signal="pressed" from="c/M/VB/HB/C/Info" to="." method="_on_Info_pressed"]

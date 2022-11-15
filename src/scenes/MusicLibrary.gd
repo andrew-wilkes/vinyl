@@ -27,6 +27,7 @@ var selected_item
 var not_handled = true
 var accept_click = true
 var slots = PoolStringArray()
+export(Theme) var theme
 
 func _ready():
 	get_node("%Details").hide()
@@ -42,6 +43,7 @@ func _ready():
 		for item in $Albums.get_children():
 			if item.album_id == g.current_album_id:
 				select_item(item)
+	$c.get_child(0).theme = theme
 
 
 func add_album(material, album_id):
@@ -78,10 +80,12 @@ func get_album_pos(album_id):
 
 func edge_entered(item):
 	item.get_child(0).get_active_material(0).next_pass.set_shader_param("Level", 1.0)
+	$"%AlbumTitle".text = g.settings.albums[item.album_id].title
 
 
 func edge_exited(item):
 	item.get_child(0).get_active_material(0).next_pass.set_shader_param("Level", 0.0)
+	$"%AlbumTitle".text = ""
 
 
 func edge_input(_camera, event, _position, _normal, _shape_idx, item):

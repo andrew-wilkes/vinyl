@@ -129,14 +129,13 @@ text = "About"
 [node name="AboutDialog" type="AcceptDialog" parent="c2"]
 margin_right = 815.0
 margin_bottom = 524.0
-theme = ExtResource( 12 )
 window_title = "About"
 
 [node name="TabContainer" type="TabContainer" parent="c2/AboutDialog"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 807.0
-margin_bottom = 469.0
+margin_bottom = 488.0
 
 [node name="Author" type="RichTextLabel" parent="c2/AboutDialog/TabContainer"]
 anchor_right = 1.0
@@ -167,7 +166,7 @@ scroll_horizontal_enabled = false
 
 [node name="Text" type="Label" parent="c2/AboutDialog/TabContainer/Licences"]
 margin_right = 797.0
-margin_bottom = 1895.0
+margin_bottom = 1085.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Copyright © 2022 Andrew Wilkes
