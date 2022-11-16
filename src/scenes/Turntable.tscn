@@ -89,7 +89,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71019, 0.756099, 1.21021 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71019, -0.756099, -1.21021 )
 
 [node name="arm" type="Position3D" parent="deck/arm-base/arm-base2"]
-transform = Transform( 0.99543, 0.00280142, -0.0954572, 0, 0.99957, 0.0293348, 0.0954983, -0.0292007, 0.995001, -1.71019, 0.756099, 1.21021 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71019, 0.756099, 1.21021 )
 
 [node name="arm2" parent="deck/arm-base/arm-base2/arm" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71019, -0.756099, -1.21021 )

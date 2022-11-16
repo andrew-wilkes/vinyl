@@ -11,8 +11,8 @@ const GAP_LENGTH = 8
 
 var highlight_material = preload("res://assets/highlight.material")
 
-onready var arm = find_node("Arm")
-onready var arm_base = find_node("ArmBase")
+onready var arm = find_node("arm")
+onready var arm_base = find_node("arm-base")
 onready var arm_handle = find_node("Handle")
 onready var lever: MeshInstance = find_node("Lever")
 onready var platter = find_node("Platter")
@@ -164,19 +164,20 @@ func _process(delta):
 	# Map the 0 .. 1 value to the y translation of the support arm
 	support.translation.y = lerp(-0.055, 0.0, support_pos)
 	
-	# Calculate the angle limit for the arm
-	var b = 0.055 * tan(deg2rad(5.0))
-	angle_limit = rad2deg(atan(-support.translation.y / b))
+	# Get the angle limit for the arm
+	angle_limit = lerp(0.0, tan(deg2rad(5.0)), support.translation.y / 0.055)
 	if Input.is_key_pressed(KEY_2):
-		print(angle_limit)
-	return
+		prints(rad2deg(angle_limit), rad2deg(arm.rotation.x))
+
 	# Make arm fall if within angle_limit
-	if angle_limit > get_arm_angle() and arm_limit_y(): return
-	if get_arm_angle() < (angle_limit - 0.06):
+	#if angle_limit > arm.rotation.x: return #and arm_limit_y(): return
+	if arm.rotation.x > angle_limit + 0.1:
 		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
+		prints(rad2deg(arm.rotation.x), rad2deg(angle_limit))
+		pass
 	else:
 		arm.transform = arm_transform
-		arm.rotate_object_local(Vector3(1, 0, 0), -angle_limit)
+		arm.rotate_object_local(Vector3(1, 0, 0), angle_limit)
 		set_dot_position()
 	if not record_loaded: return
 	
@@ -208,7 +209,7 @@ func _process(delta):
 
 
 func get_arm_angle():
-	return (1.5708 - arm.rotation.x) * 11.162
+	return arm.rotation.x # (1.5708 - arm.rotation.x) * 11.162
 
 
 # It's possible to manually move the arm to go past the limits
