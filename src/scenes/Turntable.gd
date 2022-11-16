@@ -9,6 +9,8 @@ enum { NOT_PLAYING, PLAYING }
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const GAP_LENGTH = 8
 
+var highlight_material = preload("res://assets/highlight.material")
+
 onready var arm = find_node("Arm")
 onready var arm_base = find_node("ArmBase")
 onready var arm_handle = find_node("Handle")
@@ -16,14 +18,14 @@ onready var lever: MeshInstance = find_node("Lever")
 onready var platter = find_node("Platter")
 onready var switch = find_node("Switch")
 onready var weight = find_node("Weight")
-onready var support = find_node("Support")
+onready var support = find_node("support")
 onready var lever_handle = find_node("LeverHandle")
 onready var led = find_node("Led").mesh.surface_get_material(0)
 onready var deck = find_node("Deck").mesh.surface_get_material(0)
 onready var cart = find_node("Cartridge").mesh.surface_get_material(0)
-onready var lever_handle_shader = lever_handle.mesh.surface_get_material(0).next_pass
-onready var switch_handle_shader = switch.mesh.surface_get_material(0).next_pass
-onready var arm_handle_shader = arm_handle.mesh.surface_get_material(0).next_pass
+onready var lever_handle_material = lever_handle.mesh.surface_get_material(0)
+onready var switch_material = switch.mesh.surface_get_material(0)
+onready var arm_handle_material = arm_handle.mesh.surface_get_material(0)
 onready var disc_shader = $Disc.get_surface_material(0).next_pass
 onready var needle = find_node("Needle")
 
@@ -160,10 +162,13 @@ func _process(delta):
 	else:
 		support_pos -= delta * 1.0
 	# Map the 0 .. 1 value to the y translation of the support arm
-	support.translation.y = lerp(0.3987, 0.4377, support_pos)
+	support.translation.y = lerp(-0.055, 0.0, support_pos)
 	
 	# Calculate the angle limit for the arm
-	angle_limit = atan((0.114 - support.translation.y) / 0.3952)
+	var b = 0.055 * tan(deg2rad(5.0))
+	angle_limit = rad2deg(atan(-support.translation.y / b))
+	if Input.is_key_pressed(KEY_2):
+		print(angle_limit)
 	return
 	# Make arm fall if within angle_limit
 	if angle_limit > get_arm_angle() and arm_limit_y(): return
@@ -372,11 +377,11 @@ func _on_Lever_input_event(_camera, event, _position, _normal, _shape_idx):
 
 
 func _on_Lever_mouse_entered():
-	lever_handle_shader.set_shader_param("Level", 1.0)
+	lever_handle_material.next_pass = highlight_material
 
 
 func _on_Lever_mouse_exited():
-	lever_handle_shader.set_shader_param("Level", 0.0)
+	lever_handle_material.next_pass = null
 
 
 func _on_HandleArea_input_event(_camera, event, _position, _normal, _shape_idx):
@@ -387,11 +392,11 @@ func _on_HandleArea_input_event(_camera, event, _position, _normal, _shape_idx):
 
 
 func _on_HandleArea_mouse_entered():
-	arm_handle_shader.set_shader_param("Level", 1.0)
+	arm_handle_material.next_pass = highlight_material
 
 
 func _on_HandleArea_mouse_exited():
-	arm_handle_shader.set_shader_param("Level", 0.0)
+	arm_handle_material.next_pass = null
 
 
 func _on_SwitchArea_input_event(_camera, event, _position, _normal, _shape_idx):
@@ -401,11 +406,11 @@ func _on_SwitchArea_input_event(_camera, event, _position, _normal, _shape_idx):
 
 
 func _on_SwitchArea_mouse_entered():
-	switch_handle_shader.set_shader_param("Level", 1.0)
+	switch_material.next_pass = highlight_material
 
 
 func _on_SwitchArea_mouse_exited():
-	switch_handle_shader.set_shader_param("Level", 0.0)
+	switch_material.next_pass = null
 
 
 func _on_disc_mouse_entered():
