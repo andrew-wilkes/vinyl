@@ -167,15 +167,14 @@ func _process(delta):
 	# Get the angle limit for the arm
 	angle_limit = lerp(0.0, tan(deg2rad(5.0)), support.translation.y / 0.055)
 	if Input.is_key_pressed(KEY_2):
-		prints(rad2deg(angle_limit), rad2deg(arm.rotation.x))
+		prints(rad2deg(angle_limit), arm.rotation_degrees)
 
 	# Make arm fall if within angle_limit
-	#if angle_limit > arm.rotation.x: return #and arm_limit_y(): return
-	if arm.rotation.x > angle_limit + 0.1:
+	if arm.rotation.x > angle_limit and not arm_limit_y():
 		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
-		prints(rad2deg(arm.rotation.x), rad2deg(angle_limit))
-		pass
-	else:
+		d("Lowering")
+	if angle_limit > arm.rotation.x:
+		d("Following")
 		arm.transform = arm_transform
 		arm.rotate_object_local(Vector3(1, 0, 0), angle_limit)
 		set_dot_position()
@@ -208,31 +207,9 @@ func _process(delta):
 		if v > 85: side = 1
 
 
-func get_arm_angle():
-	return arm.rotation.x # (1.5708 - arm.rotation.x) * 11.162
-
-
 # It's possible to manually move the arm to go past the limits
 func arm_limit_y():
-	var limit = false
-	var np = needle.global_translation
-	set_dot_position()
-	if has_record:
-		if np.x < 1.124:
-			if np.y <= 0.164: limit = true
-		elif np.x < 1.241:
-			if np.y <= 0.116: limit = true
-		elif np.x < 1.398:
-			if np.y <= -0.003: limit = true
-	else:
-		if np.x < 1.046:
-			if np.y <= 0.144: limit = true
-		elif np.x < 1.158:
-			if np.y <= 0.098: limit = true
-		elif np.x < 1.296:
-			if np.y <= -0.021: limit = true
-	#elif np.y <= -0.086: limit = true # Limited by the support and angle of arm
-	return limit
+	return check_y_limit_depending_on_x(false)
 
 
 func check_play_state(delta):
@@ -289,31 +266,40 @@ func set_dot_position():
 	$Disc.get_surface_material(0).set_shader_param("dot_position", pos)
 
 
+# Limit left - right arm movement
 func arm_limit_x(dir):
 	var limit = false
-	var np = needle.global_translation
 	set_dot_position()
 	if dir < 0:
-		if has_record:
-			if np.x < 1.124:
-				if np.y <= 0.164: limit = true
-			elif np.x < 1.241:
-				if np.y <= 0.116: limit = true
-			elif np.x < 1.398:
-				if np.y <= -0.003: limit = true
-		else:
-			if np.x < 1.046:
-				if np.y <= 0.144: limit = true
-			elif np.x < 1.158:
-				if np.y <= 0.098: limit = true
-			elif np.x < 1.296:
-				if np.y <= -0.021: limit = true
-		if np.x <= 0.182: limit = true
-	elif np.x >= 2.28: limit = true
+		# Inner groove
+		if arm_base.rotation_degrees.y < -29.513:
+			limit = true
+		limit = check_y_limit_depending_on_x(limit)
+	else:
+		if arm_base.rotation_degrees.y >= 17.3:
+			limit = true
 	if has_record:
-		get_node("%Eject").disabled = np.x < 1.398
+		get_node("%Eject").disabled = arm_base.rotation_degrees.y < -0.848
 	elif record_state == CAN_PLAY:
-		get_node("%Play").disabled = np.x < 1.296
+		get_node("%Play").disabled = arm_base.rotation_degrees.y < -0.848
+	return limit
+
+
+func check_y_limit_depending_on_x(limit):
+	if has_record:
+		if arm_base.rotation_degrees.y < -4.127:
+			if arm.rotation_degrees.x <= 1.681: limit = true
+		elif arm_base.rotation_degrees.y < -2.451:
+			if arm.rotation_degrees.x <= -2.942: limit = true
+	else:
+		if arm_base.rotation_degrees.y < -7.521:
+			if arm.rotation_degrees.x <= -2.197: limit = true
+		elif arm_base.rotation_degrees.y < -7.139:
+			if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136: limit = true
+		elif arm_base.rotation_degrees.y < -5.444:
+			if arm.rotation_degrees.x <= -3.482: limit = true
+		elif arm_base.rotation_degrees.y < -5.068:
+			if arm.rotation_degrees.x <= -3.821 + (-5.068 - arm_base.rotation_degrees.y) * 0.902: limit = true
 	return limit
 
 
@@ -334,14 +320,12 @@ func _unhandled_input(event):
 			MOVING_HANDLE:
 				if arm_limit_x(event.relative.x): return
 				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.005)
-				var new_arm_angle = arm_angle + event.relative.y * 0.002
 				if event.relative.y > 0:
-					if new_arm_angle > angle_limit or arm_limit_y(): return
+					if arm.rotation.x < angle_limit or arm_limit_y(): return
 				else:
-					if new_arm_angle < -0.4: return
-				arm_angle = new_arm_angle
-				arm.transform = arm_transform
-				arm.rotate_object_local(Vector3(1, 0, 0), -arm_angle)
+					if arm.rotation_degrees.x > 17.0: return
+				d("Moving ")
+				arm.rotate_object_local(Vector3(1, 0, 0), -event.relative.y * 0.002)
 			MOVING_SWITCH:
 				switch_pos = clamp(switch_pos + event.relative.x, 0.0, 199.0)
 				var disc_state = int(switch_pos / 50.0)
@@ -388,7 +372,7 @@ func _on_Lever_mouse_exited():
 func _on_HandleArea_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 		mode = MOVING_HANDLE
-		arm_angle = get_arm_angle()
+		arm_angle = arm.rotation.x
 		$OrbitCamera.lock()
 
 
@@ -516,3 +500,7 @@ func _on_DeckColor_color_changed(color):
 func _on_CartColor_color_changed(color):
 	g.settings.cart_color = color
 	set_cart_color(color)
+
+
+func d(txt):
+	$"%TrackName".text = txt

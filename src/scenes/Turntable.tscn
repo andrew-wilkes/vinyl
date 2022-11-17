@@ -348,7 +348,6 @@ margin_right = 32.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 32, 0 )
 color = Color( 0.0941176, 0.188235, 0.556863, 1 )
-edit_alpha = false
 
 [node name="CartColor" type="ColorPickerButton" parent="c/Controls/VB"]
 unique_name_in_owner = true
@@ -357,7 +356,6 @@ margin_right = 32.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 32, 0 )
 color = Color( 0.764706, 0.466667, 0, 1 )
-edit_alpha = false
 
 [node name="Vol" type="VBoxContainer" parent="c/Controls"]
 margin_left = 42.0
