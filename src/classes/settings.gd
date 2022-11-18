@@ -10,11 +10,13 @@ export var last_dir = ""
 export var last_image_dir = ""
 export var last_font_dir = ""
 export var volume = 8.0
-export var background_image = ""
-export var deck_color = 0x050d42
-export var cart_color = 0xe19400
-export var bg_color = 0x185d75
-export var fg_color = 0x2f8cac
+export var bg_images = [null, null]
+export var deck_color = Color(0x003bb7ff)
+export var cart_color = Color(0xd79802ff)
+export var bg_color = Color(0x17408eff)
+export var fg_color = Color(0x12326eff)
+export var bg_color_3d = [Color(0x434343ff), Color(0x434343ff)]
+export var bg_modes = [0, 0]
 
 func save_data():
 	g.remove_empty_albums()
@@ -27,5 +29,23 @@ func load_data():
 	else:
 		last_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 		last_image_dir = last_dir
-		last_font_dir = g.get_font_dir()
+		last_font_dir = get_font_dir()
 		return self
+
+
+func get_font_dir():
+	var dir = ""
+	var dirs = []
+	match OS.get_name():
+		"Windows":
+			dirs = ["%appdata%/Local/Microsoft/Windows/Fonts", "/%windir%/fonts"]
+		"OSX":
+			dirs = ["~/Library/Fonts/", "/Library/Fonts/", " /System/Library/Fonts/"]
+		"X11":
+			dirs = ["~/.fonts", "/usr/share/fonts"]
+	var d = Directory.new()
+	for path in dirs:
+		if d.dir_exists(path):
+			dir = path
+			break
+	return dir

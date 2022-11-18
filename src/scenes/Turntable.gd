@@ -64,9 +64,7 @@ func _ready():
 	arm_transform = arm.transform
 	arm_base_transform = arm_base.transform
 	switch_transform = switch.transform
-	if g.settings.background_image != "":
-		set_bg_image(g.settings.background_image)
-		resize_bg()
+	$"%EnvControl".setup($WE)
 	if g.current_album_id:
 		album = g.settings.albums[g.current_album_id]
 	if g.current_album_id and not album.title.empty():
@@ -451,35 +449,7 @@ func _on_VolSlider_value_changed(value):
 
 
 func _on_Vol_draw():
-	resize_bg()
-
-
-func resize_bg():
-	var canvas_size = get_viewport().get_visible_rect().size
-	var img_size = get_node("%Background").texture.get_size()
-	var sc = max(canvas_size.x / img_size.x, canvas_size.y / img_size.y)
-	get_node("%Background").scale = Vector2(sc, sc)
-
-
-func _on_Picture_pressed():
-	$c/ImageSelector.current_dir = g.settings.last_image_dir
-	$c/ImageSelector.popup_centered()
-
-
-func _on_Info_pressed():
-	$c/InfoDialog.popup_centered()
-
-
-func _on_ImageSelector_file_selected(path):
-	g.settings.background_image = path
-	g.settings.last_image_dir = path.get_base_dir()
-	set_bg_image(path)
-
-
-func set_bg_image(path):
-	var tex = g.get_resized_texture(path)
-	get_node("%Background").texture = tex.texture
-	resize_bg()
+	$"%EnvControl".resize_bg()
 
 
 func _on_Open_pressed():
@@ -504,3 +474,7 @@ func _on_CartColor_color_changed(color):
 
 func d(txt):
 	$"%TrackName".text = txt
+
+
+func _on_EnvControl_info_pressed():
+	$c/InfoDialog.popup_centered()

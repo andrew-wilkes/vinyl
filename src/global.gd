@@ -27,12 +27,12 @@ func set_bg_color(color):
 
 
 func set_panel_color(theme):
-	theme.get_stylebox("normal", "Button").bg_color = Color(settings.fg_color) * 0.615
-	theme.get_stylebox("pressed", "Button").bg_color = Color(settings.fg_color) * 0.744
-	theme.get_stylebox("hover", "Button").bg_color = Color(settings.fg_color) * 0.846
-	theme.get_stylebox("disabled", "Button").bg_color = Color(settings.fg_color)
-	theme.get_stylebox("panel", "PanelContainer").bg_color = Color(settings.fg_color)
-	theme.get_stylebox("panel", "WindowDialog").border_color = Color(settings.fg_color)
+	theme.get_stylebox("normal", "Button").bg_color = settings.fg_color
+	theme.get_stylebox("pressed", "Button").bg_color = settings.fg_color * 0.7
+	theme.get_stylebox("hover", "Button").bg_color = settings.fg_color * 0.8
+	theme.get_stylebox("disabled", "Button").bg_color = settings.fg_color * 1.5
+	theme.get_stylebox("panel", "PanelContainer").bg_color = settings.fg_color
+	theme.get_stylebox("panel", "WindowDialog").border_color = settings.fg_color
 	#print(theme.get_stylebox_types())
 	#print(theme.get_stylebox_list("Button"))
 
@@ -81,24 +81,6 @@ func get_resized_texture(path, size = 0):
 	else:
 		texture = null
 	return { texture = texture, resized = resized}
-
-
-func get_font_dir():
-	var dir = ""
-	var dirs = []
-	match OS.get_name():
-		"Windows":
-			dirs = ["%appdata%/Local/Microsoft/Windows/Fonts", "/%windir%/fonts"]
-		"OSX":
-			dirs = ["~/Library/Fonts/", "/Library/Fonts/", " /System/Library/Fonts/"]
-		"X11":
-			dirs = ["~/.fonts", "/usr/share/fonts"]
-	var d = Directory.new()
-	for path in dirs:
-		if d.dir_exists(path):
-			dir = path
-			break
-	return dir
 
 
 func get_font_size(size):

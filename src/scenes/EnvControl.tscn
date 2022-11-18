@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/picture.png" type="Texture" id=2]
+[ext_resource path="res://assets/info.png" type="Texture" id=3]
+[ext_resource path="res://assets/bg-type.png" type="Texture" id=5]
+[ext_resource path="res://scenes/EnvControl.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ImageSelector.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/UI.theme" type="Theme" id=8]
+
+[node name="EnvControl" type="GridContainer"]
+margin_left = 709.0
+margin_right = 781.0
+margin_bottom = 97.0
+theme = ExtResource( 8 )
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 2
+script = ExtResource( 6 )
+
+[node name="Picture" type="Button" parent="."]
+margin_right = 30.0
+margin_bottom = 39.0
+hint_tooltip = "Load background image"
+icon = ExtResource( 2 )
+
+[node name="BGColor" type="ColorPickerButton" parent="."]
+margin_left = 40.0
+margin_right = 72.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
+hint_tooltip = "Set background color"
+edit_alpha = false
+
+[node name="InfoButton" type="Button" parent="."]
+margin_top = 49.0
+margin_right = 30.0
+margin_bottom = 88.0
+icon = ExtResource( 3 )
+
+[node name="ModeButton" type="Button" parent="."]
+margin_left = 40.0
+margin_top = 49.0
+margin_right = 72.0
+margin_bottom = 88.0
+hint_tooltip = "Change background mode"
+icon = ExtResource( 5 )
+icon_align = 1
+
+[node name="c" type="CanvasLayer" parent="."]
+
+[node name="ImageSelector" parent="c" instance=ExtResource( 7 )]
+margin_left = 611.0
+margin_top = 98.0
+margin_right = 1593.0
+margin_bottom = 586.0
+
+[node name="Info" type="Label" parent="."]
+visible = false
+margin_top = 98.0
+margin_right = 390.0
+margin_bottom = 303.0
+text = "Background customization buttons
+
+Background mode
+
+Pressing this button rotates the mode between:
+solid color, 2D picture, 3D panoramic view
+
+HDR images are supported for the panoramic view."
+
+[connection signal="pressed" from="Picture" to="." method="_on_Picture_pressed"]
+[connection signal="color_changed" from="BGColor" to="." method="_on_BGColor_color_changed"]
+[connection signal="pressed" from="InfoButton" to="." method="_on_Info_pressed"]
+[connection signal="pressed" from="ModeButton" to="." method="_on_Button_pressed"]
+[connection signal="file_selected" from="c/ImageSelector" to="." method="_on_ImageSelector_file_selected"]
