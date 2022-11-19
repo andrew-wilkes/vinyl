@@ -19,7 +19,8 @@ func _init():
 
 
 func _ready():
-	set_panel_color(get_parent().get_child(1).theme)
+	if get_parent().name != "root":
+		set_panel_color(get_parent().get_child(1).theme)
 
 
 func set_bg_color(color):

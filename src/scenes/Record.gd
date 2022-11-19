@@ -5,9 +5,12 @@ const DISPLACEMENT = 0.25
 var revealed = false
 var tween
 var album_id
+var anim_target_position = 0.33
 
 func _ready():
-	$Sleeve/disc.translation.z = 0
+	# Set start position so as not to start animating
+	$Anim.seek(0.385)
+
 
 func set_lights(show):
 	$DirectionalLight.visible = show
@@ -37,28 +40,22 @@ func set_textures(album, edge_color):
 	mat.set_shader_param("label_b", img_b)
 
 
+func _process(_delta):
+	if abs(anim_target_position - $Anim.current_animation_position / 1.5) < 0.01:
+		if $Anim.is_playing():
+			$Anim.stop(false)
+	else:
+		if anim_target_position > $Anim.current_animation_position / 1.5:
+			if not $Anim.is_playing() or $Anim.playback_speed < 0.5:
+				$Anim.play("Animate")
+		else:
+			if not $Anim.is_playing() or $Anim.playback_speed > 0.5:
+				$Anim.play_backwards("Animate")
+
+
 func animate(pos):
-	if pos < 30:
-		var ang = (30.0 - pos) / 30.0
-		if ang < 0.1: ang = 0.0
-		if ang > 0.9: ang = 1.0
-		rotate_object(Vector3.UP, $Sleeve, ang)
-		$Sleeve/disc.translation.z = 0
-		rotate_object(Vector3.FORWARD, $Sleeve/disc, 0.5)
-	elif pos > 35 and pos < 65:
-		$Sleeve/disc.translation.z = -0.33 * (pos - 35.0) / 30.0
-		rotate_object(Vector3.FORWARD, $Sleeve/disc, 0.5)
-		rotate_object(Vector3.UP, $Sleeve, 0.0)
-	elif pos > 70:
-		var ang = (pos - 70.0) / 30.0 + 0.5
-		if ang < 0.6: ang = 0.5
-		if ang > 1.4: ang = 1.5
-		rotate_object(Vector3.FORWARD, $Sleeve/disc, ang)
-		$Sleeve/disc.translation.z = -0.33
-		rotate_object(Vector3.UP, $Sleeve, 0.0)
-	$Sleeve/disc.rotation.x = PI / 2
+	anim_target_position = pos / 100.0
 
 
-func rotate_object(axis, ob, amount):
-	ob.transform.basis = Basis() # reset rotation
-	ob.rotate_object_local(axis, amount * PI)
+func _on_HSlider_value_changed(value):
+	anim_target_position = value / 100.0

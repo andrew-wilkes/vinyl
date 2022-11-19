@@ -254,7 +254,7 @@ margin_right = 268.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 50, 0 )
 size_flags_horizontal = 3
-value = 30.0
+value = 33.0
 
 [node name="Play" type="Button" parent="c/M/VB/HB2/Details/Items/HB"]
 unique_name_in_owner = true

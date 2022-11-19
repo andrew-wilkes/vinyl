@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/highlight-shader.tres" type="Shader" id=1]
+[ext_resource path="res://assets/a-side.png" type="Texture" id=2]
 [ext_resource path="res://assets/rec33rpm.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://scenes/Record.gd" type="Script" id=4]
+[ext_resource path="res://assets/b-side.png" type="Texture" id=5]
 [ext_resource path="res://assets/sleeve.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://scenes/record.shader" type="Shader" id=8]
 
@@ -33,6 +35,8 @@ void fragment() {
 next_pass = SubResource( 6 )
 shader = SubResource( 4 )
 shader_param/edge_color = Color( 1, 1, 1, 1 )
+shader_param/side_a = ExtResource( 2 )
+shader_param/side_b = ExtResource( 5 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.003, 0.155, 0.155 )
@@ -49,6 +53,89 @@ shader_param/dot_position = Vector2( 0, 0 )
 shader_param/dot_radius = 1.5
 shader_param/dot_color = Color( 1, 0, 0, 0 )
 shader_param/alphav = 1.0
+shader_param/blur = 0.1
+shader_param/width = 0.1
+shader_param/label_a = ExtResource( 2 )
+shader_param/label_b = ExtResource( 5 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "Animate"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sleeve:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 180, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sleeve/disc:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.332376 ), Vector3( 0, 0, -0.332376 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sleeve/disc:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 90, 90, 0 ), Vector3( 90, 90, 0 ), Vector3( 90, -90, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sleeve:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sleeve/disc:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -0.332376 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sleeve/disc:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 90, 90, 0 ) ]
+}
 
 [node name="Record" type="Spatial"]
 script = ExtResource( 4 )
@@ -63,7 +150,7 @@ material/0 = SubResource( 5 )
 shape = SubResource( 3 )
 
 [node name="disc" type="MeshInstance" parent="Sleeve"]
-transform = Transform( -4.37114e-08, 1, 4.37114e-08, -3.82137e-15, 4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0.3 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.332376 )
 mesh = ExtResource( 3 )
 skeleton = NodePath("")
 material/0 = SubResource( 7 )
@@ -78,3 +165,18 @@ transform = Transform( -0.430831, -0.238093, 0.870458, -0.105615, 0.971242, 0.21
 
 [node name="DirectionalLight2" type="DirectionalLight" parent="."]
 transform = Transform( 0.48418, 0.237658, -0.842074, -0.105615, 0.971242, 0.213386, 0.868571, -0.0143819, 0.495357, 1.22193, -1.49012e-08, 0.84285 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "Animate"
+anims/Animate = SubResource( 8 )
+anims/RESET = SubResource( 9 )
+
+[node name="HSlider" type="HSlider" parent="."]
+visible = false
+margin_left = 38.0
+margin_top = 45.0
+margin_right = 293.0
+margin_bottom = 61.0
+value = 33.0
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_HSlider_value_changed"]
