@@ -187,7 +187,7 @@ func _process(delta):
 		get_node("%Record").animate(v)
 		match record_state:
 			WAITING:
-				if v > 65:
+				if v > 64:
 					record_state = CAN_PLAY
 					get_node("%Play").disabled = not area_clear
 					get_node("%Eject").disabled = true
@@ -195,7 +195,7 @@ func _process(delta):
 					get_node("%Play").disabled = true
 					get_node("%Eject").disabled = true
 			CAN_PLAY:
-				if v < 65:
+				if v < 64:
 					record_state = WAITING
 					get_node("%Play").disabled = true
 			CAN_EJECT:
@@ -433,6 +433,7 @@ func _on_Play_pressed():
 	has_record = true
 	record_state = CAN_EJECT
 	last_slider_value = -1.0 # trigger update of button states
+	_on_Close_pressed()
 
 
 func _on_Eject_pressed():
