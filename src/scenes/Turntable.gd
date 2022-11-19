@@ -8,6 +8,8 @@ enum { NOT_PLAYING, PLAYING }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const GAP_LENGTH = 8
+const OUTER_GROOVE = -5.48
+const INNER_GROOVE = -28.9
 
 var highlight_material = preload("res://assets/highlight.material")
 
@@ -149,6 +151,9 @@ func _process(delta):
 		var ang = clamp(rpm, 0.0, -target_speed) / 30.0 * delta
 		$Disc.rotate_y(ang)
 		set_dot_position()
+	check_play_state(delta)
+	if not_updating_track_name and timelines.size() > 0:
+		update_track_name(get_track())
 	if mode == MOVING_HANDLE: return
 	if Input.is_key_pressed(KEY_1):
 		prints(arm_base.rotation, needle.global_translation)
@@ -170,17 +175,12 @@ func _process(delta):
 	# Make arm fall if within angle_limit
 	if arm.rotation.x > angle_limit and not arm_limit_y():
 		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
-		d("Lowering")
 	if angle_limit > arm.rotation.x:
-		d("Following")
 		arm.transform = arm_transform
 		arm.rotate_object_local(Vector3(1, 0, 0), angle_limit)
 		set_dot_position()
 	if not record_loaded: return
 	
-	check_play_state(delta)
-	if not_updating_track_name:
-		update_track_name(get_track())
 	var v = get_node("%HSlider").value
 	if v != last_slider_value:
 		last_slider_value = v
@@ -211,7 +211,7 @@ func arm_limit_y():
 
 
 func check_play_state(delta):
-	area_clear = needle.global_translation.x > 1.124
+	area_clear = arm_base.rotation_degrees.y > -0.848
 	if has_record and rpm > 0 and needle_on_record():
 		var rotation_scale = 1.0
 		if play_state == NOT_PLAYING:
@@ -226,6 +226,8 @@ func check_play_state(delta):
 			else:
 				# In crossover
 				rotation_scale = 2.67 # Reduce transit time from 8s to 3s
+				if arm_base.rotation_degrees.y < INNER_GROOVE:
+					rotation_scale *= 8.0
 		audio.set_speed(g.RPMS[album.rpm], rpm)
 		# Rotate arm
 		if arm_base.rotation.y > -0.825:
@@ -237,8 +239,9 @@ func check_play_state(delta):
 
 
 func get_track():
+	# Return track or null if in gap or outside of track area
 	var total_time = timelines[side].size()
-	var t_mark = (-0.37 - arm_base.rotation.y) / 0.455 * total_time
+	var t_mark = (OUTER_GROOVE - arm_base.rotation_degrees.y) / (OUTER_GROOVE - INNER_GROOVE) * total_time
 	if t_mark < 0.0 or t_mark > total_time: return
 	var t = 0.0
 	for tr in [album.a_side, album.b_side][side]:
@@ -252,15 +255,16 @@ func get_track():
 
 
 func needle_on_record():
-	var np = needle.global_translation
-	return np.y <= 0.164 and np.x < 1.124 and np.x > 0.182
+	if Input.is_key_pressed(KEY_3):
+		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
+	return arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= -5.48 and arm_base.rotation_degrees.y >= -30.5
 
 
 func set_dot_position():
 	var np = needle.global_translation
 	if side_playing > 0: np *= Vector3(-1, 1, -1)
 	var pos = Vector2(np.x / 1.55, np.z / 1.55).rotated($Disc.rotation.y)
-	if np.y <= 0.164: pos = Vector2.ZERO
+	if arm.rotation_degrees.x <= -1.68: pos = Vector2.ZERO
 	$Disc.get_surface_material(0).set_shader_param("dot_position", pos)
 
 
@@ -270,7 +274,7 @@ func arm_limit_x(dir):
 	set_dot_position()
 	if dir < 0:
 		# Inner groove
-		if arm_base.rotation_degrees.y < -29.513:
+		if arm_base.rotation_degrees.y < -30.5:
 			limit = true
 		limit = check_y_limit_depending_on_x(limit)
 	else:
@@ -286,18 +290,24 @@ func arm_limit_x(dir):
 func check_y_limit_depending_on_x(limit):
 	if has_record:
 		if arm_base.rotation_degrees.y < -4.127:
-			if arm.rotation_degrees.x <= 1.681: limit = true
+			if arm.rotation_degrees.x <= -1.681:
+				limit = true
 		elif arm_base.rotation_degrees.y < -2.451:
-			if arm.rotation_degrees.x <= -2.942: limit = true
+			if arm.rotation_degrees.x <= -2.942:
+				limit = true
 	else:
 		if arm_base.rotation_degrees.y < -7.521:
-			if arm.rotation_degrees.x <= -2.197: limit = true
+			if arm.rotation_degrees.x <= -2.197:
+				limit = true
 		elif arm_base.rotation_degrees.y < -7.139:
-			if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136: limit = true
+			if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
+				limit = true
 		elif arm_base.rotation_degrees.y < -5.444:
-			if arm.rotation_degrees.x <= -3.482: limit = true
+			if arm.rotation_degrees.x <= -3.482:
+				limit = true
 		elif arm_base.rotation_degrees.y < -5.068:
-			if arm.rotation_degrees.x <= -3.821 + (-5.068 - arm_base.rotation_degrees.y) * 0.902: limit = true
+			if arm.rotation_degrees.x <= -3.821 + (-5.068 - arm_base.rotation_degrees.y) * 0.902:
+				limit = true
 	return limit
 
 
@@ -322,7 +332,6 @@ func _unhandled_input(event):
 					if arm.rotation.x < angle_limit or arm_limit_y(): return
 				else:
 					if arm.rotation_degrees.x > 17.0: return
-				d("Moving ")
 				arm.rotate_object_local(Vector3(1, 0, 0), -event.relative.y * 0.002)
 			MOVING_SWITCH:
 				switch_pos = clamp(switch_pos + event.relative.x, 0.0, 199.0)

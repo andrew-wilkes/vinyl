@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -18,7 +18,6 @@
 [ext_resource path="res://scenes/record.shader" type="Shader" id=16]
 [ext_resource path="res://scenes/EnvControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/hdri/rustig_koppie_puresky_4k.exr" type="Texture" id=18]
-[ext_resource path="res://scenes/ImageSelector.tscn" type="PackedScene" id=20]
 [ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
 [ext_resource path="res://assets/deck.glb" type="PackedScene" id=23]
@@ -80,7 +79,7 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 [node name="support" parent="deck" instance=ExtResource( 25 )]
 
 [node name="arm-base" type="Position3D" parent="deck"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71019, 0.756099, 1.21021 )
+transform = Transform( 0.995721, -4.03917e-09, 0.0924053, 4.03917e-09, 1, 1.87021e-10, -0.0924053, 1.87021e-10, 0.995721, -1.71019, 0.756099, 1.21021 )
 
 [node name="arm-base2" parent="deck/arm-base" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71019, -0.756099, -1.21021 )
@@ -391,8 +390,6 @@ Shift + arrow keys to rotate
 WASD keys to pan
 Z and X keys to zoom in and out"
 
-[node name="ImageSelector" parent="c" instance=ExtResource( 20 )]
-
 [node name="Disc" type="MeshInstance" parent="."]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.468, 0 )
 mesh = ExtResource( 12 )
@@ -489,7 +486,6 @@ centered = false
 [connection signal="color_changed" from="c/Controls/VB/DeckColor" to="." method="_on_DeckColor_color_changed"]
 [connection signal="color_changed" from="c/Controls/VB/CartColor" to="." method="_on_CartColor_color_changed"]
 [connection signal="value_changed" from="c/Controls/Vol/VolSlider" to="." method="_on_VolSlider_value_changed"]
-[connection signal="file_selected" from="c/ImageSelector" to="." method="_on_ImageSelector_file_selected"]
 [connection signal="input_event" from="Disc/Area" to="." method="_on_disc_input_event"]
 [connection signal="mouse_entered" from="Disc/Area" to="." method="_on_disc_mouse_entered"]
 [connection signal="mouse_exited" from="Disc/Area" to="." method="_on_disc_mouse_exited"]

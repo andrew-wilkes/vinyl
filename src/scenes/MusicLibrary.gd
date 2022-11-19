@@ -44,6 +44,7 @@ func _ready():
 			if item.album_id == g.current_album_id:
 				select_item(item)
 	$c.get_child(0).theme = theme
+	$"%EnvControl".setup($WE)
 
 
 func add_album(material, album_id):

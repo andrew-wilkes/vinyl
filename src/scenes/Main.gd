@@ -2,7 +2,7 @@ extends Control
 
 func _ready():
 	$c2/M.theme = theme
-	$c2/AboutDialog.theme = theme
+	$c2/Info.theme = theme
 
 
 func _on_Tracks_pressed():
@@ -30,7 +30,7 @@ func _on_Gear_pressed():
 
 
 func _on_About_pressed():
-	$c2/AboutDialog.popup_centered()
+	$c2/Info.popup_centered()
 
 
 func _on_Author_meta_clicked(meta):

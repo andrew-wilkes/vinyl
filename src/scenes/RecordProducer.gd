@@ -156,11 +156,11 @@ func add_tracks(items, side, new_tracks = true):
 		track.band = audio.info.get("band", "")
 		if $VBox/HB/VB1/VB2/Band.text.empty():
 			$VBox/HB/VB1/VB2/Band.text = track.band
-			g.settings.set_album_property("band", track.band)
+			g.set_album_property("band", track.band)
 		track.album = audio.info.get("album", "")
 		if $VBox/HB/VB1/VB1/Title.text.empty():
 			$VBox/HB/VB1/VB1/Title.text = track.album
-			g.settings.set_album_property("title", track.album)
+			g.set_album_property("title", track.album)
 		track.year = audio.info.get("year", "")
 		track.length = audio.player.stream.get_length()
 		tracks[side].add_item(track.title)

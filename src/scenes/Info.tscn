@@ -1,0 +1,230 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/regular.tres" type="DynamicFont" id=2]
+
+[node name="Info" type="AcceptDialog"]
+margin_right = 815.0
+margin_bottom = 524.0
+window_title = "About"
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 807.0
+margin_bottom = 488.0
+
+[node name="Author" type="RichTextLabel" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "This software was created by [b]Andrew Wilkes[/b] starting August 2022.
+
+If you enjoyed using this software, please consider [url=https://buymeacoffee.com/gdscriptdude]buying me a coffee[/url].
+
+Thanks!"
+text = "This software was created by Andrew Wilkes starting August 2022.
+
+If you enjoyed using this software, please consider buying me a coffee.
+
+Thanks!"
+
+[node name="Licences" type="ScrollContainer" parent="TabContainer"]
+visible = false
+margin_right = 797.0
+margin_bottom = 461.0
+scroll_horizontal_enabled = false
+
+[node name="Text" type="Label" parent="TabContainer/Licences"]
+margin_right = 797.0
+margin_bottom = 1085.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Copyright © 2022 Andrew Wilkes
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-----------------------------------------------
+GODOT ENGINE LICENCE
+
+This software uses Godot Engine, available under the following license:
+
+Copyright (c) 2007-2022 Juan Linietsky, Ariel Manzur. Copyright (c) 2014-2022 Godot Engine contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-----------------------------------------------
+Portions of this software are copyright © 1996-2022 The FreeType Project (www.freetype.org). All rights reserved.
+
+-----------------------------------------------
+ENet Licence
+
+Copyright (c) 2002-2020 Lee Salzman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-----------------------------------------------
+mbed TLS Licence
+
+Copyright The Mbed TLS Contributors
+
+Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+"
+autowrap = true
+
+[node name="3D View" type="RichTextLabel" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]Controlling the 3D View[/b]
+
+Ctrl + left mouse button to rotate
+Shift + left mouse button to pan
+Ctrl + left mouse button to zoom in and out
+
+[b]Keyboard alternatives[/b]
+
+Shift + arrow keys to rotate
+WASD keys to pan
+Z and X keys to zoom in and out"
+text = "Controlling the 3D View
+
+Ctrl + left mouse button to rotate
+Shift + left mouse button to pan
+Ctrl + left mouse button to zoom in and out
+
+Keyboard alternatives
+
+Shift + arrow keys to rotate
+WASD keys to pan
+Z and X keys to zoom in and out"
+
+[node name="Music Library" type="RichTextLabel" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "Left click on albums to select
+Click again to play
+Right click in free space to unselect"
+text = "Left click on albums to select
+Click again to play
+Right click in free space to unselect"
+
+[node name="Record Player" type="RichTextLabel" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "Move the album slider to view the sleeve and choose which side to play
+Press the down button to load the disc
+Press the up button to remove the disc
+Set the platter spinning by clicking and holding the knob and moving left to right to select the speed.
+
+Green sets stopped
+Blue sets 33.3 RPM
+Amber sets 45 RPM
+Red sets 78 RPM
+
+Click and hold on arm handle to move the arm
+Click and hold the lever and move it up and down to raise and lower the arm"
+text = "Move the album slider to view the sleeve and choose which side to play
+Press the down button to load the disc
+Press the up button to remove the disc
+Set the platter spinning by clicking and holding the knob and moving left to right to select the speed.
+
+Green sets stopped
+Blue sets 33.3 RPM
+Amber sets 45 RPM
+Red sets 78 RPM
+
+Click and hold on arm handle to move the arm
+Click and hold the lever and move it up and down to raise and lower the arm"
+
+[node name="Customization" type="RichTextLabel" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]Background customization[/b]
+
+[b]Background mode[/b]
+
+Pressing this button rotates the background between:
+
+ - Solid color
+ - 2D picture
+ - 3D panoramic view
+
+[b]Image load button[/b]
+
+The loaded image is used for both 2D and 3D modes in the scene.
+
+HDR images (.exr and .hdr files) are supported for the panoramic view.
+
+[b]Color selection button[/b]
+
+This sets the color of the solid color background."
+text = "Background customization
+
+Background mode
+
+Pressing this button rotates the background between:
+
+ - Solid color
+ - 2D picture
+ - 3D panoramic view
+
+Image load button
+
+The loaded image is used for both 2D and 3D modes in the scene.
+
+HDR images (.exr and .hdr files) are supported for the panoramic view.
+
+Color selection button
+
+This sets the color of the solid color background."
