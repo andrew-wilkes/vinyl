@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -12,12 +12,13 @@
 [ext_resource path="res://assets/play-record.png" type="Texture" id=10]
 [ext_resource path="res://scenes/Record.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/rec33rpm.obj" type="ArrayMesh" id=12]
-[ext_resource path="res://assets/checkerboard.png" type="Texture" id=13]
-[ext_resource path="res://assets/tracks-button.png" type="Texture" id=14]
+[ext_resource path="res://assets/b-side.png" type="Texture" id=13]
+[ext_resource path="res://assets/a-side.png" type="Texture" id=14]
 [ext_resource path="res://assets/highlight-shader.tres" type="Shader" id=15]
 [ext_resource path="res://scenes/record.shader" type="Shader" id=16]
 [ext_resource path="res://scenes/EnvControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/hdri/rustig_koppie_puresky_4k.exr" type="Texture" id=18]
+[ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
 [ext_resource path="res://assets/deck.glb" type="PackedScene" id=23]
@@ -362,33 +363,7 @@ margin_bottom = 162.0
 custom_fonts/font = ExtResource( 3 )
 text = "Vol"
 
-[node name="InfoDialog" type="AcceptDialog" parent="c"]
-margin_right = 779.0
-margin_bottom = 632.0
-theme = ExtResource( 4 )
-window_title = "Info"
-dialog_text = "Move the album slider to view the sleeve and choose which side to play
-Press the down button to load the disc
-Press the up button to remove the disc
-Set the platter spinning by clicking and holding the knob and moving left to right to select the speed.
-
-Green sets stopped
-Blue sets 33.3 RPM
-Amber sets 45 RPM
-Red sets 78 RPM
-
-Click and hold on arm handle to move the arm
-Click and hold the lever and move it up and down to raise and lower the arm
-
-Ctrl + left mouse button to rotate
-Shift + left mouse button to pan
-Ctrl + left mouse button to zoom in and out
-
-Keyboard alternatives
-
-Shift + arrow keys to rotate
-WASD keys to pan
-Z and X keys to zoom in and out"
+[node name="Info" parent="c" instance=ExtResource( 19 )]
 
 [node name="Disc" type="MeshInstance" parent="."]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.468, 0 )

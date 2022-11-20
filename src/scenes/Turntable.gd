@@ -92,7 +92,8 @@ func _ready():
 	set_cart_color(g.settings.cart_color)
 	get_node("%DeckColor").color = g.settings.deck_color
 	get_node("%CartColor").color = g.settings.cart_color
-	$c.get_child(0).theme = theme
+	for node in $c.get_children():
+		node.theme = theme
 
 
 func get_data_texture(idata):
@@ -487,4 +488,4 @@ func d(txt):
 
 
 func _on_EnvControl_info_pressed():
-	$c/InfoDialog.popup_centered()
+	$c/Info.open(4)

@@ -26,11 +26,11 @@ func _ready():
 	else:
 		album = Album.new()
 	$VB/Header/VB/NoRecords.visible = g.settings.albums.size() < 1
-	canvas_group = get_node("%Canvas1").group
 	var idx = 0
-	for b in canvas_group.get_buttons():
-		var _e = b.connect("pressed", self, "change_canvas", [idx])
-		idx += 1
+	for b in $"%CanvasMenu".get_children():
+		if b is CheckBox:
+			var _e = b.connect("pressed", self, "change_canvas", [idx])
+			idx += 1
 	art.disable_input()
 	$"%BgColor".color = g.settings.bg_color
 	$"%FgColor".color = g.settings.fg_color

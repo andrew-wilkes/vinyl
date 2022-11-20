@@ -182,6 +182,7 @@ margin_bottom = 188.0
 rect_min_size = Vector2( 200, 0 )
 
 [node name="CanvasMenu" type="VBoxContainer" parent="VB/Content/LeftCol"]
+unique_name_in_owner = true
 margin_top = 208.0
 margin_right = 200.0
 margin_bottom = 509.0

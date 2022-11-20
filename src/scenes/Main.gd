@@ -30,7 +30,7 @@ func _on_Gear_pressed():
 
 
 func _on_About_pressed():
-	$c2/Info.popup_centered()
+	$c2/Info.open()
 
 
 func _on_Author_meta_clicked(meta):

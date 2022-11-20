@@ -45,6 +45,8 @@ func _ready():
 				select_item(item)
 	$c.get_child(0).theme = theme
 	$"%EnvControl".setup($WE)
+	for node in $c.get_children():
+		node.theme = theme
 
 
 func add_album(material, album_id):
@@ -207,4 +209,4 @@ func get_record_position(pos):
 
 
 func _on_Info_pressed():
-	$c/InfoDialog.popup_centered()
+	$c/Info.open(3)
