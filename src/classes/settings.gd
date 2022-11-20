@@ -17,6 +17,8 @@ export var bg_color = Color(0x17408eff)
 export var fg_color = Color(0x12326eff)
 export var bg_color_3d = [Color(0x434343ff), Color(0x434343ff)]
 export var bg_modes = [0, 0]
+export var bg_brightness = [50.0, 50.0]
+export var env_brightness = [50.0, 50.0]
 
 func save_data():
 	g.remove_empty_albums()

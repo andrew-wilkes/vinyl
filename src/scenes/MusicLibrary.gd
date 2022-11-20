@@ -44,6 +44,8 @@ func _ready():
 			if item.album_id == g.current_album_id:
 				select_item(item)
 	$c.get_child(0).theme = theme
+	set_light_energy()
+	set_env_energy()
 	$"%EnvControl".setup($WE)
 	for node in $c.get_children():
 		node.theme = theme
@@ -210,3 +212,23 @@ func get_record_position(pos):
 
 func _on_Info_pressed():
 	$c/Info.open(3)
+
+
+func _on_EnvControl_slider1_changed(value):
+	g.settings.bg_brightness[0] = value
+	set_light_energy()
+
+
+func set_light_energy():
+	var e = g.settings.bg_brightness[0] / 100.0
+	$Light1.light_energy = e
+	$Light2.light_energy = e
+
+
+func _on_EnvControl_slider2_changed(value):
+	g.settings.env_brightness[1] = value
+	set_env_energy()
+
+
+func set_env_energy():
+	$WE.environment.background_energy = g.settings.env_brightness[1] / 100.0

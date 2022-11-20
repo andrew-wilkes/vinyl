@@ -68,7 +68,6 @@ panorama = ExtResource( 18 )
 [sub_resource type="Environment" id=8]
 background_mode = 4
 background_sky = SubResource( 9 )
-background_energy = 1.29
 
 [node name="Turntable" type="Spatial"]
 script = ExtResource( 7 )
@@ -102,7 +101,6 @@ visible = false
 
 [node name="DirectionalLight" parent="OrbitCamera/YAxis/XAxis" index="1"]
 transform = Transform( 0.694733, 0.410525, 0.590607, -0.7176, 0.45149, 0.530289, -0.0489561, -0.792228, 0.608257, 0, 0, 0 )
-visible = true
 light_energy = 1.879
 shadow_enabled = true
 
@@ -141,13 +139,13 @@ custom_constants/margin_bottom = 20
 [node name="VB" type="VBoxContainer" parent="c/M"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 801.0
+margin_right = 853.0
 margin_bottom = 660.0
 mouse_filter = 2
 custom_constants/separation = 20
 
 [node name="HB" type="HBoxContainer" parent="c/M/VB"]
-margin_right = 781.0
+margin_right = 833.0
 margin_bottom = 97.0
 custom_constants/separation = 20
 
@@ -166,11 +164,14 @@ current_selection = 4
 
 [node name="EnvControl" parent="c/M/VB/HB" instance=ExtResource( 17 )]
 unique_name_in_owner = true
+margin_left = 709.0
+margin_right = 833.0
+margin_bottom = 97.0
 image_idx = 1
 
 [node name="HB2" type="HBoxContainer" parent="c/M/VB"]
 margin_top = 117.0
-margin_right = 781.0
+margin_right = 833.0
 margin_bottom = 495.0
 mouse_filter = 2
 
@@ -184,7 +185,7 @@ icon = ExtResource( 21 )
 
 [node name="Details" type="PanelContainer" parent="c/M/VB/HB2"]
 unique_name_in_owner = true
-margin_right = 388.0
+margin_right = 414.0
 margin_bottom = 378.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -192,14 +193,14 @@ size_flags_horizontal = 3
 [node name="Items" type="VBoxContainer" parent="c/M/VB/HB2/Details"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 378.0
+margin_right = 404.0
 margin_bottom = 368.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="HB2" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
-margin_right = 368.0
+margin_right = 394.0
 margin_bottom = 39.0
 
 [node name="Label" type="Label" parent="c/M/VB/HB2/Details/Items/HB2"]
@@ -211,13 +212,13 @@ text = "Album Title"
 
 [node name="Sp" type="Control" parent="c/M/VB/HB2/Details/Items/HB2"]
 margin_left = 96.0
-margin_right = 332.0
+margin_right = 358.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="Close" type="Button" parent="c/M/VB/HB2/Details/Items/HB2"]
-margin_left = 336.0
-margin_right = 368.0
+margin_left = 362.0
+margin_right = 394.0
 margin_bottom = 39.0
 hint_tooltip = "Hide"
 icon = ExtResource( 22 )
@@ -225,13 +226,13 @@ icon = ExtResource( 22 )
 [node name="Title" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 49.0
-margin_right = 368.0
+margin_right = 394.0
 margin_bottom = 72.0
 custom_fonts/font = ExtResource( 6 )
 
 [node name="Label2" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 82.0
-margin_right = 368.0
+margin_right = 394.0
 margin_bottom = 105.0
 custom_fonts/font = ExtResource( 3 )
 text = "Band / Artist"
@@ -239,19 +240,19 @@ text = "Band / Artist"
 [node name="Band" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 115.0
-margin_right = 368.0
+margin_right = 394.0
 margin_bottom = 138.0
 custom_fonts/font = ExtResource( 6 )
 
 [node name="HB" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 148.0
-margin_right = 368.0
+margin_right = 394.0
 margin_bottom = 187.0
 custom_constants/separation = 20
 
 [node name="HSlider" type="HSlider" parent="c/M/VB/HB2/Details/Items/HB"]
 unique_name_in_owner = true
-margin_right = 268.0
+margin_right = 294.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 50, 0 )
 size_flags_horizontal = 3
@@ -259,23 +260,23 @@ value = 33.0
 
 [node name="Play" type="Button" parent="c/M/VB/HB2/Details/Items/HB"]
 unique_name_in_owner = true
-margin_left = 288.0
-margin_right = 318.0
+margin_left = 314.0
+margin_right = 344.0
 margin_bottom = 39.0
 hint_tooltip = "Play"
 icon = ExtResource( 10 )
 
 [node name="Eject" type="Button" parent="c/M/VB/HB2/Details/Items/HB"]
 unique_name_in_owner = true
-margin_left = 338.0
-margin_right = 368.0
+margin_left = 364.0
+margin_right = 394.0
 margin_bottom = 39.0
 hint_tooltip = "Eject"
 icon = ExtResource( 9 )
 
 [node name="VPC" type="ViewportContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 197.0
-margin_right = 368.0
+margin_right = 394.0
 margin_bottom = 358.0
 rect_min_size = Vector2( 0, 160 )
 
@@ -289,8 +290,8 @@ render_target_update_mode = 3
 unique_name_in_owner = true
 
 [node name="Control" type="Control" parent="c/M/VB/HB2"]
-margin_left = 392.0
-margin_right = 781.0
+margin_left = 418.0
+margin_right = 833.0
 margin_bottom = 378.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -426,15 +427,19 @@ depth = 0.034
 
 [node name="DL1" type="DirectionalLight" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.14011, -1.17937, 5.09483 )
+light_energy = 0.5
 
 [node name="DL2" type="DirectionalLight" parent="."]
 transform = Transform( -3.91338e-08, -0.44551, 0.895277, -1.94739e-08, 0.895277, 0.44551, -1, 0, -4.37114e-08, -5.64301, 0, 3.394 )
+light_energy = 0.5
 
 [node name="DL3" type="DirectionalLight" parent="."]
 transform = Transform( 0.0202966, 0.514294, -0.857374, 0.0338099, 0.856707, 0.514694, 0.999222, -0.0394342, 1.30284e-08, -4.09662, 0, 3.394 )
+light_energy = 0.5
 
 [node name="DL4" type="DirectionalLight" parent="."]
 transform = Transform( 0.932406, 0.361413, 0, -0.361413, 0.932406, 0, 0, 0, 1, -2.34142, 0, 3.394 )
+light_energy = 0.5
 
 [node name="WE" type="WorldEnvironment" parent="."]
 environment = SubResource( 8 )
@@ -453,6 +458,8 @@ centered = false
 [connection signal="mouse_entered" from="SwitchArea" to="." method="_on_SwitchArea_mouse_entered"]
 [connection signal="mouse_exited" from="SwitchArea" to="." method="_on_SwitchArea_mouse_exited"]
 [connection signal="info_pressed" from="c/M/VB/HB/EnvControl" to="." method="_on_EnvControl_info_pressed"]
+[connection signal="slider1_changed" from="c/M/VB/HB/EnvControl" to="." method="_on_EnvControl_slider1_changed"]
+[connection signal="slider2_changed" from="c/M/VB/HB/EnvControl" to="." method="_on_EnvControl_slider2_changed"]
 [connection signal="pressed" from="c/M/VB/HB2/Open" to="." method="_on_Open_pressed"]
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB2/Close" to="." method="_on_Close_pressed"]
 [connection signal="pressed" from="c/M/VB/HB2/Details/Items/HB/Play" to="." method="_on_Play_pressed"]
