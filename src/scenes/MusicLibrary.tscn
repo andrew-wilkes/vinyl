@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/MusicLibrary.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/mat/plaster.tres" type="Material" id=11]
 [ext_resource path="res://assets/mat/wood/Wood048_1K_Color.jpg" type="Texture" id=12]
 [ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/reset.png" type="Texture" id=14]
 
 [sub_resource type="QuadMesh" id=2]
 size = Vector2( 6, 4 )
@@ -163,7 +164,8 @@ auto_height = true
 
 [node name="Control" type="Control" parent="c/M/VB/HB2"]
 margin_left = 433.0
-margin_right = 862.0
+margin_top = 20.0
+margin_right = -20.0
 margin_bottom = 246.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -182,6 +184,17 @@ margin_right = 640.0
 margin_bottom = 14.0
 
 [node name="Info" parent="c" instance=ExtResource( 13 )]
+
+[node name="Reset" type="Button" parent="c"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -41.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 30.0
+hint_tooltip = "Reset position"
+icon = ExtResource( 14 )
+icon_align = 1
 
 [node name="Floor" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 2 )
@@ -226,3 +239,4 @@ centered = false
 [connection signal="info_pressed" from="c/M/VB/HB/EnvControl" to="." method="_on_Info_pressed"]
 [connection signal="slider1_changed" from="c/M/VB/HB/EnvControl" to="." method="_on_EnvControl_slider1_changed"]
 [connection signal="slider2_changed" from="c/M/VB/HB/EnvControl" to="." method="_on_EnvControl_slider2_changed"]
+[connection signal="pressed" from="c/Reset" to="." method="_on_Reset_pressed"]

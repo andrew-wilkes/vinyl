@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/highlight-shader.tres" type="Shader" id=15]
 [ext_resource path="res://scenes/record.shader" type="Shader" id=16]
 [ext_resource path="res://scenes/EnvControl.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/reset.png" type="Texture" id=18]
 [ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
@@ -342,6 +343,14 @@ hint_tooltip = "Cartridge color"
 color = Color( 0.764706, 0.466667, 0, 1 )
 edit_alpha = false
 
+[node name="Reset" type="Button" parent="c/Controls/VB"]
+margin_top = 60.0
+margin_right = 32.0
+margin_bottom = 82.0
+hint_tooltip = "Reset position"
+icon = ExtResource( 18 )
+icon_align = 1
+
 [node name="Vol" type="VBoxContainer" parent="c/Controls"]
 margin_left = 42.0
 margin_right = 67.0
@@ -466,6 +475,7 @@ centered = false
 [connection signal="draw" from="c/Controls" to="." method="_on_Vol_draw"]
 [connection signal="color_changed" from="c/Controls/VB/DeckColor" to="." method="_on_DeckColor_color_changed"]
 [connection signal="color_changed" from="c/Controls/VB/CartColor" to="." method="_on_CartColor_color_changed"]
+[connection signal="pressed" from="c/Controls/VB/Reset" to="." method="_on_Reset_pressed"]
 [connection signal="value_changed" from="c/Controls/Vol/VolSlider" to="." method="_on_VolSlider_value_changed"]
 [connection signal="input_event" from="Disc/Area" to="." method="_on_disc_input_event"]
 [connection signal="mouse_entered" from="Disc/Area" to="." method="_on_disc_mouse_entered"]

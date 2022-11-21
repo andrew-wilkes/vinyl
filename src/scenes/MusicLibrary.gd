@@ -233,3 +233,7 @@ func _on_EnvControl_slider2_changed(value):
 
 func set_env_energy():
 	$WE.environment.background_energy = g.settings.env_brightness[1] / 100.0
+
+
+func _on_Reset_pressed():
+	$OrbitCamera.reset_position()

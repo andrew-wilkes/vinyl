@@ -9,10 +9,20 @@ enum { ROTATING, PANNING, ZOOMING }
 
 var moving = false
 var locked = false
+var reset_transform
+
+func _ready():
+	reset_transform = $YAxis/XAxis/Camera.transform
+
 
 func lock():
 	moving = false
 	locked = true
+
+
+func reset_position():
+	$YAxis/XAxis/Camera.transform = reset_transform
+
 
 func _process(delta):
 	delta *= KEY_SPEED
