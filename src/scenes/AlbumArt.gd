@@ -34,6 +34,7 @@ func _ready():
 	art.disable_input()
 	$"%BgColor".color = g.settings.bg_color
 	$"%FgColor".color = g.settings.fg_color
+	g.set_panel_color(theme)
 	for node in $c.get_children():
 		node.theme = theme
 

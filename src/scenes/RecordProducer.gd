@@ -105,6 +105,7 @@ func _ready():
 	AudioServer.add_bus_effect(0, AudioEffectSpectrumAnalyzer.new())
 	spectrum = AudioServer.get_bus_effect_instance(0, 0)
 	$VBox/HB1/VB/Volume.value = g.settings.volume
+	g.set_panel_color(theme)
 	for node in $c.get_children():
 		node.theme = theme
 

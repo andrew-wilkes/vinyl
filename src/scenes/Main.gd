@@ -1,6 +1,7 @@
 extends Control
 
 func _ready():
+	g.set_panel_color(theme)
 	$c2/M.theme = theme
 	$c2/Info.theme = theme
 

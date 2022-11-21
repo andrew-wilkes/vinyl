@@ -6,6 +6,7 @@ onready var headings = find_node("Headings")
 func _ready():
 	for track in g.settings.tracks:
 		add_item(track)
+	g.set_panel_color(theme)
 	$c.get_child(0).theme = theme
 
 

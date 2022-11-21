@@ -47,6 +47,7 @@ func _ready():
 	set_light_energy()
 	set_env_energy()
 	$"%EnvControl".setup($WE)
+	g.set_panel_color(theme)
 	for node in $c.get_children():
 		node.theme = theme
 

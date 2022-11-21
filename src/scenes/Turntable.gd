@@ -94,6 +94,7 @@ func _ready():
 	set_cart_color(g.settings.cart_color)
 	get_node("%DeckColor").color = g.settings.deck_color
 	get_node("%CartColor").color = g.settings.cart_color
+	g.set_panel_color(theme)
 	for node in $c.get_children():
 		node.theme = theme
 
