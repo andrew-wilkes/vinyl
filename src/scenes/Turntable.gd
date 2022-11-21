@@ -54,6 +54,9 @@ var timelines = []
 var not_updating_track_name = true
 var side_playing = 0
 var record_loaded = false
+var disc_sector = 0
+var drop_speed = 0.0
+var last_rot_x = 0.0
 export(Theme) var theme
 
 func _ready():
@@ -158,6 +161,11 @@ func _process(delta):
 	check_play_state(delta)
 	if not_updating_track_name and timelines.size() > 0:
 		update_track_name(get_track())
+
+	# Calc lowering speed of arm
+	drop_speed = last_rot_x - arm.rotation.x
+	last_rot_x = arm.rotation.x
+
 	if mode == MOVING_HANDLE: return
 	if Input.is_key_pressed(KEY_1):
 		prints(arm_base.rotation, needle.global_translation)
@@ -175,10 +183,15 @@ func _process(delta):
 	angle_limit = lerp(0.0, tan(deg2rad(5.0)), support.translation.y / 0.055)
 	if Input.is_key_pressed(KEY_2):
 		prints(rad2deg(angle_limit), arm.rotation_degrees)
-
+	
 	# Make arm fall if within angle_limit
-	if arm.rotation.x > angle_limit and not arm_limit_y():
-		arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
+	if arm.rotation.x > angle_limit:
+		if arm_limit_y():
+			if drop_speed > 0.002:
+				$Drop.play()
+				yield(get_tree().create_timer(0.4), "timeout")
+		else:
+			arm.rotate_object_local(Vector3(1, 0, 0), -delta * 0.8)
 	if angle_limit > arm.rotation.x:
 		arm.transform = arm_transform
 		arm.rotate_object_local(Vector3(1, 0, 0), angle_limit)
@@ -259,9 +272,21 @@ func get_track():
 
 
 func needle_on_record():
+	var on_record = false
 	if Input.is_key_pressed(KEY_3):
 		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
-	return arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= -5.48 and arm_base.rotation_degrees.y >= -30.5
+	if arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= -5.48:
+		if arm_base.rotation_degrees.y >= -30.5:
+			on_record = true
+		else:
+			# On inner groove
+			if $Disc.rotation.y > 0: # value is between -PI and +PI
+				if disc_sector == 0:
+					disc_sector = 1
+					$Click.play()
+			else:
+				disc_sector = 0
+	return on_record
 
 
 func set_dot_position():
@@ -280,7 +305,8 @@ func arm_limit_x(dir):
 		# Inner groove
 		if arm_base.rotation_degrees.y < -30.5:
 			limit = true
-		limit = check_y_limit_depending_on_x(limit)
+		if last_rot_x != arm.rotation.x or arm.rotation_degrees.x < -2.5:
+			limit = check_y_limit_depending_on_x(limit)
 	else:
 		if arm_base.rotation_degrees.y >= 17.3:
 			limit = true
@@ -315,6 +341,22 @@ func check_y_limit_depending_on_x(limit):
 	return limit
 
 
+func can_scratch():
+	var limit = false
+	if has_record:
+		if arm_base.rotation_degrees.y < -4.127:
+			if arm.rotation_degrees.x <= -1.681:
+				limit = true
+	else:
+		if arm_base.rotation_degrees.y < -7.521:
+			if arm.rotation_degrees.x <= -2.197:
+				limit = true
+		elif arm_base.rotation_degrees.y < -7.139:
+			if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
+				limit = true
+	return limit
+
+
 func rotate_arm(angle):
 	arm_base.rotate_y(angle)
 
@@ -332,6 +374,11 @@ func _unhandled_input(event):
 			MOVING_HANDLE:
 				if arm_limit_x(event.relative.x): return
 				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.005)
+				if can_scratch() and not $Scratch.playing:
+					$Scratch.play()
+					if audio.player.playing:
+						audio.stop()
+						play_state = NOT_PLAYING
 				if event.relative.y > 0:
 					if arm.rotation.x < angle_limit or arm_limit_y(): return
 				else:
@@ -518,3 +565,7 @@ func set_env_energy():
 
 func _on_Reset_pressed():
 	$OrbitCamera.reset_position()
+
+
+func _on_Timer_timeout():
+	print(drop_speed)

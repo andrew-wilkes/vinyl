@@ -72,3 +72,5 @@ Found a solution by myself, If you had the same problem, try to draw it with Par
 
 Reel to reel:
  https://www.youtube.com/watch?v=5KHSz9Gi-II
+
+ LMMS samples: /var/lib/flatpak/app/io.lmms.LMMS/current/active/files/share/lmms/samples/shapes

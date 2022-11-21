@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -19,11 +19,14 @@
 [ext_resource path="res://scenes/EnvControl.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/reset.png" type="Texture" id=18]
 [ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/sounds/click.wav" type="AudioStream" id=20]
 [ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
 [ext_resource path="res://assets/deck.glb" type="PackedScene" id=23]
 [ext_resource path="res://assets/arm-base.glb" type="PackedScene" id=24]
 [ext_resource path="res://assets/support.glb" type="PackedScene" id=25]
+[ext_resource path="res://assets/sounds/drop.wav" type="AudioStream" id=26]
+[ext_resource path="res://assets/sounds/scratch.wav" type="AudioStream" id=27]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.19
@@ -456,6 +459,18 @@ environment = SubResource( 8 )
 z_index = -1
 centered = false
 
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+
+[node name="Drop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+
+[node name="Scratch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
 [connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]
 [connection signal="mouse_exited" from="LeverArea" to="." method="_on_Lever_mouse_exited"]
@@ -481,5 +496,6 @@ centered = false
 [connection signal="mouse_entered" from="Disc/Area" to="." method="_on_disc_mouse_entered"]
 [connection signal="mouse_exited" from="Disc/Area" to="." method="_on_disc_mouse_exited"]
 [connection signal="finished" from="Audio" to="." method="_on_Audio_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [editable path="OrbitCamera"]
