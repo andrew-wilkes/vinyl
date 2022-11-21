@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://assets/highlight-shader.tres" type="Shader" id=15]
 [ext_resource path="res://scenes/record.shader" type="Shader" id=16]
 [ext_resource path="res://scenes/EnvControl.tscn" type="PackedScene" id=17]
-[ext_resource path="res://assets/hdri/rustig_koppie_puresky_4k.exr" type="Texture" id=18]
 [ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/ArrowDown.svg" type="Texture" id=21]
 [ext_resource path="res://assets/ArrowUp.svg" type="Texture" id=22]
@@ -63,7 +62,6 @@ height = 0.003
 radius = 0.148
 
 [sub_resource type="PanoramaSky" id=9]
-panorama = ExtResource( 18 )
 
 [sub_resource type="Environment" id=8]
 background_mode = 4
@@ -300,15 +298,16 @@ size_flags_horizontal = 3
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -22.0
-margin_bottom = -8.0
+margin_top = -31.0
+margin_bottom = -17.0
 mouse_filter = 2
 
 [node name="TrackName" type="Label" parent="c/Cent"]
 unique_name_in_owner = true
-margin_left = 640.0
-margin_right = 640.0
+margin_left = 626.0
+margin_right = 653.0
 margin_bottom = 14.0
+text = "Test"
 
 [node name="Controls" type="HBoxContainer" parent="c"]
 anchor_left = 1.0
