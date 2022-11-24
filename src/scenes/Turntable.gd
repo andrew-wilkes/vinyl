@@ -201,7 +201,6 @@ func _process(delta):
 	var v = get_node("%HSlider").value
 	if v != last_slider_value:
 		last_slider_value = v
-		get_node("%Record").animate(v)
 		match record_state:
 			WAITING:
 				if v > 64:

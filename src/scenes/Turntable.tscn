@@ -291,6 +291,12 @@ render_target_update_mode = 3
 [node name="Record" parent="c/M/VB/HB2/Details/Items/VPC/Viewport" instance=ExtResource( 11 )]
 unique_name_in_owner = true
 
+[node name="Sleeve" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="0"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
+slider_node = NodePath("../../../../HB/HSlider")
+
 [node name="Control" type="Control" parent="c/M/VB/HB2"]
 margin_left = 418.0
 margin_right = 833.0
@@ -499,3 +505,4 @@ wait_time = 0.2
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [editable path="OrbitCamera"]
+[editable path="c/M/VB/HB2/Details/Items/VPC/Viewport/Record"]

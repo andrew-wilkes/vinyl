@@ -84,7 +84,7 @@ window/size/height=800
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/animation_slider/plugin.cfg", "res://addons/gut/plugin.cfg" )
 
 [gui]
 
