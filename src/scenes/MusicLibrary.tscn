@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/OrbitCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/MusicLibrary.gd" type="Script" id=2]
@@ -9,17 +9,9 @@
 [ext_resource path="res://assets/UI.theme" type="Theme" id=7]
 [ext_resource path="res://scenes/EnvControl.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/shelves.obj" type="ArrayMesh" id=9]
-[ext_resource path="res://assets/mat/wood-floor.tres" type="Material" id=10]
-[ext_resource path="res://assets/mat/plaster.tres" type="Material" id=11]
 [ext_resource path="res://assets/mat/wood/Wood048_1K_Color.jpg" type="Texture" id=12]
 [ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/reset.png" type="Texture" id=14]
-
-[sub_resource type="QuadMesh" id=2]
-size = Vector2( 6, 4 )
-
-[sub_resource type="QuadMesh" id=3]
-size = Vector2( 6, 3 )
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 12 )
@@ -194,24 +186,6 @@ margin_bottom = 30.0
 hint_tooltip = "Reset position"
 icon = ExtResource( 14 )
 icon_align = 1
-
-[node name="Floor" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 2 )
-visible = false
-mesh = SubResource( 2 )
-material/0 = ExtResource( 10 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Wall" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-visible = false
-mesh = SubResource( 3 )
-material/0 = ExtResource( 11 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Light1" type="DirectionalLight" parent="."]
 transform = Transform( 0.253895, -0.240629, 0.936822, -0.135219, 0.950218, 0.280717, -0.957733, -0.197949, 0.208718, 4.37973, 0, 0 )
