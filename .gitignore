@@ -25,3 +25,5 @@ test.p*
 .VSCodeCounter/
 
 src/assets/hdri/
+
+builds/

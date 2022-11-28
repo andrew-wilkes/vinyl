@@ -256,6 +256,7 @@ func check_play_state(delta):
 
 func get_track():
 	# Return track or null if in gap or outside of track area
+	if arm_base.rotation_degrees.y > -5.48: return
 	var total_time = timelines[side].size()
 	var t_mark = (OUTER_GROOVE - arm_base.rotation_degrees.y) / (OUTER_GROOVE - INNER_GROOVE) * total_time
 	if t_mark < 0.0 or t_mark > total_time: return
@@ -274,7 +275,7 @@ func needle_on_record():
 	var on_record = false
 	if Input.is_key_pressed(KEY_3):
 		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
-	if arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= -5.48:
+	if arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= -4.127:
 		if arm_base.rotation_degrees.y >= -30.5:
 			on_record = true
 		else:
