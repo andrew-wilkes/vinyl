@@ -131,8 +131,8 @@ filters = PoolStringArray( "*.mp3, *.ogg ; Supported Music Files" )
 [node name="Info" parent="c" instance=ExtResource( 7 )]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 1260.0
-margin_bottom = 780.0
+margin_right = 835.0
+margin_bottom = 544.0
 
 [connection signal="pressed" from="VB/HB/VB/HB/Info" to="." method="_on_Info_pressed"]
 [connection signal="pressed" from="VB/Menu/Select" to="." method="_on_Button_pressed"]

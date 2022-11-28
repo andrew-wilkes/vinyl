@@ -538,7 +538,7 @@ func d(txt):
 
 
 func _on_EnvControl_info_pressed():
-	$c/Info.open(4)
+	$c/Info.open(5)
 
 
 func _on_EnvControl_slider1_changed(value):
