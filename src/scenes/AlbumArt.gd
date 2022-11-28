@@ -218,3 +218,7 @@ func _on_BgColor_color_changed(color):
 func _on_FgColor_color_changed(color):
 	g.settings.fg_color = color
 	g.set_panel_color(theme)
+
+
+func _on_Info_pressed():
+	$c/Info.open(2)

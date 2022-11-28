@@ -437,3 +437,7 @@ func open_image_selector(idx):
 func alert(msg):
 	$c/Alert.dialog_text = msg
 	$c/Alert.popup_centered()
+
+
+func _on_Info_pressed():
+	$c/Info.open(2)

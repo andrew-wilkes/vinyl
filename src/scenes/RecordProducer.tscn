@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://assets/stop.png" type="Texture" id=24]
 [ext_resource path="res://assets/rec-stack.png" type="Texture" id=25]
 [ext_resource path="res://scenes/AlbumSelector.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -206,8 +207,17 @@ margin_bottom = 39.0
 hint_tooltip = "Load album"
 icon = ExtResource( 25 )
 
-[node name="Sp" type="Control" parent="VBox/HB/VBoxContainer/Menu"]
+[node name="Info" type="Button" parent="VBox/HB/VBoxContainer/Menu"]
 margin_left = 108.0
+margin_right = 140.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 32, 0 )
+hint_tooltip = "Show track info."
+icon = ExtResource( 17 )
+icon_align = 1
+
+[node name="Sp" type="Control" parent="VBox/HB/VBoxContainer/Menu"]
+margin_left = 160.0
 margin_right = 264.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
@@ -923,12 +933,19 @@ window_title = "Alert"
 resizable = true
 dialog_autowrap = true
 
+[node name="Info" parent="c" instance=ExtResource( 27 )]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1260.0
+margin_bottom = 780.0
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="text_changed" from="VBox/HB/VB1/VB1/Title" to="." method="_on_Title_text_changed"]
 [connection signal="text_changed" from="VBox/HB/VB1/VB2/Band" to="." method="_on_Band_text_changed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Load" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Info" to="." method="_on_Info_pressed"]
 [connection signal="pressed" from="VBox/HB/VBoxContainer/Menu/Delete" to="." method="_on_Delete_pressed"]
 [connection signal="value_changed" from="VBox/HB1/VB3/HB3/VB/Pitch" to="." method="_on_Pitch_value_changed"]
 [connection signal="pressed" from="VBox/HB1/VB3/HB3/FastForward" to="." method="_on_FastForward_pressed"]

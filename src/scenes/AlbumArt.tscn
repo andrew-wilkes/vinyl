@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/AlbumArt.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://scenes/ArtDesigner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/TextPanel.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ImageSelector.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/info.png" type="Texture" id=11]
+[ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ButtonGroup" id=3]
 resource_name = "Canvas"
@@ -57,19 +59,31 @@ text = "Album Artwork"
 
 [node name="Sp1" type="Control" parent="VB/Header/VB/HB"]
 margin_left = 189.0
-margin_right = 221.0
+margin_right = 197.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="Load" type="Button" parent="VB/Header/VB/HB"]
-margin_left = 225.0
-margin_right = 259.0
+margin_left = 201.0
+margin_right = 235.0
 margin_bottom = 39.0
 hint_tooltip = "Load album"
 icon = ExtResource( 5 )
 
 [node name="Sp2" type="Control" parent="VB/Header/VB/HB"]
-margin_left = 263.0
+margin_left = 239.0
+margin_right = 248.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+
+[node name="Info" type="Button" parent="VB/Header/VB/HB"]
+margin_left = 252.0
+margin_right = 282.0
+margin_bottom = 39.0
+icon = ExtResource( 11 )
+
+[node name="Sp3" type="Control" parent="VB/Header/VB/HB"]
+margin_left = 286.0
 margin_right = 295.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
@@ -311,10 +325,10 @@ theme = ExtResource( 6 )
 script = ExtResource( 9 )
 
 [node name="VB" type="VBoxContainer" parent="c/TextPanel"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 550.0
-margin_bottom = 435.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 544.0
+margin_bottom = 429.0
 size_flags_horizontal = 3
 
 [node name="Label4" type="Label" parent="c/TextPanel/VB"]
@@ -365,7 +379,10 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.ttf ; True Type Font files" )
 
+[node name="Info" parent="c" instance=ExtResource( 12 )]
+
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="VB/Header/VB/HB/Info" to="." method="_on_Info_pressed"]
 [connection signal="color_changed" from="VB/Header/G/BgColor" to="." method="_on_BgColor_color_changed"]
 [connection signal="color_changed" from="VB/Header/G/FgColor" to="." method="_on_FgColor_color_changed"]
 [connection signal="pressed" from="VB/Content/LeftCol/CanvasMenu/SuggestText" to="." method="_on_ShowText_pressed"]

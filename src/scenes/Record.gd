@@ -5,10 +5,14 @@ const DISPLACEMENT = 0.25
 var revealed = false
 var tween
 var album_id
+var remove_anim = false
 
 func _ready():
-	$Anim.play("Anim")
-	$Anim.seek(0.33, true)
+	if remove_anim:
+		$Anim.remove_animation("Anim")
+	else:
+		$Anim.play("Anim")
+		$Anim.seek(0.33, true)
 
 
 func set_lights(show):

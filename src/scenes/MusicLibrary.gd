@@ -54,6 +54,8 @@ func _ready():
 
 func add_album(material, album_id):
 	var lp = record.instance()
+	lp.remove_anim = true
+	lp.get_node("Anim").queue_free()
 	lp.set_lights(false)
 	lp.translation = get_record_position(get_album_pos(album_id))
 	lp.album_id = album_id
@@ -212,7 +214,7 @@ func get_record_position(pos):
 
 
 func _on_Info_pressed():
-	$c/Info.open(3)
+	$c/Info.open(4)
 
 
 func _on_EnvControl_slider1_changed(value):

@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/MusicTracks.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=4]
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/info.png" type="Texture" id=6]
+[ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=7]
 
 [node name="MusicTracks" type="MarginContainer"]
 anchor_right = 1.0
@@ -28,28 +30,40 @@ margin_right = 1240.0
 margin_bottom = 97.0
 
 [node name="VB" type="VBoxContainer" parent="VB/HB"]
-margin_right = 155.0
+margin_right = 205.0
 margin_bottom = 97.0
 
-[node name="Label" type="Label" parent="VB/HB/VB"]
+[node name="HB" type="HBoxContainer" parent="VB/HB/VB"]
+margin_right = 205.0
+margin_bottom = 39.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="VB/HB/VB/HB"]
+margin_top = 2.0
 margin_right = 155.0
-margin_bottom = 34.0
+margin_bottom = 36.0
 custom_fonts/font = ExtResource( 3 )
 text = "Music Tracks"
 
+[node name="Info" type="Button" parent="VB/HB/VB/HB"]
+margin_left = 175.0
+margin_right = 205.0
+margin_bottom = 39.0
+icon = ExtResource( 6 )
+
 [node name="Sp1" type="Control" parent="VB/HB"]
-margin_left = 159.0
-margin_right = 443.0
+margin_left = 209.0
+margin_right = 468.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 
 [node name="Navigation" parent="VB/HB" instance=ExtResource( 5 )]
-margin_left = 447.0
-margin_right = 951.0
+margin_left = 472.0
+margin_right = 976.0
 margin_bottom = 97.0
 
 [node name="Sp2" type="Control" parent="VB/HB"]
-margin_left = 955.0
+margin_left = 980.0
 margin_right = 1240.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
@@ -114,6 +128,13 @@ mode = 1
 access = 2
 filters = PoolStringArray( "*.mp3, *.ogg ; Supported Music Files" )
 
+[node name="Info" parent="c" instance=ExtResource( 7 )]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1260.0
+margin_bottom = 780.0
+
+[connection signal="pressed" from="VB/HB/VB/HB/Info" to="." method="_on_Info_pressed"]
 [connection signal="pressed" from="VB/Menu/Select" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VB/Menu/Remove" to="." method="_on_Remove_pressed"]
 [connection signal="files_selected" from="c/FileDialog" to="." method="_on_FileDialog_files_selected"]

@@ -93,6 +93,82 @@ Unless required by applicable law or agreed to in writing, software distributed 
 "
 autowrap = true
 
+[node name="Basics" type="RichTextLabel" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]Importing Music Tracks[/b]
+
+You need to import .mp3 or .ogg music files from your computer.
+This is done in the Music Tracks scene.
+The imported tracks are then listed.
+
+[b]Creating a record[/b]
+ This is done in the Record Producer scene.
+
+In the record player scene, select tracks to add to side A and side B of a new record.
+Set the values for the record size and speed. Currently, only 12\" records are actually produced.
+
+New records will be added to the list of albums that may be selected and appear in the music cabinet.
+
+[b]Creating artwork[/b]
+
+Create sleeve and label art in the Artwork scene.
+
+This is applied to the currently selected album.
+
+The created images may be saved to disc.
+
+[b]Selecting an album to play[/b]
+
+This can be selected from the Music Library or from a drop down list in the Record Producer or Artwork scenes.
+
+[b]Playing an album[/b]
+
+After selecting an album, it appears in the Record Player scene and may be loaded onto the platter.
+
+Set the speed and carefully place the needle onto the disc to play.
+"
+text = "Importing Music Tracks
+
+You need to import .mp3 or .ogg music files from your computer.
+This is done in the Music Tracks scene.
+The imported tracks are then listed.
+
+Creating a record
+ This is done in the Record Producer scene.
+
+In the record player scene, select tracks to add to side A and side B of a new record.
+Set the values for the record size and speed. Currently, only 12\" records are actually produced.
+
+New records will be added to the list of albums that may be selected and appear in the music cabinet.
+
+Creating artwork
+
+Create sleeve and label art in the Artwork scene.
+
+This is applied to the currently selected album.
+
+The created images may be saved to disc.
+
+Selecting an album to play
+
+This can be selected from the Music Library or from a drop down list in the Record Producer or Artwork scenes.
+
+Playing an album
+
+After selecting an album, it appears in the Record Player scene and may be loaded onto the platter.
+
+Set the speed and carefully place the needle onto the disc to play.
+"
+
 [node name="3D View" type="RichTextLabel" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
@@ -140,10 +216,14 @@ custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Left click on albums to select
 Click again to play
-Right click in free space to unselect"
+Right click in free space to unselect
+
+Move a selected album between shelves or sideways using the arrow keys"
 text = "Left click on albums to select
 Click again to play
-Right click in free space to unselect"
+Right click in free space to unselect
+
+Move a selected album between shelves or sideways using the arrow keys"
 
 [node name="Record Player" type="RichTextLabel" parent="TabContainer"]
 visible = false
@@ -159,7 +239,7 @@ bbcode_enabled = true
 bbcode_text = "Move the album slider to view the sleeve and choose which side to play
 Press the down button to load the disc
 Press the up button to remove the disc
-Set the platter spinning by clicking and holding the knob and moving left to right to select the speed.
+Set the platter spinning by clicking and holding the knob and moving left to right to select the speed
 
 Green sets stopped
 Blue sets 33.3 RPM
@@ -167,11 +247,16 @@ Amber sets 45 RPM
 Red sets 78 RPM
 
 Click and hold on arm handle to move the arm
-Click and hold the lever and move it up and down to raise and lower the arm"
+Click and hold the lever and move it up and down to raise and lower the arm
+
+The spot light is red when over a music track and green when over a cross-over track
+
+To the right are controls to adjust the color of the deck and cartridge
+Also, there is a button to reset the position of the record player"
 text = "Move the album slider to view the sleeve and choose which side to play
 Press the down button to load the disc
 Press the up button to remove the disc
-Set the platter spinning by clicking and holding the knob and moving left to right to select the speed.
+Set the platter spinning by clicking and holding the knob and moving left to right to select the speed
 
 Green sets stopped
 Blue sets 33.3 RPM
@@ -179,7 +264,12 @@ Amber sets 45 RPM
 Red sets 78 RPM
 
 Click and hold on arm handle to move the arm
-Click and hold the lever and move it up and down to raise and lower the arm"
+Click and hold the lever and move it up and down to raise and lower the arm
+
+The spot light is red when over a music track and green when over a cross-over track
+
+To the right are controls to adjust the color of the deck and cartridge
+Also, there is a button to reset the position of the record player"
 
 [node name="Customization" type="RichTextLabel" parent="TabContainer"]
 visible = false
@@ -210,7 +300,11 @@ HDR images (.exr and .hdr files) are supported for the panoramic view.
 
 [b]Color selection button[/b]
 
-This sets the color of the solid color background."
+This sets the color of the solid color background.
+
+[b]Brightness[/b]
+
+Sliders are provided to adjust the illumination and background brightness levels"
 text = "Background customization
 
 Background mode
@@ -229,4 +323,8 @@ HDR images (.exr and .hdr files) are supported for the panoramic view.
 
 Color selection button
 
-This sets the color of the solid color background."
+This sets the color of the solid color background.
+
+Brightness
+
+Sliders are provided to adjust the illumination and background brightness levels"

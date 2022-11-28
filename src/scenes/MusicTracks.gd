@@ -47,3 +47,7 @@ func _on_Remove_pressed():
 func add_item(track):
 	items.add_item(track.title)
 	items.add_item("     " + track.path.get_base_dir(), null, false)
+
+
+func _on_Info_pressed():
+	$c/Info.open(2)
