@@ -11,7 +11,7 @@ export var pitch = 0.23
 export var images = [null, null, null, null]
 export var elements = [[], [], [], []]
 export var bg = [{}, {}, {}, {}] # Background { "color": color, "image": "path" }, ...
-export var a_side = []
-export var b_side = []
+export var a_side: Array
+export var b_side: Array
 export var label_color = Color.white
 export var shelf_pos  = { "x": 0, "y": 0 }
