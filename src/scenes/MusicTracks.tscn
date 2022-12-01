@@ -119,7 +119,7 @@ select_mode = 1
 [node name="FileDialog" type="FileDialog" parent="c"]
 margin_left = 109.0
 margin_top = 82.0
-margin_right = 792.0
+margin_right = 914.0
 margin_bottom = 585.0
 theme = ExtResource( 4 )
 window_title = "Open File(s)"

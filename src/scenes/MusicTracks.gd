@@ -36,16 +36,16 @@ func _on_Remove_pressed():
 	var list_offset = 0
 	var array_offset = 0
 	for idx in items.get_selected_items():
-		g.settings.tracks.remove(idx - array_offset)
+		g.settings.tracks.remove(idx / 2 - array_offset)
 		array_offset += 1
 		items.remove_item(idx - list_offset)
-		list_offset += 1
 		items.remove_item(idx - list_offset)
-		list_offset += 1
+		list_offset += 2
 
 
 func add_item(track):
 	items.add_item(track.title)
+	# Prevent selection of path
 	items.add_item("     " + track.path.get_base_dir(), null, false)
 
 
