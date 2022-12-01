@@ -12,6 +12,7 @@
 [node name="EnvControl" type="HBoxContainer"]
 margin_right = 72.0
 margin_bottom = 88.0
+theme = ExtResource( 8 )
 custom_constants/separation = 10
 script = ExtResource( 6 )
 

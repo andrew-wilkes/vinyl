@@ -552,6 +552,8 @@ func set_light_energy():
 	$DL2.light_energy = e
 	$DL3.light_energy = e
 	$DL4.light_energy = e
+	$"%SpotLight1".light_energy = e * 10.0
+	$"%SpotLight2".light_energy = e * 10.0
 
 
 func _on_EnvControl_slider2_changed(value):
@@ -565,7 +567,3 @@ func set_env_energy():
 
 func _on_Reset_pressed():
 	$OrbitCamera.reset_position()
-
-
-func _on_Timer_timeout():
-	print(drop_speed)

@@ -69,7 +69,6 @@ func load_image(path):
 func set_bg_mode():
 	match g.settings.bg_modes[image_idx]:
 		CLEAR:
-			
 			we.environment.background_mode = Environment.BG_COLOR
 			we.environment.background_color = g.settings.bg_color_3d[image_idx]
 			we.get_child(0).hide()

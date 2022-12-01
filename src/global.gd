@@ -29,8 +29,7 @@ func set_panel_color(theme):
 	theme.get_stylebox("disabled", "Button").bg_color = settings.fg_color * 1.5
 	theme.get_stylebox("panel", "PanelContainer").bg_color = settings.fg_color
 	theme.get_stylebox("panel", "WindowDialog").border_color = settings.fg_color
-	#print(theme.get_stylebox_types())
-	#print(theme.get_stylebox_list("Button"))
+	theme.get_stylebox("panel", "PopupPanel").bg_color = settings.fg_color
 
 
 func _unhandled_input(event):
