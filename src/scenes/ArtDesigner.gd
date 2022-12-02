@@ -138,6 +138,11 @@ func _on_ArtElements_selected_element(el):
 	$HB/RHS/Props.show()
 
 
+func _on_ArtElements_moved_element(from, to):
+	elements.insert(to, elements.pop_at(from))
+	update_elements()
+
+
 func fill_props(el):
 	current_element = el
 	var props = $HB/RHS/Props
@@ -269,37 +274,14 @@ func _on_FillColor_gui_input(event):
 
 
 func update_elements():
-	var iv = get_node("%ImageView")
-	iv.strings.clear()
-	iv.rotated_strings.clear()
-	iv.arcs.clear()
-	iv.rings.clear()
-	iv.boxes.clear()
-	iv.circles.clear()
-	iv.lines.clear()
-	iv.squares.clear()
-	for el in elements:
-		if el.type == ArtElement.AB:
-			iv.strings.append(el)
-		if el.type == ArtElement.ABROT:
-			iv.rotated_strings.append(el)
-		if el.type == ArtElement.ARC:
-			iv.arcs.append(el)
-		if el.type == ArtElement.CIRC:
-			iv.rings.append(el)
-		if el.type == ArtElement.BOX:
-			iv.boxes.append(el)
-		if el.type == ArtElement.DOT:
-			iv.circles.append(el)
-		if el.type == ArtElement.LINE:
-			iv.lines.append(el)
-		if el.type == ArtElement.SQR:
-			iv.squares.append(el)
-	iv.overlay.update()
+	get_node("%ImageView").elements = elements
+	get_node("%ImageView").overlay.update()
 
 
 func _process(_delta):
 	if current_element:
+		if Input.is_key_pressed(KEY_1):
+			print(current_element)
 		var h = current_element.get_hash()
 		if last_hash != h:
 			last_hash = h

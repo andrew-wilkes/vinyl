@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://assets/up-down.png" type="Texture" id=18]
 [ext_resource path="res://assets/bar.png" type="Texture" id=19]
 [ext_resource path="res://scenes/ArtDesigner.gd" type="Script" id=20]
+[ext_resource path="res://assets/up-arrow.png" type="Texture" id=21]
+[ext_resource path="res://assets/down-arrow.png" type="Texture" id=22]
 
 [node name="ArtDesigner" type="PanelContainer"]
 margin_right = 901.0
@@ -274,12 +276,41 @@ margin_right = 295.0
 margin_bottom = 39.0
 icon = ExtResource( 15 )
 
-[node name="Elements" type="ItemList" parent="HB/ArtElements"]
+[node name="HB" type="HBoxContainer" parent="HB/ArtElements"]
 margin_top = 82.0
 margin_right = 295.0
 margin_bottom = 750.0
 size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="Elements" type="ItemList" parent="HB/ArtElements/HB"]
+unique_name_in_owner = true
+margin_right = 253.0
+margin_bottom = 668.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/vseparation = 10
+
+[node name="VB" type="VBoxContainer" parent="HB/ArtElements/HB"]
+margin_left = 263.0
+margin_right = 295.0
+margin_bottom = 668.0
+custom_constants/separation = 10
+
+[node name="Up" type="Button" parent="HB/ArtElements/HB/VB"]
+unique_name_in_owner = true
+margin_right = 32.0
+margin_bottom = 39.0
+disabled = true
+icon = ExtResource( 21 )
+
+[node name="Down" type="Button" parent="HB/ArtElements/HB/VB"]
+unique_name_in_owner = true
+margin_top = 49.0
+margin_right = 32.0
+margin_bottom = 88.0
+disabled = true
+icon = ExtResource( 22 )
 
 [node name="RHS" type="VBoxContainer" parent="HB"]
 margin_left = 705.0
@@ -624,6 +655,7 @@ dialog_text = "This action will erase all settings for the current canvas design
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/A" to="." method="_on_A_value_changed"]
 [connection signal="gui_input" from="HB/VB/HB2/VB2/HB/ModColor" to="." method="_on_ModColor_gui_input"]
 [connection signal="added_element" from="HB/ArtElements" to="." method="_on_ArtElements_added_element"]
+[connection signal="moved_element" from="HB/ArtElements" to="." method="_on_ArtElements_moved_element"]
 [connection signal="removed_element" from="HB/ArtElements" to="." method="_on_ArtElements_removed_element"]
 [connection signal="selected_element" from="HB/ArtElements" to="." method="_on_ArtElements_selected_element"]
 [connection signal="pressed" from="HB/ArtElements/Grid/AB" to="HB/ArtElements" method="_on_AB_pressed"]
@@ -634,7 +666,9 @@ dialog_text = "This action will erase all settings for the current canvas design
 [connection signal="pressed" from="HB/ArtElements/Grid/Dot" to="HB/ArtElements" method="_on_Dot_pressed"]
 [connection signal="pressed" from="HB/ArtElements/Grid/Square" to="HB/ArtElements" method="_on_Square_pressed"]
 [connection signal="pressed" from="HB/ArtElements/Grid/Box" to="HB/ArtElements" method="_on_Box_pressed"]
-[connection signal="item_selected" from="HB/ArtElements/Elements" to="HB/ArtElements" method="_on_Elements_item_selected"]
+[connection signal="item_selected" from="HB/ArtElements/HB/Elements" to="HB/ArtElements" method="_on_Elements_item_selected"]
+[connection signal="pressed" from="HB/ArtElements/HB/VB/Up" to="HB/ArtElements" method="_on_Up_pressed"]
+[connection signal="pressed" from="HB/ArtElements/HB/VB/Down" to="HB/ArtElements" method="_on_Down_pressed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Length" to="." method="_on_Length_value_changed"]
 [connection signal="value_changed" from="HB/RHS/Props/Adjusters/Size" to="." method="_on_Size_value_changed"]
 [connection signal="gui_input" from="HB/RHS/Props/Adjusters/HB/FillColor" to="." method="_on_FillColor_gui_input"]

@@ -3,25 +3,29 @@ extends VBoxContainer
 signal added_element(el)
 signal selected_element(el)
 signal removed_element(el)
+signal moved_element(from, to)
+
+onready var elements = $"%Elements"
 
 var selected_item = -1
 
-func init_elements(elements):
-	$Elements.clear()
+func init_elements(els):
+	elements.clear()
 	var idx = 0
-	for el in elements:
-		$Elements.add_icon_item($Grid.get_child(el.type).icon.duplicate())
-		$Elements.set_item_metadata(idx, el)
+	for el in els:
+		elements.add_icon_item($Grid.get_child(el.type).icon.duplicate())
+		elements.set_item_metadata(idx, el)
 		idx += 1
 
 
 func add_element(type):
 	var el = ArtElement.new()
 	el.type = type
-	$Elements.add_icon_item($Grid.get_child(el.type).icon.duplicate())
-	selected_item = $Elements.get_item_count() - 1
-	$Elements.set_item_metadata(selected_item, el)
-	$Elements.select(selected_item)
+	elements.add_icon_item($Grid.get_child(el.type).icon.duplicate())
+	selected_item = elements.get_item_count() - 1
+	update_up_down_buttons()
+	elements.set_item_metadata(selected_item, el)
+	elements.select(selected_item)
 	match el.type:
 		el.AB:
 			el.position = Vector2(0.2, 0.5)
@@ -55,9 +59,10 @@ func add_element(type):
 
 func _unhandled_key_input(event):
 	if event.scancode == KEY_DELETE and selected_item > -1:
-		emit_signal("removed_element", $Elements.get_item_metadata(selected_item))
-		$Elements.remove_item(selected_item)
+		emit_signal("removed_element", elements.get_item_metadata(selected_item))
+		elements.remove_item(selected_item)
 		selected_item = -1
+		update_up_down_buttons()
 
 
 func _on_AB_pressed():
@@ -94,4 +99,24 @@ func _on_Box_pressed():
 
 func _on_Elements_item_selected(index):
 	selected_item = index
-	emit_signal("selected_element", $Elements.get_item_metadata(selected_item))
+	update_up_down_buttons()
+	emit_signal("selected_element", elements.get_item_metadata(selected_item))
+
+
+func _on_Up_pressed():
+	elements.move_item(selected_item, selected_item - 1)
+	emit_signal("moved_element", selected_item, selected_item - 1)
+	selected_item -= 1
+	update_up_down_buttons()
+
+
+func _on_Down_pressed():
+	elements.move_item(selected_item, selected_item + 1)
+	emit_signal("moved_element", selected_item, selected_item + 1)
+	selected_item += 1
+	update_up_down_buttons()
+
+
+func update_up_down_buttons():
+	$"%Up".disabled = selected_item < 1
+	$"%Down".disabled = elements.get_item_count() - 1 == selected_item or selected_item < 0

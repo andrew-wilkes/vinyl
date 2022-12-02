@@ -19,3 +19,13 @@ export var font_path = ""
 func get_hash():
 	var t = text + font_path
 	return t.hash() + color.to_argb32() + size + length + rotation + position.x + position.y
+
+
+func _to_string():
+	return String({
+		type = type,
+		size = size,
+		length = length,
+		position = position,
+		rotation = rotation,
+	})
