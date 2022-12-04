@@ -30,6 +30,7 @@ onready var switch_material = switch.mesh.surface_get_material(0)
 onready var arm_handle_material = arm_handle.mesh.surface_get_material(0)
 onready var disc_shader = $Disc.get_surface_material(0).next_pass
 onready var needle = find_node("Needle")
+onready var track_list = [$"%ATracks", $"%BTracks"]
 
 var arm_angle = 0
 var mode = NONE
@@ -92,6 +93,10 @@ func _ready():
 		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
 		$"%NumTracksA".text = get_track_count_text(album.a_side.size())
 		$"%NumTracksB".text = get_track_count_text(album.b_side.size())
+		for track in album.a_side:
+			add_track_details(track, 0)
+		for track in album.b_side:
+			add_track_details(track, 1)
 		record_loaded = true
 	else:
 		get_node("%Details").hide()
@@ -576,4 +581,11 @@ func get_track_count_text(n):
 
 
 func _on_ViewTracks_pressed():
-	pass # Replace with function body.
+	$c/TrackList.popup_centered()
+
+
+func add_track_details(track, _side):
+	track_list[_side].add_item(track.title)
+	track_list[_side].add_item(track.album)
+	track_list[_side].add_item(track.year)
+	track_list[_side].add_item(g.format_time(track.length))

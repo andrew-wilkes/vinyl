@@ -444,6 +444,52 @@ text = "Vol"
 
 [node name="Info" parent="c" instance=ExtResource( 19 )]
 
+[node name="TrackList" type="AcceptDialog" parent="c"]
+margin_right = 531.0
+margin_bottom = 550.0
+theme = ExtResource( 4 )
+window_title = "Track List"
+
+[node name="VB" type="VBoxContainer" parent="c/TrackList"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 523.0
+margin_bottom = 495.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="c/TrackList/VB"]
+margin_right = 515.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 3 )
+text = "Side A"
+
+[node name="ATracks" type="ItemList" parent="c/TrackList/VB"]
+unique_name_in_owner = true
+margin_top = 33.0
+margin_right = 515.0
+margin_bottom = 238.0
+size_flags_vertical = 3
+custom_constants/hseparation = 20
+max_columns = 4
+same_column_width = true
+
+[node name="Label2" type="Label" parent="c/TrackList/VB"]
+margin_top = 248.0
+margin_right = 515.0
+margin_bottom = 271.0
+custom_fonts/font = ExtResource( 3 )
+text = "Side B"
+
+[node name="BTracks" type="ItemList" parent="c/TrackList/VB"]
+unique_name_in_owner = true
+margin_top = 281.0
+margin_right = 515.0
+margin_bottom = 487.0
+size_flags_vertical = 3
+custom_constants/hseparation = 20
+max_columns = 4
+same_column_width = true
+
 [node name="Disc" type="MeshInstance" parent="."]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.468, 0 )
 mesh = ExtResource( 12 )
