@@ -15,6 +15,9 @@ func _ready():
 		$Anim.seek(0.33, true)
 
 
+func set_size():
+	pass
+
 func set_lights(show):
 	$DirectionalLight.visible = show
 	$DirectionalLight2.visible = show

@@ -57,7 +57,16 @@ func add_album(material, album_id):
 	lp.remove_anim = true
 	lp.get_node("Anim").queue_free()
 	lp.set_lights(false)
-	lp.translation = get_record_position(get_album_pos(album_id))
+	var album = g.settings.albums[album_id]
+	match album.size:
+		"size7":
+			lp.scale = Vector3(1.0, 0.583, 0.583)
+		"size10":
+			lp.scale = Vector3(1.0, 0.833, 0.833)
+	# Set wanted shelf depending on record size
+	if album.shelf_pos.y < 0:
+		album.shelf_pos.y = g.SIZES.find(album.record_size)
+	lp.translation = get_record_position(get_album_pos(album_id, album))
 	lp.album_id = album_id
 	$Albums.add_child(lp)
 	lp.get_child(0).get_child(0).connect("mouse_entered", self, "edge_entered", [lp])
@@ -65,13 +74,11 @@ func add_album(material, album_id):
 	lp.get_child(0).get_child(0).connect("input_event", self, "edge_input", [lp])
 	lp.get_child(0).set_surface_material(0, material.duplicate())
 	lp.get_child(0).get_active_material(0).next_pass = material.next_pass.duplicate()
-	var album = g.settings.albums[album_id]
 	var edge_color = Color.whitesmoke if album.bg[2].empty() else album.bg[2].color
 	lp.set_textures(album, edge_color)
 
 
-func get_album_pos(album_id):
-	var album = g.settings.albums[album_id]
+func get_album_pos(album_id, album):
 	var slot_idx = album.shelf_pos.x * album.shelf_pos.y
 	if slots[slot_idx].empty():
 		slots[slot_idx] = album_id
