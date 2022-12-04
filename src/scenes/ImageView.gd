@@ -6,7 +6,6 @@ var size
 var base_size
 var scale
 var hole_size = 0.1 setget set_hole_size
-var arc_width = 4.0
 var elements
 
 export var is_disc = true setget set_canvas_type
@@ -73,7 +72,14 @@ func draw():
 	#var _chr_width = overlay.draw_char(dynamic_font, Vector2(-10, -10), "A", "")
 	var b2 = base_size / 2
 	for el in elements:
+		var box = Vector2(el.length, el.length) * b2
 		match el.type:
+			ArtElement.CIRC:
+				reset_transform()
+				overlay.draw_arc(el.position * base_size, b2 * el.size, -PI, PI, el.size * 16 + 32, el.color, el.size * 32)
+			ArtElement.DOT:
+				reset_transform()
+				overlay.draw_circle(el.position * base_size, b2 * max(el.size, 0.1), el.color)
 			ArtElement.AB:
 				var pos = Vector2(min(el.position.x, 0.95), max(el.position.y, 0.05)) * base_size
 				var ang = el.rotation + 0.5
@@ -97,26 +103,21 @@ func draw():
 					var _advance = overlay.draw_char(el.font, Vector2.ZERO, chr, "", el.color)
 					ang = ang + astep
 			ArtElement.ARC:
-				var ang = el.rotation + 0.5
+				var ang = el.rotation / 1.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI, Vector2(1, 1))
-				overlay.draw_arc(Vector2.ZERO, b2 * el.length, ang * PI * 2.0, (ang + el.size) * PI * 2.0, el.size * el.length * 16 + 32, el.color, arc_width)
-			ArtElement.CIRC:
-				overlay.draw_circle(el.position * base_size, b2 * max(el.length, 0.1), el.color)
+				overlay.draw_arc(Vector2.ZERO, b2 * el.size, (ang - el.length / 2.0) * PI * 2.0, (ang + el.length / 2.0) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.size * 32)
 			ArtElement.BOX:
 				var ang = el.rotation + 0.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI * 2.0, Vector2(1, 1))
-				overlay.draw_rect(Rect2(Vector2.ZERO, Vector2(el.length, el.length) * b2), el.color, false, el.size * 32)
-			ArtElement.DOT:
-				arc_width = el.size * 32 # Use for arc also
-				overlay.draw_arc(el.position * base_size, b2 * el.length, -PI, PI, el.length * 16 + 32, el.color, arc_width)
+				overlay.draw_rect(Rect2(-box / 2.0, box), el.color, false, el.size * 32)
 			ArtElement.LINE:
 				var ang = el.rotation + 0.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI * 2.0, Vector2(1, 1))
-				overlay.draw_line(Vector2.ZERO, Vector2(el.length * base_size, 0), el.color, el.size * 32)
+				overlay.draw_line(Vector2(-el.length * b2, 0), Vector2(el.length * b2, 0), el.color, el.size * 32)
 			ArtElement.SQR:
 				var ang = el.rotation + 0.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI * 2.0, Vector2(1, 1))
-				overlay.draw_rect(Rect2(Vector2.ZERO, Vector2(el.length, el.length) * b2), el.color, true)
+				overlay.draw_rect(Rect2(-box / 2.0, box), el.color, true)
 
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
@@ -133,3 +134,7 @@ func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 
 func get_pixel_pos(uv):
 	return uv * base_size
+
+
+func reset_transform():
+	overlay.draw_set_transform_matrix(Transform2D.IDENTITY)

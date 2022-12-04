@@ -41,4 +41,4 @@ func mouse_exited():
 
 
 func goto_turntable():
-	$c/Fader.fade_out(scenes[5])
+	$c/Fader.fade_out(scenes[4])

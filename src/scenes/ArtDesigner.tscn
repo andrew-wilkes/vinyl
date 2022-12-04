@@ -301,6 +301,7 @@ custom_constants/separation = 10
 unique_name_in_owner = true
 margin_right = 32.0
 margin_bottom = 39.0
+hint_tooltip = "Move up"
 disabled = true
 icon = ExtResource( 21 )
 
@@ -309,6 +310,7 @@ unique_name_in_owner = true
 margin_top = 49.0
 margin_right = 32.0
 margin_bottom = 88.0
+hint_tooltip = "Move down"
 disabled = true
 icon = ExtResource( 22 )
 

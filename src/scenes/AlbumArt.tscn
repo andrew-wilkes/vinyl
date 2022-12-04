@@ -317,10 +317,10 @@ access = 2
 filters = PoolStringArray( "*.png ; PNG file" )
 
 [node name="TextPanel" type="PopupPanel" parent="c"]
-margin_left = 20.0
-margin_top = 213.0
-margin_right = 574.0
-margin_bottom = 652.0
+margin_left = 619.0
+margin_top = 194.0
+margin_right = 1173.0
+margin_bottom = 633.0
 theme = ExtResource( 6 )
 script = ExtResource( 9 )
 
@@ -332,7 +332,7 @@ margin_bottom = 429.0
 size_flags_horizontal = 3
 
 [node name="Label4" type="Label" parent="c/TextPanel/VB"]
-margin_right = 546.0
+margin_right = 534.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 4 )
 text = "Useful Text"
@@ -340,16 +340,16 @@ text = "Useful Text"
 [node name="PanelText" type="TextEdit" parent="c/TextPanel/VB"]
 unique_name_in_owner = true
 margin_top = 27.0
-margin_right = 546.0
-margin_bottom = 388.0
+margin_right = 534.0
+margin_bottom = 376.0
 rect_min_size = Vector2( 0, 300 )
 size_flags_vertical = 3
 readonly = true
 
 [node name="HB" type="HBoxContainer" parent="c/TextPanel/VB"]
-margin_top = 392.0
-margin_right = 546.0
-margin_bottom = 431.0
+margin_top = 380.0
+margin_right = 534.0
+margin_bottom = 419.0
 
 [node name="CopyText" type="Button" parent="c/TextPanel/VB/HB"]
 margin_right = 150.0
@@ -357,13 +357,14 @@ margin_bottom = 39.0
 text = "Copy to clipboard"
 
 [node name="Sp" type="Control" parent="c/TextPanel/VB/HB"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 154.0
+margin_right = 491.0
+margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="OK" type="Button" parent="c/TextPanel/VB/HB"]
-margin_left = 154.0
-margin_right = 193.0
+margin_left = 495.0
+margin_right = 534.0
 margin_bottom = 39.0
 text = "OK"
 

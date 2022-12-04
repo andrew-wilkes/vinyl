@@ -90,6 +90,8 @@ func _ready():
 		$Disc.get_surface_material(0).set_shader_param("radius_mod_a", get_data_texture(timelines[0]))
 		timelines.append(get_mod_array(album.b_side))
 		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
+		$"%NumTracksA".text = get_track_count_text(album.a_side.size())
+		$"%NumTracksB".text = get_track_count_text(album.b_side.size())
 		record_loaded = true
 	else:
 		get_node("%Details").hide()
@@ -567,3 +569,11 @@ func set_env_energy():
 
 func _on_Reset_pressed():
 	$OrbitCamera.reset_position()
+
+
+func get_track_count_text(n):
+	return "%d track%s" % [n, "s" if n != 1 else ""]
+
+
+func _on_ViewTracks_pressed():
+	pass # Replace with function body.
