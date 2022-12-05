@@ -58,15 +58,17 @@ func add_album(material, album_id):
 	lp.get_node("Anim").queue_free()
 	lp.set_lights(false)
 	var album = g.settings.albums[album_id]
-	match album.size:
-		"size7":
-			lp.scale = Vector3(1.0, 0.583, 0.583)
-		"size10":
-			lp.scale = Vector3(1.0, 0.833, 0.833)
 	# Set wanted shelf depending on record size
 	if album.shelf_pos.y < 0:
 		album.shelf_pos.y = g.SIZES.find(album.size)
 	lp.translation = get_record_position(get_album_pos(album_id, album))
+	match album.size:
+		"size7":
+			lp.scale = Vector3(1.0, 0.583, 0.583)
+			lp.translation.y -= 0.064635 #0.155 * (1 - 0.583)
+		"size10":
+			lp.scale = Vector3(1.0, 0.833, 0.833)
+			lp.translation.y -= 0.025885
 	lp.album_id = album_id
 	$Albums.add_child(lp)
 	lp.get_child(0).get_child(0).connect("mouse_entered", self, "edge_entered", [lp])
