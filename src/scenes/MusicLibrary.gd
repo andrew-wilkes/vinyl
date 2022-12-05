@@ -65,7 +65,7 @@ func add_album(material, album_id):
 			lp.scale = Vector3(1.0, 0.833, 0.833)
 	# Set wanted shelf depending on record size
 	if album.shelf_pos.y < 0:
-		album.shelf_pos.y = g.SIZES.find(album.record_size)
+		album.shelf_pos.y = g.SIZES.find(album.size)
 	lp.translation = get_record_position(get_album_pos(album_id, album))
 	lp.album_id = album_id
 	$Albums.add_child(lp)
@@ -79,7 +79,7 @@ func add_album(material, album_id):
 
 
 func get_album_pos(album_id, album):
-	var slot_idx = album.shelf_pos.x * album.shelf_pos.y
+	var slot_idx = album.shelf_pos.x + album.shelf_pos.y * X_CAPACITY
 	if slots[slot_idx].empty():
 		slots[slot_idx] = album_id
 	else:
