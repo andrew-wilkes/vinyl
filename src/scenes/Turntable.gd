@@ -585,7 +585,7 @@ func _on_ViewTracks_pressed():
 
 
 func add_track_details(track, _side):
-	track_list[_side].add_item(track.title)
-	track_list[_side].add_item(track.album)
-	track_list[_side].add_item(track.year)
-	track_list[_side].add_item(g.format_time(track.length))
+	track_list[_side].add_item(track.title, null, false)
+	track_list[_side].add_item(track.album, null, false)
+	track_list[_side].add_item(track.year, null, false)
+	track_list[_side].add_item(g.format_time(track.length), null, false)

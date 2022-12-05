@@ -307,12 +307,6 @@ unique_name_in_owner = true
 [node name="Sleeve" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="0"]
 transform = Transform( 0.964605, 0, 0.263699, 0, 1, 0, -0.263699, 0, 0.964605, 0, 0, 0 )
 
-[node name="disc" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record/Sleeve" index="1"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0 )
-
-[node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
-slider_node = NodePath("../../../../HB/HSlider")
-
 [node name="TrackInfo" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 368.0
 margin_right = 394.0
@@ -445,7 +439,7 @@ text = "Vol"
 [node name="Info" parent="c" instance=ExtResource( 19 )]
 
 [node name="TrackList" type="AcceptDialog" parent="c"]
-margin_right = 531.0
+margin_right = 881.0
 margin_bottom = 550.0
 theme = ExtResource( 4 )
 window_title = "Track List"
@@ -453,12 +447,12 @@ window_title = "Track List"
 [node name="VB" type="VBoxContainer" parent="c/TrackList"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 523.0
+margin_right = 873.0
 margin_bottom = 495.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="c/TrackList/VB"]
-margin_right = 515.0
+margin_right = 865.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 3 )
 text = "Side A"
@@ -466,7 +460,7 @@ text = "Side A"
 [node name="ATracks" type="ItemList" parent="c/TrackList/VB"]
 unique_name_in_owner = true
 margin_top = 33.0
-margin_right = 515.0
+margin_right = 865.0
 margin_bottom = 238.0
 size_flags_vertical = 3
 custom_constants/hseparation = 20
@@ -475,7 +469,7 @@ same_column_width = true
 
 [node name="Label2" type="Label" parent="c/TrackList/VB"]
 margin_top = 248.0
-margin_right = 515.0
+margin_right = 865.0
 margin_bottom = 271.0
 custom_fonts/font = ExtResource( 3 )
 text = "Side B"
@@ -483,7 +477,7 @@ text = "Side B"
 [node name="BTracks" type="ItemList" parent="c/TrackList/VB"]
 unique_name_in_owner = true
 margin_top = 281.0
-margin_right = 515.0
+margin_right = 865.0
 margin_bottom = 487.0
 size_flags_vertical = 3
 custom_constants/hseparation = 20
