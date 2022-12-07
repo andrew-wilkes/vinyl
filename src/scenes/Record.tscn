@@ -48,6 +48,7 @@ shader_param/num_rings = 32.0
 shader_param/rmax = 0.95
 shader_param/rmin = 0.4
 shader_param/label_radius = 0.3
+shader_param/scale = 1.0
 shader_param/inner_smoothing = 30.0
 shader_param/outer_smoothing = 10.0
 shader_param/dot_position = Vector2( 0, 0 )

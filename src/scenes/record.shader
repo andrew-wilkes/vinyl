@@ -4,6 +4,7 @@ uniform float num_rings = 32;
 uniform float rmax = 0.95;
 uniform float rmin = 0.4;
 uniform float label_radius = 0.3;
+uniform float scale = 1.0;
 uniform sampler2D label_a;
 uniform sampler2D label_b;
 uniform sampler2D radius_mod_a;
@@ -19,7 +20,12 @@ uniform float width = 0.1;
 
 const float PI = 3.14159265358979323846;
 
+void vertex() {
+	VERTEX *= scale;
+}
+
 void fragment() {
+	float lr = label_radius / scale;
 	if (UV.y < 0.5) {
 		ALBEDO = vec3(0.0);
 	} else {
@@ -43,9 +49,9 @@ void fragment() {
 		}
 		float radius = pr + dr * ang + sin(ang * 1000.0) * sin(ang * 3.0 * 500.0) * 0.001; // radius of the point on a spiral
 		//if (ang < 0.25) radius += dr / 2.0;
-		if (pr < label_radius) {
+		if (pr < lr) {
 			// Display label
-			vec2 p = pt / label_radius / 2.0;
+			vec2 p = pt / lr / 2.0;
 			if (UV.x < 0.5)
 				ALBEDO = texture(label_a, p + vec2(0.5)).rgb;
 			else {
@@ -53,7 +59,7 @@ void fragment() {
 				ALBEDO = texture(label_b, p + vec2(0.5)).rgb;
 			}
 			// Smooth edge
-			ALBEDO *= clamp((label_radius - pr) * inner_smoothing, 0.0, 1.0);
+			ALBEDO *= clamp((lr - pr) * inner_smoothing, 0.0, 1.0);
 		} else {
 			vec3 track_color = vec3(0.02);
 			float circles = fract(radius / dr); // 0 .. 1

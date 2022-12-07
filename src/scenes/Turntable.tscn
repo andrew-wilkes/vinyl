@@ -51,6 +51,7 @@ shader_param/num_rings = 64.0
 shader_param/rmax = 0.95
 shader_param/rmin = 0.4
 shader_param/label_radius = 0.3
+shader_param/scale = 1.0
 shader_param/inner_smoothing = 30.0
 shader_param/outer_smoothing = 10.0
 shader_param/dot_position = Vector2( 0, 0 )
@@ -64,7 +65,7 @@ shader_param/label_b = ExtResource( 13 )
 
 [sub_resource type="CylinderShape" id=6]
 height = 0.003
-radius = 0.148
+radius = 0.149
 
 [sub_resource type="PanoramaSky" id=9]
 
@@ -82,7 +83,7 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 [node name="support" parent="deck" instance=ExtResource( 25 )]
 
 [node name="arm-base" type="Position3D" parent="deck"]
-transform = Transform( 0.995721, -4.03917e-09, 0.0924053, 4.03917e-09, 1, 1.87021e-10, -0.0924053, 1.87021e-10, 0.995721, -1.71019, 0.756099, 1.21021 )
+transform = Transform( 0.995721, 0, 0.0924053, 0, 1, 0, -0.0924053, 0, 0.995721, -1.71, 0.756, 1.21 )
 
 [node name="arm-base2" parent="deck/arm-base" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71019, -0.756099, -1.21021 )
@@ -305,7 +306,13 @@ render_target_update_mode = 3
 unique_name_in_owner = true
 
 [node name="Sleeve" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="0"]
-transform = Transform( 0.964605, 0, 0.263699, 0, 1, 0, -0.263699, 0, 0.964605, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="disc" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record/Sleeve" index="1"]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00287293 )
+
+[node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
+slider_node = NodePath("../../../../HB/HSlider")
 
 [node name="TrackInfo" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 368.0

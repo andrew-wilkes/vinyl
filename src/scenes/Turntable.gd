@@ -10,6 +10,7 @@ const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const GAP_LENGTH = 8
 const OUTER_GROOVE = -5.48
 const INNER_GROOVE = -28.9
+const DISC_SCALE = [1.0, 0.579, 0.832]
 
 var highlight_material = preload("res://assets/highlight.material")
 
@@ -58,6 +59,7 @@ var record_loaded = false
 var disc_sector = 0
 var drop_speed = 0.0
 var last_rot_x = 0.0
+var disc_size
 export(Theme) var theme
 
 func _ready():
@@ -81,6 +83,7 @@ func _ready():
 		get_node("%Details").show()
 		var edge_color = Color.whitesmoke if album.bg[2].empty() else album.bg[2].color
 		get_node("%Record").set_textures(album, edge_color)
+		disc_size = g.SIZES.find(album.size)
 		if album.images[0]:
 			var img_a = g.get_resized_texture(album.images[0]).texture
 			$Disc.get_surface_material(0).set_shader_param("label_a", img_a)
@@ -91,6 +94,7 @@ func _ready():
 		$Disc.get_surface_material(0).set_shader_param("radius_mod_a", get_data_texture(timelines[0]))
 		timelines.append(get_mod_array(album.b_side))
 		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
+		$Disc.get_surface_material(0).set_shader_param("scale", DISC_SCALE[disc_size])
 		$"%NumTracksA".text = get_track_count_text(album.a_side.size())
 		$"%NumTracksB".text = get_track_count_text(album.b_side.size())
 		for track in album.a_side:
@@ -166,7 +170,7 @@ func _process(delta):
 		$Disc.rotate_y(ang)
 		set_dot_position()
 	check_play_state(delta)
-	if not_updating_track_name and timelines.size() > 0:
+	if not_updating_track_name and has_record and timelines.size() > 0:
 		update_track_name(get_track())
 
 	# Calc lowering speed of arm
@@ -282,7 +286,7 @@ func needle_on_record():
 	var on_record = false
 	if Input.is_key_pressed(KEY_3):
 		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
-	if arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= -4.127:
+	if arm.rotation_degrees.x <= -1.665 and arm_base.rotation_degrees.y <= -5.0:
 		if arm_base.rotation_degrees.y >= -30.5:
 			on_record = true
 		else:
@@ -299,8 +303,9 @@ func needle_on_record():
 func set_dot_position():
 	var np = needle.global_translation
 	if side_playing > 0: np *= Vector3(-1, 1, -1)
-	var pos = Vector2(np.x / 1.55, np.z / 1.55).rotated($Disc.rotation.y)
-	if arm.rotation_degrees.x <= -1.68: pos = Vector2.ZERO
+	var factor = DISC_SCALE[disc_size] * 1.55 
+	var pos = Vector2(np.x / factor, np.z / factor).rotated($Disc.rotation.y)
+	if arm.rotation_degrees.x <= -1.665: pos = Vector2.ZERO
 	$Disc.get_surface_material(0).set_shader_param("dot_position", pos)
 
 
