@@ -291,6 +291,8 @@ func needle_on_record():
 			on_record = true
 		else:
 			# On inner groove
+			if get_node("%Details").visible == false:
+				_on_Open_pressed()
 			if $Disc.rotation.y > 0: # value is between -PI and +PI
 				if disc_sector == 0:
 					disc_sector = 1

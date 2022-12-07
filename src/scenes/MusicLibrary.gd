@@ -136,7 +136,8 @@ func select_item(item):
 		side_a.clear()
 		for track in album.a_side:
 			side_a.add_item(track.title)
-		var side_b = get_node("%SideA")
+		var side_b = get_node("%SideB")
+		side_b.clear()
 		for track in album.b_side:
 			side_b.add_item(track.title)
 		get_node("%Details").show()

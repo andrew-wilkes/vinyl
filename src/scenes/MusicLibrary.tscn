@@ -33,8 +33,8 @@ transform = Transform( 0.894568, 0, -0.446932, 0, 1, 0, 0.446932, 0, 0.894568, 0
 [node name="c" type="CanvasLayer" parent="."]
 
 [node name="M" type="MarginContainer" parent="c"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 902.0
+margin_bottom = 703.0
 mouse_filter = 2
 theme = ExtResource( 7 )
 custom_constants/margin_right = 20
@@ -46,7 +46,7 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 882.0
-margin_bottom = 383.0
+margin_bottom = 683.0
 mouse_filter = 2
 custom_constants/separation = 20
 
