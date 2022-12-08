@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -63,7 +63,28 @@ shader_param/width = 0.1
 shader_param/label_a = ExtResource( 14 )
 shader_param/label_b = ExtResource( 13 )
 
-[sub_resource type="CylinderShape" id=6]
+[sub_resource type="CylinderShape" id=10]
+resource_local_to_scene = true
+height = 0.003
+radius = 0.045
+
+[sub_resource type="CylinderShape" id=11]
+resource_local_to_scene = true
+height = 0.003
+radius = 0.049
+
+[sub_resource type="CylinderShape" id=12]
+resource_local_to_scene = true
+height = 0.003
+radius = 0.086
+
+[sub_resource type="CylinderShape" id=13]
+resource_local_to_scene = true
+height = 0.003
+radius = 0.124
+
+[sub_resource type="CylinderShape" id=14]
+resource_local_to_scene = true
 height = 0.003
 radius = 0.149
 
@@ -83,7 +104,7 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 [node name="support" parent="deck" instance=ExtResource( 25 )]
 
 [node name="arm-base" type="Position3D" parent="deck"]
-transform = Transform( 0.995721, 0, 0.0924053, 0, 1, 0, -0.0924053, 0, 0.995721, -1.71, 0.756, 1.21 )
+transform = Transform( 0.995724, 0, 0.0923705, 0, 1, 0, -0.0923705, 0, 0.995724, -1.71, 0.756, 1.21 )
 
 [node name="arm-base2" parent="deck/arm-base" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71019, -0.756099, -1.21021 )
@@ -309,7 +330,7 @@ unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="disc" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record/Sleeve" index="1"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00287293 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00751932 )
 
 [node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
 slider_node = NodePath("../../../../HB/HSlider")
@@ -499,8 +520,20 @@ material/0 = SubResource( 5 )
 [node name="Area" type="Area" parent="Disc"]
 visible = false
 
-[node name="CollisionShape" type="CollisionShape" parent="Disc/Area"]
-shape = SubResource( 6 )
+[node name="Label" type="CollisionShape" parent="Disc/Area"]
+shape = SubResource( 10 )
+
+[node name="R1" type="CollisionShape" parent="Disc/Area"]
+shape = SubResource( 11 )
+
+[node name="7Inch" type="CollisionShape" parent="Disc/Area"]
+shape = SubResource( 12 )
+
+[node name="10Inch" type="CollisionShape" parent="Disc/Area"]
+shape = SubResource( 13 )
+
+[node name="12Inch" type="CollisionShape" parent="Disc/Area"]
+shape = SubResource( 14 )
 
 [node name="P1" type="Position3D" parent="."]
 transform = Transform( 0.999993, -0.000488689, 0.00371754, 0.000488692, 1, 0, -0.00371754, 1.81673e-06, 0.999993, 1.70861, 0.434771, -1.21518 )

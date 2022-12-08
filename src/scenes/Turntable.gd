@@ -8,8 +8,8 @@ enum { NOT_PLAYING, PLAYING }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const GAP_LENGTH = 8
-const OUTER_GROOVE = -5.48
-const INNER_GROOVE = -28.9
+const OUTER_GROOVE = [-5.48, -22.8, -12.4]
+const INNER_GROOVE = [-29.5, -31.1, -29.5]
 const DISC_SCALE = [1.0, 0.579, 0.832]
 
 var highlight_material = preload("res://assets/highlight.material")
@@ -60,6 +60,7 @@ var disc_sector = 0
 var drop_speed = 0.0
 var last_rot_x = 0.0
 var disc_size
+var arm_rot_y_limit
 export(Theme) var theme
 
 func _ready():
@@ -84,17 +85,26 @@ func _ready():
 		var edge_color = Color.whitesmoke if album.bg[2].empty() else album.bg[2].color
 		get_node("%Record").set_textures(album, edge_color)
 		disc_size = g.SIZES.find(album.size)
+		var shader = $Disc.get_surface_material(0)
 		if album.images[0]:
 			var img_a = g.get_resized_texture(album.images[0]).texture
-			$Disc.get_surface_material(0).set_shader_param("label_a", img_a)
+			shader.set_shader_param("label_a", img_a)
 		if album.images[1]:
 			var img_b = g.get_resized_texture(album.images[1]).texture
-			$Disc.get_surface_material(0).set_shader_param("label_b", img_b)
+			shader.set_shader_param("label_b", img_b)
 		timelines.append(get_mod_array(album.a_side))
-		$Disc.get_surface_material(0).set_shader_param("radius_mod_a", get_data_texture(timelines[0]))
+		shader.set_shader_param("radius_mod_a", get_data_texture(timelines[0]))
 		timelines.append(get_mod_array(album.b_side))
-		$Disc.get_surface_material(0).set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
-		$Disc.get_surface_material(0).set_shader_param("scale", DISC_SCALE[disc_size])
+		shader.set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
+		shader.set_shader_param("scale", DISC_SCALE[disc_size])
+		if disc_size == 1:
+			shader.set_shader_param("label_radius", 0.3)
+			shader.set_shader_param("rmin", 0.36)
+			arm_rot_y_limit = -32.6
+		else:
+			shader.set_shader_param("label_radius", 0.34)
+			shader.set_shader_param("rmin", 0.4)
+			arm_rot_y_limit = -31.5
 		$"%NumTracksA".text = get_track_count_text(album.a_side.size())
 		$"%NumTracksB".text = get_track_count_text(album.b_side.size())
 		for track in album.a_side:
@@ -255,10 +265,11 @@ func check_play_state(delta):
 				rotation_scale = 2.67 # Reduce transit time from 8s to 3s
 				if arm_base.rotation_degrees.y < INNER_GROOVE:
 					rotation_scale *= 8.0
+		# Set playback speed of track
 		audio.set_speed(g.RPMS[album.rpm], rpm)
 		# Rotate arm
 		if arm_base.rotation.y > -0.825:
-			arm_base.rotation.y -= delta * 0.455 / timelines[side].size() * audio.player.pitch_scale * rotation_scale
+			arm_base.rotation.y -= delta * 0.455 * DISC_SCALE[disc_size] / timelines[side].size() * audio.player.pitch_scale * rotation_scale
 	else:
 		if audio.player.playing:
 			audio.stop()
@@ -267,9 +278,11 @@ func check_play_state(delta):
 
 func get_track():
 	# Return track or null if in gap or outside of track area
-	if arm_base.rotation_degrees.y > -5.48: return
+	#if arm_base.rotation_degrees.y > -5.48: return
 	var total_time = timelines[side].size()
-	var t_mark = (OUTER_GROOVE - arm_base.rotation_degrees.y) / (OUTER_GROOVE - INNER_GROOVE) * total_time
+	var outer_ring = OUTER_GROOVE[disc_size]
+	var inner_ring = INNER_GROOVE[disc_size]
+	var t_mark = (outer_ring - arm_base.rotation_degrees.y) / (outer_ring - inner_ring) * total_time
 	if t_mark < 0.0 or t_mark > total_time: return
 	var t = 0.0
 	for tr in [album.a_side, album.b_side][side]:
@@ -287,7 +300,7 @@ func needle_on_record():
 	if Input.is_key_pressed(KEY_3):
 		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
 	if arm.rotation_degrees.x <= -1.665 and arm_base.rotation_degrees.y <= -5.0:
-		if arm_base.rotation_degrees.y >= -30.5:
+		if arm_base.rotation_degrees.y >= arm_rot_y_limit:
 			on_record = true
 		else:
 			# On inner groove
@@ -317,7 +330,7 @@ func arm_limit_x(dir):
 	set_dot_position()
 	if dir < 0:
 		# Inner groove
-		if arm_base.rotation_degrees.y < -30.5:
+		if arm_base.rotation_degrees.y < arm_rot_y_limit:
 			limit = true
 		if last_rot_x != arm.rotation.x or arm.rotation_degrees.x < -2.5:
 			limit = check_y_limit_depending_on_x(limit)

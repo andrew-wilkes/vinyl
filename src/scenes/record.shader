@@ -1,12 +1,14 @@
 shader_type spatial;
 
 uniform float num_rings = 32;
+// Spiral is drawn between rmax and rmin
 uniform float rmax = 0.95;
 uniform float rmin = 0.4;
 uniform float label_radius = 0.3;
 uniform float scale = 1.0;
 uniform sampler2D label_a;
 uniform sampler2D label_b;
+// Input data for controlling the pitch of the spiral over tracks and gaps
 uniform sampler2D radius_mod_a;
 uniform sampler2D radius_mod_b;
 uniform float inner_smoothing = 30.0;
@@ -26,6 +28,7 @@ void vertex() {
 
 void fragment() {
 	float lr = label_radius / scale;
+	float scaled_rmin = rmin / scale;
 	if (UV.y < 0.5) {
 		ALBEDO = vec3(0.0);
 	} else {
@@ -39,8 +42,8 @@ void fragment() {
 		float dr = 0.5 / num_rings;
 		float pr = length(pt);
 		float radius_mod = 1.0;
-		if (pr > rmin) {
-			float pos = 1.0 - (pr - rmin) / (rmax - rmin);
+		if (pr > scaled_rmin) {
+			float pos = 1.0 - (pr - scaled_rmin) / (rmax - scaled_rmin);
 			if (UV.x < 0.5) {
 				radius_mod = texture(radius_mod_a, vec2(pos, 0.0)).r;
 			} else {
@@ -63,7 +66,7 @@ void fragment() {
 		} else {
 			vec3 track_color = vec3(0.02);
 			float circles = fract(radius / dr); // 0 .. 1
-			if (pr < rmax && radius > rmin) {
+			if (pr < rmax && radius > scaled_rmin) {
 				ALBEDO = (smoothstep(circles - blur,circles,width) - smoothstep(circles,circles + blur,width)) * track_color * radius_mod;
 			} else {
 				// Outside
