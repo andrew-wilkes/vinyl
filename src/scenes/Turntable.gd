@@ -61,6 +61,7 @@ var drop_speed = 0.0
 var last_rot_x = 0.0
 var disc_size
 var arm_rot_y_limit
+var arm_base_sweep_angle
 export(Theme) var theme
 
 func _ready():
@@ -263,13 +264,13 @@ func check_play_state(delta):
 			else:
 				# In crossover
 				rotation_scale = 2.67 # Reduce transit time from 8s to 3s
-				if arm_base.rotation_degrees.y < INNER_GROOVE:
+				if arm_base.rotation_degrees.y < INNER_GROOVE[disc_size]:
 					rotation_scale *= 8.0
 		# Set playback speed of track
 		audio.set_speed(g.RPMS[album.rpm], rpm)
 		# Rotate arm
 		if arm_base.rotation.y > -0.825:
-			arm_base.rotation.y -= delta * 0.455 * DISC_SCALE[disc_size] / timelines[side].size() * audio.player.pitch_scale * rotation_scale
+			arm_base.rotation.y -= delta * arm_base_sweep_angle / timelines[side].size() * audio.player.pitch_scale * rotation_scale
 	else:
 		if audio.player.playing:
 			audio.stop()
@@ -282,6 +283,7 @@ func get_track():
 	var total_time = timelines[side].size()
 	var outer_ring = OUTER_GROOVE[disc_size]
 	var inner_ring = INNER_GROOVE[disc_size]
+	arm_base_sweep_angle = deg2rad(outer_ring - inner_ring)
 	var t_mark = (outer_ring - arm_base.rotation_degrees.y) / (outer_ring - inner_ring) * total_time
 	if t_mark < 0.0 or t_mark > total_time: return
 	var t = 0.0
