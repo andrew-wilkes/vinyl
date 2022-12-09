@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/heading2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/UI.theme" type="Theme" id=2]
@@ -22,6 +22,15 @@
 [ext_resource path="res://scenes/ArtDesigner.gd" type="Script" id=20]
 [ext_resource path="res://assets/up-arrow.png" type="Texture" id=21]
 [ext_resource path="res://assets/down-arrow.png" type="Texture" id=22]
+[ext_resource path="res://scenes/artwork.shader" type="Shader" id=23]
+[ext_resource path="res://icon.png" type="Texture" id=24]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 23 )
+shader_param/is_disc = true
+shader_param/hole_size = 0.1
+shader_param/mod_color = Color( 1, 1, 1, 1 )
+shader_param/image = ExtResource( 24 )
 
 [node name="ArtDesigner" type="PanelContainer"]
 margin_right = 901.0
@@ -79,39 +88,42 @@ margin_bottom = 750.0
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="HB/VB/HB2"]
-margin_right = 62.0
+margin_right = 64.0
 margin_bottom = 137.0
 custom_constants/separation = 10
 
 [node name="label" type="Label" parent="HB/VB/HB2/VB"]
-margin_right = 62.0
+margin_right = 64.0
 margin_bottom = 49.0
 custom_fonts/font = ExtResource( 1 )
 text = "Current
 Design"
 
-[node name="CurrentImage" type="TextureRect" parent="HB/VB/HB2/VB"]
+[node name="CurrentImage" type="ColorRect" parent="HB/VB/HB2/VB"]
 unique_name_in_owner = true
+material = SubResource( 2 )
 margin_top = 59.0
-margin_right = 62.0
-margin_bottom = 59.0
+margin_right = 64.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 64, 64 )
+color = Color( 0.2, 0.443137, 0.156863, 1 )
 
 [node name="VB2" type="VBoxContainer" parent="HB/VB/HB2"]
-margin_left = 82.0
+margin_left = 84.0
 margin_right = 370.0
 margin_bottom = 137.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="label" type="Label" parent="HB/VB/HB2/VB2"]
-margin_right = 288.0
+margin_right = 286.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
 text = "Background modulation"
 
 [node name="HB" type="HBoxContainer" parent="HB/VB/HB2/VB2"]
 margin_top = 33.0
-margin_right = 288.0
+margin_right = 286.0
 margin_bottom = 137.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
@@ -124,7 +136,7 @@ hint_tooltip = "Select image or RMB to delete the image"
 
 [node name="Adjusters" type="GridContainer" parent="HB/VB/HB2/VB2/HB"]
 margin_left = 36.0
-margin_right = 252.0
+margin_right = 250.0
 margin_bottom = 104.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 5
@@ -137,7 +149,7 @@ text = "H"
 
 [node name="H" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
-margin_right = 216.0
+margin_right = 214.0
 margin_bottom = 16.0
 hint_tooltip = "Hue"
 size_flags_horizontal = 3
@@ -153,7 +165,7 @@ text = "S"
 [node name="S" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 27.0
-margin_right = 216.0
+margin_right = 214.0
 margin_bottom = 49.0
 rect_min_size = Vector2( 0, 22 )
 hint_tooltip = "Saturation"
@@ -170,7 +182,7 @@ text = "V"
 [node name="V" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 54.0
-margin_right = 216.0
+margin_right = 214.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 0, 22 )
 hint_tooltip = "Value"
@@ -187,7 +199,7 @@ text = "A"
 [node name="A" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
 margin_left = 17.0
 margin_top = 81.0
-margin_right = 216.0
+margin_right = 214.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 0, 22 )
 hint_tooltip = "Alpha"
@@ -197,8 +209,8 @@ step = 0.01
 
 [node name="ModColor" type="ColorRect" parent="HB/VB/HB2/VB2/HB"]
 unique_name_in_owner = true
-margin_left = 272.0
-margin_right = 288.0
+margin_left = 270.0
+margin_right = 286.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 16, 0 )
 

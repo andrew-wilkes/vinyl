@@ -53,7 +53,9 @@ func add_element(type):
 			el.rotation = 0.5
 		el.CIRC:
 			el.size = 0.17
+			el.length = 0.17
 			el.position = Vector2(0.5, 0.85)
+			el.rotation = 0.5
 		el.DOT:
 			el.size = 0.1
 			el.position = Vector2(0.5, 0.66)

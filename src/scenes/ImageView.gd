@@ -75,8 +75,9 @@ func draw():
 		var box = Vector2(el.length, el.length) * b2
 		match el.type:
 			ArtElement.CIRC:
-				reset_transform()
-				overlay.draw_arc(el.position * base_size, b2 * el.size, -PI, PI, el.size * 16 + 32, el.color, el.size * 32)
+				var ang = el.rotation / 1.5
+				overlay.draw_set_transform(el.position * base_size, ang * PI, Vector2(1, 1))
+				overlay.draw_arc(Vector2.ZERO, b2 * el.size, (ang - 0.25) * PI * 2.0, (ang + 0.75) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.length * 32)
 			ArtElement.DOT:
 				reset_transform()
 				overlay.draw_circle(el.position * base_size, b2 * max(el.size, 0.1), el.color)

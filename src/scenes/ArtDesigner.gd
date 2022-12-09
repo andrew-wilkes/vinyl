@@ -26,9 +26,7 @@ func init_canvas(idx, _album):
 	canvas_index = idx
 	background = _album.bg[idx]
 	elements = _album.elements[idx]
-	if current_images[idx] == null:
-		set_currect_image(idx, _album)
-	get_node("%CurrentImage").texture = current_images[idx]
+	set_currect_image(idx, _album, true)
 	$HB/VB/Title.text = ["Label design - side A", "Label design - side B", "Front Cover design", "Back Cover design"][idx]
 	get_node("%ImageView").is_disc = idx < 2
 	get_node("%BGTexture").icon = default_bg
@@ -246,7 +244,8 @@ func set_currect_image(idx, _album, update_image = false):
 		text = g.get_resized_texture(_album.images[idx], 64)
 	current_images[idx] = text.resized
 	if update_image:
-		get_node("%CurrentImage").texture = text.resized
+		get_node("%CurrentImage").material.set_shader_param("image", text.resized)
+		get_node("%CurrentImage").material.set_shader_param("is_disc", canvas_index < 2)
 
 
 func _on_SaveAs_pressed():
