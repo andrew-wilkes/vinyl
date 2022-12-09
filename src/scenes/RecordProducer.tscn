@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scenes/RecordProducer.gd" type="Script" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -27,6 +27,35 @@
 [ext_resource path="res://assets/rec-stack.png" type="Texture" id=25]
 [ext_resource path="res://scenes/AlbumSelector.tscn" type="PackedScene" id=26]
 [ext_resource path="res://scenes/Info.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/artwork.shader" type="Shader" id=28]
+
+[sub_resource type="ShaderMaterial" id=12]
+shader = ExtResource( 28 )
+shader_param/is_disc = true
+shader_param/hole_size = 0.1
+shader_param/mod_color = Color( 1, 1, 1, 1 )
+shader_param/image = ExtResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = ExtResource( 28 )
+shader_param/is_disc = true
+shader_param/hole_size = 0.1
+shader_param/mod_color = Color( 1, 1, 1, 1 )
+shader_param/image = ExtResource( 14 )
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = ExtResource( 28 )
+shader_param/is_disc = false
+shader_param/hole_size = 0.1
+shader_param/mod_color = Color( 1, 1, 1, 1 )
+shader_param/image = ExtResource( 12 )
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = ExtResource( 28 )
+shader_param/is_disc = false
+shader_param/hole_size = 0.1
+shader_param/mod_color = Color( 1, 1, 1, 1 )
+shader_param/image = ExtResource( 13 )
 
 [sub_resource type="ButtonGroup" id=1]
 resource_name = "sizes"
@@ -252,6 +281,7 @@ margin_bottom = 148.0
 custom_constants/separation = 20
 
 [node name="ASide" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
+material = SubResource( 12 )
 margin_right = 64.0
 margin_bottom = 64.0
 hint_tooltip = "A side"
@@ -259,6 +289,7 @@ texture_normal = ExtResource( 9 )
 script = ExtResource( 15 )
 
 [node name="BSide" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
+material = SubResource( 13 )
 margin_left = 84.0
 margin_right = 148.0
 margin_bottom = 64.0
@@ -267,6 +298,7 @@ texture_normal = ExtResource( 14 )
 script = ExtResource( 15 )
 
 [node name="FrontCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
+material = SubResource( 14 )
 margin_left = 168.0
 margin_right = 232.0
 margin_bottom = 64.0
@@ -275,6 +307,7 @@ texture_normal = ExtResource( 12 )
 script = ExtResource( 15 )
 
 [node name="RearCover" type="TextureButton" parent="VBox/HB/VBoxContainer/ArtButtons"]
+material = SubResource( 15 )
 margin_left = 252.0
 margin_right = 316.0
 margin_bottom = 64.0

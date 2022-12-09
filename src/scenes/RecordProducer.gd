@@ -42,7 +42,7 @@ func load_album(id):
 		var text = { resized = g.default_art[idx] }
 		if album.images[idx]:
 			text = g.get_resized_texture(album.images[idx], 64)
-		get_node("%ArtButtons").get_child(idx).texture_normal = text.resized
+		get_node("%ArtButtons").get_child(idx).material.set_shader_param("image", text.resized)
 	set_pitch(album.pitch)
 	tracks[SIDE_A].clear()
 	tracks[SIDE_B].clear()
