@@ -60,7 +60,7 @@ var disc_sector = 0
 var drop_speed = 0.0
 var last_rot_x = 0.0
 var disc_size
-var arm_rot_y_limit
+var arm_rot_y_limit = -32.6
 var arm_base_sweep_angle
 export(Theme) var theme
 
@@ -179,7 +179,8 @@ func _process(delta):
 	if rpm > 0:
 		var ang = clamp(rpm, 0.0, -target_speed) / 30.0 * delta
 		$Disc.rotate_y(ang)
-		set_dot_position()
+		if has_record:
+			set_dot_position()
 	check_play_state(delta)
 	if not_updating_track_name and has_record and timelines.size() > 0:
 		update_track_name(get_track())
@@ -217,7 +218,8 @@ func _process(delta):
 	if angle_limit > arm.rotation.x:
 		arm.transform = arm_transform
 		arm.rotate_object_local(Vector3(1, 0, 0), angle_limit)
-		set_dot_position()
+		if has_record:
+			set_dot_position()
 	if not record_loaded: return
 	
 	var v = get_node("%HSlider").value
@@ -329,7 +331,8 @@ func set_dot_position():
 # Limit left - right arm movement
 func arm_limit_x(dir):
 	var limit = false
-	set_dot_position()
+	if has_record:
+		set_dot_position()
 	if dir < 0:
 		# Inner groove
 		if arm_base.rotation_degrees.y < arm_rot_y_limit:
@@ -591,7 +594,7 @@ func _on_EnvControl_slider2_changed(value):
 
 
 func set_env_energy():
-	$WE.environment.background_energy = g.settings.env_brightness[1] / 100.0
+	pass #$WE.environment.background_energy = g.settings.env_brightness[1] / 100.0
 
 
 func _on_Reset_pressed():
