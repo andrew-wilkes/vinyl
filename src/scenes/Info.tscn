@@ -116,7 +116,7 @@ The imported tracks are then listed.
  This is done in the Record Producer scene.
 
 In the record player scene, select tracks to add to side A and side B of a new record.
-Set the values for the record size and speed. Currently, only 12\" records are actually produced.
+Set the values for the record size and speed.
 
 New records will be added to the list of albums that may be selected and appear in the music cabinet.
 
@@ -148,7 +148,7 @@ Creating a record
  This is done in the Record Producer scene.
 
 In the record player scene, select tracks to add to side A and side B of a new record.
-Set the values for the record size and speed. Currently, only 12\" records are actually produced.
+Set the values for the record size and speed.
 
 New records will be added to the list of albums that may be selected and appear in the music cabinet.
 
