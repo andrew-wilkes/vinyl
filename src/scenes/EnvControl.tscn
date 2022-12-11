@@ -111,6 +111,13 @@ margin_top = 98.0
 margin_right = 1593.0
 margin_bottom = 586.0
 
+[node name="Mode" type="Label" parent="."]
+margin_left = 134.0
+margin_top = 32.0
+margin_right = 209.0
+margin_bottom = 55.0
+text = "BG MODE"
+
 [connection signal="pressed" from="Grid/Picture" to="." method="_on_Picture_pressed"]
 [connection signal="color_changed" from="Grid/BGColor" to="." method="_on_BGColor_color_changed"]
 [connection signal="pressed" from="Grid/InfoButton" to="." method="_on_InfoButton_pressed"]

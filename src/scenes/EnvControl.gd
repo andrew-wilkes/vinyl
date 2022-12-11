@@ -9,6 +9,8 @@ enum { CLEAR, PICTURE, PANORAMA }
 export(PanoramaSky) var sky
 export var image_idx = 0
 
+const bg_modes = ["Solid background color", "Background picture", "HDRI 3D panoramic background"]
+
 var we: WorldEnvironment
 
 func setup(world_env):
@@ -19,7 +21,7 @@ func setup(world_env):
 	if img_path:
 		load_image(img_path)
 	$Grid/BGColor.color = g.settings.bg_color_3d[image_idx]
-	set_bg_mode()
+	set_bg_mode(g.settings.bg_modes[image_idx])
 	$c/ImageSelector.clear_filters()
 	$c/ImageSelector.add_filter("*.jpg, *.png, *.exr, *.hdr ; Supported Image Files")
 	$VB1/VSlider1.value = g.settings.bg_brightness[image_idx]
@@ -45,8 +47,9 @@ func _on_BGColor_color_changed(color):
 
 
 func _on_ModeButton_pressed():
-	g.settings.bg_modes[image_idx] = wrapi(g.settings.bg_modes[image_idx] + 1, 0, 3)
-	set_bg_mode()
+	var bg_mode = wrapi(g.settings.bg_modes[image_idx] + 1, 0, 3)
+	g.settings.bg_modes[image_idx] = bg_mode
+	set_bg_mode(bg_mode)
 
 
 func _on_InfoButton_pressed():
@@ -66,8 +69,8 @@ func load_image(path):
 	resize_bg()
 
 
-func set_bg_mode():
-	match g.settings.bg_modes[image_idx]:
+func set_bg_mode(bg_mode):
+	match bg_mode:
 		CLEAR:
 			we.environment.background_mode = Environment.BG_COLOR
 			we.environment.background_color = g.settings.bg_color_3d[image_idx]
@@ -83,6 +86,10 @@ func set_bg_mode():
 			we.environment.background_mode = Environment.BG_SKY
 			if sky.panorama:
 				we.environment.background_sky = sky
+	$Mode.text = bg_modes[bg_mode]
+	$Mode.modulate.a = 1.0
+	var tween = create_tween()
+	tween.tween_property($Mode, "modulate:a", 0.0, 1.0)
 
 
 func resize_bg():
