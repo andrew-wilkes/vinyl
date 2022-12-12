@@ -45,13 +45,13 @@ custom_constants/margin_bottom = 20
 [node name="VB" type="VBoxContainer" parent="c/M"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 882.0
+margin_right = 967.0
 margin_bottom = 683.0
 mouse_filter = 2
 custom_constants/separation = 20
 
 [node name="HB" type="HBoxContainer" parent="c/M/VB"]
-margin_right = 862.0
+margin_right = 947.0
 margin_bottom = 97.0
 custom_constants/separation = 20
 
@@ -72,18 +72,18 @@ current_selection = 3
 [node name="EnvControl" parent="c/M/VB/HB" instance=ExtResource( 8 )]
 unique_name_in_owner = true
 margin_left = 738.0
-margin_right = 862.0
+margin_right = 947.0
 margin_bottom = 97.0
 
 [node name="HB2" type="HBoxContainer" parent="c/M/VB"]
 margin_top = 117.0
-margin_right = 862.0
+margin_right = 947.0
 margin_bottom = 363.0
 mouse_filter = 2
 
 [node name="Details" type="PanelContainer" parent="c/M/VB/HB2"]
 unique_name_in_owner = true
-margin_right = 429.0
+margin_right = 471.0
 margin_bottom = 246.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -91,14 +91,14 @@ size_flags_horizontal = 3
 [node name="Items" type="VBoxContainer" parent="c/M/VB/HB2/Details"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 419.0
+margin_right = 461.0
 margin_bottom = 236.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="c/M/VB/HB2/Details/Items"]
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 6 )
 text = "Album Title"
@@ -106,13 +106,13 @@ text = "Album Title"
 [node name="Title" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 33.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 56.0
 custom_fonts/font = ExtResource( 5 )
 
 [node name="Label2" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 66.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 89.0
 custom_fonts/font = ExtResource( 6 )
 text = "Band / Artist"
@@ -120,13 +120,13 @@ text = "Band / Artist"
 [node name="Band" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 99.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 122.0
 custom_fonts/font = ExtResource( 5 )
 
 [node name="Label3" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 132.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 155.0
 custom_fonts/font = ExtResource( 6 )
 text = "Side A"
@@ -134,14 +134,14 @@ text = "Side A"
 [node name="SideA" type="ItemList" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 165.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 174.0
 mouse_filter = 2
 auto_height = true
 
 [node name="Label4" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 184.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 207.0
 custom_fonts/font = ExtResource( 6 )
 text = "Side B"
@@ -149,14 +149,14 @@ text = "Side B"
 [node name="SideB" type="ItemList" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 217.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 226.0
 mouse_filter = 2
 auto_height = true
 
 [node name="Control" type="Control" parent="c/M/VB/HB2"]
-margin_left = 433.0
-margin_right = 862.0
+margin_left = 475.0
+margin_right = 947.0
 margin_bottom = 246.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -211,5 +211,4 @@ centered = false
 
 [connection signal="info_pressed" from="c/M/VB/HB/EnvControl" to="." method="_on_Info_pressed"]
 [connection signal="slider1_changed" from="c/M/VB/HB/EnvControl" to="." method="_on_EnvControl_slider1_changed"]
-[connection signal="slider2_changed" from="c/M/VB/HB/EnvControl" to="." method="_on_EnvControl_slider2_changed"]
 [connection signal="pressed" from="c/Reset" to="." method="_on_Reset_pressed"]

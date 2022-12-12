@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://assets/sounds/drop.wav" type="AudioStream" id=26]
 [ext_resource path="res://assets/sounds/scratch.wav" type="AudioStream" id=27]
 [ext_resource path="res://assets/eye.png" type="Texture" id=28]
+[ext_resource path="res://assets/sounds/clunk.wav" type="AudioStream" id=29]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.19
@@ -223,22 +224,21 @@ icon = ExtResource( 21 )
 
 [node name="Details" type="PanelContainer" parent="c/M/VB/HB2"]
 unique_name_in_owner = true
-margin_right = 457.0
+margin_right = 342.0
 margin_bottom = 427.0
 mouse_filter = 2
-size_flags_horizontal = 3
 
 [node name="Items" type="VBoxContainer" parent="c/M/VB/HB2/Details"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 447.0
+margin_right = 332.0
 margin_bottom = 417.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="HB2" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
-margin_right = 437.0
+margin_right = 322.0
 margin_bottom = 39.0
 
 [node name="Label" type="Label" parent="c/M/VB/HB2/Details/Items/HB2"]
@@ -250,13 +250,13 @@ text = "Album Title"
 
 [node name="Sp" type="Control" parent="c/M/VB/HB2/Details/Items/HB2"]
 margin_left = 96.0
-margin_right = 401.0
+margin_right = 286.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 
 [node name="Close" type="Button" parent="c/M/VB/HB2/Details/Items/HB2"]
-margin_left = 405.0
-margin_right = 437.0
+margin_left = 290.0
+margin_right = 322.0
 margin_bottom = 39.0
 hint_tooltip = "Hide"
 icon = ExtResource( 22 )
@@ -264,13 +264,13 @@ icon = ExtResource( 22 )
 [node name="Title" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 49.0
-margin_right = 437.0
+margin_right = 322.0
 margin_bottom = 72.0
 custom_fonts/font = ExtResource( 6 )
 
 [node name="Label2" type="Label" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 82.0
-margin_right = 437.0
+margin_right = 322.0
 margin_bottom = 105.0
 custom_fonts/font = ExtResource( 3 )
 text = "Band / Artist"
@@ -278,19 +278,19 @@ text = "Band / Artist"
 [node name="Band" type="Label" parent="c/M/VB/HB2/Details/Items"]
 unique_name_in_owner = true
 margin_top = 115.0
-margin_right = 437.0
+margin_right = 322.0
 margin_bottom = 138.0
 custom_fonts/font = ExtResource( 6 )
 
 [node name="HB" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 148.0
-margin_right = 437.0
+margin_right = 322.0
 margin_bottom = 187.0
 custom_constants/separation = 20
 
 [node name="HSlider" type="HSlider" parent="c/M/VB/HB2/Details/Items/HB"]
 unique_name_in_owner = true
-margin_right = 337.0
+margin_right = 222.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 50, 0 )
 size_flags_horizontal = 3
@@ -298,23 +298,23 @@ value = 33.0
 
 [node name="Play" type="Button" parent="c/M/VB/HB2/Details/Items/HB"]
 unique_name_in_owner = true
-margin_left = 357.0
-margin_right = 387.0
+margin_left = 242.0
+margin_right = 272.0
 margin_bottom = 39.0
 hint_tooltip = "Play"
 icon = ExtResource( 10 )
 
 [node name="Eject" type="Button" parent="c/M/VB/HB2/Details/Items/HB"]
 unique_name_in_owner = true
-margin_left = 407.0
-margin_right = 437.0
+margin_left = 292.0
+margin_right = 322.0
 margin_bottom = 39.0
 hint_tooltip = "Eject"
 icon = ExtResource( 9 )
 
 [node name="VPC" type="ViewportContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 197.0
-margin_right = 437.0
+margin_right = 322.0
 margin_bottom = 358.0
 rect_min_size = Vector2( 0, 160 )
 
@@ -328,17 +328,17 @@ render_target_update_mode = 3
 unique_name_in_owner = true
 
 [node name="Sleeve" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.994953, 0, 0.100344, 0, 1, 0, -0.100344, 0, 0.994953, 0, 0, 0 )
 
 [node name="disc" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record/Sleeve" index="1"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00563302 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0 )
 
 [node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
 slider_node = NodePath("../../../../HB/HSlider")
 
 [node name="TrackInfo" type="HBoxContainer" parent="c/M/VB/HB2/Details/Items"]
 margin_top = 368.0
-margin_right = 437.0
+margin_right = 322.0
 margin_bottom = 407.0
 custom_constants/separation = 10
 
@@ -353,37 +353,37 @@ text = "Side A"
 unique_name_in_owner = true
 margin_left = 58.0
 margin_top = 8.0
-margin_right = 193.0
+margin_right = 136.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 text = "Side A"
 
 [node name="Label2" type="Label" parent="c/M/VB/HB2/Details/Items/TrackInfo"]
-margin_left = 203.0
+margin_left = 146.0
 margin_top = 8.0
-margin_right = 251.0
+margin_right = 194.0
 margin_bottom = 31.0
 custom_fonts/font = ExtResource( 3 )
 text = "Side B"
 
 [node name="NumTracksB" type="Label" parent="c/M/VB/HB2/Details/Items/TrackInfo"]
 unique_name_in_owner = true
-margin_left = 261.0
+margin_left = 204.0
 margin_top = 8.0
-margin_right = 397.0
+margin_right = 282.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 text = "Side B"
 
 [node name="ViewTracks" type="Button" parent="c/M/VB/HB2/Details/Items/TrackInfo"]
-margin_left = 407.0
-margin_right = 437.0
+margin_left = 292.0
+margin_right = 322.0
 margin_bottom = 39.0
 hint_tooltip = "View track list"
 icon = ExtResource( 28 )
 
 [node name="Control" type="Control" parent="c/M/VB/HB2"]
-margin_left = 461.0
+margin_left = 346.0
 margin_right = 918.0
 margin_bottom = 427.0
 mouse_filter = 2
@@ -398,6 +398,20 @@ margin_bottom = -17.0
 mouse_filter = 2
 
 [node name="TrackName" type="Label" parent="c/Cent"]
+unique_name_in_owner = true
+margin_left = 640.0
+margin_right = 640.0
+margin_bottom = 14.0
+
+[node name="Cent2" type="CenterContainer" parent="c"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -68.0
+margin_bottom = -54.0
+mouse_filter = 2
+
+[node name="Notice" type="Label" parent="c/Cent2"]
 unique_name_in_owner = true
 margin_left = 640.0
 margin_right = 640.0
@@ -615,6 +629,10 @@ stream = ExtResource( 26 )
 
 [node name="Scratch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 27 )
+
+[node name="Clunk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 29 )
+volume_db = -10.562
 
 [connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
 [connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]

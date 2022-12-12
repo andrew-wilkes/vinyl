@@ -48,6 +48,7 @@ var side = 0
 var target_speed = 33.33
 var rpm = 0.0
 var switch_pos = 75.0
+var switch_state = 0
 var area_clear = true
 var audio
 var play_state = NOT_PLAYING
@@ -62,6 +63,7 @@ var last_rot_x = 0.0
 var disc_size
 var arm_rot_y_limit = -32.6
 var arm_base_sweep_angle
+var notice_tween
 export(Theme) var theme
 
 func _ready():
@@ -417,10 +419,23 @@ func _unhandled_input(event):
 				arm.rotate_object_local(Vector3(1, 0, 0), -event.relative.y * 0.002)
 			MOVING_SWITCH:
 				switch_pos = clamp(switch_pos + event.relative.x, 0.0, 199.0)
-				var disc_state = int(switch_pos / 50.0)
-				set_led_color(disc_state)
+				var switch_index = int(switch_pos / 50.0)
+				if switch_state != switch_index:
+					switch_state = switch_index
+					set_led_color(switch_index)
+					$Clunk.play()
+					display_notice(["", "33 1/3 RPM", "45 RPM", "78 RPM"][switch_index])
 			MOVING_DISC:
 				pass
+
+
+func display_notice(text):
+	var notice = get_node("%Notice")
+	notice.modulate.a = 1.0
+	notice.text = text
+	if notice_tween: notice_tween.kill()
+	notice_tween = create_tween()
+	notice_tween.tween_property(notice, "modulate:a", 0.0, 1.0)
 
 
 func update_track_name(track):
