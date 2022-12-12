@@ -67,7 +67,6 @@ export(Theme) var theme
 func _ready():
 	get_node("%VolSlider").value = g.settings.volume
 	set_light_energy()
-	set_env_energy()
 	audio = Audio.new($Audio)
 	set_led_color(0)
 	relocate_collision_area($LeverArea, lever_handle)
@@ -586,15 +585,6 @@ func set_light_energy():
 	$DL4.light_energy = e
 	$"%SpotLight1".light_energy = e * 10.0
 	$"%SpotLight2".light_energy = e * 10.0
-
-
-func _on_EnvControl_slider2_changed(value):
-	g.settings.env_brightness[1] = value
-	set_env_energy()
-
-
-func set_env_energy():
-	pass #$WE.environment.background_energy = g.settings.env_brightness[1] / 100.0
 
 
 func _on_Reset_pressed():

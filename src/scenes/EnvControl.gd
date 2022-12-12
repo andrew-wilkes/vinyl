@@ -2,7 +2,6 @@ extends Container
 
 signal info_pressed
 signal slider1_changed(value)
-signal slider2_changed(value)
 
 enum { CLEAR, PICTURE, PANORAMA }
 
@@ -86,6 +85,7 @@ func set_bg_mode(bg_mode):
 			we.environment.background_mode = Environment.BG_SKY
 			if sky.panorama:
 				we.environment.background_sky = sky
+	set_env_energy()
 	$Mode.text = bg_modes[bg_mode]
 	$Mode.modulate.a = 1.0
 	var tween = create_tween()
@@ -106,4 +106,12 @@ func _on_VSlider1_value_changed(value):
 
 
 func _on_VSlider2_value_changed(value):
-	emit_signal("slider2_changed", value)
+	g.settings.env_brightness[1] = value
+	set_env_energy()
+
+
+func set_env_energy():
+	var energy = 0
+	if g.settings.bg_modes[image_idx] == PANORAMA:
+		energy = g.settings.env_brightness[1] / 100.0
+	we.environment.background_energy = energy
