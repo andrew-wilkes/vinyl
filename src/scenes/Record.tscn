@@ -107,7 +107,7 @@ length = 0.001
 script = ExtResource( 4 )
 
 [node name="Sleeve" type="MeshInstance" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( 0.961137, 0, 0.276072, 0, 1, 0, -0.276072, 0, 0.961137, 0, 0, 0 )
 mesh = ExtResource( 7 )
 material/0 = SubResource( 5 )
 

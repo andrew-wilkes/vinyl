@@ -96,7 +96,7 @@ func get_album_pos(album_id, album):
 
 
 func edge_entered(item):
-	item.get_child(0).get_active_material(0).next_pass.set_shader_param("Level", 1.0)
+	item.get_child(0).get_active_material(0).next_pass.set_shader_param("Level", 0.5)
 	$"%AlbumTitle".text = g.settings.albums[item.album_id].title
 
 

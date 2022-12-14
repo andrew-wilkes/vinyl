@@ -100,13 +100,13 @@ func _ready():
 		shader.set_shader_param("radius_mod_b", get_data_texture(timelines[1]))
 		shader.set_shader_param("scale", DISC_SCALE[disc_size])
 		if disc_size == 1:
-			shader.set_shader_param("label_radius", 0.3)
+			shader.set_shader_param("label_radius", 0.285)
 			shader.set_shader_param("rmin", 0.36)
-			arm_rot_y_limit = -32.6
+			arm_rot_y_limit = -33.2
 		else:
-			shader.set_shader_param("label_radius", 0.34)
+			shader.set_shader_param("label_radius", 0.33)
 			shader.set_shader_param("rmin", 0.4)
-			arm_rot_y_limit = -31.5
+			arm_rot_y_limit = -31.2
 		$"%NumTracksA".text = get_track_count_text(album.a_side.size())
 		$"%NumTracksB".text = get_track_count_text(album.b_side.size())
 		for track in album.a_side:
@@ -500,20 +500,6 @@ func _on_SwitchArea_mouse_entered():
 
 func _on_SwitchArea_mouse_exited():
 	switch_material.next_pass = null
-
-
-func _on_disc_mouse_entered():
-	disc_shader.set_shader_param("Level", 1.0)
-
-
-func _on_disc_mouse_exited():
-	disc_shader.set_shader_param("Level", 0.0)
-
-
-func _on_disc_input_event(_camera, event, _position, _normal, _shape_idx):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		mode = MOVING_DISC
-		$OrbitCamera.lock()
 
 
 func _on_Play_pressed():

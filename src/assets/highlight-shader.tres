@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" load_steps=3 format=2]
 
 [sub_resource type="VisualShaderNodeColorConstant" id=1]
-constant = Color( 0.77, 0.77, 0.77, 1 )
+constant = Color( 0.513367, 1, 0.0703125, 1 )
 
 [sub_resource type="VisualShaderNodeScalarUniform" id=2]
 uniform_name = "Level"
@@ -21,7 +21,7 @@ void vertex() {
 
 void fragment() {
 // Color:2
-	vec3 n_out2p0 = vec3(0.770000, 0.770000, 0.770000);
+	vec3 n_out2p0 = vec3(0.513367, 1.000000, 0.070312);
 	float n_out2p1 = 1.000000;
 
 // ScalarUniform:3
