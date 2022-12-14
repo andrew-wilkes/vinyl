@@ -62,15 +62,15 @@ text = "Label design"
 [node name="ImageView" parent="HB/VB" instance=ExtResource( 12 )]
 unique_name_in_owner = true
 margin_top = 33.0
-margin_bottom = 554.0
+margin_bottom = 568.0
 size_flags_horizontal = 3
 mod_color = Color( 0.682353, 0.137255, 0.137255, 1 )
 image = ExtResource( 3 )
 
 [node name="VB" type="VBoxContainer" parent="HB/VB"]
-margin_top = 564.0
+margin_top = 578.0
 margin_right = 370.0
-margin_bottom = 603.0
+margin_bottom = 617.0
 
 [node name="HB" type="HBoxContainer" parent="HB/VB/VB"]
 margin_right = 370.0
@@ -82,14 +82,14 @@ margin_bottom = 39.0
 text = "Clear"
 
 [node name="HB2" type="HBoxContainer" parent="HB/VB"]
-margin_top = 613.0
+margin_top = 627.0
 margin_right = 370.0
 margin_bottom = 750.0
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="HB/VB/HB2"]
 margin_right = 64.0
-margin_bottom = 137.0
+margin_bottom = 123.0
 custom_constants/separation = 10
 
 [node name="label" type="Label" parent="HB/VB/HB2/VB"]
@@ -111,7 +111,7 @@ color = Color( 0.2, 0.443137, 0.156863, 1 )
 [node name="VB2" type="VBoxContainer" parent="HB/VB/HB2"]
 margin_left = 84.0
 margin_right = 370.0
-margin_bottom = 137.0
+margin_bottom = 123.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
@@ -124,20 +124,20 @@ text = "Background modulation"
 [node name="HB" type="HBoxContainer" parent="HB/VB/HB2/VB2"]
 margin_top = 33.0
 margin_right = 286.0
-margin_bottom = 137.0
+margin_bottom = 110.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 
 [node name="BGTexture" type="Button" parent="HB/VB/HB2/VB2/HB"]
 unique_name_in_owner = true
 margin_right = 16.0
-margin_bottom = 104.0
+margin_bottom = 77.0
 hint_tooltip = "Select image or RMB to delete the image"
 
 [node name="Adjusters" type="GridContainer" parent="HB/VB/HB2/VB2/HB"]
 margin_left = 36.0
 margin_right = 250.0
-margin_bottom = 104.0
+margin_bottom = 77.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 5
 columns = 2
@@ -190,28 +190,11 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
-[node name="Label4" type="Label" parent="HB/VB/HB2/VB2/HB/Adjusters"]
-margin_top = 81.0
-margin_right = 12.0
-margin_bottom = 104.0
-text = "A"
-
-[node name="A" type="HSlider" parent="HB/VB/HB2/VB2/HB/Adjusters"]
-margin_left = 17.0
-margin_top = 81.0
-margin_right = 214.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 0, 22 )
-hint_tooltip = "Alpha"
-size_flags_horizontal = 3
-max_value = 1.0
-step = 0.01
-
 [node name="ModColor" type="ColorRect" parent="HB/VB/HB2/VB2/HB"]
 unique_name_in_owner = true
 margin_left = 270.0
 margin_right = 286.0
-margin_bottom = 104.0
+margin_bottom = 77.0
 rect_min_size = Vector2( 16, 0 )
 
 [node name="ArtElements" type="VBoxContainer" parent="HB"]
@@ -666,7 +649,6 @@ dialog_text = "This action will erase all settings for the current canvas design
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/H" to="." method="_on_H_value_changed"]
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/S" to="." method="_on_S_value_changed"]
 [connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/V" to="." method="_on_V_value_changed"]
-[connection signal="value_changed" from="HB/VB/HB2/VB2/HB/Adjusters/A" to="." method="_on_A_value_changed"]
 [connection signal="gui_input" from="HB/VB/HB2/VB2/HB/ModColor" to="." method="_on_ModColor_gui_input"]
 [connection signal="added_element" from="HB/ArtElements" to="." method="_on_ArtElements_added_element"]
 [connection signal="moved_element" from="HB/ArtElements" to="." method="_on_ArtElements_moved_element"]

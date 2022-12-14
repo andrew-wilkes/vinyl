@@ -47,12 +47,11 @@ func init_mod_color(color):
 	color_adjusters.get_node("H").value = color.h
 	color_adjusters.get_node("S").value = color.s
 	color_adjusters.get_node("V").value = color.v
-	color_adjusters.get_node("A").value = color.a
 
 
 func update_mod_color(color = null):
 	if color == null:
-		color = Color.from_hsv(color_adjusters.get_node("H").value, color_adjusters.get_node("S").value, color_adjusters.get_node("V").value, color_adjusters.get_node("A").value)
+		color = Color.from_hsv(color_adjusters.get_node("H").value, color_adjusters.get_node("S").value, color_adjusters.get_node("V").value, 1.0)
 	get_node("%ImageView").mod_color = color
 	get_node("%ModColor").color = color
 	background["color"] = color
@@ -111,10 +110,6 @@ func _on_S_value_changed(_value):
 
 
 func _on_V_value_changed(_value):
-	update_mod_color()
-
-
-func _on_A_value_changed(_value):
 	update_mod_color()
 
 
@@ -269,6 +264,7 @@ func _on_ModColor_gui_input(event):
 
 func _on_FillColor_gui_input(event):
 	if event is InputEventMouseButton:
+		# Open the color picker in the parent scene
 		emit_signal("pick_fill_color", current_element.color)
 
 

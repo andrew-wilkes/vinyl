@@ -164,13 +164,16 @@ func _on_ArtDesigner_pick_fill_color(color):
 func open_color_picker(mode, color):
 	color_pick_mode = mode
 	get_node("%ColorPicker").color = color
+	get_node("%ColorPicker").edit_alpha = mode == PICK_FILL
 	art.disable_input()
 	$c/Color.popup_centered()
 
 
 func _on_Color_popup_hide():
 	art.disable_input(false)
-	var color = get_node("%ColorPicker").color
+
+
+func _on_ColorPicker_color_changed(color):
 	match color_pick_mode:
 		PICK_MOD:
 			art.init_mod_color(color)

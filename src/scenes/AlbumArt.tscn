@@ -145,13 +145,13 @@ edit_alpha = false
 [node name="Content" type="HBoxContainer" parent="VB"]
 margin_top = 117.0
 margin_right = 1240.0
-margin_bottom = 736.0
+margin_bottom = 724.0
 custom_constants/separation = 20
 
 [node name="LeftCol" type="VBoxContainer" parent="VB/Content"]
 unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 619.0
+margin_bottom = 607.0
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="VB/Content/LeftCol"]
@@ -275,7 +275,7 @@ text = "Generate Styles"
 unique_name_in_owner = true
 margin_left = 220.0
 margin_right = 1240.0
-margin_bottom = 619.0
+margin_bottom = 607.0
 
 [node name="c" type="CanvasLayer" parent="."]
 
@@ -394,6 +394,7 @@ filters = PoolStringArray( "*.ttf ; True Type Font files" )
 [connection signal="save_button_pressed" from="VB/Content/ArtDesigner" to="." method="_on_ArtDesigner_save_button_pressed"]
 [connection signal="album_selected" from="c/AlbumSelector" to="." method="_on_AlbumSelector_album_selected"]
 [connection signal="popup_hide" from="c/Color" to="." method="_on_Color_popup_hide"]
+[connection signal="color_changed" from="c/Color/M/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
 [connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]
 [connection signal="popup_hide" from="c/TextPanel" to="." method="_on_TextPanel_popup_hide"]
 [connection signal="pressed" from="c/TextPanel/VB/HB/CopyText" to="c/TextPanel" method="_on_CopyText_pressed"]
