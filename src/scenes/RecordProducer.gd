@@ -42,13 +42,17 @@ func load_album(id):
 		var text = { resized = g.default_art[idx] }
 		if album.images[idx]:
 			text = g.get_resized_texture(album.images[idx], 64)
-		get_node("%ArtButtons").get_child(idx).material.set_shader_param("image", text.resized)
+		set_art_image(text.resized, idx)
 	set_pitch(album.pitch)
 	tracks[SIDE_A].clear()
 	tracks[SIDE_B].clear()
 	add_tracks(album.a_side, SIDE_A, false)
 	add_tracks(album.b_side, SIDE_B, false)
 	update_utilizations()
+
+
+func set_art_image(text, idx):
+	get_node("%ArtButtons").get_child(idx).material.set_shader_param("image", text)
 
 
 func new_album():
@@ -410,7 +414,7 @@ func _on_ImageSelector_file_selected(path):
 	if text.resized == null:
 		text.resized = g.default_art[image_idx]
 		alert("Unable to load image from: " + path)
-	get_node("%ArtButtons").get_child(image_idx).texture_normal = text.resized
+	set_art_image(text.resized, image_idx)
 
 
 func art_button_clicked(event, button, idx):
@@ -440,4 +444,4 @@ func alert(msg):
 
 
 func _on_Info_pressed():
-	$c/Info.open(2)
+	$c/Info.open(1)

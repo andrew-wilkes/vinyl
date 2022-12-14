@@ -224,7 +224,7 @@ func get_record_position(pos):
 
 
 func _on_Info_pressed():
-	$c/Info.open(4)
+	$c/Info.open(3)
 
 
 func _on_EnvControl_slider1_changed(value):

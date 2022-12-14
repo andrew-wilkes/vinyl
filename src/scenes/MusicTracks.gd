@@ -50,4 +50,4 @@ func add_item(track):
 
 
 func _on_Info_pressed():
-	$c/Info.open(2)
+	$c/Info.open(1)

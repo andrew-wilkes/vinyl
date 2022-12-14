@@ -221,4 +221,4 @@ func _on_FgColor_color_changed(color):
 
 
 func _on_Info_pressed():
-	$c/Info.open(2)
+	$c/Info.open(1)
