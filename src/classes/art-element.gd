@@ -10,15 +10,17 @@ var font
 export(int) var type
 export(float) var size
 export(float) var length
+export(float) var thickness
 export var position = Vector2.ZERO
 export(float) var rotation
 export(Color) var color = Color.black
 export var text = ""
 export var font_path = ""
+export(float) var font_size = 20.0
 
 func get_hash():
 	var t = text + font_path
-	return t.hash() + color.to_argb32() + size + length + rotation + position.x + position.y
+	return t.hash() + color.to_argb32() + font_size + size + length + thickness + rotation + position.x + position.y
 
 
 func _to_string():
@@ -27,5 +29,5 @@ func _to_string():
 		size = size,
 		length = length,
 		position = position,
-		rotation = rotation,
+		rotation = rotation
 	})

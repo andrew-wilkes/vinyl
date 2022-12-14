@@ -40,15 +40,14 @@ func add_element(type):
 			el.size = 0.31
 			el.length = 0.39
 			el.position = Vector2(0.5, 0.5)
-			el.rotation = 0.8
+			el.rotation = 0.5
 		el.SQR:
-			el.size = 0.37
-			el.length = 0.3
+			el.size = 0.3
 			el.position = Vector2(0.78, 0.65)
 			el.rotation = 0.5
 		el.BOX:
 			el.size = 0.25
-			el.length = 0.29
+			el.thickness = 0.29
 			el.position = Vector2(0.24, 0.65)
 			el.rotation = 0.5
 		el.CIRC:
@@ -60,9 +59,9 @@ func add_element(type):
 			el.size = 0.1
 			el.position = Vector2(0.5, 0.66)
 		el.LINE:
-			el.size = 0.2
+			el.thickness = 0.2
 			el.length = 0.5
-			el.position = Vector2(0.25, 0.39)
+			el.position = Vector2(0.5, 0.39)
 			el.rotation = 0.5
 	emit_signal("added_element", el)
 

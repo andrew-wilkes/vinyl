@@ -72,7 +72,7 @@ func assign_font_to_element(element):
 	var path = element.font_path
 	var df = DynamicFont.new()
 	df.use_filter = true
-	df.size = g.get_font_size(element.size)
+	df.size = g.get_font_size(element.font_size)
 	if path.empty():
 		path = "res://assets/fonts/NotoSansUI_Regular.ttf"
 		get_node("%Font").text = "Font"
@@ -157,6 +157,7 @@ func set_adjusters(el):
 	var adjusters = get_node("%Adjusters")
 	adjusters.get_node("Length").value = el.length
 	adjusters.get_node("Size").value = el.size
+	adjusters.get_node("Thickness").value = el.thickness
 	adjusters.get_node("H2").value = el.color.h
 	adjusters.get_node("S2").value = el.color.s
 	adjusters.get_node("V2").value = el.color.v
@@ -181,6 +182,10 @@ func _on_Size_value_changed(value):
 	match current_element.type:
 		ArtElement.AB, ArtElement.ABROT:
 			current_element.font.size = g.get_font_size(value)
+
+
+func _on_Thickness_value_changed(value):
+	current_element.thickness = value
 
 
 func _on_Rot_value_changed(value):

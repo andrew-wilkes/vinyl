@@ -72,15 +72,15 @@ func draw():
 	#var _chr_width = overlay.draw_char(dynamic_font, Vector2(-10, -10), "A", "")
 	var b2 = base_size / 2
 	for el in elements:
-		var box = Vector2(el.length, el.length) * b2
+		var box = Vector2(el.size, el.size) * b2
 		match el.type:
 			ArtElement.CIRC:
 				var ang = el.rotation / 1.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI, Vector2(1, 1))
-				overlay.draw_arc(Vector2.ZERO, b2 * el.size, (ang - 0.25) * PI * 2.0, (ang + 0.75) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.length * 32)
+				overlay.draw_arc(Vector2.ZERO, b2 * max(el.size, 0.01), (ang - 0.25) * PI * 2.0, (ang + 0.75) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.thickness * 32)
 			ArtElement.DOT:
 				reset_transform()
-				overlay.draw_circle(el.position * base_size, b2 * max(el.size, 0.1), el.color)
+				overlay.draw_circle(el.position * base_size, b2 * max(el.size, 0.02), el.color)
 			ArtElement.AB:
 				var pos = Vector2(min(el.position.x, 0.95), max(el.position.y, 0.05)) * base_size
 				var ang = el.rotation + 0.5
@@ -104,17 +104,17 @@ func draw():
 					var _advance = overlay.draw_char(el.font, Vector2.ZERO, chr, "", el.color)
 					ang = ang + astep
 			ArtElement.ARC:
-				var ang = el.rotation / 1.5
+				var ang = (el.rotation + 0.25) / 1.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI, Vector2(1, 1))
-				overlay.draw_arc(Vector2.ZERO, b2 * el.size, (ang - el.length / 2.0) * PI * 2.0, (ang + el.length / 2.0) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.size * 32)
+				overlay.draw_arc(Vector2.ZERO, b2 * el.size, (ang - el.length / 2.0) * PI * 2.0, (ang + el.length / 2.0) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.thickness * 165)
 			ArtElement.BOX:
 				var ang = el.rotation + 0.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI * 2.0, Vector2(1, 1))
-				overlay.draw_rect(Rect2(-box / 2.0, box), el.color, false, el.size * 32)
+				overlay.draw_rect(Rect2(-box * 0.7, box * 1.4), el.color, false, el.thickness * 32)
 			ArtElement.LINE:
 				var ang = el.rotation + 0.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI * 2.0, Vector2(1, 1))
-				overlay.draw_line(Vector2(-el.length * b2, 0), Vector2(el.length * b2, 0), el.color, el.size * 32)
+				overlay.draw_line(Vector2(-el.length * b2, 0), Vector2(el.length * b2, 0), el.color, el.thickness * 165)
 			ArtElement.SQR:
 				var ang = el.rotation + 0.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI * 2.0, Vector2(1, 1))
