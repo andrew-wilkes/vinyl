@@ -225,3 +225,12 @@ func _on_FgColor_color_changed(color):
 
 func _on_Info_pressed():
 	$c/Info.open(1)
+
+
+func _on_TextPanel_text_copied():
+	art.disable_input()
+	$c/Copied.popup_centered()
+
+
+func _on_Copied_popup_hide():
+	art.disable_input(false)

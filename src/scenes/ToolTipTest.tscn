@@ -14,3 +14,10 @@ margin_right = 122.0
 margin_bottom = 107.0
 hint_tooltip = "Press the button"
 text = "Test"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 202.0
+margin_bottom = 40.0
+hint_tooltip = "Hint Text
+"
+color = Color( 0.301961, 0.301961, 0.301961, 1 )

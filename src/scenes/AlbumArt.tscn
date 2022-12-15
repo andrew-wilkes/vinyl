@@ -145,13 +145,13 @@ edit_alpha = false
 [node name="Content" type="HBoxContainer" parent="VB"]
 margin_top = 117.0
 margin_right = 1240.0
-margin_bottom = 724.0
+margin_bottom = 750.0
 custom_constants/separation = 20
 
 [node name="LeftCol" type="VBoxContainer" parent="VB/Content"]
 unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 607.0
+margin_bottom = 633.0
 custom_constants/separation = 20
 
 [node name="VB" type="VBoxContainer" parent="VB/Content/LeftCol"]
@@ -275,7 +275,7 @@ text = "Generate Styles"
 unique_name_in_owner = true
 margin_left = 220.0
 margin_right = 1240.0
-margin_bottom = 607.0
+margin_bottom = 633.0
 
 [node name="c" type="CanvasLayer" parent="."]
 
@@ -382,6 +382,12 @@ filters = PoolStringArray( "*.ttf ; True Type Font files" )
 
 [node name="Info" parent="c" instance=ExtResource( 12 )]
 
+[node name="Copied" type="AcceptDialog" parent="c"]
+margin_right = 83.0
+margin_bottom = 58.0
+window_title = "Text copied to clipboard"
+dialog_text = "Use Ctrl + V to paste the text."
+
 [connection signal="pressed" from="VB/Header/VB/HB/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="VB/Header/VB/HB/Info" to="." method="_on_Info_pressed"]
 [connection signal="color_changed" from="VB/Header/G/BgColor" to="." method="_on_BgColor_color_changed"]
@@ -397,7 +403,9 @@ filters = PoolStringArray( "*.ttf ; True Type Font files" )
 [connection signal="color_changed" from="c/Color/M/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
 [connection signal="file_selected" from="c/SaveDialog" to="." method="_on_SaveDialog_file_selected"]
 [connection signal="popup_hide" from="c/TextPanel" to="." method="_on_TextPanel_popup_hide"]
+[connection signal="text_copied" from="c/TextPanel" to="." method="_on_TextPanel_text_copied"]
 [connection signal="pressed" from="c/TextPanel/VB/HB/CopyText" to="c/TextPanel" method="_on_CopyText_pressed"]
 [connection signal="pressed" from="c/TextPanel/VB/HB/OK" to="c/TextPanel" method="_on_OK_pressed"]
 [connection signal="file_selected" from="c/ImageSelector" to="." method="_on_ImageSelector_file_selected"]
 [connection signal="file_selected" from="c/FontSelector" to="." method="_on_FontSelector_file_selected"]
+[connection signal="popup_hide" from="c/Copied" to="." method="_on_Copied_popup_hide"]

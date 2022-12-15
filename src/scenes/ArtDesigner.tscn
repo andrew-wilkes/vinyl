@@ -99,14 +99,14 @@ custom_fonts/font = ExtResource( 1 )
 text = "Current
 Design"
 
-[node name="CurrentImage" type="ColorRect" parent="HB/VB/HB2/VB"]
+[node name="CurrentImage" type="TextureRect" parent="HB/VB/HB2/VB"]
 unique_name_in_owner = true
 material = SubResource( 2 )
 margin_top = 59.0
 margin_right = 64.0
 margin_bottom = 123.0
 rect_min_size = Vector2( 64, 64 )
-color = Color( 0.2, 0.443137, 0.156863, 1 )
+texture = ExtResource( 24 )
 
 [node name="VB2" type="VBoxContainer" parent="HB/VB/HB2"]
 margin_left = 84.0
@@ -703,3 +703,4 @@ dialog_text = "This action will erase all settings for the current canvas design
 [connection signal="pressed" from="HB/RHS/HB/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="HB/RHS/HB/SaveAs" to="." method="_on_SaveAs_pressed"]
 [connection signal="confirmed" from="Confirmation" to="." method="_on_Confirmation_confirmed"]
+[connection signal="popup_hide" from="Confirmation" to="." method="_on_Confirmation_popup_hide"]

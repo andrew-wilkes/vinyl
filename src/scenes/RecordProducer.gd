@@ -71,6 +71,8 @@ func clear_record():
 	speed_group.get_buttons()[0].pressed = true
 	set_pitch(2.3)
 	update_utilizations()
+	for idx in 4:
+		set_art_image(g.default_art[idx], idx)
 
 
 func delete_album():

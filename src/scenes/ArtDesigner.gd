@@ -262,8 +262,8 @@ func _on_Save_pressed(show_dialog = false):
 	image.resize(64, 64)
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
-	get_node("%CurrentImage").texture = texture
 	current_images[canvas_index] = texture
+	get_node("%CurrentImage").material.set_shader_param("image", texture)
 
 
 func _on_ModColor_gui_input(event):
@@ -302,6 +302,7 @@ func _on_Font_pressed():
 
 
 func _on_Clear_pressed():
+	disable_input() # Allow cancel to be clicked
 	$Confirmation.popup_centered()
 
 
@@ -311,3 +312,7 @@ func _on_Confirmation_confirmed():
 	album.bg[canvas_index].clear()
 	album.elements[canvas_index].clear()
 	init_canvas(canvas_index, album)
+
+
+func _on_Confirmation_popup_hide():
+	disable_input(false)
