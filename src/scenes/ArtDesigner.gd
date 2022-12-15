@@ -72,7 +72,7 @@ func assign_font_to_element(element):
 	var path = element.font_path
 	var df = DynamicFont.new()
 	df.use_filter = true
-	df.size = g.get_font_size(element.font_size)
+	df.size = g.get_font_size(element.size)
 	if path.empty():
 		path = "res://assets/fonts/NotoSansUI_Regular.ttf"
 		get_node("%Font").text = "Font"
@@ -155,13 +155,17 @@ func fill_props(el):
 
 func set_adjusters(el):
 	var adjusters = get_node("%Adjusters")
+	adjusters.get_node("Length").editable = el.type in [ArtElement.LINE, ArtElement.ARC, ArtElement.ABROT]
 	adjusters.get_node("Length").value = el.length
+	adjusters.get_node("Size").editable = el.type in [ArtElement.AB, ArtElement.ABROT, ArtElement.BOX, ArtElement.SQR, ArtElement.CIRC, ArtElement.DOT, ArtElement.ARC]
 	adjusters.get_node("Size").value = el.size
+	adjusters.get_node("Thickness").editable = el.type in [ArtElement.LINE, ArtElement.ARC, ArtElement.BOX, ArtElement.CIRC]
 	adjusters.get_node("Thickness").value = el.thickness
 	adjusters.get_node("H2").value = el.color.h
 	adjusters.get_node("S2").value = el.color.s
 	adjusters.get_node("V2").value = el.color.v
 	adjusters.get_node("A2").value = el.color.a
+	adjusters.get_node("Rot").editable = not el.type in [ArtElement.CIRC, ArtElement.DOT]
 	adjusters.get_node("Rot").value = el.rotation
 	adjusters.get_node("X").value = el.position.x
 	adjusters.get_node("Y").value = el.position.y

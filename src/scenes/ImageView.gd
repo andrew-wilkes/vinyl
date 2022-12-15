@@ -77,7 +77,7 @@ func draw():
 			ArtElement.CIRC:
 				var ang = el.rotation / 1.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI, Vector2(1, 1))
-				overlay.draw_arc(Vector2.ZERO, b2 * max(el.size, 0.01), (ang - 0.25) * PI * 2.0, (ang + 0.75) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.thickness * 32)
+				overlay.draw_arc(Vector2.ZERO, b2 * max(el.size, 0.01), (ang - 0.25) * PI * 2.0, (ang + 0.75) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.thickness * 158)
 			ArtElement.DOT:
 				reset_transform()
 				overlay.draw_circle(el.position * base_size, b2 * max(el.size, 0.02), el.color)
@@ -106,7 +106,7 @@ func draw():
 			ArtElement.ARC:
 				var ang = (el.rotation + 0.25) / 1.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI, Vector2(1, 1))
-				overlay.draw_arc(Vector2.ZERO, b2 * el.size, (ang - el.length / 2.0) * PI * 2.0, (ang + el.length / 2.0) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.thickness * 165)
+				overlay.draw_arc(Vector2.ZERO, b2 * el.size, (ang - el.length / 2.0) * PI * 2.0, (ang + el.length / 2.0) * PI * 2.0, el.size * el.length * 16 + 32, el.color, el.thickness * 158)
 			ArtElement.BOX:
 				var ang = el.rotation + 0.5
 				overlay.draw_set_transform(el.position * base_size, ang * PI * 2.0, Vector2(1, 1))

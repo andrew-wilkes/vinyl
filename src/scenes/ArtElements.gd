@@ -28,7 +28,7 @@ func add_element(type):
 	elements.select(selected_item)
 	match el.type:
 		el.AB:
-			el.position = Vector2(0.2, 0.33)
+			el.position = Vector2(0.2, 0.26)
 			el.rotation = 0.5
 			el.size = 0.5
 		el.ABROT:
@@ -41,6 +41,7 @@ func add_element(type):
 			el.length = 0.39
 			el.position = Vector2(0.5, 0.5)
 			el.rotation = 0.5
+			el.thickness = 0.04
 		el.SQR:
 			el.size = 0.3
 			el.position = Vector2(0.78, 0.65)
@@ -52,16 +53,16 @@ func add_element(type):
 			el.rotation = 0.5
 		el.CIRC:
 			el.size = 0.17
-			el.length = 0.17
 			el.position = Vector2(0.5, 0.85)
 			el.rotation = 0.5
+			el.thickness = 0.14
 		el.DOT:
 			el.size = 0.1
 			el.position = Vector2(0.5, 0.66)
 		el.LINE:
-			el.thickness = 0.2
+			el.thickness = 0.05
 			el.length = 0.5
-			el.position = Vector2(0.5, 0.39)
+			el.position = Vector2(0.5, 0.3)
 			el.rotation = 0.5
 	emit_signal("added_element", el)
 
