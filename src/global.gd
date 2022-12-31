@@ -23,9 +23,9 @@ func set_bg_color(color):
 
 
 func set_panel_color(theme):
-	theme.get_stylebox("normal", "Button").bg_color = settings.fg_color.darkened(0.1)
-	theme.get_stylebox("pressed", "Button").bg_color = settings.fg_color.darkened(0.3)
-	theme.get_stylebox("hover", "Button").bg_color = settings.fg_color.darkened(0.2)
+	theme.get_stylebox("normal", "Button").bg_color = settings.fg_color.darkened(0.2)
+	theme.get_stylebox("pressed", "Button").bg_color = settings.fg_color.darkened(0.4)
+	theme.get_stylebox("hover", "Button").bg_color = settings.fg_color.darkened(0.3)
 	theme.get_stylebox("disabled", "Button").bg_color = settings.fg_color.lightened(0.2)
 	theme.get_stylebox("panel", "PanelContainer").bg_color = settings.fg_color.lightened(0.1)
 	theme.get_stylebox("panel", "WindowDialog").border_color = settings.fg_color.lightened(0.2)

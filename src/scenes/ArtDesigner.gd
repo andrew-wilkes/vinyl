@@ -157,19 +157,25 @@ func set_adjusters(el):
 	var adjusters = get_node("%Adjusters")
 	adjusters.get_node("Length").editable = el.type in [ArtElement.LINE, ArtElement.ARC, ArtElement.ABROT]
 	adjusters.get_node("Length").value = el.length
-	adjusters.get_node("Size").editable = el.type in [ArtElement.AB, ArtElement.ABROT, ArtElement.BOX, ArtElement.SQR, ArtElement.CIRC, ArtElement.DOT, ArtElement.ARC]
+	set_adjuster_status(adjusters, "Size", el.type in [ArtElement.AB, ArtElement.ABROT, ArtElement.BOX, ArtElement.SQR, ArtElement.CIRC, ArtElement.DOT, ArtElement.ARC])
 	adjusters.get_node("Size").value = el.size
-	adjusters.get_node("Thickness").editable = el.type in [ArtElement.LINE, ArtElement.ARC, ArtElement.BOX, ArtElement.CIRC]
+	set_adjuster_status(adjusters, "Thickness", el.type in [ArtElement.LINE, ArtElement.ARC, ArtElement.BOX, ArtElement.CIRC])
 	adjusters.get_node("Thickness").value = el.thickness
 	adjusters.get_node("H2").value = el.color.h
 	adjusters.get_node("S2").value = el.color.s
 	adjusters.get_node("V2").value = el.color.v
 	adjusters.get_node("A2").value = el.color.a
-	adjusters.get_node("Rot").editable = not el.type in [ArtElement.CIRC, ArtElement.DOT]
+	set_adjuster_status(adjusters, "Rot", not el.type in [ArtElement.CIRC, ArtElement.DOT])
 	adjusters.get_node("Rot").value = el.rotation
 	adjusters.get_node("X").value = el.position.x
 	adjusters.get_node("Y").value = el.position.y
 	update_fill_color()
+
+
+func set_adjuster_status(adjusters, node_name, editable: bool):
+	var node = adjusters.get_node(node_name)
+	node.editable = editable
+	adjusters.get_child(node.get_index() - 1).modulate.a = 1.0 if editable else 0.3
 
 
 func set_fill_adjusters(color):

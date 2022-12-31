@@ -635,6 +635,7 @@ margin_top = 542.0
 margin_right = 213.0
 margin_bottom = 566.0
 hint_tooltip = "Text"
+max_length = 29
 
 [node name="Sp" type="Control" parent="HB/RHS"]
 margin_top = 570.0

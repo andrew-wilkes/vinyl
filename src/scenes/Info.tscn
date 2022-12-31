@@ -28,12 +28,16 @@ margin_bottom = -4.0
 custom_fonts/bold_font = ExtResource( 1 )
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
-bbcode_text = "This software was created by [b]Andrew Wilkes[/b]. Development started July 7, 2022. v1.0 (Dec 1, 2022).
+bbcode_text = "This software was created by [b]Andrew Wilkes[/b]. Development started July 7, 2022.
+
+Version: v1.0 (Dec 31, 2022).
 
 If you enjoyed using this software, please consider [url=https://buymeacoffee.com/gdscriptdude]buying me a coffee[/url].
 
 Thanks!"
-text = "This software was created by Andrew Wilkes. Development started July 7, 2022. v1.0 (Dec 1, 2022).
+text = "This software was created by Andrew Wilkes. Development started July 7, 2022.
+
+Version: v1.0 (Dec 31, 2022).
 
 If you enjoyed using this software, please consider buying me a coffee.
 
@@ -61,7 +65,7 @@ Once the tracks have been added to  a record, they can be removed from the track
 [b]Creating a record[/b]
 This is done in the Record Producer scene.
 
-Select tracks to add to side A and side B of a new record.
+Select tracks to add to side A and side B of a new record. Press the + buttons.
 Set the values for the record size and speed.
 The utilization indicator shows how the tracks might fit or not fit onto a physical vinyl disc.
 Even an impractical set of tracks will still be sqeezed into the simulated record play area.
@@ -105,7 +109,7 @@ Once the tracks have been added to  a record, they can be removed from the track
 Creating a record
 This is done in the Record Producer scene.
 
-Select tracks to add to side A and side B of a new record.
+Select tracks to add to side A and side B of a new record. Press the + buttons.
 Set the values for the record size and speed.
 The utilization indicator shows how the tracks might fit or not fit onto a physical vinyl disc.
 Even an impractical set of tracks will still be sqeezed into the simulated record play area.

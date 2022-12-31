@@ -304,7 +304,7 @@ func needle_on_record():
 	var on_record = false
 	if Input.is_key_pressed(KEY_3):
 		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
-	if arm.rotation_degrees.x <= -1.665 and arm_base.rotation_degrees.y <= -5.0:
+	if arm.rotation_degrees.x <= -1.753 and arm_base.rotation_degrees.y <= -4.53:
 		if arm_base.rotation_degrees.y >= arm_rot_y_limit:
 			on_record = true
 		else:
