@@ -49,7 +49,7 @@ shader_param/Level = null
 next_pass = SubResource( 7 )
 shader = ExtResource( 16 )
 shader_param/num_rings = 64.0
-shader_param/rmax = 0.95
+shader_param/rmax = 0.93
 shader_param/rmin = 0.4
 shader_param/label_radius = 0.3
 shader_param/scale = 1.0
@@ -106,7 +106,7 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 [node name="support" parent="deck" instance=ExtResource( 25 )]
 
 [node name="arm-base" type="Position3D" parent="deck"]
-transform = Transform( 0.995884, 0, 0.0906325, 0, 1, 0, -0.0906325, 0, 0.995884, -1.67588, 0.756, 1.21682 )
+transform = Transform( 0.996194, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, 0.996194, -1.67588, 0.756, 1.21682 )
 
 [node name="arm-base2" parent="deck/arm-base" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71019, -0.756099, -1.21021 )
@@ -328,10 +328,10 @@ render_target_update_mode = 3
 unique_name_in_owner = true
 
 [node name="Sleeve" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="0"]
-transform = Transform( 0.97918, 0, 0.202992, 0, 1, 0, -0.202992, 0, 0.97918, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="disc" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record/Sleeve" index="1"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00536518 )
 
 [node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
 slider_node = NodePath("../../../../HB/HSlider")
@@ -533,7 +533,6 @@ mesh = ExtResource( 12 )
 material/0 = SubResource( 5 )
 
 [node name="Area" type="Area" parent="Disc"]
-visible = false
 
 [node name="Label" type="CollisionShape" parent="Disc/Area"]
 shape = SubResource( 10 )

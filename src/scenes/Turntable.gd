@@ -8,7 +8,7 @@ enum { NOT_PLAYING, PLAYING }
 
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const GAP_LENGTH = 8
-const OUTER_GROOVE = [-5.48, -22.8, -12.4]
+const ON_RECORD_BASE_ROTATION = [-4.16, -21.6, -11.1]
 const INNER_GROOVE = [-29.5, -31.1, -29.5]
 const DISC_SCALE = [1.0, 0.579, 0.832]
 
@@ -282,9 +282,8 @@ func check_play_state(delta):
 
 func get_track():
 	# Return track or null if in gap or outside of track area
-	#if arm_base.rotation_degrees.y > -5.48: return
 	var total_time = timelines[side].size()
-	var outer_ring = OUTER_GROOVE[disc_size]
+	var outer_ring = ON_RECORD_BASE_ROTATION[disc_size] - 0.3 # Subtract lead-in track
 	var inner_ring = INNER_GROOVE[disc_size]
 	arm_base_sweep_angle = deg2rad(outer_ring - inner_ring)
 	var t_mark = (outer_ring - arm_base.rotation_degrees.y) / (outer_ring - inner_ring) * total_time
@@ -304,7 +303,7 @@ func needle_on_record():
 	var on_record = false
 	if Input.is_key_pressed(KEY_3):
 		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
-	if arm.rotation_degrees.x <= -1.753 and arm_base.rotation_degrees.y <= -4.53:
+	if arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= ON_RECORD_BASE_ROTATION[disc_size]:
 		if arm_base.rotation_degrees.y >= arm_rot_y_limit:
 			on_record = true
 		else:
@@ -351,42 +350,37 @@ func arm_limit_x(dir):
 
 
 func check_y_limit_depending_on_x(limit):
-	if has_record:
-		if arm_base.rotation_degrees.y < -4.127:
-			if arm.rotation_degrees.x <= -1.681:
-				limit = true
-		elif arm_base.rotation_degrees.y < -2.451:
-			if arm.rotation_degrees.x <= -2.942:
-				limit = true
-	else:
-		if arm_base.rotation_degrees.y < -7.521:
-			if arm.rotation_degrees.x <= -2.197:
-				limit = true
-		elif arm_base.rotation_degrees.y < -7.139:
-			if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
-				limit = true
-		elif arm_base.rotation_degrees.y < -5.444:
-			if arm.rotation_degrees.x <= -3.482:
-				limit = true
-		elif arm_base.rotation_degrees.y < -5.068:
-			if arm.rotation_degrees.x <= -3.821 + (-5.068 - arm_base.rotation_degrees.y) * 0.902:
-				limit = true
+	if has_record and arm_base.rotation_degrees.y < ON_RECORD_BASE_ROTATION[disc_size]:
+		if arm.rotation_degrees.x <= -1.68:
+			limit = true
+		return limit
+	if arm_base.rotation_degrees.y < -7.521:
+		if arm.rotation_degrees.x <= -2.197:
+			limit = true
+	elif arm_base.rotation_degrees.y < -7.139:
+		if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
+			limit = true
+	elif arm_base.rotation_degrees.y < -5.444:
+		if arm.rotation_degrees.x <= -3.482:
+			limit = true
+	elif arm_base.rotation_degrees.y < -5.068:
+		if arm.rotation_degrees.x <= -3.821 + (-5.068 - arm_base.rotation_degrees.y) * 0.902:
+			limit = true
 	return limit
 
 
 func can_scratch():
 	var limit = false
-	if has_record:
-		if arm_base.rotation_degrees.y < -4.127:
-			if arm.rotation_degrees.x <= -1.681:
-				limit = true
-	else:
-		if arm_base.rotation_degrees.y < -7.521:
-			if arm.rotation_degrees.x <= -2.197:
-				limit = true
-		elif arm_base.rotation_degrees.y < -7.139:
-			if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
-				limit = true
+	if has_record and arm_base.rotation_degrees.y < ON_RECORD_BASE_ROTATION[disc_size]:
+		if arm.rotation_degrees.x <= -1.681:
+			limit = true
+			return limit
+	if arm_base.rotation_degrees.y < -7.521:
+		if arm.rotation_degrees.x <= -2.197:
+			limit = true
+	elif arm_base.rotation_degrees.y < -7.139:
+		if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
+			limit = true
 	return limit
 
 
