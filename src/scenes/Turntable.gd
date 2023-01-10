@@ -9,8 +9,12 @@ enum { NOT_PLAYING, PLAYING }
 const LED_COLORS = [Color.green, Color.blue, Color.orange, Color.red]
 const GAP_LENGTH = 8
 const ON_RECORD_BASE_ROTATION = [-4.16, -21.6, -11.1]
-const INNER_GROOVE = [-29.5, -31.1, -29.5]
+const OUTER_GROOVE_BASE_ROTATION = [-5.371, -22.27, -12.19]
+const INNER_GROOVE_BASE_ROTATION = [-28.29, -30.0, -28.35]
 const DISC_SCALE = [1.0, 0.579, 0.832]
+const OUTER_TRACK_RADIUS = [1.444, 1.446, 1.444]
+const INNER_TRACK_RADIUS = [0.621, 0.965, 0.745]
+const STOP_TRACK_ANGLE = [-30.8, -32.8, -30.8]
 
 var highlight_material = preload("res://assets/highlight.material")
 
@@ -61,7 +65,6 @@ var disc_sector = 0
 var drop_speed = 0.0
 var last_rot_x = 0.0
 var disc_size
-var arm_rot_y_limit = -32.6
 var arm_base_sweep_angle
 var notice_tween
 export(Theme) var theme
@@ -102,11 +105,9 @@ func _ready():
 		if disc_size == 1:
 			shader.set_shader_param("label_radius", 0.285)
 			shader.set_shader_param("rmin", 0.36)
-			arm_rot_y_limit = -33.2
 		else:
 			shader.set_shader_param("label_radius", 0.33)
 			shader.set_shader_param("rmin", 0.4)
-			arm_rot_y_limit = -31.2
 		$"%NumTracksA".text = get_track_count_text(album.a_side.size())
 		$"%NumTracksB".text = get_track_count_text(album.b_side.size())
 		for track in album.a_side:
@@ -128,7 +129,7 @@ func _ready():
 func get_data_texture(idata):
 	var img = Image.new()
 	img.create_from_data(idata.size(), 1, false, Image.FORMAT_R8, idata)
-	#img.save_png("res://temp.png")
+	# img.save_png("res://temp.png")
 	var texture = ImageTexture.new()
 	texture.create_from_image(img, 0)
 	return texture
@@ -136,18 +137,19 @@ func get_data_texture(idata):
 
 func get_mod_array(tracks):
 	var arr = []
-	arr.append_array(get_mod_data(2, 0.0))
+	var n = 1
 	for track in tracks:
-		# Track length + silence
 		arr.append_array(get_mod_data(track.length))
-		# Crossover spiral
-		arr.append_array(get_mod_data(GAP_LENGTH, 0.0))
+		if n < tracks.size():
+			# Crossover spiral
+			arr.append_array(get_mod_data(GAP_LENGTH, 0.0))
+		n += 1
 	return arr
 
 
 func get_mod_data(length, value = 255.0):
 	var arr = []
-	arr.resize(length)
+	arr.resize(round(length))
 	arr.fill(value)
 	return arr
 
@@ -267,12 +269,12 @@ func check_play_state(delta):
 			else:
 				# In crossover
 				rotation_scale = 2.67 # Reduce transit time from 8s to 3s
-				if arm_base.rotation_degrees.y < INNER_GROOVE[disc_size]:
-					rotation_scale *= 8.0
+				if arm_base.rotation_degrees.y < INNER_GROOVE_BASE_ROTATION[disc_size]:
+					rotation_scale *= 16.0
 		# Set playback speed of track
 		audio.set_speed(g.RPMS[album.rpm], rpm)
 		# Rotate arm
-		if arm_base.rotation.y > -0.825:
+		if arm_base.rotation_degrees.y > STOP_TRACK_ANGLE[disc_size]:
 			arm_base.rotation.y -= delta * arm_base_sweep_angle / timelines[side].size() * audio.player.pitch_scale * rotation_scale
 	else:
 		if audio.player.playing:
@@ -281,15 +283,21 @@ func check_play_state(delta):
 
 
 func get_track():
+	var pos = get_playback_position()
+	$Marker.translation = pos
+	var r = Vector2(pos.x, pos.z).length()
+	if Input.is_key_pressed(KEY_4):
+		prints(r, arm_base.rotation_degrees.y, arm.rotation_degrees.x)
 	# Return track or null if in gap or outside of track area
-	var total_time = timelines[side].size()
-	var outer_ring = ON_RECORD_BASE_ROTATION[disc_size] - 0.3 # Subtract lead-in track
-	var inner_ring = INNER_GROOVE[disc_size]
+	var track_time = timelines[side].size()
+	var outer_ring = OUTER_GROOVE_BASE_ROTATION[disc_size]
+	var inner_ring = INNER_GROOVE_BASE_ROTATION[disc_size]
 	arm_base_sweep_angle = deg2rad(outer_ring - inner_ring)
-	var t_mark = (outer_ring - arm_base.rotation_degrees.y) / (outer_ring - inner_ring) * total_time
-	if t_mark < 0.0 or t_mark > total_time: return
+	var t_mark = (OUTER_TRACK_RADIUS[disc_size] - r) / (OUTER_TRACK_RADIUS[disc_size] - INNER_TRACK_RADIUS[disc_size]) * track_time
+	if t_mark < 0.0 or t_mark > track_time: return
 	var t = 0.0
 	for tr in [album.a_side, album.b_side][side]:
+		# Set position within track
 		tr.position = t_mark - t
 		t += tr.length
 		if t_mark < t:
@@ -304,7 +312,7 @@ func needle_on_record():
 	if Input.is_key_pressed(KEY_3):
 		prints(arm.rotation_degrees.x, arm_base.rotation_degrees.y)
 	if arm.rotation_degrees.x <= -1.68 and arm_base.rotation_degrees.y <= ON_RECORD_BASE_ROTATION[disc_size]:
-		if arm_base.rotation_degrees.y >= arm_rot_y_limit:
+		if arm_base.rotation_degrees.y >= STOP_TRACK_ANGLE[disc_size]:
 			on_record = true
 		else:
 			# On inner groove
@@ -328,6 +336,12 @@ func set_dot_position():
 	$Disc.get_surface_material(0).set_shader_param("dot_position", pos)
 
 
+func get_playback_position():
+	var np = needle.global_translation
+	var factor = DISC_SCALE[disc_size]
+	return Vector3(np.x / factor, $Marker.translation.y, np.z / factor)
+
+
 # Limit left - right arm movement
 func arm_limit_x(dir):
 	var limit = false
@@ -335,7 +349,7 @@ func arm_limit_x(dir):
 		set_dot_position()
 	if dir < 0:
 		# Inner groove
-		if arm_base.rotation_degrees.y < arm_rot_y_limit:
+		if arm_base.rotation_degrees.y < STOP_TRACK_ANGLE[disc_size]:
 			limit = true
 		if last_rot_x != arm.rotation.x or arm.rotation_degrees.x < -2.5:
 			limit = check_y_limit_depending_on_x(limit)
@@ -350,9 +364,14 @@ func arm_limit_x(dir):
 
 
 func check_y_limit_depending_on_x(limit):
-	if has_record and arm_base.rotation_degrees.y < ON_RECORD_BASE_ROTATION[disc_size]:
-		if arm.rotation_degrees.x <= -1.68:
-			limit = true
+	if has_record:
+		if arm_base.rotation_degrees.y < ON_RECORD_BASE_ROTATION[disc_size]:
+			if arm.rotation_degrees.x <= -1.68:
+				limit = true
+		elif disc_size == 0:
+			# Check for cartridge resting on record
+			if arm_base.rotation_degrees.y < -1.434 and arm.rotation_degrees.x <= -2.954:
+				limit = true
 		return limit
 	if arm_base.rotation_degrees.y < -7.521:
 		if arm.rotation_degrees.x <= -2.197:
@@ -400,7 +419,7 @@ func _unhandled_input(event):
 				lever_pos = (lever.rotation.x + 1.33) / (1.33 - 0.73)
 			MOVING_HANDLE:
 				if arm_limit_x(event.relative.x): return
-				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.005)
+				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.002)
 				if can_scratch() and not $Scratch.playing:
 					$Scratch.play()
 					if audio.player.playing:

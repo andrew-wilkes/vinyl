@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scenes/Navigation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/heading1.tres" type="DynamicFont" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://assets/sounds/scratch.wav" type="AudioStream" id=27]
 [ext_resource path="res://assets/eye.png" type="Texture" id=28]
 [ext_resource path="res://assets/sounds/clunk.wav" type="AudioStream" id=29]
+[ext_resource path="res://assets/close.png" type="Texture" id=30]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.19
@@ -328,10 +329,10 @@ render_target_update_mode = 3
 unique_name_in_owner = true
 
 [node name="Sleeve" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.999255, 0, 0.0386054, 0, 1, 0, -0.0386054, 0, 0.999255, 0, 0, 0 )
 
 [node name="disc" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record/Sleeve" index="1"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00536518 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0 )
 
 [node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
 slider_node = NodePath("../../../../HB/HSlider")
@@ -632,6 +633,12 @@ stream = ExtResource( 27 )
 [node name="Clunk" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 29 )
 volume_db = -10.562
+
+[node name="Marker" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485886, 0 )
+visible = false
+axis = 1
+texture = ExtResource( 30 )
 
 [connection signal="input_event" from="LeverArea" to="." method="_on_Lever_input_event"]
 [connection signal="mouse_entered" from="LeverArea" to="." method="_on_Lever_mouse_entered"]

@@ -2,7 +2,7 @@ shader_type spatial;
 
 uniform float num_rings = 32;
 // Spiral is drawn between rmax and rmin
-uniform float rmax = 0.95;
+uniform float rmax = 1.0;
 uniform float rmin = 0.4;
 uniform float label_radius = 0.3;
 uniform float scale = 1.0;
@@ -41,9 +41,9 @@ void fragment() {
 		if (pt.x < 0.0) ang += 0.5;
 		float dr = 0.5 / num_rings;
 		float pr = length(pt);
-		float radius_mod = 1.0;
+		float radius_mod = 0.0;
 		if (pr > scaled_rmin) {
-			float pos = 1.0 - (pr - scaled_rmin) / (rmax - scaled_rmin);
+			float pos = (pr - rmax) / (scaled_rmin - rmax);
 			if (UV.x < 0.5) {
 				radius_mod = texture(radius_mod_a, vec2(pos, 0.0)).r;
 			} else {
@@ -67,14 +67,14 @@ void fragment() {
 			vec3 track_color = vec3(0.02);
 			float circles = fract(radius / dr); // 0 .. 1
 			if (pr < rmax && radius > scaled_rmin) {
-				ALBEDO = (smoothstep(circles - blur,circles,width) - smoothstep(circles,circles + blur,width)) * track_color * radius_mod;
+				ALBEDO = (smoothstep(circles - blur,circles,width) - smoothstep(circles,circles + blur,width)) * track_color * radius_mod; //vec3(radius_mod, 0.0, 0.0);
 			} else {
 				// Outside
 				ALBEDO = vec3(0.0);
 			}
 		}
 		if (length(dot_position) > 0.2 && length(vec2(dot_position.x, dot_position.y * sign(0.5 - UV.x)) - pt) < dot_radius / 100.0) {
-			if (radius_mod > 0.8)
+			if (radius_mod > 0.8 && pr < rmax)
 				ALBEDO = dot_color.rgb;
 			else
 				ALBEDO = vec3(0.0, 1.0, 0.0);
