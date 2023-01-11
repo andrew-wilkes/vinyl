@@ -64,7 +64,7 @@ var record_loaded = false
 var disc_sector = 0
 var drop_speed = 0.0
 var last_rot_x = 0.0
-var disc_size
+var disc_size = 0
 var arm_base_sweep_angle
 var notice_tween
 export(Theme) var theme
@@ -364,6 +364,16 @@ func arm_limit_x(dir):
 
 
 func check_y_limit_depending_on_x(limit):
+	# Check collision of needle with surface of platter
+	# Ignore the bevel
+	if arm_base.rotation_degrees.y < -6.372 and arm.rotation_degrees.x <= -2.197:
+		limit = true
+		return limit
+	# Check collision of cartridge with surface of platter
+	if arm_base.rotation_degrees.y < -4.2 and arm.rotation_degrees.x <= -3.449:
+		limit = true
+		return limit
+	# Check collision with surface of record
 	if has_record:
 		if arm_base.rotation_degrees.y < ON_RECORD_BASE_ROTATION[disc_size]:
 			if arm.rotation_degrees.x <= -1.68:
@@ -372,19 +382,6 @@ func check_y_limit_depending_on_x(limit):
 			# Check for cartridge resting on record
 			if arm_base.rotation_degrees.y < -1.434 and arm.rotation_degrees.x <= -2.954:
 				limit = true
-		return limit
-	if arm_base.rotation_degrees.y < -7.521:
-		if arm.rotation_degrees.x <= -2.197:
-			limit = true
-	elif arm_base.rotation_degrees.y < -7.139:
-		if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
-			limit = true
-	elif arm_base.rotation_degrees.y < -5.444:
-		if arm.rotation_degrees.x <= -3.482:
-			limit = true
-	elif arm_base.rotation_degrees.y < -5.068:
-		if arm.rotation_degrees.x <= -3.821 + (-5.068 - arm_base.rotation_degrees.y) * 0.902:
-			limit = true
 	return limit
 
 
