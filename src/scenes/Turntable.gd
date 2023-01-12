@@ -144,6 +144,8 @@ func get_mod_array(tracks):
 			# Crossover spiral
 			arr.append_array(get_mod_data(GAP_LENGTH, 0.0))
 		n += 1
+	if arr.size() < 1:
+		arr = [0,0,0,0,0,0,0,0]
 	return arr
 
 
@@ -363,7 +365,7 @@ func arm_limit_x(dir):
 	return limit
 
 
-func check_y_limit_depending_on_x(limit):
+func check_y_limit_depending_on_x(limit, check_cartridge = true):
 	# Check collision of needle with surface of platter
 	# Ignore the bevel
 	if arm_base.rotation_degrees.y < -6.372 and arm.rotation_degrees.x <= -2.197:
@@ -378,7 +380,7 @@ func check_y_limit_depending_on_x(limit):
 		if arm_base.rotation_degrees.y < ON_RECORD_BASE_ROTATION[disc_size]:
 			if arm.rotation_degrees.x <= -1.68:
 				limit = true
-		elif disc_size == 0:
+		elif disc_size == 0 and check_cartridge:
 			# Check for cartridge resting on record
 			if arm_base.rotation_degrees.y < -1.434 and arm.rotation_degrees.x <= -2.954:
 				limit = true
@@ -386,18 +388,7 @@ func check_y_limit_depending_on_x(limit):
 
 
 func can_scratch():
-	var limit = false
-	if has_record and arm_base.rotation_degrees.y < ON_RECORD_BASE_ROTATION[disc_size]:
-		if arm.rotation_degrees.x <= -1.681:
-			limit = true
-			return limit
-	if arm_base.rotation_degrees.y < -7.521:
-		if arm.rotation_degrees.x <= -2.197:
-			limit = true
-	elif arm_base.rotation_degrees.y < -7.139:
-		if arm.rotation_degrees.x <= -2.546 + (-7.139 - arm_base.rotation_degrees.y) * 0.9136:
-			limit = true
-	return limit
+	return check_y_limit_depending_on_x(false, false)
 
 
 func rotate_arm(angle):
@@ -417,7 +408,7 @@ func _unhandled_input(event):
 			MOVING_HANDLE:
 				if arm_limit_x(event.relative.x): return
 				arm_base.rotate_object_local(Vector3(0, 1, 0), event.relative.x * 0.002)
-				if can_scratch() and not $Scratch.playing:
+				if not $Scratch.playing and can_scratch():
 					$Scratch.play()
 					if audio.player.playing:
 						audio.stop()
