@@ -67,8 +67,8 @@ func clear_record():
 	$VBox/HB/VB1/VB2/Band.text = ""
 	for idx in 4:
 		get_node("%ArtButtons").get_child(idx).texture_normal = g.default_art[idx]
-	size_group.get_buttons()[0].pressed = true
-	speed_group.get_buttons()[0].pressed = true
+	$"%size12".pressed = true
+	$"%speed33".pressed = true
 	set_pitch(2.3)
 	update_utilizations()
 	for idx in 4:
