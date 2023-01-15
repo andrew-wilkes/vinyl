@@ -59,13 +59,14 @@ func _on_ImageSelector_file_selected(path):
 	g.settings.last_image_dir = path.get_base_dir()
 	g.settings.bg_images[image_idx] = path
 	load_image(path)
+	resize_bg()
 
 
 func load_image(path):
 	var text = g.get_resized_texture(path)
+	$Path.text = text.error
 	sky.panorama = text.texture
 	we.get_child(0).texture = text.texture
-	resize_bg()
 
 
 func set_bg_mode(bg_mode):

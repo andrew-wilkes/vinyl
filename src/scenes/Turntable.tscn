@@ -179,13 +179,13 @@ custom_constants/margin_bottom = 20
 [node name="VB" type="VBoxContainer" parent="c/M"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 938.0
+margin_right = 983.0
 margin_bottom = 660.0
 mouse_filter = 2
 custom_constants/separation = 20
 
 [node name="HB" type="HBoxContainer" parent="c/M/VB"]
-margin_right = 918.0
+margin_right = 963.0
 margin_bottom = 97.0
 custom_constants/separation = 20
 
@@ -205,13 +205,13 @@ current_selection = 4
 [node name="EnvControl" parent="c/M/VB/HB" instance=ExtResource( 17 )]
 unique_name_in_owner = true
 margin_left = 709.0
-margin_right = 918.0
+margin_right = 963.0
 margin_bottom = 97.0
 image_idx = 1
 
 [node name="HB2" type="HBoxContainer" parent="c/M/VB"]
 margin_top = 117.0
-margin_right = 918.0
+margin_right = 963.0
 margin_bottom = 544.0
 mouse_filter = 2
 
@@ -332,7 +332,7 @@ unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="disc" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record/Sleeve" index="1"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00836502 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, -0.00627645 )
 
 [node name="Anim" parent="c/M/VB/HB2/Details/Items/VPC/Viewport/Record" index="4"]
 slider_node = NodePath("../../../../HB/HSlider")
@@ -385,7 +385,7 @@ icon = ExtResource( 28 )
 
 [node name="Control" type="Control" parent="c/M/VB/HB2"]
 margin_left = 346.0
-margin_right = 918.0
+margin_right = 963.0
 margin_bottom = 427.0
 mouse_filter = 2
 size_flags_horizontal = 3
