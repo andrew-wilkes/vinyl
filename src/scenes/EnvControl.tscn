@@ -105,6 +105,7 @@ margin_bottom = 55.0
 text = "BG MODE"
 
 [node name="Path" type="Label" parent="."]
+visible = false
 margin_left = 219.0
 margin_top = 32.0
 margin_right = 254.0

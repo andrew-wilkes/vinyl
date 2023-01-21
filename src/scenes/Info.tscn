@@ -30,14 +30,14 @@ custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "This software was created by [b]Andrew Wilkes[/b]. Development started July 7, 2022.
 
-Version: v1.0 (January 14th, 2023).
+Version: v1.0.2 (January 21st, 2023).
 
 If you enjoyed using this software, perhaps [url]buy me a coffee[/url]?
 
 Thanks!"
 text = "This software was created by Andrew Wilkes. Development started July 7, 2022.
 
-Version: v1.0 (January 14th, 2023).
+Version: v1.0.2 (January 21st, 2023).
 
 If you enjoyed using this software, perhaps buy me a coffee?
 
