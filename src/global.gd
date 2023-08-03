@@ -68,6 +68,7 @@ func get_resized_texture(path, size = 0):
 	var texture = ImageTexture.new()
 	var image = Image.new()
 	var file = File.new()
+	var error = ""
 	if file.file_exists(path):
 		image.load(path)
 		texture.create_from_image(image)
@@ -76,7 +77,8 @@ func get_resized_texture(path, size = 0):
 			resized.create_from_image(image)
 	else:
 		texture = null
-	return { texture = texture, resized = resized}
+		error = "Invalid path: " + path
+	return { texture = texture, resized = resized, error = error}
 
 
 func get_font_size(size):

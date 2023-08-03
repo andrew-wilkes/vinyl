@@ -53,20 +53,6 @@ hint_tooltip = "Change background mode"
 icon = ExtResource( 5 )
 icon_align = 1
 
-[node name="Info" type="Label" parent="Grid"]
-visible = false
-margin_top = 98.0
-margin_right = 390.0
-margin_bottom = 303.0
-text = "Background customization buttons
-
-Background mode
-
-Pressing this button rotates the mode between:
-solid color, 2D picture, 3D panoramic view
-
-HDR images are supported for the panoramic view."
-
 [node name="VB1" type="VBoxContainer" parent="."]
 margin_left = 82.0
 margin_right = 98.0
@@ -117,6 +103,14 @@ margin_top = 32.0
 margin_right = 209.0
 margin_bottom = 55.0
 text = "BG MODE"
+
+[node name="Path" type="Label" parent="."]
+visible = false
+margin_left = 219.0
+margin_top = 32.0
+margin_right = 254.0
+margin_bottom = 55.0
+text = "Path"
 
 [connection signal="pressed" from="Grid/Picture" to="." method="_on_Picture_pressed"]
 [connection signal="color_changed" from="Grid/BGColor" to="." method="_on_BGColor_color_changed"]

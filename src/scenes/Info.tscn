@@ -30,16 +30,16 @@ custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "This software was created by [b]Andrew Wilkes[/b]. Development started July 7, 2022.
 
-Version: v1.0 (Dec 31, 2022).
+Version: v1.0.2 (January 21st, 2023).
 
-If you enjoyed using this software, please consider [url=https://buymeacoffee.com/gdscriptdude]buying me a coffee[/url].
+If you enjoyed using this software, perhaps [url]buy me a coffee[/url]?
 
 Thanks!"
 text = "This software was created by Andrew Wilkes. Development started July 7, 2022.
 
-Version: v1.0 (Dec 31, 2022).
+Version: v1.0.2 (January 21st, 2023).
 
-If you enjoyed using this software, please consider buying me a coffee.
+If you enjoyed using this software, perhaps buy me a coffee?
 
 Thanks!"
 
@@ -376,3 +376,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 "
 autowrap = true
+
+[connection signal="meta_clicked" from="TabContainer/Author" to="." method="_on_Author_meta_clicked"]

@@ -352,6 +352,7 @@ custom_fonts/font = ExtResource( 3 )
 text = "Size"
 
 [node name="size12" type="CheckBox" parent="VBox/HB1/VB1"]
+unique_name_in_owner = true
 margin_top = 33.0
 margin_right = 116.0
 margin_bottom = 72.0
@@ -392,6 +393,7 @@ custom_fonts/font = ExtResource( 3 )
 text = "Speed"
 
 [node name="speed33" type="CheckBox" parent="VBox/HB1/VB2"]
+unique_name_in_owner = true
 margin_top = 33.0
 margin_right = 118.0
 margin_bottom = 72.0
